@@ -1,0 +1,120 @@
+{
+	"ResultCode": "S00000",
+	"ResultMessage": "SUCCESS",
+	"Data": {
+		"AuthToken": "17b96a64-5855-45a1-ad2d-15fa821b3b2d",
+		"UserInfo": {
+			"UserID": "HC00.199209071",
+			"EmpID": "199209071",
+			"Name": "김윤겸",
+			"UserName": "김윤겸",
+			"DeptID": "HC00.00470",
+			"DeptName": "품질관리팀",
+			"EmailAddress": "kyk@hanildev.com",
+			"SIPUri": "",
+			"DisplayName": "김윤겸/대리/품질관리팀/중부영업본부/한일시멘트",
+			"LocationCode": "hq",
+			"LocationName": "Seoul HQ-HC00",
+			"CompanyCode": "HC00",
+			"CompanyName": "한일시멘트",
+			"ActivatedTenantId": "HC00",
+			"Logo": "images/gnb/logo_gwp_header-hanilCement.png",
+			"Css": "gnb.css",
+			"UserBucketId": null,
+			"UserDisplayYN": null,
+			"PhotoURL1": "/UserProfilePhoto/HC00.199209071.jpg?m=9df7cf621aa76ef3d428b66461aaf59c",
+			"PhotoURL2": null,
+			"PhotoURL2ModifyDT": "0001-01-01T00:00:00",
+			"MobileTel": "010-3427-0239",
+			"OfficeTel": "12345",
+			"HomeTel": "",
+			"Fax": null,
+			"JobDescription": "",
+			"UseLangCode": "ko",
+			"LastUpdated": "2019-12-17T16:06:29",
+			"TimezoneID": "Korea Standard Time",
+			"Timezone": {
+				"Id": "Korea Standard Time",
+				"DisplayName": "(UTC+09:00) 서울",
+				"StandardName": "대한민국 표준시",
+				"DaylightName": "대한민국 일광 절약 시간",
+				"BaseUtcOffset": "09:00:00",
+				"AdjustmentRules": null,
+				"SupportsDaylightSavingTime": false
+			},
+			"UserLevel": 1,
+			"UserRoleList": ["HC00_Role_Employee", "Role_CarManager", "SalesInformationContributor"],
+			"MultiLangNames": {
+				"ko": "김윤겸"
+			},
+			"EnterDate": "1992-09-15",
+			"ParentDeptDescription": "중부영업본부/공주공장",
+			"ParentDeptName": "공주공장",
+			"UseAdditionalJob": null,
+			"AdditionalJobToString": "[{\"WorkInfo\":{\"IsAdditional\":false,\"UserID\":\"HC00.199209071\",\"DutyCode\":\"30\",\"DutyName\":\"팀원\",\"JobCode\":null,\"JobName\":null,\"RankCode\":null,\"RankName\":null,\"TitleCode\":\"14\",\"TitleName\":\"대리\",\"DeptID\":\"HC00.00470\",\"DeptName\":\"품질관리팀\",\"ParentDeptName\":\"공주공장\",\"CompanyID\":\"HC00\",\"CompanyName\":\"한일시멘트\",\"OfficeTel\":\"12345\",\"Logo\":\"images/gnb/logo_gwp_header-hanilCement.png\",\"Css\":\"gnb.css\",\"RootDeptID\":\"HC00.00000\"}}]",
+			"Validation": {
+				"IsGwpUser": true,
+				"HasAddJob": 0,
+				"EmployeeType": 1,
+				"ActivatedTenantId": "HC00",
+				"Logo": "images/gnb/logo_gwp_header-hanilCement.png",
+				"Css": "gnb.css"
+			},
+			"Workplace": {
+				"IsAdditional": false,
+				"UserID": "HC00.199209071",
+				"DutyCode": "30",
+				"DutyName": "팀원",
+				"JobCode": "",
+				"JobName": "",
+				"RankCode": "",
+				"RankName": "",
+				"TitleCode": "14",
+				"TitleName": "대리",
+				"DeptID": "HC00.00470",
+				"DeptName": null,
+				"ParentDeptName": "공주공장",
+				"CompanyID": null,
+				"CompanyName": null,
+				"OfficeTel": "12345",
+				"Logo": null,
+				"Css": null,
+				"RootDeptID": null
+			},
+			"Department": {
+				"CompanyID": "HC00",
+				"CompanyName": "한일시멘트",
+				"DeptID": "HC00.00470",
+				"DeptName": "품질관리팀",
+				"DeptDisplayName": "품질관리팀/한일시멘트",
+				"ParentDeptName": null
+			},
+			"AdditionalJobList": [
+				{
+					"WorkInfo": {
+						"IsAdditional": false,
+						"UserID": "HC00.199209071",
+						"DutyCode": "30",
+						"DutyName": "팀원",
+						"JobCode": null,
+						"JobName": null,
+						"RankCode": null,
+						"RankName": null,
+						"TitleCode": "14",
+						"TitleName": "대리",
+						"DeptID": "HC00.00470",
+						"DeptName": "품질관리팀",
+						"ParentDeptName": "공주공장",
+						"CompanyID": "HC00",
+						"CompanyName": "한일시멘트",
+						"OfficeTel": "12345",
+						"Logo": "images/gnb/logo_gwp_header-hanilCement.png",
+						"Css": "gnb.css",
+						"RootDeptID": "HC00.00000"
+					}
+				}
+			],
+			"ViewAppointmentYN": "N"
+		}
+	}
+}

@@ -1,0 +1,109 @@
+{
+	// Place your genie-admin-client 작업 영역 snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"React Hook-based Component": {
+		"prefix": "+component",
+		"description": "React Hook-based Component",
+		"body": [
+			"const React = require(\"react\")",
+			"const { useEffect, useRef, useState } = React // eslint-disable-line no-unused-vars",
+			"import PropTypes from \"prop-types\"",
+			"",
+			"const ${1:component} = props => {",
+			"\tconst refs = { ${2:ref} } = useRef()",
+			"\tconst [_${3:state}, set_${3:state}] = useState()",
+			"\tuseEffect(() => {",
+			"\t\t${4:effect}",
+			"\t})",
+			"",
+			"\treturn (",
+			"\t\t<div ref={refs.${2:ref}}></div>",
+			"\t)",
+			"}",
+			"${1:component}.propTypes = {",
+			"}",
+			"${1:component}.defaultProps = {",
+			"}",
+			"",
+			"module.exports = ${1:component}"
+		]
+	},
+	"React useEffect": {
+		"prefix": "+effect",
+		"description": "React useEffect",
+		"body": ["useEffect(() => {", "\t${1:effect}", "}, [${2:condition}])"]
+	},
+	"React useInput": {
+		"prefix": "+input",
+		"description": "React useInput",
+		"body": ["const _${1:input} = useInput(${2:initialValue})"]
+	},
+	"React Provider": {
+		"prefix": "+provider",
+		"description": "React Provider",
+		"body": [
+			"const React = require(\"react\")",
+			"const { useState } = React",
+			"",
+			"const { createCtx } = require(\"/hooks\")",
+			"",
+			"const [useCtx, Provider] = createCtx()",
+			"",
+			"const ${TM_FILENAME_BASE}Provider = ({ children }) => {",
+			"\tconst [${TM_FILENAME_BASE/(.*)$/${1:/downcase}/}, set${TM_FILENAME_BASE}] = useState(${2:})",
+			"\tconst store = { ${TM_FILENAME_BASE/(.*)$/${1:/downcase}/}, set${TM_FILENAME_BASE} }",
+			"\treturn <Provider value={store}>{children}</Provider>",
+			"}",
+			"",
+			"module.exports = {",
+			"\t${TM_FILENAME_BASE}Provider,",
+			"\tuse${TM_FILENAME_BASE}: useCtx",
+			"}"
+		]
+	},
+	"React Provider for Providers": {
+		"prefix": "+providers",
+		"description": "React Provider in /providers/index.js",
+		"body": [
+			"const { ${1:Name}Context, ${1:Name}Provider, use${1:Name} } = require(\"./${1:Name}\")",
+			"// compose 안에서 Provider 이동: ${1:Name}Provider",
+			"exports.${1:Name}Context = ${1:Name}Context",
+			"exports.${1:Name}Provider = ${1:Name}Provider",
+			"exports.use${1:Name} = use${1:Name}"
+		]
+	},
+	"React useRef": {
+		"prefix": "+ref",
+		"description": "React useRef",
+		"body": ["const ${1:ref} = useRef()"]
+	},
+	"React useRefs": {
+		"prefix": "+refs",
+		"description": "React useRefs",
+		"body": ["const { useRefs } = require(\"/hooks\")", "const refs = useRefs()"]
+	},
+	"React useState": {
+		"prefix": "+state",
+		"description": "React useState",
+		"body": ["const [_${1:state}, set_${1:state}] = useState(${2})"]
+	},
+	"React useThis": {
+		"prefix": "+this",
+		"description": "React useThis",
+		"body": ["const { useThis } = require(\"/hooks\")", "const _this = useThis()"]
+	}
+}

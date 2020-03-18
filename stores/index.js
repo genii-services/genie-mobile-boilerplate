@@ -1,0 +1,6 @@
+exports.auth = require("./auth")
+exports.boardz = require("./boardz")
+exports.company = require("./company")
+exports.counter = require("./counter")
+exports.user = require("./user")
+exports.menu = require("./menu")

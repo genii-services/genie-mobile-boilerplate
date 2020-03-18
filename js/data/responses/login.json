@@ -1,0 +1,189 @@
+{
+	"ResultCode": "S00000",
+	"ResultMessage": "SUCCESS",
+	"Data": {
+		"AuthToken": "df85c6ae-b547-4ba2-aa16-69e0c8a10553",
+		"UserInfo": {
+			"UserID": "HC00.199801001",
+			"EmpID": "199801001",
+			"Name": "신준",
+			"UserName": "신준",
+			"DeptID": "HC00.00520",
+			"DeptName": "재무팀",
+			"EmailAddress": "jshin@hanildev.com",
+			"SIPUri": "",
+			"DisplayName": "신준/부장/재무팀/본사/한일시멘트",
+			"LocationCode": "hq",
+			"LocationName": "Seoul HQ-HC00",
+			"CompanyCode": "HC00",
+			"CompanyName": "한일시멘트",
+			"ActivatedTenantId": "HC00",
+			"Logo": "images/gnb/logo_gwp_header-hanilCement.png",
+			"UserBucketId": null,
+			"UserDisplayYN": null,
+			"PhotoURL1": "/UserProfilePhoto/HC00.199801001.jpg?m=8ee6c7f4e42fce0fd2bd22a12019bb73",
+			"PhotoURL2": null,
+			"PhotoURL2ModifyDT": "0001-01-01T00:00:00",
+			"MobileTel": "010-2405-0011",
+			"OfficeTel": "",
+			"HomeTel": "",
+			"Fax": null,
+			"JobDescription": "",
+			"UseLangCode": "ko",
+			"LastUpdated": "2019-12-30T14:28:29",
+			"TimezoneID": "Korea Standard Time",
+			"Timezone": {
+				"Id": "Korea Standard Time",
+				"DisplayName": "(UTC+09:00) 서울",
+				"StandardName": "대한민국 표준시",
+				"DaylightName": "대한민국 일광 절약 시간",
+				"BaseUtcOffset": "09:00:00",
+				"AdjustmentRules": null,
+				"SupportsDaylightSavingTime": false
+			},
+			"UserLevel": 1,
+			"UserRoleList": [
+				"FoodBoardReader",
+				"HC00_Role_Employee",
+				"KnowleageBankContributor",
+				"LibraryReader",
+				"Role_CarManager",
+				"Role_Employee"
+			],
+			"MultiLangNames": {
+				"ko": "신준"
+			},
+			"EnterDate": "1998-01-01",
+			"ParentDeptDescription": "본사/경영기획실",
+			"ParentDeptName": "경영기획실",
+			"UseAdditionalJob": "HC00.199801001_HC00.00520",
+			"AdditionalJobToString": "[{\"WorkInfo\":{\"IsAdditional\":false,\"UserID\":\"HC00.199801001\",\"DutyCode\":\"23\",\"DutyName\":\"팀장\",\"JobCode\":null,\"JobName\":null,\"RankCode\":null,\"RankName\":null,\"TitleCode\":\"11$23\",\"TitleName\":\"부장(팀장)\",\"DeptID\":\"HC00.00520\",\"DeptName\":\"재무팀\",\"ParentDeptName\":\"경영기획실\",\"CompanyID\":\"HC00\",\"CompanyName\":\"한일시멘트\",\"OfficeTel\":\"\",\"Logo\":\"images/gnb/logo_gwp_header-hanilCement.png\",\"RootDeptID\":\"HC00.00000\"}},{\"WorkInfo\":{\"IsAdditional\":true,\"UserID\":\"HC00.199801001\",\"DutyCode\":\"30\",\"DutyName\":\"팀원\",\"JobCode\":null,\"JobName\":null,\"RankCode\":null,\"RankName\":null,\"TitleCode\":\"11\",\"TitleName\":\"부장\",\"DeptID\":\"HC00.90054\",\"DeptName\":\"지주회사전환TFT\",\"ParentDeptName\":\"한일시멘트\",\"CompanyID\":\"HC00\",\"CompanyName\":\"한일시멘트\",\"OfficeTel\":null,\"Logo\":\"images/gnb/logo_gwp_header-hanilCement.png\",\"RootDeptID\":\"HC00.00000\"}},{\"WorkInfo\":{\"IsAdditional\":true,\"UserID\":\"HH00.199801001\",\"DutyCode\":\"23\",\"DutyName\":\"팀장\",\"JobCode\":null,\"JobName\":null,\"RankCode\":null,\"RankName\":null,\"TitleCode\":\"11\",\"TitleName\":\"부장\",\"DeptID\":\"HH00.00007\",\"DeptName\":\"재무팀\",\"ParentDeptName\":\"한일홀딩스\",\"CompanyID\":\"HH00\",\"CompanyName\":\"한일홀딩스\",\"OfficeTel\":null,\"Logo\":\"images/gnb/logo_gwp_header-hanilHoldings.png\",\"RootDeptID\":\"HH00.00001\"}},{\"WorkInfo\":{\"IsAdditional\":true,\"UserID\":\"HT00.201810003A\",\"DutyCode\":\"16\",\"DutyName\":\"이사\",\"JobCode\":null,\"JobName\":null,\"RankCode\":null,\"RankName\":null,\"TitleCode\":\"6\",\"TitleName\":\"이사\",\"DeptID\":\"HT00.00001\",\"DeptName\":\"임원실\",\"ParentDeptName\":\"한일인터내셔널\",\"CompanyID\":\"HT00\",\"CompanyName\":\"한일인터내셔널\",\"OfficeTel\":null,\"Logo\":\"images/gnb/logo_gwp_header-hanilInt.png\",\"RootDeptID\":\"HT00.00000\"}}]",
+			"Validation": {
+				"IsGwpUser": true,
+				"HasAddJob": 1,
+				"EmployeeType": 1,
+				"ActivatedTenantId": "HC00",
+				"Logo": "images/gnb/logo_gwp_header-hanilCement.png"
+			},
+			"Workplace": {
+				"IsAdditional": false,
+				"UserID": "HC00.199801001",
+				"DutyCode": "23",
+				"DutyName": "팀장",
+				"JobCode": "",
+				"JobName": "",
+				"RankCode": "",
+				"RankName": "",
+				"TitleCode": "11$23",
+				"TitleName": "부장(팀장)",
+				"DeptID": "HC00.00520",
+				"DeptName": null,
+				"ParentDeptName": "경영기획실",
+				"CompanyID": null,
+				"CompanyName": null,
+				"OfficeTel": "",
+				"Logo": null,
+				"RootDeptID": null
+			},
+			"Department": {
+				"CompanyID": "HC00",
+				"CompanyName": "한일시멘트",
+				"DeptID": "HC00.00520",
+				"DeptName": "재무팀",
+				"DeptDisplayName": "재무팀/한일시멘트",
+				"ParentDeptName": null
+			},
+			"AdditionalJobList": [
+				{
+					"WorkInfo": {
+						"IsAdditional": false,
+						"UserID": "HC00.199801001",
+						"DutyCode": "23",
+						"DutyName": "팀장",
+						"JobCode": null,
+						"JobName": null,
+						"RankCode": null,
+						"RankName": null,
+						"TitleCode": "11$23",
+						"TitleName": "부장(팀장)",
+						"DeptID": "HC00.00520",
+						"DeptName": "재무팀",
+						"ParentDeptName": "경영기획실",
+						"CompanyID": "HC00",
+						"CompanyName": "한일시멘트",
+						"OfficeTel": "",
+						"Logo": "images/gnb/logo_gwp_header-hanilCement.png",
+						"RootDeptID": "HC00.00000"
+					}
+				},
+				{
+					"WorkInfo": {
+						"IsAdditional": true,
+						"UserID": "HC00.199801001",
+						"DutyCode": "30",
+						"DutyName": "팀원",
+						"JobCode": null,
+						"JobName": null,
+						"RankCode": null,
+						"RankName": null,
+						"TitleCode": "11",
+						"TitleName": "부장",
+						"DeptID": "HC00.90054",
+						"DeptName": "지주회사전환TFT",
+						"ParentDeptName": "한일시멘트",
+						"CompanyID": "HC00",
+						"CompanyName": "한일시멘트",
+						"OfficeTel": null,
+						"Logo": "images/gnb/logo_gwp_header-hanilCement.png",
+						"RootDeptID": "HC00.00000"
+					}
+				},
+				{
+					"WorkInfo": {
+						"IsAdditional": true,
+						"UserID": "HH00.199801001",
+						"DutyCode": "23",
+						"DutyName": "팀장",
+						"JobCode": null,
+						"JobName": null,
+						"RankCode": null,
+						"RankName": null,
+						"TitleCode": "11",
+						"TitleName": "부장",
+						"DeptID": "HH00.00007",
+						"DeptName": "재무팀",
+						"ParentDeptName": "한일홀딩스",
+						"CompanyID": "HH00",
+						"CompanyName": "한일홀딩스",
+						"OfficeTel": null,
+						"Logo": "images/gnb/logo_gwp_header-hanilHoldings.png",
+						"RootDeptID": "HH00.00001"
+					}
+				},
+				{
+					"WorkInfo": {
+						"IsAdditional": true,
+						"UserID": "HT00.201810003A",
+						"DutyCode": "16",
+						"DutyName": "이사",
+						"JobCode": null,
+						"JobName": null,
+						"RankCode": null,
+						"RankName": null,
+						"TitleCode": "6",
+						"TitleName": "이사",
+						"DeptID": "HT00.00001",
+						"DeptName": "임원실",
+						"ParentDeptName": "한일인터내셔널",
+						"CompanyID": "HT00",
+						"CompanyName": "한일인터내셔널",
+						"OfficeTel": null,
+						"Logo": "images/gnb/logo_gwp_header-hanilInt.png",
+						"RootDeptID": "HT00.00000"
+					}
+				}
+			],
+			"ViewAppointmentYN": "N"
+		}
+	}
+}

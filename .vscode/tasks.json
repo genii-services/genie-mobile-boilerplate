@@ -1,0 +1,108 @@
+{
+	// 공통 라이브러리
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+
+	"version": "2.0.0",
+	"presentation": {
+		"reveal": "always",
+		"panel": "new"
+	},
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "start",
+			"problemMatcher": []
+		},
+		{
+			"label": "Kill Packager",
+			"identifier": "reactnative.kill.packager",
+			"type": "shell",
+			"command": "kill -9 $(lsof -ti :8081)",
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "never",
+				"echo": false,
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Connect Nox",
+			"identifier": "reactnative.android.reload",
+			"type": "shell",
+			"command": "adb connect localhost:62001",
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "never",
+				"echo": false,
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Connect to reverse",
+			"identifier": "reactnative.android.reload",
+			"type": "shell",
+			"command": "adb reverse tcp:8081 tcp:8081",
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "never",
+				"echo": false,
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Reload ReactNative Android App",
+			"identifier": "reactnative.android.reload",
+			"type": "shell",
+			"command": "adb shell input text \"RR\"",
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "never",
+				"echo": false,
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Show Developer Menu of ReactNative Android App",
+			"identifier": "reactnative.android.showdevmenu",
+			"type": "shell",
+			"command": "adb shell input keyevent 82",
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "never",
+				"echo": false,
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Build APK Debug",
+			"group": "build",
+			"type": "shell",
+			"command": "cd android && ./gradlew assembleDebug",
+			"windows": {
+				"command": "cd android; if($?) {./gradlew assembleDebug}"
+			}
+		},
+		{
+			"label": "Build APK Release",
+			"group": "build",
+			"type": "shell",
+			"command": "cd android && ./gradlew assembleRelease",
+			"windows": {
+				"command": "cd android; if($?) {./gradlew assembleRelease}"
+			}
+		},
+		{
+			"label": "Generate Android Bundle",
+			"group": "build",
+			"type": "shell",
+			"command": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/main.jsbundle"
+		},
+		{
+			"label": "Generate iOS Bundle",
+			"group": "build",
+			"type": "shell",
+			"command": "react-native bundle --platform ios --dev false --entry-file index.js --bundle-output ios/main.jsbundle"
+		}
+	]
+}

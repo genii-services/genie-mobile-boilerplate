@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"*": ["js/*"],
+			"test/*": ["test/*"],
+			"@svgs/*": ["../svgs/*"],
+			"@images/*": ["./images/*"],
+			"@sounds/*": ["./sounds/*"]
+		},
+		"outDir": "./"
+	},
+	"include": ["js/**/*", "stores"]
+}

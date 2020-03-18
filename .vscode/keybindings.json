@@ -1,0 +1,23 @@
+// 공통 라이브러리
+// 키 바인딩을 이 파일에 넣어서 기본값을 덮어씁니다.
+[
+	{
+		"key": "shift+cmd+k",
+		"command": "workbench.action.tasks.runTask",
+		"args": "Kill Packager"
+	},
+	{
+		"key": "cmd+r",
+		"command": "workbench.action.tasks.runTask",
+		"args": "Reload ReactNative Android App"
+	},
+	{
+		"key": "cmd+d",
+		"command": "workbench.action.tasks.runTask",
+		"args": "Show Developer Menu of ReactNative Android App"
+	},
+	{
+		"key": "alt+cmd+k",
+		"command": "workbench.debug.panel.action.clearReplAction"
+	}
+]

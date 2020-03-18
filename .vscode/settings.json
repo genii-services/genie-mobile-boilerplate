@@ -1,0 +1,38 @@
+{
+	// 공통 라이브러리
+	// <Tab> 키를 누를 때 공백을 삽입합니다. `editor.detectIndentation`이 켜져 있는 경우 이 설정은 파일 콘텐츠에 따라 재정의됩니다.
+	"editor.insertSpaces": false,
+	// 파일을 열면 파일 콘텐츠를 기반으로 하여 'editor.tabSize'와 'editor.insertSpaces'가 검색됩니다.
+	"editor.detectIndentation": false,
+	// 검색에서 파일 및 폴더를 제외하도록 GLOB 패턴을 구성합니다. files.exclude 설정에서 모든 GLOB 패턴을 상속합니다.
+	"search.exclude": {
+		"**/node_modules": true,
+		"**/bower_components": true,
+		"**/.vscode": true,
+		"**/images": true,
+		"**/scripts": true
+	},
+
+	// 아직 vscode가 optional chaining에 대해서 인식을 하지 못하므로
+	// 실시간 validate를 하지 않게 하거나 "javascript.validate.enable": false
+	// TypeScript 3.7 Beta를 사용하기 위해 'JavaScript and TypeScript Nightly' Plugin을 설치
+	"javascript.validate.enable": true,
+	// 아래 문제 해결 https://www.andreasellerbrock.tech/2018/06/01/removing-the-experimental-decorators-warning-in-visual-studio-code/
+	// 데코레이터에 대한 실험적 지원 기능은 이후 릴리스에서 변경될 수 있습니다. 이 경고를 제거하려면 'experimentalDecorators' 옵션을 설정하세요.
+	"javascript.implicitProjectConfig.experimentalDecorators": true,
+
+	"path-intellisense.absolutePathToWorkspace": false,
+
+	"favorites.resources": [
+		"ios/NabiumMobile/AppDelegate.m",
+		"android/gradle.properties",
+		"android/app/build.gradle",
+		"~/.android/adb_usb.ini",
+		"android/app/src/main/AndroidManifest.xml",
+		"android/app/src/main/res/values/strings.xml",
+		"ios/mobilegw/Info.plist",
+		"android/settings.gradle",
+		"node_modules/react-native-background-task/android/build.gradle"
+	],
+	"prettier.semi": false
+}
