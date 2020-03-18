@@ -1,8 +1,8 @@
 {
-	"name": "ReactNativeApp",
-	"displayName": "ReactNativeApp",
-	"applicationName": "app-mobile",
-	"applicationId": "com.app.mobile",
+	"name": "GenieMobileBoilerplate",
+	"displayName": "Genie Mobile Boilerplate",
+	"applicationName": "genie-mobile-boilerplate",
+	"applicationId": "services.genii.geniemobileboilerplate",
 	"buildNumber": 1,
-	"copyright": "2020 AppCreatier. All rights reserved."
+	"copyright": "2020 Genii. All rights reserved."
 }

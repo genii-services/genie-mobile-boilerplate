@@ -1,5 +1,5 @@
 {
-	"name": "ReactNativeApp",
+	"name": "GenieMobileBoilerplate",
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
@@ -39,7 +39,7 @@
 		"native-base-shoutem-theme": "^0.3.1",
 		"react": "16.11.0",
 		"react-data-hooks": "^1.14.0",
-		"react-hook-form": "^5.0.3",
+		"react-hook-form": "^5.1.1",
 		"react-native": "0.62.0-rc.5",
 		"react-native-android-auto-update": "^0.1.0",
 		"react-native-android-intent-launcher": "^0.3.0",

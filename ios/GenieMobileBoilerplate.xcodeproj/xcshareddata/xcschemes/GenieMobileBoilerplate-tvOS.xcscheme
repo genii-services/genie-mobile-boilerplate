@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "ReactNativeApp-tvOS.app"
-               BlueprintName = "ReactNativeApp-tvOS"
-               ReferencedContainer = "container:ReactNativeApp.xcodeproj">
+               BuildableName = "GenieMobileBoilerplate-tvOS.app"
+               BlueprintName = "GenieMobileBoilerplate-tvOS"
+               ReferencedContainer = "container:GenieMobileBoilerplate.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "ReactNativeApp-tvOSTests.xctest"
-               BlueprintName = "ReactNativeApp-tvOSTests"
-               ReferencedContainer = "container:ReactNativeApp.xcodeproj">
+               BuildableName = "GenieMobileBoilerplate-tvOSTests.xctest"
+               BlueprintName = "GenieMobileBoilerplate-tvOSTests"
+               ReferencedContainer = "container:GenieMobileBoilerplate.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "ReactNativeApp-tvOS.app"
-            BlueprintName = "ReactNativeApp-tvOS"
-            ReferencedContainer = "container:ReactNativeApp.xcodeproj">
+            BuildableName = "GenieMobileBoilerplate-tvOS.app"
+            BlueprintName = "GenieMobileBoilerplate-tvOS"
+            ReferencedContainer = "container:GenieMobileBoilerplate.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "ReactNativeApp-tvOS.app"
-            BlueprintName = "ReactNativeApp-tvOS"
-            ReferencedContainer = "container:ReactNativeApp.xcodeproj">
+            BuildableName = "GenieMobileBoilerplate-tvOS.app"
+            BlueprintName = "GenieMobileBoilerplate-tvOS"
+            ReferencedContainer = "container:GenieMobileBoilerplate.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -131,13 +131,13 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.reactnativeapp"											//*.react-native-rename으로 변경되었음
+        applicationId "services.genii.geniemobileboilerplate"											//*.react-native-rename으로 변경되었음
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1														//*.'react-native-version -A'를 실행하면 자동 증가
         versionName "1.0"													//*.버전코드를 기준으로 수작업하여 맞춰야 함
 		// setProperty("archivesBaseName", "$applicationId-$versionCode")	//*.기본 APK 파일명 접두어를 앱ID와 버전코드로 변경
-		setProperty("archivesBaseName", "starsa-reservation")				//*.기본 APK 파일명 접두어를 앱ID로 변경
+		setProperty("archivesBaseName", "genie-mobile-boilerplate")			//*.기본 APK 파일명 접두어를 앱ID로 변경
 		ndk {																//*.ndk를 사용하지 않아도 추가하면 apk 크기가 줄어듬
 			abiFilters "armeabi-v7a"										//*.ARM 개열만 빌드 < "armeabi-v7a", "x86", 추가하면 앱 크기가 줄어듬
 		}

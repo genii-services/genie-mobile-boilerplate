@@ -1,5 +1,5 @@
 <!--/*.for react-native 0.61.5, checked at 2020-02-17 -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.reactnativeapp">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="services.genii.geniemobileboilerplate">
 
 	<uses-permission android:name="android.permission.INTERNET" />
 

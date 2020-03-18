@@ -21,8 +21,8 @@ def flipper_post_install(installer)
   end
 end
 
-target 'ReactNativeApp' do
-  # Pods for ReactNativeApp
+target 'GenieMobileBoilerplate' do
+  # Pods for GenieMobileBoilerplate
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -54,7 +54,7 @@ target 'ReactNativeApp' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  target 'ReactNativeAppTests' do
+  target 'GenieMobileBoilerplateTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -71,10 +71,10 @@ target 'ReactNativeApp' do
   end
 end
 
-target 'ReactNativeApp-tvOS' do
-  # Pods for ReactNativeApp-tvOS
+target 'GenieMobileBoilerplate-tvOS' do
+  # Pods for GenieMobileBoilerplate-tvOS
 
-  target 'ReactNativeApp-tvOSTests' do
+  target 'GenieMobileBoilerplate-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end
