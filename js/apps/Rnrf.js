@@ -3,7 +3,7 @@ console.debug(Rnrf)
 const React = require("react")
 const { useEffect, useState } = React
 const { AppState, Linking } = require("react-native")
-const { Root } = require("native-base")
+const { Root } = require("/elements")
 const { PERMISSIONS } = require("react-native-permissions")
 // const Orientation = require("react-native-orientation-locker").default
 

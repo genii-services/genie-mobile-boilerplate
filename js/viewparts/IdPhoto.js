@@ -2,7 +2,7 @@ const React = require("react")
 const PropTypes = require("prop-types")
 const _ = require("lodash")
 const { Image } = require("react-native")
-const { Icon } = require("native-base")
+const { Icon } = require("/elements")
 const FastImage = require("react-native-fast-image")
 
 const { STRING } = require("/constants")

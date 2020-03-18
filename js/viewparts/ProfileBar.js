@@ -1,7 +1,7 @@
 const React = require("react")
 const PropTypes = require("prop-types")
 const _ = require("lodash")
-const { Left, Item, Icon, Text, Button } = require("native-base")
+const { Left, Item, Icon, Text, Button } = require("/elements")
 
 const { yyyymmddhhmm } = require("/utils/moment")
 const { useRouter } = require("/coordinators") // const router = require("/utils/router")

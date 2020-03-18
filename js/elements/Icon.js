@@ -4,7 +4,7 @@ console.debug("Icon")
 const React = require("react")
 const PropTypes = require("prop-types")
 const { View, Image } = require("react-native")
-const { Icon: Icon_ } = require("native-base")
+const { Icon: Icon_ } = require("/elements")
 
 const { CENTER } = require("/constants/style")
 

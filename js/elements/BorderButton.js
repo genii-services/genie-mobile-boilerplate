@@ -4,7 +4,7 @@ console.debug("BorderButton")
 const React = require("react")
 const PropTypes = require("prop-types")
 const _ = require("lodash")
-const { Button, Text } = require("native-base")
+const { Button, Text } = require("/elements")
 const IconFA = require("react-native-vector-icons/FontAwesome")
 
 const { CENTER } = require("/constants/style")

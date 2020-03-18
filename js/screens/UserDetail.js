@@ -1,7 +1,7 @@
 const React = require("react")
 const {} = require("react-native")
 const _ = require("lodash")
-const { Container, Body, ListItem, Button, Icon, Label, Text, Footer, FooterTab } = require("native-base")
+const { Container, Body, ListItem, Button, Icon, Label, Text, Footer, FooterTab } = require("/elements")
 
 const { toString } = require("/utils/string")
 const { maxTimestamp } = require("/utils/moment")

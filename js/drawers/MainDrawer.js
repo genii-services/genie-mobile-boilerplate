@@ -4,7 +4,7 @@ const React = require("react")
 const { useState } = React
 const _ = require("lodash")
 const { Platform, View } = require("react-native")
-const { Container, Left, Right, ListItem, Button, Text, Icon } = require("native-base")
+const { Container, Left, Right, ListItem, Button, Text, Icon } = require("/elements")
 const IconFA = require("react-native-vector-icons/FontAwesome")
 const parseColor = require("color-parse")
 

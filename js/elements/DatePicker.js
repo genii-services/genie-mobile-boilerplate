@@ -1,6 +1,6 @@
 /** 공통 라이브러리 */
 const React = require("react")
-// const { Button, Text } = require("native-base")
+// const { Button, Text } = require("/elements")
 const DatePicker_ = require("react-native-datepicker")
 
 const { toString } = require("/utils/string")

@@ -1,6 +1,6 @@
 const React = require("react")
 const { Switch } = require("react-native")
-const { ActionSheet, Button, Container, Content, Icon, List, ListItem, Text } = require("native-base")
+const { ActionSheet, Button, Container, Content, Icon, List, ListItem, Text } = require("/elements")
 // const { Switch } = require("react-native-switch")
 
 const { RIGHT } = require("/constants/style")

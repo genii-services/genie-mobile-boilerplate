@@ -2,7 +2,7 @@
 const React = require("react")
 const PropTypes = require("prop-types")
 const { StatusBar, View } = require("react-native")
-const { Header, Button, Icon, Text } = require("native-base")
+const { Header, Button, Icon, Text } = require("/elements")
 
 const { FUNCTION } = require("/constants")
 const { CENTER } = require("/constants/style")

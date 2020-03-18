@@ -1,7 +1,7 @@
 const React = require("react")
 const _ = require("lodash")
 const { View } = require("react-native")
-const { Container, Body, Icon, ListItem, Text } = require("native-base")
+const { Container, Body, Icon, ListItem, Text } = require("/elements")
 const IconFA = require("react-native-vector-icons/FontAwesome")
 
 const { SUCCEED } = require("/utils/progress")

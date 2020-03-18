@@ -1,7 +1,7 @@
 const React = require("react")
 const { View, KeyboardAvoidingView } = require("react-native")
 const _ = require("lodash")
-const { Container, Body, ListItem, Text } = require("native-base")
+const { Container, Body, ListItem, Text } = require("/elements")
 
 const { itsIOS } = require("/utils/device")
 const { yyyymmddhhmmss } = require("/utils/moment")

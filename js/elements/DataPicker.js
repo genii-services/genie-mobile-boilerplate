@@ -2,7 +2,7 @@
 const React = require("react")
 const PropTypes = require("prop-types")
 const _ = require("lodash")
-const { Button, Text, ActionSheet } = require("native-base")
+const { Button, Text, ActionSheet } = require("/elements")
 
 const { __find } = require("/utils")
 const { fontFamily } = require("/styles")

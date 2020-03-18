@@ -3,7 +3,7 @@
  * v1.2 popup 인수에 따라 자동닫기 지연시간 조절
  */
 const { Alert, ToastAndroid } = require("react-native")
-const { Toast } = require("native-base")
+const { Toast } = require("/elements")
 
 const { OBJECT } = require("/constants")
 const { BOTTOM, TOP } = require("/constants/style")
@@ -26,7 +26,7 @@ function popup(text, title, buttons, duration = 3000, position = "bottom") {
 		ToastAndroid.showWithGravity(
 			text,
 			3000 <= duration ? ToastAndroid.LONG : ToastAndroid.SHORT,
-			position == BOTTOM ? ToastAndroid.BOTTOM : position == TOP ? ToastAndroid.TOP : ToastAndroid.CENTER,
+			position == BOTTOM ? ToastAndroid.BOTTOM : position == TOP ? ToastAndroid.TOP : ToastAndroid.CENTER
 		)
 	}
 }

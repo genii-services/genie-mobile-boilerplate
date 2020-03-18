@@ -2,7 +2,7 @@
 const React = require("react")
 const PropTypes = require("prop-types")
 const { TouchableHighlight } = require("react-native")
-const { Thumbnail } = require("native-base")
+const { Thumbnail } = require("/elements")
 const FastImage = require("react-native-fast-image")
 const localImagez = require("/data/localImagez")
 

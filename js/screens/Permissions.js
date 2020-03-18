@@ -3,7 +3,7 @@ const { StatusBar, View } = require("react-native")
 const async = require("async")
 const Permissions = require("react-native-permissions")
 const { PERMISSIONS } = Permissions
-const { Button, Container, Content, Footer, Icon, Left, Right, Text } = require("native-base")
+const { Button, Container, Content, Footer, Icon, Left, Right, Text } = require("/elements")
 
 const { itsAndroid } = require("/utils/device")
 const { useRouter } = require("/coordinators") // const router = require("/utils/router")

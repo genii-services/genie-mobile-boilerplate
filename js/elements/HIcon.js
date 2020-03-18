@@ -2,7 +2,7 @@
 const React = require("react")
 const PropTypes = require("prop-types")
 const { Text } = require("react-native")
-const { Button } = require("native-base")
+const { Button } = require("/elements")
 const IconFA = require("react-native-vector-icons/FontAwesome")
 
 const { CENTER } = require("/constants/style")

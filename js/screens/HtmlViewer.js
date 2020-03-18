@@ -1,7 +1,7 @@
 const React = require("react")
 
 const { View, Text } = require("react-native")
-const { Content, Button, Icon } = require("native-base")
+const { Content, Button, Icon } = require("/elements")
 const { WebView } = require("react-native-webview")
 
 const { CENTER } = require("/constants/style")

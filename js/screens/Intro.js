@@ -3,7 +3,7 @@ console.debug("IntroScreen")
 const React = require("react")
 const _ = require("lodash")
 const { TouchableHighlight, Text } = require("react-native")
-const { Container } = require("native-base")
+const { Container } = require("/elements")
 
 const { CENTER } = require("/constants/style")
 const { useStyle } = require("/coordinators")

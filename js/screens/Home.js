@@ -2,7 +2,7 @@ const React = require("react")
 const { View } = require("react-native")
 const _ = require("lodash")
 const Orientation = require("react-native-orientation-locker").default
-const { Left, Right, ListItem, Item, Icon, Text } = require("native-base")
+const { Left, Right, ListItem, Item, Icon, Text } = require("/elements")
 
 const {urlz} = require("/data/config")
 const { yyyymmdd } = require("/utils/moment")
