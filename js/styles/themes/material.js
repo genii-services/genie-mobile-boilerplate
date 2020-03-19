@@ -10,6 +10,21 @@ const platformStyle = MATERIAL
 const fontFamily = "System"
 const colors = ["#FFFFFF", "#F1F9FF", "#BCB0BD", "#7F747D", "#46494B", "#26292B", "#000000"]
 
+const textColor = "#000"
+const inverseTextColor = "#fff"
+
+const brandPrimary = "#3F51B5"
+const brandInfo = "#62B1F6"
+const brandSuccess = "#5cb85c"
+const brandDanger = "#d9534f"
+const brandWarning = "#f0ad4e"
+
+const toolbarDefaultBg = "#3F51B5"
+const tabBgColor = "#F8F8F8"
+
+const fontSizeBase = 15
+const iconFontSize = 28
+
 module.exports = {
 	platformStyle,
 	platform,
@@ -87,11 +102,11 @@ module.exports = {
 	checkboxTickColor: "#fff",
 
 	// Color
-	brandPrimary: "#3F51B5",
-	brandInfo: "#62B1F6",
-	brandSuccess: "#5cb85c",
-	brandDanger: "#d9534f",
-	brandWarning: "#f0ad4e",
+	brandPrimary,
+	brandInfo,
+	brandSuccess,
+	brandDanger,
+	brandWarning,
 	brandDark: "#000",
 	brandLight: "#f4f4f4",
 
@@ -108,7 +123,7 @@ module.exports = {
 	// Font
 	DefaultFontSize: 16,
 	fontFamily,
-	fontSizeBase: 15,
+	fontSizeBase,
 	fontSizeH1: fontSizeBase * 1.8,
 	fontSizeH2: fontSizeBase * 1.6,
 	fontSizeH3: fontSizeBase * 1.4,
@@ -128,7 +143,7 @@ module.exports = {
 
 	// Header
 	toolbarBtnColor: "#fff",
-	toolbarDefaultBg: "#3F51B5",
+	toolbarDefaultBg,
 	toolbarHeight: 56,
 	toolbarSearchIconSize: 23,
 	toolbarInputColor: "#fff",
@@ -137,16 +152,16 @@ module.exports = {
 	toolbarBtnTextColor: "#fff",
 	toolbarDefaultBorder: "#3F51B5",
 	iosStatusbar: "light-content",
-	statusBarColor: color(this.toolbarDefaultBg)
+	statusBarColor: color(toolbarDefaultBg)
 		.darken(0.2)
 		.hex(),
-	darkenHeader: color(this.tabBgColor)
+	darkenHeader: color(tabBgColor)
 		.darken(0.03)
 		.hex(),
 
 	// Icon
 	iconFamily: "Ionicons",
-	iconFontSize: 28,
+	iconFontSize,
 	iconHeaderSize: 24,
 
 	// InputGroup
@@ -205,12 +220,12 @@ module.exports = {
 	topTabBarActiveBorderColor: "#fff",
 
 	// Tabs
-	tabBgColor: "#F8F8F8",
+	tabBgColor,
 	tabFontSize: 15,
 
 	// Text
 	textColor: "#000",
-	inverseTextColor: "#fff",
+	inverseTextColor,
 	noteFontSize: 14,
 	defaultTextColor: textColor,
 

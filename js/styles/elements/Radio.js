@@ -6,13 +6,13 @@ module.exports = (theme = defaultTheme) => {
 	return itsIOS
 		? {
 				".selected": {
-					"NativeBase.IconNB": {
+					"elements/IconNB": {
 						color: theme.radioColor,
 						lineHeight: 25,
 						height: 20,
 					},
 				},
-				"NativeBase.IconNB": {
+				"elements/IconNB": {
 					color: "transparent",
 					lineHeight: undefined,
 					fontSize: undefined,
@@ -20,13 +20,13 @@ module.exports = (theme = defaultTheme) => {
 		  }
 		: {
 				".selected": {
-					"NativeBase.IconNB": {
+					"elements/IconNB": {
 						color: theme.radioSelectedColorAndroid,
 						lineHeight: theme.radioBtnLineHeight,
 						height: undefined,
 					},
 				},
-				"NativeBase.IconNB": {
+				"elements/IconNB": {
 					color: undefined,
 					lineHeight: theme.radioBtnLineHeight,
 					fontSize: theme.radioBtnSize,

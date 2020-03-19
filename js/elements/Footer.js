@@ -1,38 +1,27 @@
+const MODULE_NAME$ = "elements/Footer"
+console.debug(MODULE_NAME$)
+
 const React = require("react")
-const { Component } = React
 const PropTypes = require("prop-types")
 const { View, ViewPropTypes } = require("react-native")
-const { connectStyle } = require("native-base-shoutem-theme")
 
+const { connectStyle } = require("/utils/style")
+const { useState, useStore } = require("/hooks")
 const variable = require("/styles/themes/default")
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
 
-class Footer extends Component {
-	static contextTypes = {
-		theme: PropTypes.object,
-	}
-	constructor(props) {
-		super(props)
-		this.state = {
-			orientation: variable.deviceHeight > variable.deviceWidth ? "portrait" : "landscape",
-		}
-	}
-	layoutChange(val) {
+const Footer = props => {
+	const [theme] = useStore("theme")
+	const [_orientation, set_orientation] = useState(variable.deviceHeight > variable.deviceWidth ? "portrait" : "landscape")
+
+	const layoutChange = val => {
 		const maxComp = Math.max(variable.deviceWidth, variable.deviceHeight)
-		if (val.width >= maxComp) this.setState({ orientation: "landscape" })
-		else {
-			this.setState({ orientation: "portrait" })
-		}
+		set_orientation(val.width >= maxComp ? "landscape" : "portrait")
 	}
 
-	calculateHeight(mode, inSet) {
-		const { style } = this.props
-		let inset = null
-		if (inSet !== undefined) {
-			inset = inSet
-		} else {
-			inset = variable.Inset
-		}
+	const calculateHeight = (mode, inSet) => {
+		const { style } = props
+		let inset = inSet || variable.Inset
+
 		const InsetValues = mode === "portrait" ? inset.portrait : inset.landscape
 		let oldHeight = null
 		if (style.height !== undefined) {
@@ -46,14 +35,10 @@ class Footer extends Component {
 		return height
 	}
 
-	calculatePadder(mode, inSet) {
-		const { style } = this.props
-		let inset = null
-		if (inSet !== undefined) {
-			inset = inSet
-		} else {
-			inset = variable.Inset
-		}
+	const calculatePadder = (mode, inSet) => {
+		const { style } = props
+		let inset = inSet || variable.Inset
+
 		const InsetValues = mode === "portrait" ? inset.portrait : inset.landscape
 		let bottomPadder = null
 		if (style[1] !== undefined) {
@@ -67,26 +52,23 @@ class Footer extends Component {
 		}
 		return bottomPadder
 	}
-	render() {
-		const { style } = this.props
-		const variables = this.context.theme ? this.context.theme["@@shoutem.theme/themeStyle"].variables : variable
-		return variables.isIphoneX ? (
-			<View
-				ref={c => (this._root = c)}
-				{...this.props}
-				onLayout={e => this.layoutChange(e.nativeEvent.layout)}
-				style={[
-					style,
-					{
-						height: this.calculateHeight(this.state.orientation, variables.Inset),
-						paddingBottom: this.calculatePadder(this.state.orientation, variables.Inset),
-					},
-				]}
-			/>
-		) : (
-			<View ref={c => (this._root = c)} {...this.props} />
-		)
-	}
+
+	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
+	return variables.isIphoneX ? (
+		<View
+			{...props}
+			onLayout={e => layoutChange(e.nativeEvent.layout)}
+			style={[
+				style,
+				{
+					height: calculateHeight(_orientation, variables.Inset),
+					paddingBottom: calculatePadder(_orientation, variables.Inset),
+				},
+			]}
+		/>
+	) : (
+		<View {...props} />
+	)
 }
 
 Footer.propTypes = {
@@ -94,5 +76,4 @@ Footer.propTypes = {
 	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
 }
 
-module.exports = connectStyle("NativeBase.Footer", {}, mapPropsToStyleNames)(Footer)
-console.log("Footer", "loaded")
+module.exports = connectStyle(Footer, MODULE_NAME$)

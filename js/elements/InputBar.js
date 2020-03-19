@@ -5,7 +5,12 @@ const React = require("react")
 const PropTypes = require("prop-types")
 const _ = require("lodash")
 const { View, Keyboard } = require("react-native")
-const { Item, Icon, Input, Button, Text } = require("/elements")
+
+const Button = require("./Button")
+const Icon = require("./Icon")
+const Input = require("./Input")
+const Item = require("./Item")
+const Text = require("./Text")
 
 const InputBar = props => {
 	const [_value, set_value] = useState(props.value)

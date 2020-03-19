@@ -1,6 +1,6 @@
 /** 공통 라이브러리 */
-const NAME$ = "interactors/notification.android"
-console.debug(NAME$)
+const MODULE_NAME$ = "interactors/notification.android"
+console.debug(MODULE_NAME$, "load")
 
 const messaging = require("@react-native-firebase/messaging").default
 
@@ -29,7 +29,7 @@ notification.register = function() {
 					.getToken()
 					.then(tcmToken => {
 						notification.pushToken = tcmToken
-						console.debug(NAME$ + ".getToken", tcmToken)
+						console.debug(MODULE_NAME$ + ".getToken", tcmToken)
 					})
 			} else {
 				// 사용자가 아직 권한이 부여하지 않은 경우 권한을 달라는 메시지를 표시
@@ -37,17 +37,17 @@ notification.register = function() {
 					.requestPermission()
 					.then(() => {
 						// 사용자가 승인한 경우
-						trace(NAME$ + ".requestPermission", "granted")
+						trace(MODULE_NAME$ + ".requestPermission", "granted")
 						messaging()
 							.getToken()
 							.then(tcmToken => {
 								notification.pushToken = tcmToken
-								console.debug(NAME$ + ".getToken", tcmToken)
+								console.debug(MODULE_NAME$ + ".getToken", tcmToken)
 							})
 					})
 					.catch(error => {
 						// 사용자가 권한을 거부
-						trace(NAME$ + ".requestPermission", "rejected")
+						trace(MODULE_NAME$ + ".requestPermission", "rejected")
 						popup("푸시 알림에 동의하지 않았으므로 알림을 받을 수 없습니다.")
 					})
 			}
@@ -55,13 +55,13 @@ notification.register = function() {
 
 	// 토큰이 변경된 경우 처리
 	tokenRefreshListener = messaging().onTokenRefresh(fcmToken => {
-		console.debug(NAME$ + ".onTokenRefresh", fcmToken)
+		console.debug(MODULE_NAME$ + ".onTokenRefresh", fcmToken)
 		notification.pushToken = fcmToken
 	})
 
 	// 메시지가 온 경우 처리
 	messageListener = messaging().onMessage(message => {
-		console.debug(NAME$ + ".onMessage", message)
+		console.debug(MODULE_NAME$ + ".onMessage", message)
 		typeof notification.receiveNotification === FUNCTION &&
 			notification.receiveNotification({ ...message, type: message.messageType, uniqueid: message.messageId })
 	})
@@ -76,7 +76,7 @@ notification.unregister = function() {
 
 messaging().setBackgroundMessageHandler(async message => {
 	debugger
-	console.debug(NAME$ + ".backgroundMessageHandler", message)
+	console.debug(MODULE_NAME$ + ".backgroundMessageHandler", message)
 
 	typeof notification.receiveNotification === FUNCTION &&
 		notification.receiveNotification({ ...message, type: message.messageType, uniqueid: message.messageId })

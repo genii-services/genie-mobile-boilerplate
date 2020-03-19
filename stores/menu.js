@@ -1,3 +1,6 @@
+const MODULE_NAME$ = "menuStore"
+console.debug(MODULE_NAME$, "(re)load")
+
 const _ = require("lodash")
 const { observable, action } = require("mobx")
 const { create, persist } = require("mobx-persist")
@@ -9,9 +12,6 @@ const { popup } = require("/utils/view")
 const { getMenuChilds } = require("/utils/menuList")
 const { request } = require("/services/rest")
 const authStore = require("./auth")
-
-const NAME$ = "menuStore"
-console.debug(NAME$, "(re)loaded")
 
 const initialState = {
 	listMd5: "",
@@ -117,12 +117,12 @@ const hydrate = create({
 	// jsonify: false,
 })
 
-hydrate(NAME$, menuStore)
+hydrate(MODULE_NAME$, menuStore)
 	.then(store => {
-		console.debug(NAME$, "hydrated")
+		console.debug(MODULE_NAME$, "hydrated")
 
 		store.workInfoMap.forEach(v => (v.status = undefined))
 	})
 	.catch(e => {
-		console.warn(NAME$, "hydrate error", e)
+		console.warn(MODULE_NAME$, "hydrate error", e)
 	})

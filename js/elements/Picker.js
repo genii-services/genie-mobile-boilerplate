@@ -1,26 +1,14 @@
-console.log("Picker", "load")
+const MODULE_NAME$ = "elements/Picker"
+console.debug(MODULE_NAME$)
 
-const React = require("react")
-const { Component } = React
 const { Picker: Picker_ } = require("@react-native-community/picker")
-const { connectStyle } = require("native-base-shoutem-theme")
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { connectStyle } = require("/utils/style")
 
-export default class Picker extends Component {
-	render() {
-		return (
-			<Picker_ ref={c => (this._root = c)} {...this.props}>
-				{this.props.children}
-			</Picker_>
-		)
-	}
-}
-
-// Picker.Item =
+const Picker = Picker_
 
 Picker.propTypes = {
 	...Picker.propTypes,
 }
 
-module.exports = connectStyle("NativeBase.PickerNB", {}, mapPropsToStyleNames)(PickerNB)
+module.exports = connectStyle(Picker, "elements/PickerNB")

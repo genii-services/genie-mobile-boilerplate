@@ -1,13 +1,15 @@
+const MODULE_NAME$ = "elements/ActionSheet"
+console.debug(MODULE_NAME$)
+
 /* eslint-disable no-use-before-define */
 /* eslint-disable radix */
 const React = require("react")
 const PropTypes = require("prop-types")
 const { Component } = React
 const { ActionSheetIOS, Dimensions, FlatList, Modal, TouchableOpacity, StyleSheet, ViewPropTypes } = require("react-native")
-const { connectStyle } = require("native-base-shoutem-theme")
 
 const { itsIOS } = require("/utils/device")
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { connectStyle } = require("/utils/style")
 const commonColor = require("/styles/themes/common")
 
 const Text = require("./Text")
@@ -160,4 +162,4 @@ const styles = StyleSheet.create({
 	},
 })
 
-module.exports = connectStyle("NativeBase.ActionSheetContainer", {}, mapPropsToStyleNames)(ActionSheetContainer)
+module.exports = connectStyle(ActionSheetContainer, MODULE_NAME$)

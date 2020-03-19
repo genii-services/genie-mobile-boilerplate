@@ -1,79 +1,76 @@
-const React = require("react")
-const { Component } = React
+const MODULE_NAME$ = "elements/Radio"
+console.debug(MODULE_NAME$)
+
 const PropTypes = require("prop-types")
 const { TouchableOpacity, Platform } = require("react-native")
-const { connectStyle } = require("native-base-shoutem-theme")
-const Icon = require("react-native-vector-icons/Ionicons")
+const Ionicons = require("react-native-vector-icons/Ionicons").default
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { useState, useStore, useThis } = require("/hooks")
+const computeProps = require("/utils/computeProps")
+const { connectStyle } = require("/utils/style")
 const variable = require("/styles/themes/default")
-const computeProps = require("../utils/computeProps")
 
-class Radio extends Component {
-	static contextTypes = {
-		theme: PropTypes.object,
-	}
-	prepareRootProps() {
+const Radio = props => {
+	const [theme] = useStore("theme")
+
+	const prepareRootProps = () => {
 		const defaultProps = {
 			standardStyle: false,
 		}
-
-		return computeProps(this.props, defaultProps)
+		return computeProps(props, defaultProps)
 	}
 
-	render() {
-		const variables = this.context.theme ? this.context.theme["@@shoutem.theme/themeStyle"].variables : variable
+	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
 
-		return (
-			<TouchableOpacity ref={c => (this._root = c)} {...this.prepareRootProps()}>
-				{Platform.OS === "ios" && !this.props.standardStyle ? (
-					this.props.selected && (
-						<Icon
-							style={{
-								color: this.props.selectedColor ? this.props.selectedColor : variables.radioColor,
-								lineHeight: 25,
-								height: 20,
-								fontSize: variables.radioBtnSize,
-							}}
-							name="ios-checkmark"
-						/>
-					)
-				) : (
-					<Icon
+	return (
+		<TouchableOpacity {...prepareRootProps()}>
+			{Platform.OS === "ios" && !props.standardStyle ? (
+				props.selected && (
+					<Ionicons
 						style={{
-							color:
-								Platform.OS === "ios"
-									? this.props.selected
-										? this.props.selectedColor
-											? this.props.selectedColor
-											: variables.radioColor
-										: this.props.color
-										? this.props.color
-										: undefined
-									: this.props.selected
-									? this.props.selectedColor
-										? this.props.selectedColor
-										: variables.radioSelectedColorAndroid
-									: this.props.color
-									? this.props.color
-									: undefined,
-							lineHeight: variables.radioBtnLineHeight,
+							color: props.selectedColor ? props.selectedColor : variables.radioColor,
+							lineHeight: 25,
+							height: 20,
 							fontSize: variables.radioBtnSize,
 						}}
-						name={
-							Platform.OS === "ios"
-								? this.props.selected
-									? "ios-radio-button-on"
-									: "ios-radio-button-off"
-								: this.props.selected
-								? "md-radio-button-on"
-								: "md-radio-button-off"
-						}
+						name="ios-checkmark"
 					/>
-				)}
-			</TouchableOpacity>
-		)
-	}
+				)
+			) : (
+				<Ionicons
+					style={{
+						color:
+							Platform.OS === "ios"
+								? props.selected
+									? props.selectedColor
+										? props.selectedColor
+										: variables.radioColor
+									: props.color
+									? props.color
+									: undefined
+								: props.selected
+								? props.selectedColor
+									? props.selectedColor
+									: variables.radioSelectedColorAndroid
+								: props.color
+								? props.color
+								: undefined,
+						lineHeight: variables.radioBtnLineHeight,
+						fontSize: variables.radioBtnSize,
+					}}
+					name={
+						Platform.OS === "ios"
+							? props.selected
+								? "ios-radio-button-on"
+								: "ios-radio-button-off"
+							: props.selected
+							? "md-radio-button-on"
+							: "md-radio-button-off"
+					}
+				/>
+			)}
+		</TouchableOpacity>
+	)
 }
 
 Radio.propTypes = {
@@ -82,6 +79,4 @@ Radio.propTypes = {
 	standardStyle: PropTypes.bool,
 }
 
-module.exports = connectStyle("NativeBase.Radio", {}, mapPropsToStyleNames)(Radio)
-
-console.log("Radio", "loaded")
+module.exports = connectStyle(Radio, MODULE_NAME$)

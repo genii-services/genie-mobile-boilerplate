@@ -10,7 +10,7 @@ module.exports = (theme = defaultTheme) => {
 		flexDirection: "row",
 		justifyContent: CENTER,
 		backgroundColor: theme.segmentBackgroundColor,
-		"NativeBase.Button": {
+		"elements/Button": {
 			alignSelf: CENTER,
 			borderRadius: 0,
 			paddingTop: 3,
@@ -23,10 +23,10 @@ module.exports = (theme = defaultTheme) => {
 			elevation: 0,
 			".active": {
 				backgroundColor: theme.segmentActiveBackgroundColor,
-				"NativeBase.Text": {
+				"elements/Text": {
 					color: theme.segmentActiveTextColor,
 				},
-				"NativeBase.Icon": {
+				"elements/Icon": {
 					color: theme.segmentActiveTextColor,
 				},
 			},
@@ -39,11 +39,11 @@ module.exports = (theme = defaultTheme) => {
 				borderTopRightRadius: itsIOS ? 5 : undefined,
 				borderBottomRightRadius: itsIOS ? 5 : undefined,
 			},
-			"NativeBase.Text": {
+			"elements/Text": {
 				color: theme.segmentTextColor,
 				fontSize: 14,
 			},
-			"NativeBase.Icon": {
+			"elements/Icon": {
 				fontSize: 22,
 				paddingTop: 0,
 				color: theme.segmentTextColor,

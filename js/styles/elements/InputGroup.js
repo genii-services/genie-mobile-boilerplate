@@ -4,17 +4,17 @@ const defaultTheme = require("/styles/themes/default")
 
 module.exports = (theme = defaultTheme) => {
 	const inputGroupTheme = {
-		"NativeBase.Icon": {
+		"elements/Icon": {
 			fontSize: 24,
 			color: theme.sTabBarActiveTextColor,
 			paddingHorizontal: 5,
 		},
-		"NativeBase.IconNB": {
+		"elements/IconNB": {
 			fontSize: 24,
 			color: theme.sTabBarActiveTextColor,
 			paddingHorizontal: 5,
 		},
-		"NativeBase.Input": {
+		"elements/Input": {
 			height: theme.inputHeightBase,
 			color: theme.inputColor,
 			paddingLeft: 5,
@@ -62,10 +62,10 @@ module.exports = (theme = defaultTheme) => {
 		},
 
 		".success": {
-			"NativeBase.Icon": {
+			"elements/Icon": {
 				color: theme.inputSuccessBorderColor,
 			},
-			"NativeBase.IconNB": {
+			"elements/IconNB": {
 				color: theme.inputSuccessBorderColor,
 			},
 			".rounded": {
@@ -86,10 +86,10 @@ module.exports = (theme = defaultTheme) => {
 		},
 
 		".error": {
-			"NativeBase.Icon": {
+			"elements/Icon": {
 				color: theme.inputErrorBorderColor,
 			},
-			"NativeBase.IconNB": {
+			"elements/IconNB": {
 				color: theme.inputErrorBorderColor,
 			},
 			".rounded": {
@@ -109,10 +109,10 @@ module.exports = (theme = defaultTheme) => {
 			borderColor: theme.inputErrorBorderColor,
 		},
 		".disabled": {
-			"NativeBase.Icon": {
+			"elements/Icon": {
 				color: "#384850",
 			},
-			"NativeBase.IconNB": {
+			"elements/IconNB": {
 				color: "#384850",
 			},
 		},

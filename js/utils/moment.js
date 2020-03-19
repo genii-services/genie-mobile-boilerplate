@@ -1,6 +1,8 @@
 /** 공통 라이브러리
  * 191206 한일용
  */
+const MODULE_NAME$ = "utils/moment"
+
 const moment = require("moment")
 
 const { STRING } = require("/constants")

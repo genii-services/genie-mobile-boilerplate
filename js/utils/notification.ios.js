@@ -1,6 +1,6 @@
 /** 공통 라이브러리 */
-const NAME$ = "interactors/notification.ios"
-console.debug(NAME$)
+const MODULE_NAME$ = "interactors/notification.ios"
+console.debug(MODULE_NAME$, "load")
 
 const PushNotificationIOS = require("@react-native-community/push-notification-ios")
 // const { requestNotifications } = require("react-native-permissions")
@@ -19,17 +19,17 @@ requestNotifications(["alert", "sound"]).then(({ status, settings }) => {
 */
 
 function handleIOSRegister(token) {
-	console.debug(NAME$ + ".register", "You are registered and the device token is: ", token)
+	console.debug(MODULE_NAME$ + ".register", "You are registered and the device token is: ", token)
 	//alert(`Push Token is ${token}`)
 	notification.pushToken = token
 }
 
 function handleIOSRegistrationError(error) {
-	console.debug(NAME$ + ".registrationError", error)
+	console.debug(MODULE_NAME$ + ".registrationError", error)
 }
 
 function handleIOSNotification(noti) {
-	console.debug(NAME$ + ".notification", "You have received a new notification!", noti)
+	console.debug(MODULE_NAME$ + ".notification", "You have received a new notification!", noti)
 	/*
 	const result = `Message: ${noti.getMessage()};\n
 	badge: ${noti.getBadgeCount()};\n
@@ -41,7 +41,7 @@ function handleIOSNotification(noti) {
 }
 
 function handleIOSLocalNotification(noti) {
-	console.debug(NAME$ + ".localNotification", "You have received a new notification!", noti, noti.getMessage())
+	console.debug(MODULE_NAME$ + ".localNotification", "You have received a new notification!", noti, noti.getMessage())
 }
 
 notification.register = function(options = ["alert", "badge", "sound"]) {
@@ -49,8 +49,8 @@ notification.register = function(options = ["alert", "badge", "sound"]) {
 
 	PushNotificationIOS.requestPermissions(
 		options,
-		() => console.debug(NAME$ + ".requestPermissions", "accepts"),
-		() => console.debug(NAME$ + ".requestPermissions", "rejects")
+		() => console.debug(MODULE_NAME$ + ".requestPermissions", "accepts"),
+		() => console.debug(MODULE_NAME$ + ".requestPermissions", "rejects")
 	)
 	PushNotificationIOS.addEventListener("register", handleIOSRegister)
 	PushNotificationIOS.addEventListener("registrationError", handleIOSRegistrationError)

@@ -50,5 +50,10 @@
 		"prefix": "+cd",
 		"description": "console.debug",
 		"body": ["console.debug(${TM_FILENAME_BASE}, ${1:message})"]
+	},
+	"module_name$": {
+		"prefix": "+mn",
+		"description": "const MODULE_NAME$",
+		"body": ["const MODULE_NAME$ = \"${TM_DIRECTORY/^.*\\/(.*)/$1/}/${TM_FILENAME_BASE}\"", "console.debug(MODULE_NAME$)"]
 	}
 }

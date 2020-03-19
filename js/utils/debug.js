@@ -10,7 +10,7 @@
  *			global인 경우 object 대신 global로 표시
  *			배열인 경우 ['className', 'methodName]
  */
-console.debug("utils/debug")
+console.debug("[utils/debug]")
 
 const { OBJECT, STRING } = require("/constants")
 

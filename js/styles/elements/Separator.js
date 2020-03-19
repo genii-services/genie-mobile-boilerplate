@@ -28,7 +28,7 @@ module.exports = (theme = defaultTheme) => {
 			borderTopWidth: theme.borderWidth,
 			borderColor: theme.listBorderColor,
 		},
-		"NativeBase.Text": {
+		"elements/Text": {
 			fontSize: theme.tabBarTextSize - 2,
 			color: "#777",
 		},

@@ -1,15 +1,14 @@
+MODULE_NAME$ = "elements/Title"
+console.log(MODULE_NAME$)
+
 const React = require("react")
-const { Component } = React
 const PropTypes = require("prop-types")
 const { Text } = require("react-native")
-const { connectStyle } = require("native-base-shoutem-theme")
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { connectStyle } = require("/utils/style")
 
-class Title extends Component {
-	render() {
-		return <Text ref={c => (this._root = c)} numberOfLines={1} {...this.props} />
-	}
+const Title = props => {
+	return <Text numberOfLines={1} {...props} />
 }
 
 Title.propTypes = {
@@ -17,5 +16,4 @@ Title.propTypes = {
 	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
 }
 
-module.exports = connectStyle("NativeBase.Title", {}, mapPropsToStyleNames)(Title)
-console.log("Title", "loaded")
+module.exports = connectStyle(Title, MODULE_NAME$)

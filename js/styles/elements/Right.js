@@ -3,7 +3,7 @@ const { CENTER } = require("/constants/style")
 
 module.exports = () => {
 	return {
-		"NativeBase.Button": {
+		"elements/Button": {
 			alignSelf: null,
 		},
 		flex: 1,

@@ -8,7 +8,7 @@
  * 200311 exports.documentPath 추가, debug 관련 정리
  */
 const NAME = "fileStorage"
-console.debug("utils/" + NAME)
+console.debug("utils/" + NAME, "load")
 
 const async = require("async")
 // const FileSystem = require("react-native-fs")	// 이 모듈은 처리 속도가 떨어짐

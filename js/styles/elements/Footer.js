@@ -7,23 +7,17 @@ module.exports = (theme = defaultTheme) => {
 	const { platformStyle } = theme
 
 	const iconCommon = {
-		"NativeBase.Icon": {
-			color: theme.tabBarActiveTextColor,
-		},
+		"elements/Icon": { color: theme.tabBarActiveTextColor },
 	}
 	const iconNBCommon = {
-		"NativeBase.IconNB": {
-			color: theme.tabBarActiveTextColor,
-		},
+		"elements/IconNB": { color: theme.tabBarActiveTextColor },
 	}
 	const textCommon = {
-		"NativeBase.Text": {
-			color: theme.tabBarActiveTextColor,
-		},
+		"elements/Text": { color: theme.tabBarActiveTextColor },
 	}
 	const footerTheme = {
-		"NativeBase.Left": {
-			"NativeBase.Button": {
+		"elements/Left": {
+			"elements/Button": {
 				".transparent": {
 					backgroundColor: "transparent",
 					borderColor: null,
@@ -45,12 +39,12 @@ module.exports = (theme = defaultTheme) => {
 			alignSelf: CENTER,
 			alignItems: "flex-start",
 		},
-		"NativeBase.Body": {
+		"elements/Body": {
 			flex: 1,
 			alignItems: CENTER,
 			alignSelf: CENTER,
 			flexDirection: "row",
-			"NativeBase.Button": {
+			"elements/Button": {
 				alignSelf: CENTER,
 				".transparent": {
 					backgroundColor: "transparent",
@@ -74,8 +68,8 @@ module.exports = (theme = defaultTheme) => {
 				// ...textCommon
 			},
 		},
-		"NativeBase.Right": {
-			"NativeBase.Button": {
+		"elements/Right": {
+			"elements/Button": {
 				".transparent": {
 					backgroundColor: "transparent",
 					borderColor: null,

@@ -1,20 +1,10 @@
-const React = require("react")
-const { Component } = React
-const { Switch: SwitchNB } = require("react-native")
-const { connectStyle } = require("native-base-shoutem-theme")
+const MODULE_NAME$ = "elements/Switch"
+console.debug(MODULE_NAME$)
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { Switch: Switch_ } = require("react-native")
 
-class Switch extends Component {
-	render() {
-		return <SwitchNB ref={c => (this._root = c)} {...this.props} />
-	}
-}
+const { connectStyle } = require("/utils/style")
 
-Switch.propTypes = {
-	...Switch.propTypes,
-}
+const Switch = Switch_
 
-module.exports = connectStyle("NativeBase.Switch", {}, mapPropsToStyleNames)(Switch)
-
-console.log("Switch", "loaded")
+module.exports = connectStyle(Switch, MODULE_NAME$)

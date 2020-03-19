@@ -1,34 +1,16 @@
+const MODULE_NAME$ = "elements/Text"
+console.debug(MODULE_NAME$)
+
 const React = require("react")
-const { Component } = React
 const PropTypes = require("prop-types")
 const { Text: RNText } = require("react-native")
 const _ = require("lodash")
-const { connectStyle } = require("native-base-shoutem-theme")
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { connectStyle } = require("/utils/style")
 
-class Text extends Component {
-	render() {
-		const { uppercase, children } = this.props
-
-		let text
-		if (uppercase) {
-			text = React.Children.map(children, child => {
-				if (_.isString(child)) {
-					return _.toUpper(child)
-				}
-				return child
-			})
-		} else {
-			text = children
-		}
-
-		return (
-			<RNText ref={c => (this._root = c)} {...this.props}>
-				{text}
-			</RNText>
-		)
-	}
+const Text = ({ uppercase, children, ...props }) => {
+	const text = uppercase ? React.Children.map(children, child => (_.isString(child) ? _.toUpper(child) : child)) : children
+	return <RNText {...props}>{text}</RNText>
 }
 
 Text.propTypes = {
@@ -41,6 +23,4 @@ Text.defaultProps = {
 	uppercase: false,
 }
 
-module.exports = connectStyle("NativeBase.Text", {}, mapPropsToStyleNames)(Text)
-
-console.log("Text", "loaded")
+module.exports = connectStyle(Text, MODULE_NAME$)

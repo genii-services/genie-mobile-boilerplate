@@ -2,71 +2,71 @@
 
 module.exports = () => {
 	return {
-		"NativeBase.Item": {
+		"elements/Item": {
 			".fixedLabel": {
-				"NativeBase.Label": {
+				"elements/Label": {
 					paddingLeft: null,
 				},
 				marginLeft: 15,
 			},
 			".inlineLabel": {
-				"NativeBase.Label": {
+				"elements/Label": {
 					paddingLeft: null,
 				},
 				marginLeft: 15,
 			},
 			".placeholderLabel": {
-				"NativeBase.Input": {},
+				"elements/Input": {},
 			},
 			".stackedLabel": {
-				"NativeBase.Label": {
+				"elements/Label": {
 					top: 5,
 					paddingLeft: null,
 				},
-				"NativeBase.Input": {
+				"elements/Input": {
 					paddingLeft: null,
 					marginLeft: null,
 				},
-				"NativeBase.Icon": {
+				"elements/Icon": {
 					marginTop: 36,
 				},
 				marginLeft: 15,
 			},
 			".floatingLabel": {
-				"NativeBase.Input": {
+				"elements/Input": {
 					paddingLeft: null,
 					top: 10,
 					marginLeft: null,
 				},
-				"NativeBase.Label": {
+				"elements/Label": {
 					left: 0,
 					top: 6,
 				},
-				"NativeBase.Icon": {
+				"elements/Icon": {
 					top: 6,
 				},
 				marginTop: 15,
 				marginLeft: 15,
 			},
 			".regular": {
-				"NativeBase.Label": {
+				"elements/Label": {
 					left: 0,
 				},
 				marginLeft: 0,
 			},
 			".rounded": {
-				"NativeBase.Label": {
+				"elements/Label": {
 					left: 0,
 				},
 				marginLeft: 0,
 			},
 			".underline": {
-				"NativeBase.Label": {
+				"elements/Label": {
 					left: 0,
 					top: 0,
 					position: "relative",
 				},
-				"NativeBase.Input": {
+				"elements/Input": {
 					left: -15,
 				},
 				marginLeft: 15,
@@ -75,7 +75,7 @@ module.exports = () => {
 				marginLeft: 0,
 				paddingLeft: 15,
 			},
-			"NativeBase.Label": {
+			"elements/Label": {
 				paddingRight: 5,
 			},
 			marginLeft: 15,

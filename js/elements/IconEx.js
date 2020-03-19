@@ -1,10 +1,13 @@
 /** 공통 라이브러리 */
+console.debug("Icon")
+
 const React = require("react")
 const PropTypes = require("prop-types")
-const { View, Image } = require("react-native")
-const { Icon: Icon_ } = require("/elements")
+const { View } = require("react-native")
 
 const { CENTER } = require("/constants/style")
+
+const Icon_ = require("./IconNB")
 
 const Icon = props => {
 	//let icon = /^fa-/.test(props.name) ? <Icon_ theme={{ iconFamily: 'FontAwesome' }} {...props} /> : <Icon_ {...props} />
@@ -63,5 +66,3 @@ Icon.defaultProps = {
 }
 
 module.exports = Icon
-
-console.debug(Icon, "loaded")

@@ -6,7 +6,8 @@
  * @copyright appcreatier 2017
  * @license
  */
-console.debug("utils/" + NAME)
+const MODULE_NAME$ = "utils/fs"
+console.debug(MODULE_NAME$)
 
 const async = require("async")
 const _ = require("lodash")
@@ -42,8 +43,6 @@ FileSystem.exists(dataPath).then(bool => {
 	}
 })
 */
-
-const NAME = "fs"
 
 const { android, fs } = FetchBlob
 
@@ -493,7 +492,7 @@ function loadData(url, optionz = {}) {
 }
 
 module.exports = {
-	NAME,
+	MODULE_NAME$,
 	documentPath,
 
 	prepairDirPath,

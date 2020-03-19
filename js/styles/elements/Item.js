@@ -6,7 +6,7 @@ const defaultTheme = require("/styles/themes/default")
 module.exports = (theme = defaultTheme) => {
 	const itemTheme = {
 		".floatingLabel": {
-			"NativeBase.Input": {
+			"elements/Input": {
 				height: 50,
 				top: 8,
 				paddingTop: 3,
@@ -17,20 +17,12 @@ module.exports = (theme = defaultTheme) => {
 					paddingBottom: itsIOS ? 14 : 10,
 				},
 			},
-			"NativeBase.Label": {
-				paddingTop: 5,
-			},
-			"NativeBase.Icon": {
-				top: 6,
-				paddingTop: 8,
-			},
-			"NativeBase.IconNB": {
-				top: 6,
-				paddingTop: 8,
-			},
+			"elements/Label": { paddingTop: 5 },
+			"elements/Icon": { top: 6, paddingTop: 8 },
+			"elements/IconNB": { top: 6, paddingTop: 8 },
 		},
 		".fixedLabel": {
-			"NativeBase.Label": {
+			"elements/Label": {
 				position: null,
 				top: null,
 				left: null,
@@ -40,13 +32,13 @@ module.exports = (theme = defaultTheme) => {
 				width: null,
 				fontSize: theme.inputFontSize,
 			},
-			"NativeBase.Input": {
+			"elements/Input": {
 				flex: 2,
 				fontSize: theme.inputFontSize,
 			},
 		},
 		".stackedLabel": {
-			"NativeBase.Label": {
+			"elements/Label": {
 				position: null,
 				top: null,
 				left: null,
@@ -55,18 +47,14 @@ module.exports = (theme = defaultTheme) => {
 				alignSelf: "flex-start",
 				fontSize: theme.inputFontSize - 2,
 			},
-			"NativeBase.Icon": {
-				marginTop: 36,
-			},
-			"NativeBase.Input": {
+			"elements/Icon": { marginTop: 36 },
+			"elements/Input": {
 				alignSelf: itsIOS ? "stretch" : "flex-start",
 				flex: 1,
 				width: itsIOS ? null : deviceWidth - 25,
 				fontSize: theme.inputFontSize,
 				lineHeight: theme.inputLineHeight - 6,
-				".secureTextEntry": {
-					fontSize: theme.inputFontSize,
-				},
+				".secureTextEntry": { fontSize: theme.inputFontSize },
 				".multiline": {
 					paddingTop: itsIOS ? 9 : undefined,
 					paddingBottom: itsIOS ? 9 : undefined,
@@ -76,7 +64,7 @@ module.exports = (theme = defaultTheme) => {
 			minHeight: theme.inputHeightBase + 15,
 		},
 		".inlineLabel": {
-			"NativeBase.Label": {
+			"elements/Label": {
 				position: null,
 				top: null,
 				left: null,
@@ -86,26 +74,26 @@ module.exports = (theme = defaultTheme) => {
 				width: null,
 				fontSize: theme.inputFontSize,
 			},
-			"NativeBase.Input": {
+			"elements/Input": {
 				paddingLeft: 5,
 				fontSize: theme.inputFontSize,
 			},
 			flexDirection: "row",
 		},
-		"NativeBase.Label": {
+		"elements/Label": {
 			fontSize: theme.inputFontSize,
 			color: theme.inputColorPlaceholder,
 			paddingRight: 5,
 		},
-		"NativeBase.Icon": {
+		"elements/Icon": {
 			fontSize: 24,
 			paddingRight: 8,
 		},
-		"NativeBase.IconNB": {
+		"elements/IconNB": {
 			fontSize: 24,
 			paddingRight: 8,
 		},
-		"NativeBase.Input": {
+		"elements/Input": {
 			".multiline": {
 				height: null,
 			},
@@ -116,7 +104,7 @@ module.exports = (theme = defaultTheme) => {
 			fontSize: theme.inputFontSize,
 		},
 		".underline": {
-			"NativeBase.Input": {
+			"elements/Input": {
 				paddingLeft: 15,
 			},
 			".success": {
@@ -132,10 +120,10 @@ module.exports = (theme = defaultTheme) => {
 			borderColor: theme.inputBorderColor,
 		},
 		".regular": {
-			"NativeBase.Input": {
+			"elements/Input": {
 				paddingLeft: 8,
 			},
-			"NativeBase.Icon": {
+			"elements/Icon": {
 				paddingLeft: 10,
 			},
 			".success": {
@@ -148,10 +136,10 @@ module.exports = (theme = defaultTheme) => {
 			borderColor: theme.inputBorderColor,
 		},
 		".rounded": {
-			"NativeBase.Input": {
+			"elements/Input": {
 				paddingLeft: 8,
 			},
-			"NativeBase.Icon": {
+			"elements/Icon": {
 				paddingLeft: 10,
 			},
 			".success": {
@@ -166,10 +154,10 @@ module.exports = (theme = defaultTheme) => {
 		},
 
 		".success": {
-			"NativeBase.Icon": {
+			"elements/Icon": {
 				color: theme.inputSuccessBorderColor,
 			},
-			"NativeBase.IconNB": {
+			"elements/IconNB": {
 				color: theme.inputSuccessBorderColor,
 			},
 			".rounded": {
@@ -190,10 +178,10 @@ module.exports = (theme = defaultTheme) => {
 		},
 
 		".error": {
-			"NativeBase.Icon": {
+			"elements/Icon": {
 				color: theme.inputErrorBorderColor,
 			},
-			"NativeBase.IconNB": {
+			"elements/IconNB": {
 				color: theme.inputErrorBorderColor,
 			},
 			".rounded": {
@@ -213,10 +201,10 @@ module.exports = (theme = defaultTheme) => {
 			borderColor: theme.inputErrorBorderColor,
 		},
 		".disabled": {
-			"NativeBase.Icon": {
+			"elements/Icon": {
 				color: "#384850",
 			},
-			"NativeBase.IconNB": {
+			"elements/IconNB": {
 				color: "#384850",
 			},
 		},

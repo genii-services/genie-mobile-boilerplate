@@ -10,27 +10,27 @@ module.exports = (theme = defaultTheme) => {
 		".vertical": {
 			height: 60,
 		},
-		"NativeBase.Button": {
+		"elements/Button": {
 			".transparent": {
-				"NativeBase.Text": {
+				"elements/Text": {
 					fontSize: theme.tabFontSize,
 					color: theme.sTabBarActiveTextColor,
 					fontWeight: "400",
 				},
-				"NativeBase.IconNB": {
+				"elements/IconNB": {
 					color: theme.sTabBarActiveTextColor,
 				},
 			},
-			"NativeBase.IconNB": {
+			"elements/IconNB": {
 				color: theme.sTabBarActiveTextColor,
 			},
-			"NativeBase.Text": {
+			"elements/Text": {
 				fontSize: theme.tabFontSize,
 				color: theme.sTabBarActiveTextColor,
 				fontWeight: "400",
 			},
 			".isTabActive": {
-				"NativeBase.Text": {
+				"elements/Text": {
 					fontWeight: "900",
 				},
 			},

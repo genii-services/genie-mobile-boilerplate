@@ -1,31 +1,24 @@
-console.log("List", "load")
+const MODULE_NAME$ = "elements/List"
+console.debug(MODULE_NAME$)
 
 const React = require("react")
-const { Component } = React
 const { FlatList, View } = require("react-native")
-const { connectStyle } = require("native-base-shoutem-theme")
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { connectStyle } = require("/utils/style")
 
-class List extends Component {
-	render() {
-		const { props } = this
-		const { dataArray } = props
+const List = props => {
+	const { dataArray } = props
 
-		if (dataArray) {
-			return (
-				<FlatList
-					ref={ref => (this._root = ref)}
-					data={dataArray}
-					renderItem={({ item, index }) =>
-						props.renderItem ? props.renderItem({ item, index }) : props.renderRow(item, 0, index)
-					}
-					{...props}
-				/>
-			)
-		}
-		return <View ref={c => (this._root = c)} {...props} />
-	}
+	return dataArray ? (
+		<FlatList
+			ref={ref => (this._root = ref)}
+			data={dataArray}
+			renderItem={({ item, index }) => (props.renderItem ? props.renderItem({ item, index }) : props.renderRow(item, 0, index))}
+			{...props}
+		/>
+	) : (
+		<View {...props} />
+	)
 }
 
-module.exports = connectStyle("NativeBase.List", {}, mapPropsToStyleNames)(List)
+module.exports = connectStyle(List, MODULE_NAME$)

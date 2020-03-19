@@ -1,11 +1,13 @@
+const MODULE_NAME$ = "elements/DeckSwiper"
+console.debug(MODULE_NAME$)
+
 const React = require("react")
 const { Component } = React
 const PropTypes = require("prop-types")
 const { View, Animated, PanResponder, ViewPropTypes } = require("react-native")
 const clamp = require("clamp")
-const { connectStyle } = require("native-base-shoutem-theme")
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { connectStyle } = require("/utils/style")
 
 const SWIPE_THRESHOLD = 120
 
@@ -308,6 +310,4 @@ DeckSwiper.propTypes = {
 	dataSource: PropTypes.array,
 }
 
-module.exports = connectStyle("NativeBase.DeckSwiper", {}, mapPropsToStyleNames)(DeckSwiper)
-
-console.log("DeckSwiper", "loaded")
+module.exports = connectStyle(DeckSwiper, MODULE_NAME$)

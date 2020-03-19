@@ -148,7 +148,7 @@ module.exports = {
 	statusBarColor: color(toolbarDefaultBg)
 		.darken(0.2)
 		.hex(),
-	darkenHeader: color(this.tabBgColor)
+	darkenHeader: color(tabBgColor)
 		.darken(0.03)
 		.hex(),
 

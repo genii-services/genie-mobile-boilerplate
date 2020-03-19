@@ -21,15 +21,15 @@ module.exports = (theme = defaultTheme) => {
 		alignItems: CENTER,
 		padding: 10,
 		minHeight: 50,
-		"NativeBase.Text": {
+		"elements/Text": {
 			color: "#fff",
 			flex: 1,
 		},
-		"NativeBase.Button": {
+		"elements/Button": {
 			backgroundColor: "transparent",
 			height: 30,
 			elevation: 0,
-			"NativeBase.Text": {
+			"elements/Text": {
 				fontSize: 14,
 			},
 		},

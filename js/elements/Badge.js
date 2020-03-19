@@ -1,26 +1,10 @@
+const MODULE_NAME$ = "elements/Badge"
+console.log("Badge", "load")
+
 const React = require("react")
-const { Component } = React
-const PropTypes = require("prop-types")
-const { View, ViewPropTypes } = require("react-native")
-const { connectStyle } = require("native-base-shoutem-theme")
+const { View } = require("react-native")
+const { connectStyle } = require("/utils/style")
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const Badge = View
 
-class Badge extends Component {
-	render() {
-		return (
-			<View ref={c => (this._root = c)} {...this.props}>
-				{this.props.children}
-			</View>
-		)
-	}
-}
-
-Badge.propTypes = {
-	...ViewPropTypes,
-	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-}
-
-module.exports = connectStyle("NativeBase.Badge", {}, mapPropsToStyleNames)(Badge)
-
-console.log("Badge", "loaded")
+module.exports = connectStyle(Badge, MODULE_NAME$)

@@ -1,15 +1,18 @@
+const MODULE_NAME$ = "elements/Fab"
+console.debug(MODULE_NAME$)
+
 const React = require("react")
 const { Component } = React
 const { Platform, Animated, TouchableOpacity, TouchableNativeFeedback, View, StyleSheet } = require("react-native")
 const { remove, merge, clone } = require("lodash")
-const { connectStyle } = require("native-base-shoutem-theme")
+
+const { itsIOS } = require("/utils/device")
+const computeProps = require("/utils/computeProps")
+const { connectStyle } = require("/utils/style")
 
 const variables = require("/styles/themes/default")
-const computeProps = require("../utils/computeProps")
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
 
 const Button = require("./Button")
-const { itsIOS } = require("/utils/device")
 
 const DIRECTION = {
 	DOWN: "down",
@@ -408,5 +411,5 @@ class Fab extends Component {
 		)
 	}
 }
-module.exports = connectStyle("NativeBase.Fab", {}, mapPropsToStyleNames)(Fab)
-console.log("Fab", "loaded")
+
+module.exports = connectStyle(Fab, MODULE_NAME$)

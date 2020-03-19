@@ -13,7 +13,7 @@ const { exitApp } = require("react-native-exit-app")
 const { OBJECT, STRING } = require("/constants")
 const { urlz } = require("/data/config")
 const { checkingAppNames, callingAppInfoz } = require("/data/appInfo")
-
+const { itsAndroid, itsIOS } = require("./device")
 const { popup } = require("./view")
 const { browse } = require("./router")
 const { displayName } = require("/../app.json")

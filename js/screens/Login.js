@@ -4,7 +4,6 @@ const React = require("react")
 const { Alert, View, Keyboard, KeyboardAvoidingView } = require("react-native")
 const _ = require("lodash")
 const Orientation = require("react-native-orientation-locker").default
-const { ActionSheet, Button, CheckBox, Container, Content, Input, Item, Text } = require("/elements")
 const IconFA = require("react-native-vector-icons/FontAwesome")
 // const { MessageBarManager } require("react-native-message-bar")
 
@@ -18,6 +17,9 @@ const Logo = require("@svgs/genie.svg")
 const { useAuth, useStyle } = require("/coordinators")
 const { useRefs } = require("/hooks")
 const { useThis } = require("/hooks")
+
+const { ActionSheet, Button, CheckBox, Container, Content, Input, Item, Text } = require("/elements")
+
 const appInfo = require("/../app.json")
 
 const AT = "@"

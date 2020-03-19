@@ -11,29 +11,29 @@ module.exports = (theme = defaultTheme) => {
 	const headerTheme = {
 		".span": {
 			height: 128,
-			"NativeBase.Left": {
+			"elements/Left": {
 				alignSelf: "flex-start",
 			},
-			"NativeBase.Body": {
+			"elements/Body": {
 				alignSelf: "flex-end",
 				alignItems: "flex-start",
 				justifyContent: CENTER,
 				paddingBottom: 26,
 			},
-			"NativeBase.Right": {
+			"elements/Right": {
 				alignSelf: "flex-start",
 			},
 		},
 		".hasSubtitle": {
-			"NativeBase.Body": {
-				"NativeBase.Title": {
+			"elements/Body": {
+				"elements/Title": {
 					fontSize: theme.titleFontSize - 2,
 					fontFamily: theme.titleFontfamily,
 					textAlign: CENTER,
 					fontWeight: "500",
 					paddingBottom: 3,
 				},
-				"NativeBase.Subtitle": {
+				"elements/Subtitle": {
 					fontSize: theme.subTitleFontSize,
 					fontFamily: theme.titleFontfamily,
 					color: theme.subtitleColor,
@@ -74,18 +74,18 @@ module.exports = (theme = defaultTheme) => {
 			shadowRadius: null,
 			shadowOpacity: null,
 			borderBottomWidth: null,
-			"NativeBase.Left": {
+			"elements/Left": {
 				flex: 0.3,
 			},
-			"NativeBase.Right": {
+			"elements/Right": {
 				flex: 0.3,
 			},
-			"NativeBase.Body": {
+			"elements/Body": {
 				flex: 1,
-				"NativeBase.Segment": {
+				"elements/Segment": {
 					marginRight: 0,
 					alignSelf: CENTER,
-					"NativeBase.Button": {
+					"elements/Button": {
 						paddingLeft: 0,
 						paddingRight: 0,
 					},
@@ -93,32 +93,32 @@ module.exports = (theme = defaultTheme) => {
 			},
 		},
 		".noLeft": {
-			"NativeBase.Left": {
+			"elements/Left": {
 				width: itsIOS ? undefined : 0,
 				flex: itsIOS ? 1 : 0,
 			},
-			"NativeBase.Body": {
-				"NativeBase.Title": {
+			"elements/Body": {
+				"elements/Title": {
 					paddingLeft: itsIOS ? undefined : 10,
 				},
-				"NativeBase.Subtitle": {
+				"elements/Subtitle": {
 					paddingLeft: itsIOS ? undefined : 10,
 				},
 			},
 		},
-		"NativeBase.Button": {
+		"elements/Button": {
 			justifyContent: CENTER,
 			alignSelf: CENTER,
 			alignItems: CENTER,
 			".transparent": {
-				"NativeBase.Text": {
+				"elements/Text": {
 					color: theme.toolbarBtnTextColor,
 					fontWeight: "600",
 				},
-				"NativeBase.Icon": {
+				"elements/Icon": {
 					color: theme.toolbarBtnColor,
 				},
-				"NativeBase.IconNB": {
+				"elements/IconNB": {
 					color: theme.toolbarBtnColor,
 				},
 				paddingHorizontal: theme.buttonPadding,
@@ -126,8 +126,8 @@ module.exports = (theme = defaultTheme) => {
 			paddingHorizontal: 15,
 		},
 		".searchBar": {
-			"NativeBase.Item": {
-				"NativeBase.Icon": {
+			"elements/Item": {
+				"elements/Icon": {
 					backgroundColor: TRANSPARENT,
 					color: theme.dropdownLinkColor,
 					fontSize: theme.toolbarSearchIconSize,
@@ -136,12 +136,12 @@ module.exports = (theme = defaultTheme) => {
 					paddingRight: 10,
 					paddingLeft: 10,
 				},
-				"NativeBase.IconNB": {
+				"elements/IconNB": {
 					backgroundColor: TRANSPARENT,
 					color: null,
 					alignSelf: CENTER,
 				},
-				"NativeBase.Input": {
+				"elements/Input": {
 					alignSelf: CENTER,
 					lineHeight: null,
 					height: theme.searchBarInputHeight,
@@ -154,9 +154,9 @@ module.exports = (theme = defaultTheme) => {
 				borderColor: "transparent",
 				backgroundColor: theme.toolbarInputColor,
 			},
-			"NativeBase.Button": {
+			"elements/Button": {
 				".transparent": {
-					"NativeBase.Text": {
+					"elements/Text": {
 						fontWeight: "500",
 					},
 					paddingHorizontal: null,
@@ -168,29 +168,29 @@ module.exports = (theme = defaultTheme) => {
 			},
 		},
 		".rounded": {
-			"NativeBase.Item": {
+			"elements/Item": {
 				borderRadius: itsIOS && platformStyle !== MATERIAL ? 25 : 3,
 			},
 		},
-		"NativeBase.Left": {
-			"NativeBase.Button": {
+		"elements/Left": {
+			"elements/Button": {
 				".hasText": {
 					marginLeft: -10,
 					height: 30,
-					"NativeBase.Icon": {
+					"elements/Icon": {
 						color: theme.toolbarBtnColor,
 						fontSize: theme.iconHeaderSize,
 						marginTop: 2,
 						marginRight: 5,
 						marginLeft: 2,
 					},
-					"NativeBase.Text": {
+					"elements/Text": {
 						color: theme.toolbarBtnTextColor,
 						fontSize: itsIOS ? 17 : 0,
 						marginLeft: 7,
 						lineHeight: 19.5,
 					},
-					"NativeBase.IconNB": {
+					"elements/IconNB": {
 						color: theme.toolbarBtnColor,
 						fontSize: theme.iconHeaderSize,
 						marginTop: 2,
@@ -200,7 +200,7 @@ module.exports = (theme = defaultTheme) => {
 				},
 				".transparent": {
 					marginLeft: itsIOS && platformStyle !== MATERIAL ? -3 : 0,
-					"NativeBase.Icon": {
+					"elements/Icon": {
 						color: theme.toolbarBtnColor,
 						fontSize: itsIOS && theme.platformStyle !== MATERIAL ? theme.iconHeaderSize + 1 : theme.iconHeaderSize,
 						marginTop: 0,
@@ -208,7 +208,7 @@ module.exports = (theme = defaultTheme) => {
 						marginLeft: 1,
 						paddingTop: 1,
 					},
-					"NativeBase.IconNB": {
+					"elements/IconNB": {
 						color: theme.toolbarBtnColor,
 						fontSize: itsIOS && theme.platformStyle !== MATERIAL ? theme.iconHeaderSize + 1 : theme.iconHeaderSize - 2,
 						marginTop: 0,
@@ -216,7 +216,7 @@ module.exports = (theme = defaultTheme) => {
 						marginLeft: 1,
 						paddingTop: 1,
 					},
-					"NativeBase.Text": {
+					"elements/Text": {
 						color: theme.toolbarBtnTextColor,
 						fontSize: itsIOS ? 17 : 0,
 						top: itsIOS ? 1 : -1.5,
@@ -231,10 +231,10 @@ module.exports = (theme = defaultTheme) => {
 					shadowRadius: null,
 					shadowOpacity: null,
 				},
-				"NativeBase.Icon": {
+				"elements/Icon": {
 					color: theme.toolbarBtnColor,
 				},
-				"NativeBase.IconNB": {
+				"elements/IconNB": {
 					color: theme.toolbarBtnColor,
 				},
 				alignSelf: null,
@@ -245,49 +245,49 @@ module.exports = (theme = defaultTheme) => {
 			alignSelf: CENTER,
 			alignItems: "flex-start",
 		},
-		"NativeBase.Body": {
+		"elements/Body": {
 			flex: 1,
 			alignItems: itsIOS && platformStyle !== MATERIAL ? CENTER : "flex-start",
 			alignSelf: CENTER,
-			"NativeBase.Segment": {
+			"elements/Segment": {
 				borderWidth: 0,
 				alignSelf: "flex-end",
 				marginRight: itsIOS ? -40 : -55,
 			},
-			"NativeBase.Button": {
+			"elements/Button": {
 				alignSelf: CENTER,
 				".transparent": {
 					backgroundColor: TRANSPARENT,
 				},
-				"NativeBase.Icon": {
+				"elements/Icon": {
 					color: theme.toolbarBtnColor,
 				},
-				"NativeBase.IconNB": {
+				"elements/IconNB": {
 					color: theme.toolbarBtnColor,
 				},
-				"NativeBase.Text": {
+				"elements/Text": {
 					color: theme.inverseTextColor,
 					backgroundColor: TRANSPARENT,
 				},
 			},
 		},
-		"NativeBase.Right": {
-			"NativeBase.Button": {
+		"elements/Right": {
+			"elements/Button": {
 				".hasText": {
 					height: 30,
-					"NativeBase.Icon": {
+					"elements/Icon": {
 						color: theme.toolbarBtnColor,
 						fontSize: theme.iconHeaderSize - 2,
 						marginTop: 2,
 						marginRight: 2,
 						marginLeft: 5,
 					},
-					"NativeBase.Text": {
+					"elements/Text": {
 						color: theme.toolbarBtnTextColor,
 						fontSize: itsIOS ? 17 : 14,
 						lineHeight: 19.5,
 					},
-					"NativeBase.IconNB": {
+					"elements/IconNB": {
 						color: theme.toolbarBtnColor,
 						fontSize: theme.iconHeaderSize - 2,
 						marginTop: 2,
@@ -301,7 +301,7 @@ module.exports = (theme = defaultTheme) => {
 					paddingRight: 12,
 					paddingHorizontal: 15,
 					borderRadius: 50,
-					"NativeBase.Icon": {
+					"elements/Icon": {
 						color: theme.toolbarBtnColor,
 						fontSize: theme.iconHeaderSize - 2,
 						marginTop: 0,
@@ -309,7 +309,7 @@ module.exports = (theme = defaultTheme) => {
 						marginRight: 0,
 						// paddingTop: 0
 					},
-					"NativeBase.IconNB": {
+					"elements/IconNB": {
 						color: theme.toolbarBtnColor,
 						fontSize: theme.iconHeaderSize - 2,
 						marginTop: 0,
@@ -317,7 +317,7 @@ module.exports = (theme = defaultTheme) => {
 						marginRight: 0,
 						// paddingTop: 0
 					},
-					"NativeBase.Text": {
+					"elements/Text": {
 						color: theme.toolbarBtnTextColor,
 						fontSize: itsIOS ? 17 : 14,
 						top: itsIOS ? 1 : -1.5,
@@ -331,10 +331,10 @@ module.exports = (theme = defaultTheme) => {
 					shadowRadius: null,
 					shadowOpacity: null,
 				},
-				"NativeBase.Icon": {
+				"elements/Icon": {
 					color: theme.toolbarBtnColor,
 				},
-				"NativeBase.IconNB": {
+				"elements/IconNB": {
 					color: theme.toolbarBtnColor,
 				},
 				alignSelf: null,

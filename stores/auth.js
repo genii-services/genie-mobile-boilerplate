@@ -14,8 +14,8 @@ const notification = require("/services/notification")
 const { request } = require("/services/rest")
 const { setFontSizes } = require("/styles")
 
-const NAME$ = "authStore"
-console.debug(NAME$, "(re)loaded")
+const MODULE_NAME$ = "authStore"
+console.debug(MODULE_NAME$, "(re)load")
 
 const domainNames = config.runningMode !== 99 ? ["hanildev.com", "partner.hanildev.com"] : ["hanil.com", "partner.hanil.com"]
 
@@ -207,9 +207,9 @@ const hydrate = create({
 	// jsonify: true
 })
 
-hydrate(NAME$, store)
+hydrate(MODULE_NAME$, store)
 	.then(store => {
-		console.debug(NAME$, "hydrated", "=".repeat(80))
+		console.debug(MODULE_NAME$, "hydrated", "=".repeat(80))
 
 		if (!store.timestamp) store.timestamp = Date.now()
 		setFontSizes(store.fontSizesIndex)
@@ -229,5 +229,5 @@ hydrate(NAME$, store)
 		// router.push(!store.authToken ? "login" : "home")	// 사용권한 체크 후 실행하는 것으로 변경
 	})
 	.catch(e => {
-		console.warn(NAME$, "hydrate error", e)
+		console.warn(MODULE_NAME$, "hydrate error", e)
 	})

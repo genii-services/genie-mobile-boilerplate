@@ -1,15 +1,14 @@
+const MODULE_NAME$ = "elements/Thumbnail"
+console.debug(MODULE_NAME$)
+
 const React = require("react")
-const { Component } = React
 const PropTypes = require("prop-types")
 const { Image } = require("react-native")
-const { connectStyle } = require("native-base-shoutem-theme")
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { connectStyle } = require("/utils/style")
 
-class Thumbnail extends Component {
-	render() {
-		return <Image ref={c => (this._root = c)} {...this.props} />
-	}
+const Thumbnail = props => {
+	return <Image ref={c => (_this._root = c)} {...props} />
 }
 
 Thumbnail.propTypes = {
@@ -20,6 +19,4 @@ Thumbnail.propTypes = {
 	size: PropTypes.number,
 }
 
-module.exports = connectStyle("NativeBase.Thumbnail", {}, mapPropsToStyleNames)(Thumbnail)
-
-console.log("Thumbnail", "loaded")
+module.exports = connectStyle(Thumbnail, MODULE_NAME$)

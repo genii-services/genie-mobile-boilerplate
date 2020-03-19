@@ -1,29 +1,17 @@
+const MODULE_NAME$ = "elements/Card"
+console.debug(MODULE_NAME$)
+
 const React = require("react")
-const { Component } = React
 const PropTypes = require("prop-types")
 const { FlatList, View, ViewPropTypes } = require("react-native")
-const { connectStyle } = require("native-base-shoutem-theme")
+const { connectStyle } = require("/utils/style")
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
-
-class Card extends Component {
-	render() {
-		if (this.props.dataArray && this.props.renderRow) {
-			return (
-				<FlatList
-					{...this.props}
-					data={this.props.dataArray}
-					renderItem={this.props.renderRow}
-					keyExtractor={(item, index) => index.toString()}
-				/>
-			)
-		}
-		return (
-			<View ref={c => (this._root = c)} {...this.props}>
-				{this.props.children}
-			</View>
-		)
-	}
+const Card = props => {
+	return props.dataArray && props.renderRow ? (
+		<FlatList {...props} data={props.dataArray} renderItem={props.renderRow} keyExtractor={(item, index) => index.toString()} />
+	) : (
+		<View {...props} />
+	)
 }
 
 Card.propTypes = {
@@ -34,6 +22,4 @@ Card.propTypes = {
 	renderRow: PropTypes.func,
 }
 
-module.exports = connectStyle("NativeBase.Card", {}, mapPropsToStyleNames)(Card)
-
-console.log("Card", "loaded")
+module.exports = connectStyle(Card, MODULE_NAME$)

@@ -1,70 +1,60 @@
-const { connectStyle } = require("native-base-shoutem-theme")
+const MODULE_NAME$ = "elements/Content"
+console.debug(MODULE_NAME$)
+
 const PropTypes = require("prop-types")
 const React = require("react")
-const { Component } = React
 const { SafeAreaView } = require("react-native")
 const { KeyboardAwareScrollView } = require("react-native-keyboard-aware-scroll-view")
 
+const { useState, useStore } = require("/hooks")
 const variable = require("/styles/themes/default")
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { connectStyle } = require("/utils/style")
 
-class Content extends Component {
-	static contextTypes = {
-		theme: PropTypes.object,
-	}
+const Content = props => {
+	const [theme] = useStore("theme")
 
-	constructor(props) {
-		super(props)
-		this.state = {
-			orientation: "portrait",
-		}
-	}
+	const [_orientation, set_orientation] = useState("portrait")
 
-	layoutChange(val) {
+	const layoutChange = val => {
 		const maxComp = Math.max(variable.deviceWidth, variable.deviceHeight)
 
-		if (val.width >= maxComp) this.setState({ orientation: "landscape" })
-		else {
-			this.setState({ orientation: "portrait" })
-		}
+		set_orientation(val.width >= maxComp ? "landscape" : "portrait")
 	}
 
-	render() {
-		const { children, contentContainerStyle, disableKBDismissScroll, keyboardShouldPersistTaps, padder, style } = this.props
-		const containerStyle = { flex: 1 }
-		const variables = this.context.theme ? this.context.theme["@@shoutem.theme/themeStyle"].variables : variable
+	const { children, contentContainerStyle, disableKBDismissScroll, keyboardShouldPersistTaps, padder, style } = props
+	const containerStyle = { flex: 1 }
+	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
 
-		return variables.isIphoneX ? (
-			<SafeAreaView style={containerStyle}>
-				<KeyboardAwareScrollView
-					automaticallyAdjustContentInsets={false}
-					resetScrollToCoords={disableKBDismissScroll ? null : { x: 0, y: 0 }}
-					keyboardShouldPersistTaps={keyboardShouldPersistTaps || "handled"}
-					ref={c => {
-						this._scrollview = c
-						this._root = c
-					}}
-					{...this.props}
-					style={style}
-					contentContainerStyle={[{ padding: padder ? variables.contentPadding : undefined }, contentContainerStyle]}>
-					{children}
-				</KeyboardAwareScrollView>
-			</SafeAreaView>
-		) : (
+	return variables.isIphoneX ? (
+		<SafeAreaView style={containerStyle}>
 			<KeyboardAwareScrollView
 				automaticallyAdjustContentInsets={false}
 				resetScrollToCoords={disableKBDismissScroll ? null : { x: 0, y: 0 }}
 				keyboardShouldPersistTaps={keyboardShouldPersistTaps || "handled"}
 				ref={c => {
-					this._scrollview = c
-					this._root = c
+					_this._scrollview = c
+					_this._root = c
 				}}
-				{...this.props}
+				{...props}
+				style={style}
 				contentContainerStyle={[{ padding: padder ? variables.contentPadding : undefined }, contentContainerStyle]}>
 				{children}
 			</KeyboardAwareScrollView>
-		)
-	}
+		</SafeAreaView>
+	) : (
+		<KeyboardAwareScrollView
+			automaticallyAdjustContentInsets={false}
+			resetScrollToCoords={disableKBDismissScroll ? null : { x: 0, y: 0 }}
+			keyboardShouldPersistTaps={keyboardShouldPersistTaps || "handled"}
+			ref={c => {
+				_this._scrollview = c
+				_this._root = c
+			}}
+			{...props}
+			contentContainerStyle={[{ padding: padder ? variables.contentPadding : undefined }, contentContainerStyle]}>
+			{children}
+		</KeyboardAwareScrollView>
+	)
 }
 
 Content.propTypes = {
@@ -74,6 +64,4 @@ Content.propTypes = {
 	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
 }
 
-module.exports = connectStyle("NativeBase.Content", {}, mapPropsToStyleNames)(Content)
-
-console.log("Content", "loaded")
+module.exports = connectStyle(Content, MODULE_NAME$)

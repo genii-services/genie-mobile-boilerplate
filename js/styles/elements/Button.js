@@ -6,102 +6,50 @@ const defaultTheme = require("/styles/themes/default")
 module.exports = (theme = defaultTheme) => {
 	const { platform, platformStyle } = theme
 	const darkCommon = {
-		"NativeBase.Text": {
-			color: theme.brandDark,
-		},
-		"NativeBase.Icon": {
-			color: theme.brandDark,
-		},
-		"NativeBase.IconNB": {
-			color: theme.brandDark,
-		},
+		"elements/Text": { color: theme.brandDark },
+		"elements/Icon": { color: theme.brandDark },
+		"elements/IconNB": { color: theme.brandDark },
 	}
 	const lightCommon = {
-		"NativeBase.Text": {
-			color: theme.brandLight,
-		},
-		"NativeBase.Icon": {
-			color: theme.brandLight,
-		},
-		"NativeBase.IconNB": {
-			color: theme.brandLight,
-		},
+		"elements/Text": { color: theme.brandLight },
+		"elements/Icon": { color: theme.brandLight },
+		"elements/IconNB": { color: theme.brandLight },
 	}
 	const primaryCommon = {
-		"NativeBase.Text": {
-			color: theme.buttonPrimaryBg,
-		},
-		"NativeBase.Icon": {
-			color: theme.buttonPrimaryBg,
-		},
-		"NativeBase.IconNB": {
-			color: theme.buttonPrimaryBg,
-		},
+		"elements/Text": { color: theme.buttonPrimaryBg },
+		"elements/Icon": { color: theme.buttonPrimaryBg },
+		"elements/IconNB": { color: theme.buttonPrimaryBg },
 	}
 	const successCommon = {
-		"NativeBase.Text": {
-			color: theme.buttonSuccessBg,
-		},
-		"NativeBase.Icon": {
-			color: theme.buttonSuccessBg,
-		},
-		"NativeBase.IconNB": {
-			color: theme.buttonSuccessBg,
-		},
+		"elements/Text": { color: theme.buttonSuccessBg },
+		"elements/Icon": { color: theme.buttonSuccessBg },
+		"elements/IconNB": { color: theme.buttonSuccessBg },
 	}
 	const infoCommon = {
-		"NativeBase.Text": {
-			color: theme.buttonInfoBg,
-		},
-		"NativeBase.Icon": {
-			color: theme.buttonInfoBg,
-		},
-		"NativeBase.IconNB": {
-			color: theme.buttonInfoBg,
-		},
+		"elements/Text": { color: theme.buttonInfoBg },
+		"elements/Icon": { color: theme.buttonInfoBg },
+		"elements/IconNB": { color: theme.buttonInfoBg },
 	}
 	const warningCommon = {
-		"NativeBase.Text": {
-			color: theme.buttonWarningBg,
-		},
-		"NativeBase.Icon": {
-			color: theme.buttonWarningBg,
-		},
-		"NativeBase.IconNB": {
-			color: theme.buttonWarningBg,
-		},
+		"elements/Text": { color: theme.buttonWarningBg },
+		"elements/Icon": { color: theme.buttonWarningBg },
+		"elements/IconNB": { color: theme.buttonWarningBg },
 	}
 	const dangerCommon = {
-		"NativeBase.Text": {
-			color: theme.buttonDangerBg,
-		},
-		"NativeBase.Icon": {
-			color: theme.buttonDangerBg,
-		},
-		"NativeBase.IconNB": {
-			color: theme.buttonDangerBg,
-		},
+		"elements/Text": { color: theme.buttonDangerBg },
+		"elements/Icon": { color: theme.buttonDangerBg },
+		"elements/IconNB": { color: theme.buttonDangerBg },
 	}
 	const buttonTheme = {
 		".disabled": {
 			".transparent": {
 				backgroundColor: "transparent",
-				"NativeBase.Text": {
-					color: theme.buttonDisabledBg,
-				},
-				"NativeBase.Icon": {
-					color: theme.buttonDisabledBg,
-				},
-				"NativeBase.IconNB": {
-					color: theme.buttonDisabledBg,
-				},
+				"elements/Text": { color: theme.buttonDisabledBg },
+				"elements/Icon": { color: theme.buttonDisabledBg },
+				"elements/IconNB": { color: theme.buttonDisabledBg },
 			},
-			"NativeBase.Icon": {
-				color: theme.brandLight,
-			},
-			"NativeBase.IconNB": {
-				color: theme.brandLight,
-			},
+			"elements/Icon": { color: theme.brandLight },
+			"elements/IconNB": { color: theme.brandLight },
 			backgroundColor: theme.buttonDisabledBg,
 		},
 		".bordered": {
@@ -151,7 +99,7 @@ module.exports = (theme = defaultTheme) => {
 				backgroundColor: "transparent",
 				borderColor: theme.buttonDisabledBg,
 				borderWidth: theme.borderWidth * 2,
-				"NativeBase.Text": {
+				"elements/Text": {
 					color: theme.buttonDisabledBg,
 				},
 			},
@@ -166,55 +114,38 @@ module.exports = (theme = defaultTheme) => {
 		},
 
 		".dark": {
-			".bordered": {
-				...darkCommon,
-			},
+			".bordered": { ...darkCommon },
 			backgroundColor: theme.brandDark,
 		},
 		".light": {
-			".transparent": {
-				...lightCommon,
-				backgroundColor: "transparent",
-			},
-			".bordered": {
-				...lightCommon,
-			},
+			".transparent": { ...lightCommon, backgroundColor: "transparent" },
+			".bordered": { ...lightCommon },
 			...darkCommon,
 			backgroundColor: theme.brandLight,
 		},
 
 		".primary": {
-			".bordered": {
-				...primaryCommon,
-			},
+			".bordered": { ...primaryCommon },
 			backgroundColor: theme.buttonPrimaryBg,
 		},
 
 		".success": {
-			".bordered": {
-				...successCommon,
-			},
+			".bordered": { ...successCommon },
 			backgroundColor: theme.buttonSuccessBg,
 		},
 
 		".info": {
-			".bordered": {
-				...infoCommon,
-			},
+			".bordered": { ...infoCommon },
 			backgroundColor: theme.buttonInfoBg,
 		},
 
 		".warning": {
-			".bordered": {
-				...warningCommon,
-			},
+			".bordered": { ...warningCommon },
 			backgroundColor: theme.buttonWarningBg,
 		},
 
 		".danger": {
-			".bordered": {
-				...dangerCommon,
-			},
+			".bordered": { ...dangerCommon },
 			backgroundColor: theme.buttonDangerBg,
 		},
 
@@ -241,63 +172,33 @@ module.exports = (theme = defaultTheme) => {
 			shadowRadius: null,
 			shadowOpacity: null,
 			...primaryCommon,
-			".dark": {
-				...darkCommon,
-			},
-			".danger": {
-				...dangerCommon,
-			},
-			".warning": {
-				...warningCommon,
-			},
-			".info": {
-				...infoCommon,
-			},
-			".primary": {
-				...primaryCommon,
-			},
-			".success": {
-				...successCommon,
-			},
-			".light": {
-				...lightCommon,
-			},
+			".dark": { ...darkCommon },
+			".danger": { ...dangerCommon },
+			".warning": { ...warningCommon },
+			".info": { ...infoCommon },
+			".primary": { ...primaryCommon },
+			".success": { ...successCommon },
+			".light": { ...lightCommon },
 			".disabled": {
 				backgroundColor: "transparent",
 				borderColor: theme.buttonDisabledBg,
 				borderWidth: theme.borderWidth * 2,
-				"NativeBase.Text": {
-					color: theme.buttonDisabledBg,
-				},
-				"NativeBase.Icon": {
-					color: theme.buttonDisabledBg,
-				},
-				"NativeBase.IconNB": {
-					color: theme.buttonDisabledBg,
-				},
+				"elements/Text": { color: theme.buttonDisabledBg },
+				"elements/Icon": { color: theme.buttonDisabledBg },
+				"elements/IconNB": { color: theme.buttonDisabledBg },
 			},
 		},
 
 		".small": {
 			height: 30,
-			"NativeBase.Text": {
-				fontSize: 14,
-			},
-			"NativeBase.Icon": {
-				fontSize: 20,
-				paddingTop: 0,
-			},
-			"NativeBase.IconNB": {
-				fontSize: 20,
-				paddingTop: 0,
-			},
+			"elements/Text": { fontSize: 14 },
+			"elements/Icon": { fontSize: 20, paddingTop: 0 },
+			"elements/IconNB": { fontSize: 20, paddingTop: 0 },
 		},
 
 		".large": {
 			height: 60,
-			"NativeBase.Text": {
-				fontSize: 22,
-			},
+			"elements/Text": { fontSize: 22 },
 		},
 
 		".capitalize": {},
@@ -307,7 +208,7 @@ module.exports = (theme = defaultTheme) => {
 			height: null,
 		},
 
-		"NativeBase.Text": {
+		"elements/Text": {
 			fontFamily: theme.buttonFontFamily,
 			marginLeft: 0,
 			marginRight: 0,
@@ -317,13 +218,13 @@ module.exports = (theme = defaultTheme) => {
 			backgroundColor: "transparent",
 		},
 
-		"NativeBase.Icon": {
+		"elements/Icon": {
 			color: theme.inverseTextColor,
 			fontSize: 24,
 			marginHorizontal: 16,
 			paddingTop: itsIOS ? 2 : undefined,
 		},
-		"NativeBase.IconNB": {
+		"elements/IconNB": {
 			color: theme.inverseTextColor,
 			fontSize: 24,
 			marginHorizontal: 16,
@@ -331,37 +232,18 @@ module.exports = (theme = defaultTheme) => {
 		},
 
 		".iconLeft": {
-			"NativeBase.Text": {
-				marginLeft: 0,
-			},
-			"NativeBase.IconNB": {
-				marginRight: 0,
-				marginLeft: 16,
-			},
-			"NativeBase.Icon": {
-				marginRight: 0,
-				marginLeft: 16,
-			},
+			"elements/Text": { marginLeft: 0 },
+			"elements/IconNB": { marginRight: 0, marginLeft: 16 },
+			"elements/Icon": { marginRight: 0, marginLeft: 16 },
 		},
 		".iconRight": {
-			"NativeBase.Text": {
-				marginRight: 0,
-			},
-			"NativeBase.IconNB": {
-				marginLeft: 0,
-				marginRight: 16,
-			},
-			"NativeBase.Icon": {
-				marginLeft: 0,
-				marginRight: 16,
-			},
+			"elements/Text": { marginRight: 0 },
+			"elements/IconNB": { marginLeft: 0, marginRight: 16 },
+			"elements/Icon": { marginLeft: 0, marginRight: 16 },
 		},
 		".picker": {
-			"NativeBase.Text": {
-				".note": {
-					fontSize: 16,
-					lineHeight: null,
-				},
+			"elements/Text": {
+				".note": { fontSize: 16, lineHeight: null },
 			},
 		},
 		paddingVertical: theme.buttonPadding,
@@ -372,10 +254,10 @@ module.exports = (theme = defaultTheme) => {
 		height: 45,
 		flexDirection: "row",
 		elevation: 2,
-		shadowColor: platformStyle === MATERIAL ? theme.brandDark : undefined,
-		shadowOffset: platformStyle === MATERIAL ? { width: 0, height: 2 } : undefined,
-		shadowOpacity: platformStyle === MATERIAL ? 0.2 : undefined,
-		shadowRadius: platformStyle === MATERIAL ? 1.2 : undefined,
+		shadowColor: platformStyle === MATERIAL && theme.brandDark,
+		shadowOffset: platformStyle === MATERIAL && { width: 0, height: 2 },
+		shadowOpacity: platformStyle === MATERIAL && 0.2,
+		shadowRadius: platformStyle === MATERIAL && 1.2,
 		alignItems: CENTER,
 		justifyContent: "space-between",
 	}

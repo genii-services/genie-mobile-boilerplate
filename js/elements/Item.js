@@ -1,4 +1,5 @@
-console.log("Item", "load")
+const MODULE_NAME$ = "elements/Item"
+console.debug(MODULE_NAME$)
 
 /* eslint-disable no-plusplus */
 /* eslint-disable no-loop-func */
@@ -7,11 +8,10 @@ const { Component } = React
 const PropTypes = require("prop-types")
 const { TouchableOpacity, Animated, Platform, View, StyleSheet } = require("react-native")
 const { isArray, remove } = require("lodash")
-const { connectStyle } = require("native-base-shoutem-theme")
 
 const variables = require("/styles/themes/default")
 const computeProps = require("/utils/computeProps")
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { connectStyle } = require("/utils/style")
 
 const Input = require("./Input")
 const Label = require("./Label")
@@ -378,7 +378,7 @@ class Item extends Component {
 
 	render() {
 		return (
-			<TouchableOpacity ref={c => (this._root = c)} {...this.prepareRootProps()} activeOpacity={1}>
+			<TouchableOpacity {...this.prepareRootProps()} activeOpacity={1}>
 				{this.renderChildren()}
 			</TouchableOpacity>
 		)
@@ -396,4 +396,4 @@ Item.propTypes = {
 	error: PropTypes.bool,
 }
 
-module.exports = connectStyle("NativeBase.Item", {}, mapPropsToStyleNames)(Item)
+module.exports = connectStyle(Item, "elements/Item")

@@ -101,6 +101,14 @@
 		"description": "React useState",
 		"body": ["const [_${1:state}, set_${1:state}] = useState(${2})"]
 	},
+	"React useStore": {
+		"prefix": "+store",
+		"description": "React useStore",
+		"body": [
+			"const { useStore } = require(\"use-store\")",
+			"const [ ${1:value}, set${1/(.*)/${1:/capitalize}/} ] = useStore(\"${1}\")"
+		]
+	},
 	"React useThis": {
 		"prefix": "+this",
 		"description": "React useThis",

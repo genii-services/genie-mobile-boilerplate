@@ -8,13 +8,13 @@
 	"search.exclude": {
 		"**/node_modules": true,
 		"**/bower_components": true,
-		"**/.vscode": true,
+		"**/.vscode/.react": true,
 		"**/images": true,
-		"**/scripts": true
+		"**/scripts": false
 	},
 
 	// 아직 vscode가 optional chaining에 대해서 인식을 하지 못하므로
-	// 실시간 validate를 하지 않게 하거나 "javascript.validate.enable": false
+	// 실시간 validate를 하지 않게 하거나 => "javascript.validate.enable": false
 	// TypeScript 3.7 Beta를 사용하기 위해 'JavaScript and TypeScript Nightly' Plugin을 설치
 	"javascript.validate.enable": true,
 	// 아래 문제 해결 https://www.andreasellerbrock.tech/2018/06/01/removing-the-experimental-decorators-warning-in-visual-studio-code/
@@ -24,14 +24,16 @@
 	"path-intellisense.absolutePathToWorkspace": false,
 
 	"favorites.resources": [
-		"ios/NabiumMobile/AppDelegate.m",
-		"android/gradle.properties",
-		"android/app/build.gradle",
 		"~/.android/adb_usb.ini",
+		"android/app/build.gradle",
 		"android/app/src/main/AndroidManifest.xml",
+		"android/app/src/main/java/services/genii/geniemobileboilerplate/MainActivity.java",
+		"android/app/src/main/java/services/genii/geniemobileboilerplate/MainApplication.java",
 		"android/app/src/main/res/values/strings.xml",
-		"ios/mobilegw/Info.plist",
+		"android/gradle.properties",
 		"android/settings.gradle",
+		"ios/GenieMobileBoilerplate/AppDelegate.m",
+		"ios/GenieMobileBoilerplate/Info.plist",
 		"node_modules/react-native-background-task/android/build.gradle"
 	],
 	"prettier.semi": false

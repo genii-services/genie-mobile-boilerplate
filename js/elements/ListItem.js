@@ -1,34 +1,39 @@
-/** 공통 라이브러리 */
+const MODULE_NAME$ = "elements/ListItem"
+console.debug(MODULE_NAME$)
+
 const React = require("react")
+const PropTypes = require("prop-types")
+const { Platform, TouchableHighlight, TouchableNativeFeedback, View } = require("react-native")
 
-const { View, TouchableHighlight } = require("react-native")
+const { itsIOS, itsWeb } = require("/utils/device")
+const { connectStyle } = require("/utils/style")
+const { useState, useStore, useThis } = require("/hooks")
+const variable = require("/styles/themes/default")
 
-const ListItem = ({ onPress, onLongPress, ...props }) => {
-	return (
-		<TouchableHighlight underlayColor="rgba(0,0,0,0)" delayLongPress={onLongPress ? 1000 : 10000} onPress={onPress}>
-			<View
-				{...props}
-				style={[
-					{
-						borderBottomColor: props.borderColor,
-						borderBottomWidth: props.borderWidth,
-						flex: 1,
-						flexWrap: "nowrap",
-						padding: 10,
-						justifyContent: "flex-start",
-						alignItems: "flex-start",
-					},
-					props.style,
-				]}
-			/>
+const ListItem = props => {
+	const [theme] = useStore("theme")
+
+	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
+
+	return itsIOS || itsWeb || variables.androidRipple === false || (!props.onPress && !props.onLongPress) || Platform.Version <= 21 ? (
+		<TouchableHighlight underlayColor={variables.listBtnUnderlayColor} {...props} style={props.touchableHighlightStyle}>
+			<View {...props} testID={undefined} />
 		</TouchableHighlight>
+	) : (
+		<TouchableNativeFeedback {...props}>
+			<View style={{ marginLeft: -17, paddingLeft: 17 }}>
+				<View {...props} testID={undefined} />
+			</View>
+		</TouchableNativeFeedback>
 	)
 }
 
-ListItem.defaultProps = {
-	...View.defaultProps,
-	borderColor: "#e0e0e0",
-	borderBottomWidth: 1,
+ListItem.propTypes = {
+	...TouchableHighlight.propTypes,
+	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+	touchableHighlightStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+	itemDivider: PropTypes.bool,
+	button: PropTypes.bool,
 }
 
-module.exports = ListItem
+module.exports = connectStyle(ListItem, "NativeBase.ListItem")

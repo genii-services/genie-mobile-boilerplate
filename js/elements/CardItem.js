@@ -1,26 +1,13 @@
+const MODULE_NAME$ = "elements/CardItem"
+console.debug(MODULE_NAME$)
+
 const React = require("react")
-const { Component } = React
 const PropTypes = require("prop-types")
 const { TouchableOpacity, View } = require("react-native")
-const { connectStyle } = require("native-base-shoutem-theme")
+const { connectStyle } = require("/utils/style")
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
-
-class CardItem extends Component {
-	render() {
-		if (this.props.button) {
-			return (
-				<TouchableOpacity ref={c => (this._root = c)} activeOpacity={0.2} {...this.props}>
-					{this.props.children}
-				</TouchableOpacity>
-			)
-		}
-		return (
-			<View ref={c => (this._root = c)} {...this.props}>
-				{this.props.children}
-			</View>
-		)
-	}
+const CardItem = props => {
+	return props.button ? <TouchableOpacity activeOpacity={0.2} {...props} /> : <View {...props} />
 }
 
 CardItem.propTypes = {
@@ -32,6 +19,4 @@ CardItem.propTypes = {
 	button: PropTypes.bool,
 }
 
-module.exports = connectStyle("NativeBase.CardItem", {}, mapPropsToStyleNames)(CardItem)
-
-console.log("CardItem", "loaded")
+module.exports = connectStyle(CardItem, MODULE_NAME$)

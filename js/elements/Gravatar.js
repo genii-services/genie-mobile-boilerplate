@@ -1,54 +1,54 @@
+const MODULE_NAME$ = "elements/Gravatar"
+console.debug(MODULE_NAME$)
+
 const React = require("react")
 const PropTypes = require("prop-types")
 const { Image } = require("react-native")
-const { connectStyle } = require("native-base-shoutem-theme")
 const _ = require("lodash")
 const md5 = require("blueimp-md5")
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
 const computeProps = require("/utils/computeProps")
-
-const NativeBaseComponent = require("./NativeBaseComponent")
+const { connectStyle } = require("/utils/style")
 
 const GRAVATAR_URI = "https://www.gravatar.com/avatar/"
 
-class Gravatar extends NativeBaseComponent {
-	getInitialStyle() {
+const Gravatar = props => {
+	const { size = 30 } = props
+
+	const getInitialStyle = () => {
 		return {
 			gravatar: {
-				borderRadius: this.props.size ? this.props.size / 2 : 15,
-				width: this.props.size ? this.props.size : 30,
-				height: this.props.size ? this.props.size : 30,
-				resizeMode: this.props.contain ? "contain" : undefined,
+				borderRadius: size / 2,
+				width: size,
+				height: size,
+				resizeMode: props.contain ? "contain" : undefined,
 			},
 		}
 	}
 
-	prepareRootProps() {
+	const prepareRootProps = () => {
 		const gravatarStyle = {}
-		if (this.props.circular) {
-			gravatarStyle.width = this.props.size
-			gravatarStyle.height = this.props.size
-			gravatarStyle.borderRadius = this.props.size / 2
-		} else if (this.props.square) {
-			gravatarStyle.width = this.props.size
-			gravatarStyle.height = this.props.size
+		if (props.circular) {
+			gravatarStyle.width = size
+			gravatarStyle.height = size
+			gravatarStyle.borderRadius = size / 2
+		} else if (props.square) {
+			gravatarStyle.width = size
+			gravatarStyle.height = size
 			gravatarStyle.borderRadius = 0
 		}
 
 		const defaultProps = {
-			style: _.merge(this.getInitialStyle().gravatar, gravatarStyle),
+			style: _.merge(getInitialStyle().gravatar, gravatarStyle),
 		}
 
-		return computeProps(this.props, defaultProps)
+		return computeProps(props, defaultProps)
 	}
 
-	render() {
-		const props = this.prepareRootProps()
+	const rootProps = prepareRootProps()
 
-		const uri = `${GRAVATAR_URI + md5(this.props.email)}?s=${props.style.height}`
-		return <Image ref={c => (this._root = c)} {...props} source={{ uri }} />
-	}
+	const uri = `${GRAVATAR_URI + md5(props.email)}?s=${rootProps.style.height}`
+	return <Image {...rootProps} source={{ uri }} />
 }
 
 Gravatar.propTypes = {
@@ -60,5 +60,4 @@ Gravatar.propTypes = {
 	square: PropTypes.bool,
 }
 
-module.exports = connectStyle("NativeBase.Gravatar", {}, mapPropsToStyleNames)(Gravatar)
-console.log("Gravatar", "loaded")
+module.exports = connectStyle(Gravatar, MODULE_NAME$)

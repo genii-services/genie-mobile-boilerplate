@@ -1,89 +1,67 @@
-import Ionicons from "react-native-vector-icons/Ionicons"
-console.log("IconNB", "load")
+const MODULE_NAME$ = "elements/IconNB"
+console.debug(MODULE_NAME$)
 
 const React = require("react")
-const { Component } = React
 const PropTypes = require("prop-types")
 const _ = require("lodash")
-const { connectStyle } = require("native-base-shoutem-theme")
 
-const AntDesign = require("react-native-vector-icons/AntDesign")
-const Entypo = require("react-native-vector-icons/Entypo")
-const EvilIcons = require("react-native-vector-icons/EvilIcons")
-const Feather = require("react-native-vector-icons/Feather")
-const FontAwesome = require("react-native-vector-icons/FontAwesome")
-const FontAwesome5 = require("react-native-vector-icons/FontAwesome5")
-const Foundation = require("react-native-vector-icons/Foundation")
-// const Ionicons = require("react-native-vector-icons/Ionicons")
-const MaterialCommunityIcons = require("react-native-vector-icons/MaterialCommunityIcons")
-const MaterialIcons = require("react-native-vector-icons/MaterialIcons")
-const Octicons = require("react-native-vector-icons/Octicons")
-const SimpleLineIcons = require("react-native-vector-icons/SimpleLineIcons")
-const Zocial = require("react-native-vector-icons/Zocial")
+const AntDesign = require("react-native-vector-icons/AntDesign").default
+const Entypo = require("react-native-vector-icons/Entypo").default
+const EvilIcons = require("react-native-vector-icons/EvilIcons").default
+const Feather = require("react-native-vector-icons/Feather").default
+const FontAwesome = require("react-native-vector-icons/FontAwesome").default
+const FontAwesome5 = require("react-native-vector-icons/FontAwesome5").default
+const Foundation = require("react-native-vector-icons/Foundation").default
+const Ionicons = require("react-native-vector-icons/Ionicons").default
+const MaterialCommunityIcons = require("react-native-vector-icons/MaterialCommunityIcons").default
+const MaterialIcons = require("react-native-vector-icons/MaterialIcons").default
+const Octicons = require("react-native-vector-icons/Octicons").default
+const SimpleLineIcons = require("react-native-vector-icons/SimpleLineIcons").default
+const Zocial = require("react-native-vector-icons/Zocial").default
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { useState, useStore, useThis } = require("/hooks")
+
+const { connectStyle } = require("/utils/style")
 
 const Iconz = {
-	AntDesign: AntDesign,
-	Entypo: Entypo,
-	EvilIcons: EvilIcons,
-	Feather: Feather,
-	FontAwesome: FontAwesome,
-	FontAwesome5: FontAwesome5,
-	Foundation: Foundation,
-	Ionicons: Ionicons,
-	MaterialCommunityIcons: MaterialCommunityIcons,
-	MaterialIcons: MaterialIcons,
-	Octicons: Octicons,
-	SimpleLineIcons: SimpleLineIcons,
-	Zocial: Zocial,
+	AntDesign,
+	Entypo,
+	EvilIcons,
+	Feather,
+	FontAwesome,
+	FontAwesome5,
+	Foundation,
+	Ionicons,
+	MaterialCommunityIcons,
+	MaterialIcons,
+	Octicons,
+	SimpleLineIcons,
+	Zocial,
 }
+
 const defaultIcon = Ionicons
 
-class IconNB extends Component {
-	static contextTypes = {
-		theme: PropTypes.object,
-	}
+const IconNB = props => {
+	const [theme] = useStore("theme")
+	const _this = useThis()
 
-	constructor(props) {
-		super(props)
-		this.setIcon(props.type)
-	}
-
-	setIcon(iconType) {
-		if (iconType === undefined && _.get(this, "context.theme")) {
+	const setIcon = iconType => {
+		if (iconType === undefined && theme) {
 			// eslint-disable-next-line
-			iconType = this.context.theme["@@shoutem.theme/themeStyle"].variables.iconFamily
+			iconType = theme["@@shoutem.theme/themeStyle"].variables.iconFamily
 		}
-		this.Icon = Iconz[iconType] || defaultIcon
+		_this.Icon = Iconz[iconType] || defaultIcon
+		_this.type = iconType || "Ionicons"
 	}
 
-	// eslint-disable-next-line camelcase
-	UNSAFE_componentWillUpdate(nextProps) {
-		if (nextProps.type && this.props.type !== nextProps.type) this.setIcon(nextProps.type)
-	}
+	if (!_this.type || _this.type !== props.type) setIcon(props.type)
 
-	render() {
-		return <this.Icon ref={c => (this._root = c)} {...this.props} />
-	}
+	return <_this.Icon {...props} />
 }
 
 IconNB.propTypes = {
-	type: PropTypes.oneOf([
-		"AntDesign",
-		"Entypo",
-		"EvilIcons",
-		"Feather",
-		"FontAwesome",
-		"FontAwesome5",
-		"Foundation",
-		"Ionicons",
-		"MaterialCommunityIcons",
-		"MaterialIcons",
-		"Octicons",
-		"SimpleLineIcons",
-		"Zocial",
-	]),
+	type: PropTypes.oneOf(_.keys(Iconz)),
 }
 
-module.exports = connectStyle("NativeBase.IconNB", {}, mapPropsToStyleNames)(IconNB)
+module.exports = connectStyle(IconNB, MODULE_NAME$)
+console.debug(MODULE_NAME$, module.exports)

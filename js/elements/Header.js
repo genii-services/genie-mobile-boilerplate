@@ -1,113 +1,87 @@
+const MODULE_NAME$ = "elements/Header"
+console.debug(MODULE_NAME$)
+
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-unneeded-ternary */
 const { get } = require("lodash")
-const { connectStyle } = require("native-base-shoutem-theme")
 const PropTypes = require("prop-types")
 const React = require("react")
-const { Component } = React
 const { View, StatusBar, StyleSheet, ViewPropTypes } = require("react-native")
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { connectStyle } = require("/utils/style")
+const { useState, useStore } = require("/hooks")
 const variable = require("/styles/themes/default")
 
-class Header extends Component {
-	static contextTypes = {
-		theme: PropTypes.object,
-	}
+const Header = props => {
+	const [theme] = useStore("theme")
 
-	constructor(props) {
-		super(props)
-		this.state = {
-			orientation: "portrait",
-		}
-	}
+	const [_orientation, set_orientation] = useState("portrait")
 
-	layoutChange(val) {
+	const layoutChange = val => {
 		const maxComp = Math.max(variable.deviceWidth, variable.deviceHeight)
-
-		if (val.width >= maxComp) this.setState({ orientation: "landscape" })
-		else this.setState({ orientation: "portrait" })
+		set_orientation(val.width >= maxComp ? "landscape" : "portrait")
 	}
 
-	calculateHeight(mode, inSet) {
-		const { style } = this.props
-		let inset = null
-
-		if (inSet !== undefined) {
-			inset = inSet
-		} else {
-			inset = variable.Inset
-		}
+	const calculateHeight = (mode, inSet) => {
+		const { style } = props
+		let inset = inSet || variable.Inset
 
 		const InsetValues = mode === "portrait" ? inset.portrait : inset.landscape
-		let oldHeight = null
-
-		if (style.height !== undefined) {
-			oldHeight = style.height
-		} else if (style[1]) {
-			oldHeight = style[1].height ? style[1].height : style[0].height
-		} else {
-			oldHeight = style[0].height
-		}
+		let oldHeight =
+			style.height !== undefined
+				? style.height
+				: style[1]
+				? style[1].height
+					? style[1].height
+					: style[0].height
+				: style[0].height
 
 		const height = oldHeight + InsetValues.topInset
-
 		return height
 	}
 
-	calculatePadder(mode, inSet) {
-		let inset = null
-
-		if (inSet !== undefined) {
-			inset = inSet
-		} else {
-			inset = variable.Inset
-		}
-
+	const calculatePadder = (mode, inSet) => {
+		let inset = inSet || variable.Inset
 		const InsetValues = mode === "portrait" ? inset.portrait : inset.landscape
 		let topPadder = null
-		const style = StyleSheet.flatten(this.props.style)
+		const style = StyleSheet.flatten(props.style)
 
 		if (style.padding !== undefined || style.paddingTop !== undefined) {
 			topPadder = (style.paddingTop ? style.paddingTop : get(style, "padding", 0)) + InsetValues.topInset
 		} else {
 			topPadder = InsetValues.topInset
 		}
-
 		return topPadder
 	}
 
-	render() {
-		const { androidStatusBarColor, iosBarStyle, style, transparent, translucent } = this.props
-		const { orientation } = this.state
-		const variables = this.context.theme ? this.context.theme["@@shoutem.theme/themeStyle"].variables : variable
-		const platformStyle = variables.platformStyle
+	const { androidStatusBarColor, iosBarStyle, style, transparent, translucent } = props
 
-		return (
-			<View onLayout={e => this.layoutChange(e.nativeEvent.layout)}>
-				<StatusBar
-					backgroundColor={androidStatusBarColor ? androidStatusBarColor : variables.statusBarColor}
-					barStyle={iosBarStyle ? iosBarStyle : platformStyle === "material" ? "light-content" : variables.iosStatusbar}
-					translucent={transparent ? true : translucent}
+	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
+	const platformStyle = variables.platformStyle
+
+	return (
+		<View onLayout={e => layoutChange(e.nativeEvent.layout)}>
+			<StatusBar
+				backgroundColor={androidStatusBarColor ? androidStatusBarColor : variables.statusBarColor}
+				barStyle={iosBarStyle ? iosBarStyle : platformStyle === "material" ? "light-content" : variables.iosStatusbar}
+				translucent={transparent ? true : translucent}
+			/>
+			{variables.isIphoneX ? (
+				<View
+					{...props}
+					style={[
+						style,
+						{
+							height: calculateHeight(_orientation, variables.Inset),
+							paddingTop: calculatePadder(_orientation, variables.Inset),
+						},
+					]}
 				/>
-				{variables.isIphoneX ? (
-					<View
-						ref={c => (this._root = c)}
-						{...this.props}
-						style={[
-							style,
-							{
-								height: this.calculateHeight(orientation, variables.Inset),
-								paddingTop: this.calculatePadder(orientation, variables.Inset),
-							},
-						]}
-					/>
-				) : (
-					<View ref={c => (this._root = c)} {...this.props} />
-				)}
-			</View>
-		)
-	}
+			) : (
+				<View {...props} />
+			)}
+		</View>
+	)
 }
 
 Header.propTypes = {
@@ -117,5 +91,4 @@ Header.propTypes = {
 	rounded: PropTypes.bool,
 }
 
-module.exports = connectStyle("NativeBase.Header", {}, mapPropsToStyleNames)(Header)
-console.log("Header", "loaded")
+module.exports = connectStyle(Header, MODULE_NAME$)

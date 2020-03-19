@@ -1,10 +1,12 @@
+const MODULE_NAME$ = "elements/SwipeRow"
+console.debug(MODULE_NAME$)
+
 const React = require("react")
 const { Component } = React
 const PropTypes = require("prop-types")
 const { Animated, PanResponder, View } = require("react-native")
-const { connectStyle } = require("native-base-shoutem-theme")
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { connectStyle } = require("/utils/style")
 
 const { Left } = require("./Left")
 const { Right } = require("./Right")
@@ -274,5 +276,4 @@ const styles = {
 	},
 }
 
-module.exports = connectStyle("NativeBase.SwipeRow", {}, mapPropsToStyleNames)(SwipeRow)
-console.log("SwipeRow", "loaded")
+module.exports = connectStyle(SwipeRow, MODULE_NAME$)

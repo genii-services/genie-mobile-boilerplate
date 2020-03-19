@@ -1,32 +1,23 @@
+const MODULE_NAME$ = "elements/Root"
+console.debug(MODULE_NAME$)
+
 const React = require("react")
-const { Component } = React
 const { View, ViewPropTypes } = require("react-native")
 const PropTypes = require("prop-types")
-const { connectStyle } = require("native-base-shoutem-theme")
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { connectStyle } = require("/utils/style")
 
 const { ToastContainer: Toast } = require("./ToastContainer")
-const { ActionSheetContainer: ActionSheet } = require("./Actionsheet")
+const { ActionSheetContainer: ActionSheet } = require("./ActionSheet")
 
-class Root extends Component {
-	render() {
-		return (
-			<View ref={c => (this._root = c)} {...this.props} style={{ flex: 1 }}>
-				{this.props.children}
-				<Toast
-					ref={c => {
-						if (c) Toast.toastInstance = c
-					}}
-				/>
-				<ActionSheet
-					ref={c => {
-						if (c) ActionSheet.actionsheetInstance = c
-					}}
-				/>
-			</View>
-		)
-	}
+const Root = ({ children, ...props }) => {
+	return (
+		<View {...props} style={{ flex: 1 }}>
+			{children}
+			<Toast ref={c => c && (Toast.toastInstance = c)} />
+			<ActionSheet ref={c => c && (ActionSheet.actionsheetInstance = c)} />
+		</View>
+	)
 }
 
 Root.propTypes = {
@@ -34,6 +25,4 @@ Root.propTypes = {
 	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
 }
 
-module.exports = connectStyle("NativeBase.Root", {}, mapPropsToStyleNames)(Root)
-
-console.log("Root", "loaded")
+module.exports = connectStyle(Root, MODULE_NAME$)

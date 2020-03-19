@@ -1,14 +1,14 @@
-console.log("ScrollableTab", "load")
+const MODULE_NAME$ = "Tabs/ScrollableTabBar"
+console.debug(MODULE_NAME$)
 
 const React = require("react")
-const { Component } = React
 const PropTypes = require("prop-types")
 const ReactNative = require("react-native")
 const { View, Animated, StyleSheet, ScrollView, Platform, Dimensions, ViewPropTypes } = ReactNative
 const { isEqual } = require("lodash")
-const { connectStyle } = require("native-base-shoutem-theme")
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { connectStyle } = require("/utils/style")
+const { useState, useStore, useThis } = require("/hooks")
 const variable = require("/styles/themes/default")
 
 const TabHeading = require("../TabHeading")
@@ -17,27 +17,11 @@ const Button = require("./Button")
 
 const WINDOW_WIDTH = Dimensions.get("window").width
 
-class ScrollableTabBar extends Component {
-	propTypes = {
-		goToPage: PropTypes.func,
-		activeTab: PropTypes.number,
-		tabs: PropTypes.array,
-		backgroundColor: PropTypes.string,
-		activeTextColor: PropTypes.string,
-		inactiveTextColor: PropTypes.string,
-		scrollOffset: PropTypes.number,
-		style: ViewPropTypes.style,
-		tabStyle: ViewPropTypes.style,
-		tabsContainerStyle: ViewPropTypes.style,
-		renderTab: PropTypes.func,
-		underlineStyle: ViewPropTypes.style,
-		onScroll: PropTypes.func,
-	}
-	contextTypes = {
-		theme: PropTypes.object,
-	}
+const ScrollableTabBar = props => {
+	const [theme] = useStore("theme")
+	const _this = useThis()
 
-	getDefaultProps() {
+	const getDefaultProps = () => {
 		return {
 			scrollOffset: 52,
 			activeTextColor: "navy",
@@ -51,8 +35,8 @@ class ScrollableTabBar extends Component {
 		}
 	}
 
-	getInitialState() {
-		this._tabsMeasurements = []
+	const getInitialState = () => {
+		_this._tabsMeasurements = []
 		return {
 			_leftTabUnderline: new Animated.Value(0),
 			_widthTabUnderline: new Animated.Value(0),
@@ -60,41 +44,40 @@ class ScrollableTabBar extends Component {
 		}
 	}
 
-	componentDidMount() {
-		this.props.scrollValue.addListener(this.updateView)
-	}
+	useEffect(() => {
+		props.scrollValue.addListener(updateView)
+		return () => props.scrollValue.removeListener(updateView)
+	}, [])
 
-	updateView(offset) {
+	const updateView = offset => {
 		const position = Math.floor(offset.value)
 		const pageOffset = offset.value % 1
-		const tabCount = this.props.tabs.length
+		const tabCount = props.tabs.length
 		const lastTabPosition = tabCount - 1
 
-		if (tabCount === 0 || offset.value < 0 || offset.value > lastTabPosition) {
-			return
-		}
+		if (tabCount === 0 || offset.value < 0 || offset.value > lastTabPosition) return
 
-		if (this.necessarilyMeasurementsCompleted(position, position === lastTabPosition)) {
-			this.updateTabPanel(position, pageOffset)
-			this.updateTabUnderline(position, pageOffset, tabCount)
+		if (necessarilyMeasurementsCompleted(position, position === lastTabPosition)) {
+			updateTabPanel(position, pageOffset)
+			updateTabUnderline(position, pageOffset, tabCount)
 		}
 	}
 
-	necessarilyMeasurementsCompleted(position, isLastTab) {
+	const necessarilyMeasurementsCompleted = (position, isLastTab) => {
 		return (
-			this._tabsMeasurements[position] &&
-			(isLastTab || this._tabsMeasurements[position + 1]) &&
-			this._tabContainerMeasurements &&
-			this._containerMeasurements
+			_this._tabsMeasurements[position] &&
+			(isLastTab || _this._tabsMeasurements[position + 1]) &&
+			_this._tabContainerMeasurements &&
+			_this._containerMeasurements
 		)
 	}
 
-	updateTabPanel(position, pageOffset) {
-		const containerWidth = this._containerMeasurements.width
-		const tabWidth = this._tabsMeasurements[position].width
-		const nextTabMeasurements = this._tabsMeasurements[position + 1]
+	const updateTabPanel = (position, pageOffset) => {
+		const containerWidth = _this._containerMeasurements.width
+		const tabWidth = _this._tabsMeasurements[position].width
+		const nextTabMeasurements = _this._tabsMeasurements[position + 1]
 		const nextTabWidth = (nextTabMeasurements && nextTabMeasurements.width) || 0
-		const tabOffset = this._tabsMeasurements[position].left
+		const tabOffset = _this._tabsMeasurements[position].left
 		const absolutePageOffset = pageOffset * tabWidth
 		let newScrollX = tabOffset + absolutePageOffset
 
@@ -103,34 +86,34 @@ class ScrollableTabBar extends Component {
 		newScrollX = newScrollX >= 0 ? newScrollX : 0
 
 		if (Platform.OS === "android") {
-			this._scrollView.scrollTo({ x: newScrollX, y: 0, animated: false })
+			_this._scrollView.scrollTo({ x: newScrollX, y: 0, animated: false })
 		} else {
-			const rightBoundScroll = this._tabContainerMeasurements.width - this._containerMeasurements.width
+			const rightBoundScroll = _this._tabContainerMeasurements.width - _this._containerMeasurements.width
 			newScrollX = newScrollX > rightBoundScroll ? rightBoundScroll : newScrollX
-			this._scrollView.scrollTo({ x: newScrollX, y: 0, animated: false })
+			_this._scrollView.scrollTo({ x: newScrollX, y: 0, animated: false })
 		}
 	}
 
-	updateTabUnderline(position, pageOffset, tabCount) {
-		const lineLeft = this._tabsMeasurements[position].left
-		const lineRight = this._tabsMeasurements[position].right
+	const updateTabUnderline = (position, pageOffset, tabCount) => {
+		const lineLeft = _this._tabsMeasurements[position].left
+		const lineRight = _this._tabsMeasurements[position].right
 
 		if (position < tabCount - 1) {
-			const nextTabLeft = this._tabsMeasurements[position + 1].left
-			const nextTabRight = this._tabsMeasurements[position + 1].right
+			const nextTabLeft = _this._tabsMeasurements[position + 1].left
+			const nextTabRight = _this._tabsMeasurements[position + 1].right
 
 			const newLineLeft = pageOffset * nextTabLeft + (1 - pageOffset) * lineLeft
 			const newLineRight = pageOffset * nextTabRight + (1 - pageOffset) * lineRight
 
-			this.state._leftTabUnderline.setValue(newLineLeft)
-			this.state._widthTabUnderline.setValue(newLineRight - newLineLeft)
+			_leftTabUnderline.setValue(newLineLeft)
+			_widthTabUnderline.setValue(newLineRight - newLineLeft)
 		} else {
-			this.state._leftTabUnderline.setValue(lineLeft)
-			this.state._widthTabUnderline.setValue(lineRight - lineLeft)
+			_leftTabUnderline.setValue(lineLeft)
+			_widthTabUnderline.setValue(lineRight - lineLeft)
 		}
 	}
 
-	renderTab(
+	const renderTab = (
 		name,
 		page,
 		isTabActive,
@@ -142,9 +125,9 @@ class ScrollableTabBar extends Component {
 		activeTextStyle,
 		tabHeaderStyle,
 		tabFontSize
-	) {
+	) => {
 		const headerContent = typeof name !== "string" ? name.props.children : undefined
-		const { activeTextColor, inactiveTextColor } = this.props
+		const { activeTextColor, inactiveTextColor } = props
 		const textColor = isTabActive ? activeTextColor : inactiveTextColor
 		const fontWeight = isTabActive ? "bold" : "normal"
 
@@ -166,91 +149,102 @@ class ScrollableTabBar extends Component {
 		)
 	}
 
-	measureTab(page, event) {
+	const measureTab = (page, event) => {
 		const { x, width, height } = event.nativeEvent.layout
-		this._tabsMeasurements[page] = { left: x, right: x + width, width, height }
-		this.updateView({ value: this.props.scrollValue._value })
+		_this._tabsMeasurements[page] = { left: x, right: x + width, width, height }
+		updateView({ value: props.scrollValue._value })
 	}
 
-	render() {
-		const variables = this.context.theme ? this.context.theme["@@shoutem.theme/themeStyle"].variables : variable
-		const tabUnderlineStyle = {
-			position: "absolute",
-			height: 4,
-			backgroundColor: variables.topTabBarActiveBorderColor,
-			bottom: 0,
-		}
-
-		const dynamicTabUnderline = {
-			left: this.state._leftTabUnderline,
-			width: this.state._widthTabUnderline,
-		}
-
-		return (
-			<View
-				style={[styles.container, { backgroundColor: this.props.backgroundColor }, this.props.style]}
-				onLayout={this.onContainerLayout}>
-				<ScrollView
-					automaticallyAdjustContentInsets={false}
-					ref={scrollView => {
-						this._scrollView = scrollView
-					}}
-					horizontal
-					showsHorizontalScrollIndicator={false}
-					showsVerticalScrollIndicator={false}
-					directionalLockEnabled
-					onScroll={this.props.onScroll}
-					bounces={false}
-					scrollsToTop={false}>
-					<View
-						style={[styles.tabs, { width: this.state._containerWidth }, this.props.tabsContainerStyle]}
-						ref={"tabContainer"}
-						onLayout={this.onTabContainerLayout}>
-						{this.props.tabs.map((name, page) => {
-							const isTabActive = this.props.activeTab === page
-							const renderTab = this.props.renderTab || this.renderTab
-							return renderTab(
-								name,
-								page,
-								isTabActive,
-								this.props.goToPage,
-								this.measureTab.bind(this, page),
-								this.props.tabStyle[page],
-								this.props.activeTabStyle[page],
-								this.props.textStyle[page],
-								this.props.activeTextStyle[page],
-								this.props.tabHeaderStyle[page],
-								variables.tabFontSize
-							)
-						})}
-						<Animated.View style={[tabUnderlineStyle, dynamicTabUnderline, this.props.underlineStyle]} />
-					</View>
-				</ScrollView>
-			</View>
-		)
+	// If the tabs change, force the width of the tabs container to be recalculated
+	if (!isEqual(_this.tabs, props.tabs) && _containerWidth) {
+		_this.tabs = props.tabs
+		set_containerWidth(null)
 	}
 
-	UNSAFE_componentWillReceiveProps(nextProps) {
-		// If the tabs change, force the width of the tabs container to be recalculated
-		if (!isEqual(this.props.tabs, nextProps.tabs) && this.state._containerWidth) {
-			this.setState({ _containerWidth: null })
-		}
-	}
-
-	onTabContainerLayout(e) {
-		this._tabContainerMeasurements = e.nativeEvent.layout
-		let width = this._tabContainerMeasurements.width
+	const onTabContainerLayout = e => {
+		_this._tabContainerMeasurements = e.nativeEvent.layout
+		let width = _this._tabContainerMeasurements.width
 		if (width < WINDOW_WIDTH) {
 			width = WINDOW_WIDTH
 		}
-		this.setState({ _containerWidth: width })
-		this.updateView({ value: this.props.scrollValue._value })
+		set_containerWidth(width)
+		updateView({ value: props.scrollValue._value })
 	}
 
-	onContainerLayout(e) {
-		this._containerMeasurements = e.nativeEvent.layout
-		this.updateView({ value: this.props.scrollValue._value })
+	const onContainerLayout = e => {
+		_this._containerMeasurements = e.nativeEvent.layout
+		updateView({ value: props.scrollValue._value })
 	}
+
+	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
+	const tabUnderlineStyle = {
+		position: "absolute",
+		height: 4,
+		backgroundColor: variables.topTabBarActiveBorderColor,
+		bottom: 0,
+	}
+
+	const dynamicTabUnderline = {
+		left: _leftTabUnderline,
+		width: _widthTabUnderline,
+	}
+
+	return (
+		<View style={[styles.container, { backgroundColor: props.backgroundColor }, props.style]} onLayout={_this.onContainerLayout}>
+			<ScrollView
+				automaticallyAdjustContentInsets={false}
+				ref={scrollView => {
+					_this._scrollView = scrollView
+				}}
+				horizontal
+				showsHorizontalScrollIndicator={false}
+				showsVerticalScrollIndicator={false}
+				directionalLockEnabled
+				onScroll={props.onScroll}
+				bounces={false}
+				scrollsToTop={false}>
+				<View
+					style={[styles.tabs, { width: _containerWidth }, props.tabsContainerStyle]}
+					ref={"tabContainer"}
+					onLayout={onTabContainerLayout}>
+					{props.tabs.map((name, page) => {
+						const isTabActive = props.activeTab === page
+						const renderTab = props.renderTab || renderTab
+						return renderTab(
+							name,
+							page,
+							isTabActive,
+							props.goToPage,
+							measureTab.bind(this, page),
+							props.tabStyle[page],
+							props.activeTabStyle[page],
+							props.textStyle[page],
+							props.activeTextStyle[page],
+							props.tabHeaderStyle[page],
+							variables.tabFontSize
+						)
+					})}
+					<Animated.View style={[tabUnderlineStyle, dynamicTabUnderline, props.underlineStyle]} />
+				</View>
+			</ScrollView>
+		</View>
+	)
+}
+
+ScrollableTabBar.propTypes = {
+	goToPage: PropTypes.func,
+	activeTab: PropTypes.number,
+	tabs: PropTypes.array,
+	backgroundColor: PropTypes.string,
+	activeTextColor: PropTypes.string,
+	inactiveTextColor: PropTypes.string,
+	scrollOffset: PropTypes.number,
+	style: ViewPropTypes.style,
+	tabStyle: ViewPropTypes.style,
+	tabsContainerStyle: ViewPropTypes.style,
+	renderTab: PropTypes.func,
+	underlineStyle: ViewPropTypes.style,
+	onScroll: PropTypes.func,
 }
 
 const styles = StyleSheet.create({
@@ -275,4 +269,4 @@ const styles = StyleSheet.create({
 	},
 })
 
-module.exports = connectStyle("NativeBase.ScrollableTab", {}, mapPropsToStyleNames)(ScrollableTabBar)
+module.exports = connectStyle(ScrollableTabBar, MODULE_NAME$)

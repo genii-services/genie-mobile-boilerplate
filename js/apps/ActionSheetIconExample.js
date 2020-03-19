@@ -24,7 +24,7 @@ const ActionSheetIconExample = props => {
 							buttonIndex => set_clicked(BUTTONS[buttonIndex])
 						)
 					}>
-					<Text>Actionsheet</Text>
+					<Text>ActionSheet</Text>
 				</Button>
 			</Content>
 		</Container>

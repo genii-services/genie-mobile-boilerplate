@@ -2,16 +2,20 @@
 const React = require("react")
 const PropTypes = require("prop-types")
 const { StatusBar, View } = require("react-native")
-const { Header, Button, Icon, Text } = require("/elements")
 
 const { FUNCTION } = require("/constants")
 const { CENTER } = require("/constants/style")
 const { itsIphoneX } = require("/utils/device")
 const { useRouter } = require("/coordinators") // const router = require("/utils/router")
 const { useStyle } = require("/coordinators")
-const LocalImage = require("./LocalImage")
 
-const app = require("../../app.json")
+const Button = require("./Button")
+const Header = require("./Header")
+const Icon = require("./Icon")
+const LocalImage = require("./LocalImage")
+const Text = require("./Text")
+
+const app = require("/../app.json")
 
 const TitleBar = props => {
 	const router = useRouter()

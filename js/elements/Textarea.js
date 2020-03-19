@@ -1,45 +1,41 @@
+const MODULE_NAME$ = "elements/Textarea"
+console.debug(MODULE_NAME$)
+
 const React = require("react")
-const { Component } = React
 const PropTypes = require("prop-types")
 const { TextInput } = require("react-native")
-const { connectStyle } = require("native-base-shoutem-theme")
 
 const variables = require("/styles/themes/default")
-const computeProps = require("../utils/computeProps")
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const computeProps = require("/utils/computeProps")
+const { connectStyle } = require("/utils/style")
 
-class Textarea extends Component {
-	getStyle() {
-		return {
-			textarea: {
-				height: this.props.rowSpan ? this.props.rowSpan * 25 : 60,
-			},
+const Textarea = props => {
+	const { useRefs } = require("/hooks")
+	const refs = useRefs()
+
+	const getStyle = () => {
+		textarea: {
+			height: props.rowSpan ? props.rowSpan * 25 : 60
 		}
 	}
 
-	prepareRootProps() {
+	const prepareRootProps = () => {
 		const defaultProps = {
-			style: this.getStyle().textarea,
+			style: getStyle().textarea,
 		}
-		return computeProps(this.props, defaultProps)
+		return computeProps(props, defaultProps)
 	}
-	render() {
-		return (
-			<TextInput
-				ref={c => {
-					this._textInput = c
-					this._root = c
-				}}
-				{...this.prepareRootProps()}
-				multiline
-				placeholderTextColor={
-					this.props.placeholderTextColor ? this.props.placeholderTextColor : variables.inputColorPlaceholder
-				}
-				underlineColorAndroid="rgba(0,0,0,0)"
-				editable={!this.props.disabled}
-			/>
-		)
-	}
+
+	return (
+		<TextInput
+			ref={c => (refs._textInput = c)}
+			{...prepareRootProps()}
+			multiline
+			placeholderTextColor={props.placeholderTextColor || variables.inputColorPlaceholder}
+			underlineColorAndroid="rgba(0,0,0,0)"
+			editable={!props.disabled}
+		/>
+	)
 }
 
 Textarea.propTypes = {
@@ -50,6 +46,4 @@ Textarea.propTypes = {
 	underline: PropTypes.bool,
 }
 
-module.exports = connectStyle("NativeBase.Textarea", {}, mapPropsToStyleNames)(Textarea)
-
-console.log("Textarea", "loaded")
+module.exports = connectStyle(Textarea, MODULE_NAME$)

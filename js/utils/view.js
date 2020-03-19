@@ -7,6 +7,7 @@ const { Toast } = require("/elements")
 
 const { OBJECT } = require("/constants")
 const { BOTTOM, TOP } = require("/constants/style")
+
 const { itsIOS } = require("./device")
 
 function popup(text, title, buttons, duration = 3000, position = "bottom") {

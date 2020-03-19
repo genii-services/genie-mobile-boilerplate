@@ -1,29 +1,25 @@
-console.debug("Input", "load")
+const MODULE_NAME$ = "elements/Input"
+console.debug(MODULE_NAME$)
 
 const React = require("react")
 const PropTypes = require("prop-types")
 const { TextInput } = require("react-native")
-const { connectStyle } = require("native-base-shoutem-theme")
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { connectStyle } = require("/utils/style")
+const { useState, useStore, useThis } = require("/hooks")
 const variable = require("/styles/themes/default")
 
-const NativeBaseComponent = require("./NativeBaseComponent")
-
-class Input extends NativeBaseComponent {
-	render() {
-		const { props } = this
-		const variables = this.context.theme ? this.context.theme["@@shoutem.theme/themeStyle"].variables : variable
-		return (
-			<TextInput
-				ref={c => (this._root = this._textInput = c)}
-				editable={!props.disabled}
-				underlineColorAndroid="rgba(0,0,0,0)"
-				placeholderTextColor={props.placeholderTextColor ? props.placeholderTextColor : variables.inputColorPlaceholder}
-				{...props}
-			/>
-		)
-	}
+const Input = props => {
+	const [theme] = useStore("theme")
+	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
+	return (
+		<TextInput
+			editable={!props.disabled}
+			underlineColorAndroid="rgba(0,0,0,0)"
+			placeholderTextColor={variables.inputColorPlaceholder}
+			{...props}
+		/>
+	)
 }
 
 Input.propTypes = {
@@ -31,4 +27,4 @@ Input.propTypes = {
 	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
 }
 
-module.exports = connectStyle("NativeBase.Input", {}, mapPropsToStyleNames)(Input)
+module.exports = connectStyle(Input, MODULE_NAME$)

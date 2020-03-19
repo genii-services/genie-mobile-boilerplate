@@ -1,21 +1,10 @@
-const React = require("react")
-const { Component } = React
-const PropTypes = require("prop-types")
-const { View, ViewPropTypes } = require("react-native")
-const { connectStyle } = require("native-base-shoutem-theme")
+const MODULE_NAME$ = "elements/TabContainer"
+console.debug(MODULE_NAME$)
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { View } = require("react-native")
 
-class TabContainer extends Component {
-	render() {
-		return <View ref={c => (this._root = c)} {...this.props} />
-	}
-}
+const { connectStyle } = require("/utils/style")
 
-TabContainer.propTypes = {
-	...ViewPropTypes,
-	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-}
+const TabContainer = View
 
-module.exports = connectStyle("NativeBase.TabContainer", {}, mapPropsToStyleNames)(TabContainer)
-console.log("TabContainer", "loaded")
+module.exports = connectStyle(TabContainer, MODULE_NAME$)

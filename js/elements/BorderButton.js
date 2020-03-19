@@ -4,13 +4,16 @@ console.debug("BorderButton")
 const React = require("react")
 const PropTypes = require("prop-types")
 const _ = require("lodash")
-const { Button, Text } = require("/elements")
 const IconFA = require("react-native-vector-icons/FontAwesome")
 
 const { CENTER } = require("/constants/style")
 const { itsIOS, itsTablet, screen } = require("/utils/device")
-const { LocalImage } = require("/elements")
 const { useStyle } = require("/coordinators")
+
+const Button = require("./Button")
+const LocalImage = require("./LocalImage")
+const Text = require("./Text")
+
 const p_widths = [800, 1280] // 768 아이패드, 800 캘럭시TAB
 const pui_widths = [667, 1280] // 667 아이폰6 1280 캘릭시탭x2	아이폰은  PORTRAITUPSIDEDOWN인 경우 Landscape로 처리하는 기종이 있어서 예외처리용, 아이패드는 정상적으로 Portrait로 나옴
 const pua_widths = [1024, 1280] // 1024 아이패드 1280 캘릭시탭x2

@@ -1,21 +1,10 @@
-const React = require("react")
-const { Component } = React
-const PropTypes = require("prop-types")
+const MODULE_NAME$ = "elements/Subtitle"
+console.log(MODULE_NAME$, "load")
+
 const { Text } = require("react-native")
-const { connectStyle } = require("native-base-shoutem-theme")
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { connectStyle } = require("/utils/style")
 
-class Subtitle extends Component {
-	render() {
-		return <Text ref={c => (this._root = c)} {...this.props} />
-	}
-}
+const Subtitle = Text
 
-Subtitle.propTypes = {
-	...Text.propTypes,
-	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-}
-
-module.exports = connectStyle("NativeBase.Subtitle", {}, mapPropsToStyleNames)(Subtitle)
-console.log("Subtitle", "loaded")
+module.exports = connectStyle(Subtitle, MODULE_NAME$)

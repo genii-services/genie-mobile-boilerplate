@@ -20,7 +20,7 @@ module.exports = (theme = defaultTheme) => {
 		".danger": {
 			backgroundColor: theme.buttonDangerBg,
 		},
-		"NativeBase.Text": {
+		"elements/Text": {
 			color: theme.badgeColor,
 			fontSize: theme.fontSizeBase,
 			lineHeight: theme.lineHeight - 1,
@@ -31,7 +31,7 @@ module.exports = (theme = defaultTheme) => {
 		padding: theme.badgePadding,
 		paddingHorizontal: 6,
 		alignSelf: "flex-start",
-		justifyContent: itsIOS ? CENTER : undefined,
+		justifyContent: itsIOS && CENTER,
 		borderRadius: 13.5,
 		height: 27,
 	}

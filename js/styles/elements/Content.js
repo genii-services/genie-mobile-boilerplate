@@ -6,7 +6,7 @@ module.exports = () => {
 	return {
 		flex: 1,
 		backgroundColor: TRANSPARENT,
-		"NativeBase.Segment": {
+		"elements/Segment": {
 			borderWidth: 0,
 			backgroundColor: TRANSPARENT,
 		},

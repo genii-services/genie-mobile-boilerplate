@@ -6,7 +6,7 @@ const DeviceInfo = require("react-native-device-info")
 const Orientation = require("react-native-orientation-locker").default
 
 const app = require("/../app.json")
-const { ANDROID, IOS } = require("/constants")
+const { ANDROID, IOS, WEB } = require("/constants")
 
 /**
  * 디바이스 정보 (OS 정보 포함)
@@ -36,6 +36,7 @@ const { width: deviceWidth, height: deviceHeight } = Dimensions.get("window")
 const deviceOS = Platform.OS
 const osVersion = DeviceInfo.getSystemVersion() // 시스템 버전
 
+const itsWeb = deviceOS === WEB
 const itsAndroid = deviceOS === ANDROID
 const itsIOS = deviceOS === IOS
 const itsIPhoneXSize = deviceHeight === 812 || deviceWidth === 812

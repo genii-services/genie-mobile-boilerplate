@@ -15,20 +15,20 @@ module.exports = (theme = defaultTheme) => {
 			flex: itsAndroid ? 0 : 1,
 			minWidth: itsAndroid ? undefined : 60,
 		},
-		"NativeBase.Text": {
+		"elements/Text": {
 			color: theme.topTabBarTextColor,
 			marginHorizontal: 7,
 		},
-		"NativeBase.Icon": {
+		"elements/Icon": {
 			color: theme.topTabBarTextColor,
 			fontSize: itsIOS ? 26 : undefined,
 		},
 		".active": {
-			"NativeBase.Text": {
+			"elements/Text": {
 				color: theme.topTabBarActiveTextColor,
 				fontWeight: "600",
 			},
-			"NativeBase.Icon": {
+			"elements/Icon": {
 				color: theme.topTabBarActiveTextColor,
 			},
 		},

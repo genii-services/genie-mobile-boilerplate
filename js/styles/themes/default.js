@@ -1,15 +1,29 @@
 /** 공통 라이브러리 */
-
 const color = require("color")
 const { PixelRatio } = require("react-native")
 
-const { itsIOS } = require("/utils/device")
+const { deviceOS, itsIOS } = require("/utils/device")
 
 const platformStyle = undefined
 
+const textColor = "#000"
+const inverseTextColor = "#fff"
+
+const brandPrimary = itsIOS ? "#007aff" : "#3F51B5"
+const brandInfo = "#62B1F6"
+const brandSuccess = "#5cb85c"
+const brandDanger = "#d9534f"
+const brandWarning = "#f0ad4e"
+
+const toolbarDefaultBg = itsIOS ? "#F8F8F8" : "#3F51B5"
+const tabBgColor = "#F8F8F8"
+
+const fontSizeBase = 15
+const iconFontSize = itsIOS ? 30 : 28
+
 module.exports = {
 	platformStyle,
-	platform,
+	platform: deviceOS,
 
 	// Accordion
 	accordionBorderColor: "#d3d3d3",
@@ -62,7 +76,7 @@ module.exports = {
 	buttonDangerColor: inverseTextColor,
 	buttonWarningBg: brandWarning,
 	buttonWarningColor: inverseTextColor,
-	buttonTextSize: itsIOS ? this.fontSizeBase * 1.1 : this.fontSizeBase - 1,
+	buttonTextSize: itsIOS ? fontSizeBase * 1.1 : fontSizeBase - 1,
 	buttonTextSizeLarge: fontSizeBase * 1.5,
 	buttonTextSizeSmall: fontSizeBase * 0.8,
 	borderRadiusLarge: fontSizeBase * 3.8,
@@ -90,11 +104,11 @@ module.exports = {
 	checkboxTextShadowRadius: 0,
 
 	// Color
-	brandPrimary: itsIOS ? "#007aff" : "#3F51B5",
-	brandInfo: "#62B1F6",
-	brandSuccess: "#5cb85c",
-	brandDanger: "#d9534f",
-	brandWarning: "#f0ad4e",
+	brandPrimary,
+	brandInfo,
+	brandSuccess,
+	brandDanger,
+	brandWarning,
 	brandDark: "#000",
 	brandLight: "#f4f4f4",
 
@@ -130,7 +144,7 @@ module.exports = {
 	// Font
 	DefaultFontSize: 16,
 	fontFamily: itsIOS ? "System" : "System",
-	fontSizeBase: 15,
+	fontSizeBase,
 	fontSizeH1: fontSizeBase * 1.8,
 	fontSizeH2: fontSizeBase * 1.6,
 	fontSizeH3: fontSizeBase * 1.4,
@@ -150,7 +164,7 @@ module.exports = {
 
 	// Header
 	toolbarBtnColor: itsIOS ? "#007aff" : "#fff",
-	toolbarDefaultBg: itsIOS ? "#F8F8F8" : "#3F51B5",
+	toolbarDefaultBg,
 	toolbarHeight: itsIOS ? 64 : 56,
 	toolbarSearchIconSize: itsIOS ? 20 : 23,
 	toolbarInputColor: itsIOS ? "#CECDD2" : "#fff",
@@ -159,16 +173,16 @@ module.exports = {
 	toolbarBtnTextColor: itsIOS ? "#007aff" : "#fff",
 	toolbarDefaultBorder: itsIOS ? "#a7a6ab" : "#3F51B5",
 	iosStatusbar: itsIOS ? "dark-content" : "light-content",
-	statusBarColor: color(this.toolbarDefaultBg)
+	statusBarColor: color(toolbarDefaultBg)
 		.darken(0.2)
 		.hex(),
-	darkenHeader: color(this.tabBgColor)
+	darkenHeader: color(tabBgColor)
 		.darken(0.03)
 		.hex(),
 
 	// Icon
 	iconFamily: "Ionicons",
-	iconFontSize: itsIOS ? 30 : 28,
+	iconFontSize,
 	iconHeaderSize: itsIOS ? 33 : 24,
 
 	// InputGroup
@@ -228,12 +242,12 @@ module.exports = {
 	topTabBarActiveBorderColor: itsIOS ? "#007aff" : "#fff",
 
 	// Tabs
-	tabBgColor: "#F8F8F8",
+	tabBgColor,
 	tabFontSize: 15,
 
 	// Text
-	textColor: "#000",
-	inverseTextColor: "#fff",
+	textColor,
+	inverseTextColor,
 	noteFontSize: 14,
 	defaultTextColor: textColor,
 

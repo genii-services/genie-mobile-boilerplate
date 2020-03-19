@@ -3,17 +3,17 @@ const { CENTER } = require("/constants/style")
 
 module.exports = () => {
 	return {
-		"NativeBase.ListItem": {
+		"elements/ListItem": {
 			".list": {
 				backgroundColor: "#FFF",
 			},
 			marginLeft: 0,
 		},
-		"NativeBase.Left": {
+		"elements/Left": {
 			flex: 0,
 			alignSelf: null,
 			alignItems: null,
-			"NativeBase.Button": {
+			"elements/Button": {
 				flex: 1,
 				alignItems: CENTER,
 				justifyContent: CENTER,
@@ -21,11 +21,11 @@ module.exports = () => {
 				borderRadius: 0,
 			},
 		},
-		"NativeBase.Right": {
+		"elements/Right": {
 			flex: 0,
 			alignSelf: null,
 			alignItems: null,
-			"NativeBase.Button": {
+			"elements/Button": {
 				flex: 1,
 				alignItems: CENTER,
 				justifyContent: CENTER,
@@ -33,7 +33,7 @@ module.exports = () => {
 				borderRadius: 0,
 			},
 		},
-		"NativeBase.Button": {
+		"elements/Button": {
 			flex: 1,
 			height: null,
 			alignItems: CENTER,

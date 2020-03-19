@@ -10,6 +10,6 @@ require("/interactors/exceptionHandler")
 if (!global.initialized) global.initialized = true
 else debugger
 
-const App = require("/apps/TabsScrollableExample")
+const App = require("/apps/CardExample")
 const { name: appName } = require("./app.json")
 ReactNative.AppRegistry.registerComponent(appName, () => App)

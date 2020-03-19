@@ -11,14 +11,15 @@
 ##
 ################################################################################
 
-PROJECT_NAME=vim-cury-mobile
-APPLICATION_ID=com.mbrainworks.vim-cury-mobile
+## PROJECT_NAME=${_PWD##/*/}
+PROJECT_NAME=$(grep "applicationName" app.json | sed 's/.*:.\s*\"//' | sed 's/\".*//')
+APPLICATION_ID=$(grep "applicationId" app.json | sed 's/.*:.\s*\"//' | sed 's/\".*//')
 TEMP_NAME="RNApp$(date +%Y%m%d%H%M)"
 TEMP_PATH=../$TEMP_NAME
 PRJ_PATH=../$1
 
 cd ..
-react-native init $TEMP_NAME --version 0.59
+react-native init $TEMP_NAME --version 0.59.5
 
 cp .vscode $TEMP_PATH
 cp scripts $TEMP_PATH

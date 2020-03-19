@@ -1,20 +1,14 @@
-const React = require("react")
-const { Component } = React
+const MODULE_NAME$ = "elements/PickerItem"
+console.debug(MODULE_NAME$)
+
 const { Picker } = require("react-native")
-const { connectStyle } = require("native-base-shoutem-theme")
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { connectStyle } = require("/utils/style")
 
-class Item extends Component {
-	render() {
-		return <Picker.Item ref={c => (this._root = c)} {...this.props} />
-	}
-}
+const Item = Picker.Item
 
 Item.propTypes = {
 	...Picker.Item.propTypes,
 }
 
-module.exports = connectStyle("NativeBase.Item", {}, mapPropsToStyleNames)(Item)
-
-console.log("Item", "loaded")
+module.exports = connectStyle(Item, "elements/Item")

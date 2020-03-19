@@ -1,4 +1,6 @@
 /** 공통 라이브러리 */
+const MODULE_NAME$ = "interactors/exceptionHandler"
+
 const { Alert } = require("react-native")
 const { getJSExceptionHandler, setNativeExceptionHandler, setJSExceptionHandler } = require("react-native-exception-handler")
 const RNRestart = require("react-native-restart")

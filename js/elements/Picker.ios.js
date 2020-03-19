@@ -1,14 +1,16 @@
+const MODULE_NAME$ = "elements/Picker.ios"
+console.debug(MODULE_NAME$)
+
 /* eslint-disable react/sort-comp */
 const React = require("react")
 const { Component } = React
 const PropTypes = require("prop-types")
 const { FlatList, Modal, View, ViewPropTypes } = require("react-native")
 const { Picker } = require("@react-native-community/picker")
-const { connectStyle } = require("native-base-shoutem-theme")
 const { find, get } = require("lodash")
 
 const computeProps = require("../utils/computeProps")
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { connectStyle } = require("/utils/style")
 
 const Text = require("./Text")
 const { Radio } = require("./Radio")
@@ -220,6 +222,4 @@ PickerNB.propTypes = {
 	renderButton: PropTypes.func,
 }
 
-module.exports = connectStyle("NativeBase.PickerNB", {}, mapPropsToStyleNames)(PickerNB)
-
-console.log("PickerNB", "loaded")
+module.exports = connectStyle(PickerNB, "elements/PickerNB")

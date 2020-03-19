@@ -1,26 +1,10 @@
-const React = require("react")
-const { Component } = React
-const PropTypes = require("prop-types")
-const { View, ViewPropTypes } = require("react-native")
-const { connectStyle } = require("native-base-shoutem-theme")
+const MODULE_NAME$ = "elements/Container"
+console.debug(MODULE_NAME$)
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { View } = require("react-native")
 
-class Container extends Component {
-	render() {
-		return (
-			<View ref={c => (this._root = c)} {...this.props}>
-				{this.props.children}
-			</View>
-		)
-	}
-}
+const { connectStyle } = require("/utils/style")
 
-Container.propTypes = {
-	...ViewPropTypes,
-	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-}
+const Container = View
 
-module.exports = connectStyle("NativeBase.Container", {}, mapPropsToStyleNames)(Container)
-
-console.log("Container", "loaded")
+module.exports = connectStyle(Container, MODULE_NAME$)

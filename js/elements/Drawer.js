@@ -4,7 +4,7 @@ const RNDrawer = require("react-native-drawer")
 
 export default class Drawer extends Component {
 	render() {
-		return <RNDrawer ref={c => (this._root = c)} {...this.props} />
+		return <RNDrawer {...this.props} />
 	}
 }
 

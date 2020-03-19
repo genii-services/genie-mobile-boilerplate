@@ -5,17 +5,17 @@ const defaultTheme = require("/styles/themes/default")
 
 module.exports = (theme = defaultTheme) => {
 	const footerTabTheme = {
-		"NativeBase.Button": {
+		"elements/Button": {
 			".active": {
-				"NativeBase.Text": {
+				"elements/Text": {
 					color: theme.tabBarActiveTextColor,
 					fontSize: theme.tabBarTextSize,
 					lineHeight: 16,
 				},
-				"NativeBase.Icon": {
+				"elements/Icon": {
 					color: theme.tabBarActiveTextColor,
 				},
-				"NativeBase.IconNB": {
+				"elements/IconNB": {
 					color: theme.tabBarActiveTextColor,
 				},
 				backgroundColor: theme.tabActiveBgColor,
@@ -33,8 +33,8 @@ module.exports = (theme = defaultTheme) => {
 			height: theme.footerHeight,
 			justifyContent: CENTER,
 			".badge": {
-				"NativeBase.Badge": {
-					"NativeBase.Text": {
+				"elements/Badge": {
+					"elements/Text": {
 						fontSize: 11,
 						fontWeight: itsIOS ? "600" : undefined,
 						lineHeight: 14,
@@ -47,17 +47,17 @@ module.exports = (theme = defaultTheme) => {
 					padding: 1.7,
 					paddingHorizontal: 3,
 				},
-				"NativeBase.Icon": {
+				"elements/Icon": {
 					marginTop: -18,
 				},
 			},
-			"NativeBase.Icon": {
+			"elements/Icon": {
 				color: theme.tabBarTextColor,
 			},
-			"NativeBase.IconNB": {
+			"elements/IconNB": {
 				color: theme.tabBarTextColor,
 			},
-			"NativeBase.Text": {
+			"elements/Text": {
 				color: theme.tabBarTextColor,
 				fontSize: theme.tabBarTextSize,
 				lineHeight: 16,

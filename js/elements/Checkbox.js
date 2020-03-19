@@ -1,22 +1,22 @@
+const MODULE_NAME$ = "elements/Checkbox"
+console.debug(MODULE_NAME$)
+
 const React = require("react")
-const { Component } = React
 const PropTypes = require("prop-types")
 const { TouchableOpacity } = require("react-native")
-const IconNB = require("react-native-vector-icons/Ionicons")
-const { connectStyle } = require("native-base-shoutem-theme")
+const Ionicons = require("react-native-vector-icons/Ionicons")
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { useStore } = require("/hooks")
+const { connectStyle } = require("/utils/style")
 const variable = require("/styles/themes/default")
 const computeProps = require("../utils/computeProps")
 const { itsIOS } = require("/utils/device")
 
-class CheckBox extends Component {
-	static contextTypes = {
-		theme: PropTypes.object,
-	}
+const CheckBox = props => {
+	const [theme] = useStore("theme")
 
-	getInitialStyle(variables) {
-		const { color, checked } = this.props
+	const getInitialStyle = variables => {
+		const { color, checked } = props
 		return {
 			checkStyle: {
 				borderColor: color || variables.checkboxBgColor,
@@ -25,33 +25,31 @@ class CheckBox extends Component {
 		}
 	}
 
-	prepareRootProps(variables) {
+	const prepareRootProps = variables => {
 		const defaultProps = {
-			style: this.getInitialStyle(variables).checkStyle,
+			style: getInitialStyle(variables).checkStyle,
 		}
+		return computeProps(props, defaultProps)
+	}
 
-		return computeProps(this.props, defaultProps)
-	}
-	render() {
-		const { checked } = this.props
-		const variables = this.context.theme ? this.context.theme["@@shoutem.theme/themeStyle"].variables : variable
-		const platformStyle = variables.platformStyle
-		const platform = variables.platform
-		return (
-			<TouchableOpacity ref={c => (this._root = c)} {...this.prepareRootProps(variables)}>
-				<IconNB
-					style={{
-						color: checked === true ? variables.checkboxTickColor : variables.checkboxDefaultColor,
-						fontSize: variables.CheckboxFontSize,
-						lineHeight: variables.CheckboxIconSize,
-						marginTop: variables.CheckboxIconMarginTop,
-						textShadowRadius: variables.checkboxTextShadowRadius,
-					}}
-					name={itsIOS && platformStyle !== "material" ? "ios-checkmark" : "md-checkmark"}
-				/>
-			</TouchableOpacity>
-		)
-	}
+	const { checked } = props
+	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
+	const platformStyle = variables.platformStyle
+	const platform = variables.platform
+	return (
+		<TouchableOpacity {...prepareRootProps(variables)}>
+			<Ionicons
+				style={{
+					color: checked === true ? variables.checkboxTickColor : variables.checkboxDefaultColor,
+					fontSize: variables.CheckboxFontSize,
+					lineHeight: variables.CheckboxIconSize,
+					marginTop: variables.CheckboxIconMarginTop,
+					textShadowRadius: variables.checkboxTextShadowRadius,
+				}}
+				name={itsIOS && platformStyle !== "material" ? "ios-checkmark" : "md-checkmark"}
+			/>
+		</TouchableOpacity>
+	)
 }
 
 CheckBox.propTypes = {
@@ -61,6 +59,4 @@ CheckBox.propTypes = {
 	onPress: PropTypes.func,
 }
 
-module.exports = connectStyle("NativeBase.CheckBox", {}, mapPropsToStyleNames)(CheckBox)
-
-console.log("CheckBox", "loaded")
+module.exports = connectStyle(CheckBox, MODULE_NAME$)

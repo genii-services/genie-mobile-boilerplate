@@ -4,20 +4,20 @@ const defaultTheme = require("/styles/themes/default")
 module.exports = (theme = defaultTheme) => {
 	return {
 		".checked": {
-			"NativeBase.Icon": {
+			"elements/Icon": {
 				color: theme.checkboxTickColor,
 			},
-			"NativeBase.IconNB": {
+			"elements/IconNB": {
 				color: theme.checkboxTickColor,
 			},
 		},
-		"NativeBase.Icon": {
+		"elements/Icon": {
 			color: "transparent",
 			lineHeight: theme.CheckboxIconSize,
 			marginTop: theme.CheckboxIconMarginTop,
 			fontSize: theme.CheckboxFontSize,
 		},
-		"NativeBase.IconNB": {
+		"elements/IconNB": {
 			color: "transparent",
 			lineHeight: theme.CheckboxIconSize,
 			marginTop: theme.CheckboxIconMarginTop,

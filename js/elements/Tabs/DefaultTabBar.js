@@ -1,4 +1,5 @@
-console.log("DefaultTabBar", "load")
+const MODULE_NAME$ = "Tabs/DefaultTabBar"
+console.debug(MODULE_NAME$)
 
 const React = require("react")
 const { Component } = React
@@ -6,9 +7,9 @@ const PropTypes = require("prop-types")
 const _ = require("lodash")
 const ReactNative = require("react-native")
 const { Animated, ViewPropTypes } = ReactNative
-const { connectStyle } = require("native-base-shoutem-theme")
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { connectStyle } = require("/utils/style")
+const { useState, useStore, useThis } = require("/hooks")
 const variable = require("/styles/themes/default")
 
 const Button = require("./Button")
@@ -16,10 +17,11 @@ const TabHeading = require("../TabHeading")
 const Text = require("../Text")
 const TabContainer = require("../TabContainer")
 
-class DefaultTabBar extends Component {
-	renderTabOption(name, page) {}
+const DefaultTabBar = props => {
+	const [theme] = useStore("theme")
+	const renderTabOption = (name, page) => {}
 
-	renderTab(
+	const renderTab = (
 		name,
 		page,
 		isTabActive,
@@ -32,7 +34,7 @@ class DefaultTabBar extends Component {
 		tabFontSize,
 		disabled,
 		disabledTextColor
-	) {
+	) => {
 		const headerContent = typeof name !== "string" ? name.props.children : undefined
 		const { activeTextColor, inactiveTextColor } = this.props
 		const fontWeight = isTabActive ? "bold" : "normal"
@@ -66,48 +68,45 @@ class DefaultTabBar extends Component {
 		)
 	}
 
-	render() {
-		const { props } = this
-		const variables = this.context.theme ? this.context.theme["@@shoutem.theme/themeStyle"].variables : variable
-		const platformStyle = variables.platformStyle
-		const containerWidth = props.containerWidth
-		const numberOfTabs = props.tabs.length
-		const tabUnderlineStyle = {
-			position: "absolute",
-			width: containerWidth / numberOfTabs,
-			height: 4,
-			backgroundColor: variables.topTabBarActiveBorderColor,
-			bottom: 0,
-		}
-
-		const left = props.scrollValue.interpolate({
-			inputRange: [0, 1],
-			outputRange: [0, containerWidth / numberOfTabs],
-		})
-		return (
-			<TabContainer style={[{ backgroundColor: variables.tabDefaultBg }, props.tabContainerStyle]}>
-				{props.tabs.map((name, page) => {
-					const isTabActive = props.activeTab === page
-					const renderTab = props.renderTab || this.renderTab
-					return renderTab(
-						name,
-						page,
-						isTabActive,
-						props.goToPage,
-						props.tabStyle[page],
-						props.activeTabStyle[page],
-						props.textStyle[page],
-						props.activeTextStyle[page],
-						props.tabHeaderStyle[page],
-						variables.tabFontSize,
-						props.disabled[page],
-						props.disabledTextColor
-					)
-				})}
-				<Animated.View style={[tabUnderlineStyle, { left }, props.underlineStyle]} />
-			</TabContainer>
-		)
+	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
+	const platformStyle = variables.platformStyle
+	const containerWidth = props.containerWidth
+	const numberOfTabs = props.tabs.length
+	const tabUnderlineStyle = {
+		position: "absolute",
+		width: containerWidth / numberOfTabs,
+		height: 4,
+		backgroundColor: variables.topTabBarActiveBorderColor,
+		bottom: 0,
 	}
+
+	const left = props.scrollValue.interpolate({
+		inputRange: [0, 1],
+		outputRange: [0, containerWidth / numberOfTabs],
+	})
+	return (
+		<TabContainer style={[{ backgroundColor: variables.tabDefaultBg }, props.tabContainerStyle]}>
+			{props.tabs.map((name, page) => {
+				const isTabActive = props.activeTab === page
+				const renderTab = props.renderTab || this.renderTab
+				return renderTab(
+					name,
+					page,
+					isTabActive,
+					props.goToPage,
+					props.tabStyle[page],
+					props.activeTabStyle[page],
+					props.textStyle[page],
+					props.activeTextStyle[page],
+					props.tabHeaderStyle[page],
+					variables.tabFontSize,
+					props.disabled[page],
+					props.disabledTextColor
+				)
+			})}
+			<Animated.View style={[tabUnderlineStyle, { left }, props.underlineStyle]} />
+		</TabContainer>
+	)
 }
 
 DefaultTabBar.propTypes = {
@@ -138,4 +137,4 @@ DefaultTabBar.getDefaultProps = () => {
 	}
 }
 
-module.exports = connectStyle("NativeBase.DefaultTabBar", {}, mapPropsToStyleNames)(DefaultTabBar)
+module.exports = connectStyle(DefaultTabBar, MODULE_NAME$)

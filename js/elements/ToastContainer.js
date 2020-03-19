@@ -1,11 +1,13 @@
+const MODULE_NAME$ = "elements/ToastContainer"
+console.debug(MODULE_NAME$)
+
 /* eslint-disable class-methods-use-this */
 const React = require("react")
 const { Component } = React
 const PropTypes = require("prop-types")
 const { Keyboard, Platform, Animated, ViewPropTypes } = require("react-native")
-const { connectStyle } = require("native-base-shoutem-theme")
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { connectStyle } = require("/utils/style")
 
 const Text = require("./Text")
 const Button = require("./Button")
@@ -171,6 +173,4 @@ ToastContainer.propTypes = {
 	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
 }
 
-module.exports = connectStyle("NativeBase.ToastContainer", {}, mapPropsToStyleNames)(ToastContainer)
-
-console.log("ToastContainer", "loaded")
+module.exports = connectStyle(ToastContainer, MODULE_NAME$)

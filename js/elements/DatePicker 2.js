@@ -1,41 +1,29 @@
 const React = require("react")
 const { Modal, View, Platform, DatePickerIOS, DatePickerAndroid } = require("react-native")
 
+const { useState, useStore } = require("/hooks")
+const { itsAndroid } = require("/utils/device")
 const variable = require("/styles/themes/default")
 
 const Text = require("./Text")
 
-const { itsAndroid } = require("/utils/device")
+const DatePicker = props => {
+	const [theme] = useStore("theme")
 
-export class DatePicker extends React.Component {
-	static defaultProps = {
-		disabled: false,
-	}
-	constructor(props) {
-		super(props)
-		this.state = {
-			modalVisible: false,
-			defaultDate: props.defaultDate ? props.defaultDate : new Date(),
-			chosenDate: !props.placeHolderText && props.defaultDate ? props.defaultDate : undefined,
-		}
+	const [_modalVisible, set_modalVisible] = useState(false)
+	const [_defaultDate, set_defaultDate] = useState(props.defaultDate || new Date())
+	const [_chosenDate, set_chosenDate] = useState(!props.placeHolderText && props.defaultDate && props.defaultDate)
+
+	const setDate = date => {
+		set_chosenDate(new Date(date))(props.onDateChange) && props.onDateChange(date)
 	}
 
-	setDate(date) {
-		this.setState({ chosenDate: new Date(date) })
-		if (this.props.onDateChange) {
-			this.props.onDateChange(date)
-		}
+	const showDatePicker = () => {
+		if (itsAndroid) openAndroidDatePicker()
+		else set_modalVisible(true)
 	}
 
-	showDatePicker = () => {
-		if (itsAndroid) {
-			this.openAndroidDatePicker()
-		} else {
-			this.setState({ modalVisible: true })
-		}
-	}
-
-	async openAndroidDatePicker() {
+	const openAndroidDatePicker = async () => {
 		try {
 			const newDate = await DatePickerAndroid.open({
 				date: this.state.chosenDate ? this.state.chosenDate : this.state.defaultDate,
@@ -54,70 +42,74 @@ export class DatePicker extends React.Component {
 		}
 	}
 
-	formatChosenDate(date) {
+	const formatChosenDate = date => {
 		if (this.props.formatChosenDate) {
 			return this.props.formatChosenDate(date)
 		}
 		return [date.getDate(), date.getMonth() + 1, date.getFullYear()].join("/")
 	}
 
-	render() {
-		const {
-			animationType,
-			disabled,
-			locale,
-			maximumDate,
-			minimumDate,
-			modalTransparent,
-			placeHolderText,
-			placeHolderTextStyle,
-			textStyle,
-			timeZoneOffsetInMinutes,
-		} = this.props
+	const {
+		animationType,
+		disabled,
+		locale,
+		maximumDate,
+		minimumDate,
+		modalTransparent,
+		placeHolderText,
+		placeHolderTextStyle,
+		textStyle,
+		timeZoneOffsetInMinutes,
+	} = props
 
-		const variables = this.context.theme ? this.context.theme["@@shoutem.theme/themeStyle"].variables : variable
+	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
 
-		return (
+	return (
+		<View>
 			<View>
+				<Text
+					onPress={() => !disabled && showDatePicker()}
+					style={[
+						{
+							padding: variables.datePickerPadding,
+							color: variables.datePickerTextColor,
+						},
+						_chosenDate ? textStyle : placeHolderTextStyle,
+					]}>
+					{_chosenDate ? formatChosenDate(_chosenDate) : placeHolderText || "Select Date"}
+				</Text>
 				<View>
-					<Text
-						onPress={() => (!disabled ? this.showDatePicker() : undefined)}
-						style={[
-							{
-								padding: variables.datePickerPadding,
-								color: variables.datePickerTextColor,
-							},
-							this.state.chosenDate ? textStyle : placeHolderTextStyle,
-						]}>
-						{this.state.chosenDate ? this.formatChosenDate(this.state.chosenDate) : placeHolderText || "Select Date"}
-					</Text>
-					<View>
-						<Modal
-							supportedOrientations={["portrait", "landscape"]}
-							animationType={animationType}
-							transparent={modalTransparent} // from api
-							visible={this.state.modalVisible}
-							onRequestClose={() => {}}>
-							<Text
-								onPress={() => this.setState({ modalVisible: false })}
-								style={{
-									backgroundColor: variables.datePickerBg,
-									flex: variables.datePickerFlex,
-								}}
-							/>
-							<DatePickerIOS
-								date={this.state.chosenDate ? this.state.chosenDate : this.state.defaultDate}
-								onDateChange={date => this.setDate(date)}
-								minimumDate={minimumDate}
-								maximumDate={maximumDate}
-								mode="date"
-								locale={locale}
-								timeZoneOffsetInMinutes={timeZoneOffsetInMinutes}
-							/>
-						</Modal>
-					</View>
+					<Modal
+						supportedOrientations={["portrait", "landscape"]}
+						animationType={animationType}
+						transparent={modalTransparent} // from api
+						visible={_modalVisible}
+						onRequestClose={() => {}}>
+						<Text
+							onPress={() => set_modalVisible(false)}
+							style={{
+								backgroundColor: variables.datePickerBg,
+								flex: variables.datePickerFlex,
+							}}
+						/>
+						<DatePickerIOS
+							date={_chosenDate || _defaultDate}
+							onDateChange={date => setDate(date)}
+							minimumDate={minimumDate}
+							maximumDate={maximumDate}
+							mode="date"
+							locale={locale}
+							timeZoneOffsetInMinutes={timeZoneOffsetInMinutes}
+						/>
+					</Modal>
 				</View>
 			</View>
-		)
-	}
+		</View>
+	)
 }
+
+DatePicker.defaultProps = {
+	disabled: false,
+}
+
+module.exports = DatePicker

@@ -1,11 +1,15 @@
 /** 공통 라이브러리 */
+debugger
 const React = require("react")
 const PropTypes = require("prop-types")
 const _ = require("lodash")
-const { Button, Text, ActionSheet } = require("/elements")
 
 const { __find } = require("/utils")
 const { fontFamily } = require("/styles")
+
+const ActionSheet = require("./ActionSheet")
+const Button = require("./Button")
+const Text = require("./Text")
 
 const DataPicker = props => {
 	const handleOnPress = () => {

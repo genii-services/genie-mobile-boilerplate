@@ -2,7 +2,7 @@
  * RESTful 기반 통신 모듈
  * 200311 처리 루틴 전면 개편
  */
-console.debug("utils/rest")
+console.debug("utils/rest", "load")
 
 const _ = require("lodash")
 

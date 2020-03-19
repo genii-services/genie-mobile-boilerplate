@@ -1,34 +1,9 @@
-const React = require("react")
-const { Component } = React
-const PropTypes = require("prop-types")
+console.log("H1", "load")
+
 const { Text } = require("react-native")
-const { connectStyle } = require("native-base-shoutem-theme")
 
-const mapPropsToStyleNames = require("/utils/mapPropsToStyleNames")
+const { connectStyle } = require("/utils/style")
 
-class H1 extends Component {
-	render() {
-		return <Text ref={c => (this._root = c)} {...this.props} />
-	}
-}
+const H1 = Text
 
-const childrenType = function(props, propName, component) {
-	let error
-	const prop = props[propName]
-	React.Children.forEach(prop, child => {
-		if (typeof child !== "string" && typeof child !== "number") {
-			error = new Error(`${component} should have only string or number`)
-		}
-	})
-	return error
-}
-
-H1.propTypes = {
-	...Text.propTypes,
-	children: childrenType,
-	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-}
-
-module.exports = connectStyle("NativeBase.H1", {}, mapPropsToStyleNames)(H1)
-
-console.log("H1", "loaded")
+module.exports = connectStyle(H1, "elements/H1")

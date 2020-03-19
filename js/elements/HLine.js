@@ -2,7 +2,6 @@
 const React = require("react")
 const { View } = require("react-native")
 
-module.exports = VLine
 const VLine = props => {
 	return (
 		<View
@@ -19,3 +18,4 @@ VLine.defaultProps = {
 	borderColor: "#e0e0c0",
 	borderWidth: 1,
 }
+module.exports = VLine

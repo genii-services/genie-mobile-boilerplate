@@ -8,23 +8,23 @@ const defaultTheme = require("/styles/themes/default")
 
 module.exports = (theme = defaultTheme) => {
 	const selectedStyle = {
-		"NativeBase.Text": {
+		"elements/Text": {
 			color: theme.listItemSelected,
 		},
-		"NativeBase.Icon": {
+		"elements/Icon": {
 			color: theme.listItemSelected,
 		},
 	}
 
 	const listItemTheme = {
-		"NativeBase.InputGroup": {
-			"NativeBase.Icon": {
+		"elements/InputGroup": {
+			"elements/Icon": {
 				paddingRight: 5,
 			},
-			"NativeBase.IconNB": {
+			"elements/IconNB": {
 				paddingRight: 5,
 			},
-			"NativeBase.Input": {
+			"elements/Input": {
 				paddingHorizontal: 5,
 			},
 			flex: 1,
@@ -33,8 +33,8 @@ module.exports = (theme = defaultTheme) => {
 			borderBottomColor: "transparent",
 		},
 		".searchBar": {
-			"NativeBase.Item": {
-				"NativeBase.Icon": {
+			"elements/Item": {
+				"elements/Icon": {
 					backgroundColor: "transparent",
 					color: theme.dropdownLinkColor,
 					fontSize: itsIOS ? theme.iconFontSize - 10 : theme.iconFontSize - 5,
@@ -42,12 +42,12 @@ module.exports = (theme = defaultTheme) => {
 					marginTop: 2,
 					paddingRight: 8,
 				},
-				"NativeBase.IconNB": {
+				"elements/IconNB": {
 					backgroundColor: "transparent",
 					color: null,
 					alignSelf: CENTER,
 				},
-				"NativeBase.Input": {
+				"elements/Input": {
 					alignSelf: CENTER,
 				},
 				alignSelf: CENTER,
@@ -59,9 +59,9 @@ module.exports = (theme = defaultTheme) => {
 				backgroundColor: "#fff",
 				borderRadius: 5,
 			},
-			"NativeBase.Button": {
+			"elements/Button": {
 				".transparent": {
-					"NativeBase.Text": {
+					"elements/Text": {
 						fontWeight: "500",
 					},
 					paddingHorizontal: null,
@@ -75,7 +75,7 @@ module.exports = (theme = defaultTheme) => {
 			padding: 10,
 			marginLeft: null,
 		},
-		"NativeBase.CheckBox": {
+		"elements/CheckBox": {
 			marginLeft: -10,
 			marginRight: 10,
 		},
@@ -96,7 +96,7 @@ module.exports = (theme = defaultTheme) => {
 			paddingBottom: itsAndroid ? theme.listItemPadding + 20 : undefined,
 			flexDirection: "row",
 			borderColor: theme.listBorderColor,
-			"NativeBase.Text": {
+			"elements/Text": {
 				fontSize: 14,
 				color: itsIOS ? undefined : theme.listNoteColor,
 			},
@@ -111,20 +111,20 @@ module.exports = (theme = defaultTheme) => {
 			borderColor: theme.listBorderColor,
 		},
 		".selected": {
-			"NativeBase.Left": {
+			"elements/Left": {
 				...selectedStyle,
 			},
-			"NativeBase.Body": {
+			"elements/Body": {
 				...selectedStyle,
 			},
-			"NativeBase.Right": {
+			"elements/Right": {
 				...selectedStyle,
 			},
 			...selectedStyle,
 		},
-		"NativeBase.Left": {
-			"NativeBase.Body": {
-				"NativeBase.Text": {
+		"elements/Left": {
+			"elements/Body": {
+				"elements/Text": {
 					".note": {
 						color: theme.listNoteColor,
 						fontWeight: "200",
@@ -135,21 +135,21 @@ module.exports = (theme = defaultTheme) => {
 				alignItems: null,
 				alignSelf: null,
 			},
-			"NativeBase.Icon": {
+			"elements/Icon": {
 				width: theme.iconFontSize - 10,
 				fontSize: theme.iconFontSize - 10,
 			},
-			"NativeBase.IconNB": {
+			"elements/IconNB": {
 				width: theme.iconFontSize - 10,
 				fontSize: theme.iconFontSize - 10,
 			},
-			"NativeBase.Text": {
+			"elements/Text": {
 				alignSelf: CENTER,
 			},
 			flexDirection: "row",
 		},
-		"NativeBase.Body": {
-			"NativeBase.Text": {
+		"elements/Body": {
+			"elements/Text": {
 				marginHorizontal: theme.listItemPadding,
 				".note": {
 					color: theme.listNoteColor,
@@ -159,62 +159,62 @@ module.exports = (theme = defaultTheme) => {
 			alignSelf: null,
 			alignItems: null,
 		},
-		"NativeBase.Right": {
-			"NativeBase.Badge": {
+		"elements/Right": {
+			"elements/Badge": {
 				alignSelf: null,
 			},
-			"NativeBase.PickerNB": {
-				"NativeBase.Button": {
+			"elements/PickerNB": {
+				"elements/Button": {
 					marginRight: -15,
-					"NativeBase.Text": {
+					"elements/Text": {
 						color: theme.topTabBarActiveTextColor,
 					},
 				},
 			},
-			"NativeBase.Button": {
+			"elements/Button": {
 				alignSelf: null,
 				".transparent": {
-					"NativeBase.Text": {
+					"elements/Text": {
 						color: theme.topTabBarActiveTextColor,
 					},
 				},
 			},
-			"NativeBase.Icon": {
+			"elements/Icon": {
 				alignSelf: null,
 				fontSize: theme.iconFontSize - 8,
 				color: "#c9c8cd",
 			},
-			"NativeBase.IconNB": {
+			"elements/IconNB": {
 				alignSelf: null,
 				fontSize: theme.iconFontSize - 8,
 				color: "#c9c8cd",
 			},
-			"NativeBase.Text": {
+			"elements/Text": {
 				".note": {
 					color: theme.listNoteColor,
 					fontWeight: "200",
 				},
 				alignSelf: null,
 			},
-			"NativeBase.Thumbnail": {
+			"elements/Thumbnail": {
 				alignSelf: null,
 			},
-			"NativeBase.Image": {
+			"elements/Image": {
 				alignSelf: null,
 			},
-			"NativeBase.Radio": {
+			"elements/Radio": {
 				alignSelf: null,
 			},
-			"NativeBase.Checkbox": {
+			"elements/Checkbox": {
 				alignSelf: null,
 			},
-			"NativeBase.Switch": {
+			"elements/Switch": {
 				alignSelf: null,
 			},
 			padding: null,
 			flex: 0.28,
 		},
-		"NativeBase.Text": {
+		"elements/Text": {
 			".note": {
 				color: theme.listNoteColor,
 				fontWeight: "200",
@@ -227,13 +227,13 @@ module.exports = (theme = defaultTheme) => {
 			top: 1,
 		},
 		".avatar": {
-			"NativeBase.Left": {
+			"elements/Left": {
 				flex: 0,
 				alignSelf: "flex-start",
 				paddingTop: 14,
 			},
-			"NativeBase.Body": {
-				"NativeBase.Text": {
+			"elements/Body": {
+				"elements/Text": {
 					marginLeft: null,
 				},
 				flex: 1,
@@ -242,8 +242,8 @@ module.exports = (theme = defaultTheme) => {
 				borderColor: theme.listBorderColor,
 				marginLeft: theme.listItemPadding + 5,
 			},
-			"NativeBase.Right": {
-				"NativeBase.Text": {
+			"elements/Right": {
+				"elements/Text": {
 					".note": {
 						fontSize: theme.noteFontSize - 2,
 					},
@@ -256,10 +256,10 @@ module.exports = (theme = defaultTheme) => {
 				borderColor: theme.listBorderColor,
 			},
 			".noBorder": {
-				"NativeBase.Body": {
+				"elements/Body": {
 					borderBottomWidth: null,
 				},
-				"NativeBase.Right": {
+				"elements/Right": {
 					borderBottomWidth: null,
 				},
 			},
@@ -268,11 +268,11 @@ module.exports = (theme = defaultTheme) => {
 			paddingRight: null,
 		},
 		".thumbnail": {
-			"NativeBase.Left": {
+			"elements/Left": {
 				flex: 0,
 			},
-			"NativeBase.Body": {
-				"NativeBase.Text": {
+			"elements/Body": {
+				"elements/Text": {
 					marginLeft: null,
 				},
 				flex: 1,
@@ -281,10 +281,10 @@ module.exports = (theme = defaultTheme) => {
 				borderColor: theme.listBorderColor,
 				marginLeft: theme.listItemPadding + 5,
 			},
-			"NativeBase.Right": {
-				"NativeBase.Button": {
+			"elements/Right": {
+				"elements/Button": {
 					".transparent": {
-						"NativeBase.Text": {
+						"elements/Text": {
 							fontSize: theme.listNoteSize,
 							color: theme.sTabBarActiveTextColor,
 						},
@@ -300,10 +300,10 @@ module.exports = (theme = defaultTheme) => {
 				borderColor: theme.listBorderColor,
 			},
 			".noBorder": {
-				"NativeBase.Body": {
+				"elements/Body": {
 					borderBottomWidth: null,
 				},
-				"NativeBase.Right": {
+				"elements/Right": {
 					borderBottomWidth: null,
 				},
 			},
@@ -313,22 +313,22 @@ module.exports = (theme = defaultTheme) => {
 		},
 		".icon": {
 			".last": {
-				"NativeBase.Body": {
+				"elements/Body": {
 					borderBottomWidth: null,
 				},
-				"NativeBase.Right": {
+				"elements/Right": {
 					borderBottomWidth: null,
 				},
 				borderBottomWidth: theme.borderWidth,
 				borderColor: theme.listBorderColor,
 			},
-			"NativeBase.Left": {
-				"NativeBase.Button": {
-					"NativeBase.IconNB": {
+			"elements/Left": {
+				"elements/Button": {
+					"elements/IconNB": {
 						marginHorizontal: null,
 						fontSize: theme.iconFontSize - 5,
 					},
-					"NativeBase.Icon": {
+					"elements/Icon": {
 						marginHorizontal: null,
 						fontSize: theme.iconFontSize - 8,
 					},
@@ -341,11 +341,11 @@ module.exports = (theme = defaultTheme) => {
 					alignItems: CENTER,
 					justifyContent: CENTER,
 				},
-				"NativeBase.Icon": {
+				"elements/Icon": {
 					width: theme.iconFontSize - 5,
 					fontSize: theme.iconFontSize - 2,
 				},
-				"NativeBase.IconNB": {
+				"elements/IconNB": {
 					width: theme.iconFontSize - 5,
 					fontSize: theme.iconFontSize - 2,
 				},
@@ -355,8 +355,8 @@ module.exports = (theme = defaultTheme) => {
 				justifyContent: CENTER,
 				alignItems: CENTER,
 			},
-			"NativeBase.Body": {
-				"NativeBase.Text": {
+			"elements/Body": {
+				"elements/Text": {
 					marginLeft: null,
 					fontSize: 17,
 				},
@@ -366,31 +366,31 @@ module.exports = (theme = defaultTheme) => {
 				borderBottomWidth: 1 / PixelRatio.getPixelSizeForLayoutSize(1),
 				borderColor: theme.listBorderColor,
 			},
-			"NativeBase.Right": {
-				"NativeBase.Text": {
+			"elements/Right": {
+				"elements/Text": {
 					textAlign: CENTER,
 					color: "#8F8E95",
 					fontSize: 17,
 				},
-				"NativeBase.IconNB": {
+				"elements/IconNB": {
 					color: "#C8C7CC",
 					fontSize: theme.iconFontSize - 10,
 					alignSelf: CENTER,
 					paddingLeft: 10,
 					paddingTop: 3,
 				},
-				"NativeBase.Icon": {
+				"elements/Icon": {
 					color: "#C8C7CC",
 					fontSize: theme.iconFontSize - 10,
 					alignSelf: CENTER,
 					paddingLeft: 10,
 					paddingTop: 3,
 				},
-				"NativeBase.Switch": {
+				"elements/Switch": {
 					marginRight: itsIOS ? undefined : -5,
 					alignSelf: null,
 				},
-				"NativeBase.PickerNB": {
+				"elements/PickerNB": {
 					...pickerTheme(),
 				},
 				flexDirection: "row",
@@ -404,10 +404,10 @@ module.exports = (theme = defaultTheme) => {
 				paddingRight: theme.listItemPadding + 5,
 			},
 			".noBorder": {
-				"NativeBase.Body": {
+				"elements/Body": {
 					borderBottomWidth: null,
 				},
-				"NativeBase.Right": {
+				"elements/Right": {
 					borderBottomWidth: null,
 				},
 			},

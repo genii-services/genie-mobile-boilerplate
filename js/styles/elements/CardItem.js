@@ -7,16 +7,16 @@ const defaultTheme = require("/styles/themes/default")
 
 module.exports = (theme = defaultTheme) => {
 	const transparentBtnCommon = {
-		"NativeBase.Text": {
+		"elements/Text": {
 			fontSize: theme.DefaultFontSize - 3,
 			color: theme.sTabBarActiveTextColor,
 		},
-		"NativeBase.Icon": {
+		"elements/Icon": {
 			fontSize: theme.iconFontSize - 10,
 			color: theme.sTabBarActiveTextColor,
 			marginHorizontal: null,
 		},
-		"NativeBase.IconNB": {
+		"elements/IconNB": {
 			fontSize: theme.iconFontSize - 10,
 			color: theme.sTabBarActiveTextColor,
 		},
@@ -25,9 +25,9 @@ module.exports = (theme = defaultTheme) => {
 	}
 
 	const cardItemTheme = {
-		"NativeBase.Left": {
-			"NativeBase.Body": {
-				"NativeBase.Text": {
+		"elements/Left": {
+			"elements/Body": {
+				"elements/Text": {
 					".note": {
 						color: theme.listNoteColor,
 						fontWeight: "400",
@@ -38,17 +38,17 @@ module.exports = (theme = defaultTheme) => {
 				marginLeft: 10,
 				alignItems: null,
 			},
-			"NativeBase.Icon": {
+			"elements/Icon": {
 				fontSize: theme.iconFontSize,
 			},
-			"NativeBase.IconNB": {
+			"elements/IconNB": {
 				fontSize: theme.iconFontSize,
 			},
-			"NativeBase.Text": {
+			"elements/Text": {
 				marginLeft: 10,
 				alignSelf: CENTER,
 			},
-			"NativeBase.Button": {
+			"elements/Button": {
 				".transparent": {
 					...transparentBtnCommon,
 					paddingRight: theme.cardItemPadding + 5,
@@ -59,26 +59,21 @@ module.exports = (theme = defaultTheme) => {
 			alignItems: CENTER,
 		},
 		".content": {
-			"NativeBase.Text": {
+			"elements/Text": {
 				color: itsIOS ? "#555" : "#222",
 				fontSize: theme.DefaultFontSize - 2,
 			},
 		},
-		".cardBody": {
-			padding: -5,
-			"NativeBase.Text": {
-				marginTop: 5,
-			},
-		},
-		"NativeBase.Body": {
-			"NativeBase.Text": {
+		".cardBody": { padding: -5, "elements/Text": { marginTop: 5 } },
+		"elements/Body": {
+			"elements/Text": {
 				".note": {
 					color: theme.listNoteColor,
 					fontWeight: "200",
 					marginRight: 20,
 				},
 			},
-			"NativeBase.Button": {
+			"elements/Button": {
 				".transparent": {
 					...transparentBtnCommon,
 					paddingRight: theme.cardItemPadding + 5,
@@ -89,54 +84,31 @@ module.exports = (theme = defaultTheme) => {
 			alignSelf: "stretch",
 			alignItems: "flex-start",
 		},
-		"NativeBase.Right": {
-			"NativeBase.Badge": {
+		"elements/Right": {
+			"elements/Badge": {
 				alignSelf: null,
 			},
-			"NativeBase.Button": {
-				".transparent": {
-					...transparentBtnCommon,
-				},
+			"elements/Button": {
+				".transparent": { ...transparentBtnCommon },
 				alignSelf: null,
 			},
-			"NativeBase.Icon": {
-				alignSelf: null,
-				fontSize: theme.iconFontSize - 8,
-				color: theme.cardBorderColor,
-			},
-			"NativeBase.IconNB": {
-				alignSelf: null,
-				fontSize: theme.iconFontSize - 8,
-				color: theme.cardBorderColor,
-			},
-			"NativeBase.Text": {
-				fontSize: theme.DefaultFontSize - 1,
-				alignSelf: null,
-			},
-			"NativeBase.Thumbnail": {
-				alignSelf: null,
-			},
-			"NativeBase.Image": {
-				alignSelf: null,
-			},
-			"NativeBase.Radio": {
-				alignSelf: null,
-			},
-			"NativeBase.Checkbox": {
-				alignSelf: null,
-			},
-			"NativeBase.Switch": {
-				alignSelf: null,
-			},
+			"elements/Icon": { alignSelf: null, fontSize: theme.iconFontSize - 8, color: theme.cardBorderColor },
+			"elements/IconNB": { alignSelf: null, fontSize: theme.iconFontSize - 8, color: theme.cardBorderColor },
+			"elements/Text": { fontSize: theme.DefaultFontSize - 1, alignSelf: null },
+			"elements/Thumbnail": { alignSelf: null },
+			"elements/Image": { alignSelf: null },
+			"elements/Radio": { alignSelf: null },
+			"elements/Checkbox": { alignSelf: null },
+			"elements/Switch": { alignSelf: null },
 			flex: 0.8,
 		},
 		".header": {
-			"NativeBase.Text": {
+			"elements/Text": {
 				fontSize: 16,
 				fontWeight: itsIOS ? "600" : "500",
 			},
 			".bordered": {
-				"NativeBase.Text": {
+				"elements/Text": {
 					color: theme.brandPrimary,
 					fontWeight: itsIOS ? "600" : "500",
 				},
@@ -146,12 +118,12 @@ module.exports = (theme = defaultTheme) => {
 			paddingVertical: theme.cardItemPadding + 5,
 		},
 		".footer": {
-			"NativeBase.Text": {
+			"elements/Text": {
 				fontSize: 16,
 				fontWeight: itsIOS ? "600" : "500",
 			},
 			".bordered": {
-				"NativeBase.Text": {
+				"elements/Text": {
 					color: theme.brandPrimary,
 					fontWeight: itsIOS ? "600" : "500",
 				},
@@ -159,17 +131,17 @@ module.exports = (theme = defaultTheme) => {
 			},
 			borderBottomWidth: null,
 		},
-		"NativeBase.Text": {
+		"elements/Text": {
 			".note": {
 				color: theme.listNoteColor,
 				fontWeight: "200",
 			},
 		},
-		"NativeBase.Icon": {
+		"elements/Icon": {
 			width: theme.iconFontSize + 5,
 			fontSize: theme.iconFontSize - 2,
 		},
-		"NativeBase.IconNB": {
+		"elements/IconNB": {
 			width: theme.iconFontSize + 5,
 			fontSize: theme.iconFontSize - 2,
 		},

@@ -1,12 +1,13 @@
 /** 공통 라이브러리 */
 const React = require("react")
 const PropTypes = require("prop-types")
-const { Text } = require("react-native")
-const { Button } = require("/elements")
-const IconFA = require("react-native-vector-icons/FontAwesome")
 
 const { CENTER } = require("/constants/style")
-const { LocalImage } = require("/elements")
+
+const Button = require("./Button")
+const Icon = require("./Icon")
+const LocalImage = require("./LocalImage")
+const Text = require("./Text")
 
 const HIcon = props => {
 	const { iconName, imageName, style, title, note, onPress } = props
@@ -14,7 +15,7 @@ const HIcon = props => {
 	return (
 		<Button style={[styles.button, style]} transparent small onPress={onPress}>
 			{iconName ? (
-				<IconFA style={styles.buttonIcon} name={iconName} />
+				<Icon style={styles.buttonIcon} name={iconName} />
 			) : (
 				<LocalImage style={styles.buttonImage} square name={imageName} />
 			)}
