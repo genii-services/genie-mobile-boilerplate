@@ -4,9 +4,8 @@ console.debug(MODULE_NAME$)
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-unneeded-ternary */
 const { get } = require("lodash")
-const PropTypes = require("prop-types")
 const React = require("react")
-const { View, StatusBar, StyleSheet, ViewPropTypes } = require("react-native")
+const { View, StatusBar, StyleSheet } = require("react-native")
 
 const { connectStyle } = require("/utils/style")
 const { useState, useStore } = require("/hooks")
@@ -84,11 +83,15 @@ const Header = props => {
 	)
 }
 
-Header.propTypes = {
-	...ViewPropTypes,
-	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-	searchBar: PropTypes.bool,
-	rounded: PropTypes.bool,
+if (__DEV__) {
+	const { ViewPropTypes } = require("react-native")
+	const PropTypes = require("prop-types")
+	Header.propTypes = {
+		...ViewPropTypes,
+		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+		searchBar: PropTypes.bool,
+		rounded: PropTypes.bool,
+	}
 }
 
 module.exports = connectStyle(Header, MODULE_NAME$)

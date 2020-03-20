@@ -3,8 +3,7 @@ console.debug(MODULE_NAME$)
 
 /* eslint-disable react/sort-comp */
 const React = require("react")
-const PropTypes = require("prop-types")
-const { FlatList, Modal, View, ViewPropTypes } = require("react-native")
+const { FlatList, Modal, View } = require("react-native")
 const { Picker } = require("@react-native-community/picker")
 const { find, get } = require("lodash")
 
@@ -167,9 +166,13 @@ const PickerNB = props => {
 
 PickerNB.Item = Picker.Item
 
-PickerNB.propTypes = {
-	...ViewPropTypes,
-	renderButton: PropTypes.func,
+if (__DEV__) {
+	const { ViewPropTypes } = require("react-native")
+	const PropTypes = require("prop-types")
+	PickerNB.propTypes = {
+		...ViewPropTypes,
+		renderButton: PropTypes.func,
+	}
 }
 
 module.exports = connectStyle(PickerNB, "elements/PickerNB")

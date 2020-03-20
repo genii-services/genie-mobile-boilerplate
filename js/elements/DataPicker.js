@@ -1,7 +1,6 @@
 /** 공통 라이브러리 */
 debugger
 const React = require("react")
-const PropTypes = require("prop-types")
 const _ = require("lodash")
 
 const { __find } = require("/utils")
@@ -38,14 +37,18 @@ const DataPicker = props => {
 	)
 }
 
-DataPicker.propTypes = {
-	...Button.propTypes,
-	buttonStyle: Button.propTypes.style,
-	textStyle: Text.propTypes.style,
-	placeholderStyle: Text.propTypes.style,
-	labelProp: PropTypes.string,
-	valueProp: PropTypes.any,
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	DataPicker.propTypes = {
+		...Button.propTypes,
+		buttonStyle: Button.propTypes.style,
+		textStyle: Text.propTypes.style,
+		placeholderStyle: Text.propTypes.style,
+		labelProp: PropTypes.string,
+		valueProp: PropTypes.any,
+	}
 }
+
 DataPicker.defaultProps = {
 	...Button.defaultProps,
 	buttonStyle: {

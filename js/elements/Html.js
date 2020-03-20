@@ -1,6 +1,5 @@
 /** 공통 라이브러리 */
 const React = require("react")
-const PropTypes = require("prop-types")
 // const { View } = require("react-native")
 const { WebView } = require("react-native-webview")
 
@@ -136,14 +135,18 @@ const Html = props => {
 		)
 	*/
 }
-Html.propTypes = {
-	...WebView.propTypes,
-	source: PropTypes.any,
-	html: PropTypes.string,
-	baseUrl: PropTypes.string,
-	initialScale: PropTypes.number,
-	maximumScale: PropTypes.number,
-	zoomScale: PropTypes.number,
+
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	Html.propTypes = {
+		...WebView.propTypes,
+		source: PropTypes.any,
+		html: PropTypes.string,
+		baseUrl: PropTypes.string,
+		initialScale: PropTypes.number,
+		maximumScale: PropTypes.number,
+		zoomScale: PropTypes.number,
+	}
 }
 
 Html.defaultProps = {

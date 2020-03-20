@@ -2,7 +2,6 @@
 console.debug("InputBar")
 
 const React = require("react")
-const PropTypes = require("prop-types")
 const _ = require("lodash")
 const { View, Keyboard } = require("react-native")
 
@@ -56,11 +55,14 @@ const InputBar = props => {
 	)
 }
 
-InputBar.propTypes = {
-	placeholder: PropTypes.string,
-	value: PropTypes.string,
-	onChangeText: PropTypes.func,
-	onPress: PropTypes.func,
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	InputBar.propTypes = {
+		placeholder: PropTypes.string,
+		value: PropTypes.string,
+		onChangeText: PropTypes.func,
+		onPress: PropTypes.func,
+	}
 }
 
 InputBar.defaultProps = {

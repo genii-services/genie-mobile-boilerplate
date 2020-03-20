@@ -3,8 +3,7 @@ console.debug(MODULE_NAME$)
 
 /* eslint-disable class-methods-use-this */
 const React = require("react")
-const PropTypes = require("prop-types")
-const { Keyboard, Platform, Animated, ViewPropTypes } = require("react-native")
+const { Keyboard, Platform, Animated } = require("react-native")
 
 const { connectStyle } = require("/utils/style")
 
@@ -112,9 +111,13 @@ const ToastContainer = props => {
 	return null
 }
 
-ToastContainer.propTypes = {
-	...ViewPropTypes,
-	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+if (__DEV__) {
+	const { ViewPropTypes } = require("react-native")
+	const PropTypes = require("prop-types")
+	ToastContainer.propTypes = {
+		...ViewPropTypes,
+		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+	}
 }
 
 // ToastContainer.toastInstance

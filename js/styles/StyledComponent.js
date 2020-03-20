@@ -146,31 +146,37 @@ const StyledComponent = props => {
 
 	return <WrappedComponent {...props} {..._addedProps} style={_style} ref={setWrappedInstance} />
 }
-StyledComponent.contextTypes = {
-	theme: ThemeShape,
-	// The style inherited from the parent
-	// parentStyle: PropTypes.object,
-	parentPath: PropTypes.array,
-}
 
-StyledComponent.childContextTypes = {
-	// Provide the parent style to child components
-	// parentStyle: PropTypes.object,
-	// resolveStyle: PropTypes.func,
-	parentPath: PropTypes.array,
-}
+if (__DEV__) {
+	const { ViewPropTypes } = require("react-native")
+	const PropTypes = require("prop-types")
 
-StyledComponent.propTypes = {
-	// Element style that overrides any other style of the component
-	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-	// The style variant names to apply to this component,
-	// multiple variants may be separated with a space character
-	styleName: PropTypes.string,
-	// Virtual elements will propagate the parent
-	// style to their children, i.e., the children
-	// will behave as they are placed directly below
-	// the parent of a virtual element.
-	virtual: PropTypes.bool,
+	StyledComponent.contextTypes = {
+		theme: ThemeShape,
+		// The style inherited from the parent
+		// parentStyle: PropTypes.object,
+		parentPath: PropTypes.array,
+	}
+
+	StyledComponent.childContextTypes = {
+		// Provide the parent style to child components
+		// parentStyle: PropTypes.object,
+		// resolveStyle: PropTypes.func,
+		parentPath: PropTypes.array,
+	}
+
+	StyledComponent.propTypes = {
+		// Element style that overrides any other style of the component
+		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+		// The style variant names to apply to this component,
+		// multiple variants may be separated with a space character
+		styleName: PropTypes.string,
+		// Virtual elements will propagate the parent
+		// style to their children, i.e., the children
+		// will behave as they are placed directly below
+		// the parent of a virtual element.
+		virtual: PropTypes.bool,
+	}
 }
 
 StyledComponent.defaultProps = {

@@ -2,7 +2,6 @@ const MODULE_NAME$ = "elements/ListItem"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
-const PropTypes = require("prop-types")
 const { Platform, TouchableHighlight, TouchableNativeFeedback, View } = require("react-native")
 
 const { itsIOS, itsWeb } = require("/utils/device")
@@ -28,12 +27,15 @@ const ListItem = props => {
 	)
 }
 
-ListItem.propTypes = {
-	...TouchableHighlight.propTypes,
-	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-	touchableHighlightStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-	itemDivider: PropTypes.bool,
-	button: PropTypes.bool,
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	ListItem.propTypes = {
+		...TouchableHighlight.propTypes,
+		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+		touchableHighlightStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+		itemDivider: PropTypes.bool,
+		button: PropTypes.bool,
+	}
 }
 
 module.exports = connectStyle(ListItem, "NativeBase.ListItem")

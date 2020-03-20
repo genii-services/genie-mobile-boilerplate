@@ -2,7 +2,6 @@ const MODULE_NAME$ = "elements/Input"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
-const PropTypes = require("prop-types")
 const { TextInput } = require("react-native")
 
 const { connectStyle } = require("/utils/style")
@@ -22,9 +21,12 @@ const Input = props => {
 	)
 }
 
-Input.propTypes = {
-	...TextInput.propTypes,
-	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	Input.propTypes = {
+		...TextInput.propTypes,
+		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+	}
 }
 
 module.exports = connectStyle(Input, MODULE_NAME$)

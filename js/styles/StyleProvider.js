@@ -1,5 +1,4 @@
 const React = require("react")
-const PropTypes = require("prop-types")
 const _ = require("lodash")
 
 const { Children } = React
@@ -25,9 +24,13 @@ const StyleProvider = props => {
 
 	return Children.only(children)
 }
-StyleProvider.propTypes = {
-	children: PropTypes.element.isRequired,
-	style: PropTypes.object,
+
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	StyleProvider.propTypes = {
+		children: PropTypes.element.isRequired,
+		style: PropTypes.object,
+	}
 }
 
 StyleProvider.defaultProps = {

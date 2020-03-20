@@ -2,7 +2,6 @@
 console.debug("Icon")
 
 const React = require("react")
-const PropTypes = require("prop-types")
 const { View } = require("react-native")
 
 const { CENTER } = require("/constants/style")
@@ -23,13 +22,16 @@ const Icon = props => {
 	)
 }
 
-Icon.propTypes = {
-	...View.propTypes,
-	//style: View.propTypes.style,			// 상속 받은 propType과 동일한 이름으로 다시 지정하는 디버그모드에서는 문제없으나 릴리즈모드에서 죽음. 아마도 스타일 내 속성이 차이가 나서 생기는 문제
-	name: PropTypes.string,
-	//backgroundImageStyle: Image.propTypes.style,
-	backgroundIconStyle: Icon_.propTypes.style,
-	iconStyle: Icon_.propTypes.style,
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	Icon.propTypes = {
+		...View.propTypes,
+		//style: View.propTypes.style,			// 상속 받은 propType과 동일한 이름으로 다시 지정하는 디버그모드에서는 문제없으나 릴리즈모드에서 죽음. 아마도 스타일 내 속성이 차이가 나서 생기는 문제
+		name: PropTypes.string,
+		//backgroundImageStyle: Image.propTypes.style,
+		backgroundIconStyle: Icon_.propTypes.style,
+		iconStyle: Icon_.propTypes.style,
+	}
 }
 
 Icon.defaultProps = {

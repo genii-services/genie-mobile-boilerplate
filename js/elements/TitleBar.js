@@ -1,6 +1,5 @@
 /** 공통 라이브러리 */
 const React = require("react")
-const PropTypes = require("prop-types")
 const { StatusBar, View } = require("react-native")
 
 const { FUNCTION } = require("/constants")
@@ -97,12 +96,16 @@ const TitleBar = props => {
 		</Header>
 	)
 }
-TitleBar.propTypes = {
-	//...Header.defaultProps,		// 이 propType을 지정하지 않고 defaultProps만 지정해도 죽지는 않음
-	title: PropTypes.string,
-	back: PropTypes.bool,
-	drawer: PropTypes.bool,
-	// 상속 받은 propType과 동일한 이름으로 다시 지정하는 디버그모드에서는 문제없으나 릴리즈모드에서 죽음. 아마도 스타일 내 속성이 차이가 나서 생기는 문제
+
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	TitleBar.propTypes = {
+		//...Header.defaultProps,		// 이 propType을 지정하지 않고 defaultProps만 지정해도 죽지는 않음
+		title: PropTypes.string,
+		back: PropTypes.bool,
+		drawer: PropTypes.bool,
+		// 상속 받은 propType과 동일한 이름으로 다시 지정하는 디버그모드에서는 문제없으나 릴리즈모드에서 죽음. 아마도 스타일 내 속성이 차이가 나서 생기는 문제
+	}
 }
 
 TitleBar.defaultProps = {

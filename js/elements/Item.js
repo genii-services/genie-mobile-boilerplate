@@ -4,8 +4,6 @@ console.debug(MODULE_NAME$)
 /* eslint-disable no-plusplus */
 /* eslint-disable no-loop-func */
 const React = require("react")
-const { Component } = React
-const PropTypes = require("prop-types")
 const { TouchableOpacity, Animated, Platform, View, StyleSheet } = require("react-native")
 const { isArray, remove } = require("lodash")
 
@@ -350,15 +348,18 @@ const Item = props => {
 	)
 }
 
-Item.propTypes = {
-	...TouchableOpacity.propTypes,
-	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-	inlineLabel: PropTypes.bool,
-	floatingLabel: PropTypes.bool,
-	stackedLabel: PropTypes.bool,
-	fixedLabel: PropTypes.bool,
-	success: PropTypes.bool,
-	error: PropTypes.bool,
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	Item.propTypes = {
+		...TouchableOpacity.propTypes,
+		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+		inlineLabel: PropTypes.bool,
+		floatingLabel: PropTypes.bool,
+		stackedLabel: PropTypes.bool,
+		fixedLabel: PropTypes.bool,
+		success: PropTypes.bool,
+		error: PropTypes.bool,
+	}
 }
 
 module.exports = connectStyle(Item, "elements/Item")

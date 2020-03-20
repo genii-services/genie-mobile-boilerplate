@@ -2,7 +2,6 @@ const MODULE_NAME$ = "elements/Checkbox"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
-const PropTypes = require("prop-types")
 const { TouchableOpacity } = require("react-native")
 const Ionicons = require("react-native-vector-icons/Ionicons")
 
@@ -51,11 +50,14 @@ const CheckBox = props => {
 	)
 }
 
-CheckBox.propTypes = {
-	...TouchableOpacity.propTypes,
-	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-	checked: PropTypes.bool,
-	onPress: PropTypes.func,
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	CheckBox.propTypes = {
+		...TouchableOpacity.propTypes,
+		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+		checked: PropTypes.bool,
+		onPress: PropTypes.func,
+	}
 }
 
 module.exports = connectStyle(CheckBox, MODULE_NAME$)

@@ -2,7 +2,6 @@ const MODULE_NAME$ = "elements/Text"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
-const PropTypes = require("prop-types")
 const { Text: RNText } = require("react-native")
 const _ = require("lodash")
 
@@ -13,10 +12,13 @@ const Text = ({ uppercase, children, ...props }) => {
 	return <RNText {...props}>{text}</RNText>
 }
 
-Text.propTypes = {
-	...RNText.propTypes,
-	uppercase: PropTypes.bool,
-	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	Text.propTypes = {
+		...RNText.propTypes,
+		uppercase: PropTypes.bool,
+		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+	}
 }
 
 Text.defaultProps = {

@@ -1,5 +1,4 @@
 const React = require("react")
-const PropTypes = require("prop-types")
 const _ = require("lodash")
 const InteractionManager = require("/utils/InteractionManager")
 const ReactNative = require("react-native")
@@ -208,19 +207,24 @@ const Tabs = props => {
 Tabs.DefaultTabBar = DefaultTabBar
 Tabs.ScrollableTabBar = ScrollableTabBar
 
-Tabs.propTypes = {
-	tabBarPosition: PropTypes.oneOf(["top", "bottom", "overlayTop", "overlayBottom"]),
-	initialPage: PropTypes.number,
-	page: PropTypes.number,
-	onChangeTab: PropTypes.func,
-	onScroll: PropTypes.func,
-	renderTabBar: PropTypes.any,
-	style: ViewPropTypes.style,
-	contentProps: PropTypes.object,
-	scrollWithoutAnimation: PropTypes.bool,
-	locked: PropTypes.bool,
-	prerenderingSiblingsNumber: PropTypes.number,
+if (__DEV__) {
+	const { ViewPropTypes } = require("react-native")
+	const PropTypes = require("prop-types")
+	Tabs.propTypes = {
+		tabBarPosition: PropTypes.oneOf(["top", "bottom", "overlayTop", "overlayBottom"]),
+		initialPage: PropTypes.number,
+		page: PropTypes.number,
+		onChangeTab: PropTypes.func,
+		onScroll: PropTypes.func,
+		renderTabBar: PropTypes.any,
+		style: ViewPropTypes.style,
+		contentProps: PropTypes.object,
+		scrollWithoutAnimation: PropTypes.bool,
+		locked: PropTypes.bool,
+		prerenderingSiblingsNumber: PropTypes.number,
+	}
 }
+
 Tabs.getDefaultProps = () => {
 	return {
 		tabBarPosition: "top",

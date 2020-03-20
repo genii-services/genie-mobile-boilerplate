@@ -2,10 +2,9 @@ const MODULE_NAME$ = "Tabs/DefaultTabBar"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
-const PropTypes = require("prop-types")
 const _ = require("lodash")
 const ReactNative = require("react-native")
-const { Animated, ViewPropTypes } = ReactNative
+const { Animated } = ReactNative
 
 const { connectStyle } = require("/utils/style")
 const { useState, useStore, useThis } = require("/hooks")
@@ -100,18 +99,22 @@ const DefaultTabBar = props => {
 	)
 }
 
-DefaultTabBar.propTypes = {
-	goToPage: PropTypes.func,
-	activeTab: PropTypes.number,
-	tabs: PropTypes.array,
-	backgroundColor: PropTypes.string,
-	activeTextColor: PropTypes.string,
-	inactiveTextColor: PropTypes.string,
-	disabledTextColor: PropTypes.string,
-	tabStyle: ViewPropTypes.style,
-	renderTab: PropTypes.func,
-	underlineStyle: ViewPropTypes.style,
-	tabContainerStyle: ViewPropTypes.style,
+if (__DEV__) {
+	const { ViewPropTypes } = require("react-native")
+	const PropTypes = require("prop-types")
+	DefaultTabBar.propTypes = {
+		goToPage: PropTypes.func,
+		activeTab: PropTypes.number,
+		tabs: PropTypes.array,
+		backgroundColor: PropTypes.string,
+		activeTextColor: PropTypes.string,
+		inactiveTextColor: PropTypes.string,
+		disabledTextColor: PropTypes.string,
+		tabStyle: ViewPropTypes.style,
+		renderTab: PropTypes.func,
+		underlineStyle: ViewPropTypes.style,
+		tabContainerStyle: ViewPropTypes.style,
+	}
 }
 
 DefaultTabBar.contextTypes = {

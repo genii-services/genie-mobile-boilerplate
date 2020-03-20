@@ -2,7 +2,6 @@ const MODULE_NAME$ = "elements/IconNB"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
-const PropTypes = require("prop-types")
 const _ = require("lodash")
 
 const AntDesign = require("react-native-vector-icons/AntDesign").default
@@ -59,8 +58,11 @@ const IconNB = props => {
 	return <_this.Icon {...props} />
 }
 
-IconNB.propTypes = {
-	type: PropTypes.oneOf(_.keys(Iconz)),
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	IconNB.propTypes = {
+		type: PropTypes.oneOf(_.keys(Iconz)),
+	}
 }
 
 module.exports = connectStyle(IconNB, MODULE_NAME$)

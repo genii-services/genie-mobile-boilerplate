@@ -1,6 +1,5 @@
 /** 공통 라이브러리 */
 const React = require("react")
-const PropTypes = require("prop-types")
 const { TouchableHighlight } = require("react-native")
 const FastImage = require("react-native-fast-image")
 
@@ -23,10 +22,13 @@ const LocalImage = props => {
 
 // STATIC METHODS
 
-LocalImage.propTypes = {
-	...Thumbnail.propTypes,
-	name: PropTypes.string,
-	onPress: PropTypes.func,
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	LocalImage.propTypes = {
+		...Thumbnail.propTypes,
+		name: PropTypes.string,
+		onPress: PropTypes.func,
+	}
 }
 
 LocalImage.getImageSource = name => localImagez[name]

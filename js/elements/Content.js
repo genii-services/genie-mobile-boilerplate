@@ -1,7 +1,6 @@
 const MODULE_NAME$ = "elements/Content"
 console.debug(MODULE_NAME$)
 
-const PropTypes = require("prop-types")
 const React = require("react")
 const { SafeAreaView } = require("react-native")
 const { KeyboardAwareScrollView } = require("react-native-keyboard-aware-scroll-view")
@@ -57,11 +56,14 @@ const Content = props => {
 	)
 }
 
-Content.propTypes = {
-	disableKBDismissScroll: PropTypes.bool,
-	keyboardShouldPersistTaps: PropTypes.string,
-	padder: PropTypes.bool,
-	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	Content.propTypes = {
+		disableKBDismissScroll: PropTypes.bool,
+		keyboardShouldPersistTaps: PropTypes.string,
+		padder: PropTypes.bool,
+		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+	}
 }
 
 module.exports = connectStyle(Content, MODULE_NAME$)

@@ -1,5 +1,4 @@
 const React = require("react")
-const PropTypes = require("prop-types")
 const _ = require("lodash")
 const { Left, Item, Icon, Text, Button } = require("/elements")
 
@@ -43,11 +42,14 @@ const ProfileBar = props => {
 	)
 }
 
-ProfileBar.propTypes = {
-	name: PropTypes.string,
-	title: PropTypes.string,
-	backgroundColor: PropTypes.string,
-	nameDisplayType: PropTypes.number,
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	ProfileBar.propTypes = {
+		name: PropTypes.string,
+		title: PropTypes.string,
+		backgroundColor: PropTypes.string,
+		nameDisplayType: PropTypes.number,
+	}
 }
 
 ProfileBar.getDefaultStyle = require("/styles/viewparts/ProfileBar")

@@ -1,7 +1,6 @@
 const MODULE_NAME$ = "elements/Radio"
 console.debug(MODULE_NAME$)
 
-const PropTypes = require("prop-types")
 const { TouchableOpacity, Platform } = require("react-native")
 const Ionicons = require("react-native-vector-icons/Ionicons").default
 
@@ -73,10 +72,13 @@ const Radio = props => {
 	)
 }
 
-Radio.propTypes = {
-	...TouchableOpacity.propTypes,
-	selected: PropTypes.bool,
-	standardStyle: PropTypes.bool,
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	Radio.propTypes = {
+		...TouchableOpacity.propTypes,
+		selected: PropTypes.bool,
+		standardStyle: PropTypes.bool,
+	}
 }
 
 module.exports = connectStyle(Radio, MODULE_NAME$)

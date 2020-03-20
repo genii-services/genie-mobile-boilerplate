@@ -1,7 +1,5 @@
 /** 공통 라이브러리 */
 const React = require("react")
-
-const PropTypes = require("prop-types")
 const { Image, RefreshControl, TouchableHighlight, Text, View } = require("react-native")
 const FastImage = require("react-native-fast-image")
 
@@ -87,15 +85,19 @@ const RemoteImage = props => {
 		</View>
 	)
 }
-RemoteImage.propTypes = {
-	...Image.propTypes,
-	name: PropTypes.string,
-	onPress: PropTypes.func,
-	source: PropTypes.any,
-	loadingVisible: PropTypes.bool,
-	zoomScale: PropTypes.number,
-	cropTop: PropTypes.number,
-	aspectRatio: PropTypes.number,
+
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	RemoteImage.propTypes = {
+		...Image.propTypes,
+		name: PropTypes.string,
+		onPress: PropTypes.func,
+		source: PropTypes.any,
+		loadingVisible: PropTypes.bool,
+		zoomScale: PropTypes.number,
+		cropTop: PropTypes.number,
+		aspectRatio: PropTypes.number,
+	}
 }
 
 RemoteImage.defaultProps = {

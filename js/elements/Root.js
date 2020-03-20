@@ -2,8 +2,7 @@ const MODULE_NAME$ = "elements/Root"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
-const { View, ViewPropTypes } = require("react-native")
-const PropTypes = require("prop-types")
+const { View } = require("react-native")
 
 const { connectStyle } = require("/utils/style")
 
@@ -20,9 +19,13 @@ const Root = ({ children, ...props }) => {
 	)
 }
 
-Root.propTypes = {
-	...ViewPropTypes,
-	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+if (__DEV__) {
+	const { ViewPropTypes } = require("react-native")
+	const PropTypes = require("prop-types")
+	Root.propTypes = {
+		...ViewPropTypes,
+		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+	}
 }
 
 module.exports = connectStyle(Root, MODULE_NAME$)

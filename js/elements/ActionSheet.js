@@ -4,8 +4,7 @@ console.debug(MODULE_NAME$)
 /* eslint-disable no-use-before-define */
 /* eslint-disable radix */
 const React = require("react")
-const PropTypes = require("prop-types")
-const { ActionSheetIOS, Dimensions, FlatList, Modal, TouchableOpacity, StyleSheet, ViewPropTypes } = require("react-native")
+const { ActionSheetIOS, Dimensions, FlatList, Modal, TouchableOpacity, StyleSheet } = require("react-native")
 
 const { itsIOS } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
@@ -111,9 +110,13 @@ ActionSheetContainer.hide = () => {
 	ActionSheetContainer.actionsheetInstance._root.hideActionSheet()
 }
 
-ActionSheetContainer.propTypes = {
-	...ViewPropTypes,
-	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+if (__DEV__) {
+	const { ViewPropTypes } = require("react-native")
+	const PropTypes = require("prop-types")
+	ActionSheetContainer.propTypes = {
+		...ViewPropTypes,
+		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+	}
 }
 
 const styles = StyleSheet.create({

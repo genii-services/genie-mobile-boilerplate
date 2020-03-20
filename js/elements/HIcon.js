@@ -1,6 +1,5 @@
 /** 공통 라이브러리 */
 const React = require("react")
-const PropTypes = require("prop-types")
 
 const { CENTER } = require("/constants/style")
 
@@ -24,10 +23,14 @@ const HIcon = props => {
 		</Button>
 	)
 }
-HIcon.propTypes = {
-	name: PropTypes.string,
-	title: PropTypes.string,
-	note: PropTypes.any,
+
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	HIcon.propTypes = {
+		name: PropTypes.string,
+		title: PropTypes.string,
+		note: PropTypes.any,
+	}
 }
 
 HIcon.getDefaultStyle = ({ fontFamily }) => {

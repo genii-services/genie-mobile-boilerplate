@@ -2,7 +2,6 @@ const MODULE_NAME$ = "elements/Textarea"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
-const PropTypes = require("prop-types")
 const { TextInput } = require("react-native")
 
 const variables = require("/styles/themes/default")
@@ -38,12 +37,15 @@ const Textarea = props => {
 	)
 }
 
-Textarea.propTypes = {
-	...TextInput.propTypes,
-	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-	rowSpan: PropTypes.number,
-	bordered: PropTypes.bool,
-	underline: PropTypes.bool,
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	Textarea.propTypes = {
+		...TextInput.propTypes,
+		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+		rowSpan: PropTypes.number,
+		bordered: PropTypes.bool,
+		underline: PropTypes.bool,
+	}
 }
 
 module.exports = connectStyle(Textarea, MODULE_NAME$)

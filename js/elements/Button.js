@@ -3,7 +3,6 @@ console.debug(MODULE_NAME$)
 
 /* eslint-disable new-cap */
 const React = require("react")
-const PropTypes = require("prop-types")
 const { TouchableOpacity, Platform, View, TouchableNativeFeedback, StyleSheet } = require("react-native")
 
 const { useStore } = require("/hooks")
@@ -104,22 +103,25 @@ const Button = props => {
 	)
 }
 
-Button.propTypes = {
-	...TouchableOpacity.propTypes,
-	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-	block: PropTypes.bool,
-	primary: PropTypes.bool,
-	transparent: PropTypes.bool,
-	success: PropTypes.bool,
-	danger: PropTypes.bool,
-	warning: PropTypes.bool,
-	info: PropTypes.bool,
-	bordered: PropTypes.bool,
-	disabled: PropTypes.bool,
-	rounded: PropTypes.bool,
-	large: PropTypes.bool,
-	small: PropTypes.bool,
-	active: PropTypes.bool,
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	Button.propTypes = {
+		...TouchableOpacity.propTypes,
+		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+		block: PropTypes.bool,
+		primary: PropTypes.bool,
+		transparent: PropTypes.bool,
+		success: PropTypes.bool,
+		danger: PropTypes.bool,
+		warning: PropTypes.bool,
+		info: PropTypes.bool,
+		bordered: PropTypes.bool,
+		disabled: PropTypes.bool,
+		rounded: PropTypes.bool,
+		large: PropTypes.bool,
+		small: PropTypes.bool,
+		active: PropTypes.bool,
+	}
 }
 
 const styles = StyleSheet.create({

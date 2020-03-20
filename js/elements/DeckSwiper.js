@@ -2,8 +2,7 @@ const MODULE_NAME$ = "elements/DeckSwiper"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
-const PropTypes = require("prop-types")
-const { View, Animated, PanResponder, ViewPropTypes } = require("react-native")
+const { View, Animated, PanResponder } = require("react-native")
 const clamp = require("clamp")
 
 const { connectStyle } = require("/utils/style")
@@ -252,11 +251,15 @@ const DeckSwiper = props => {
 	)
 }
 
-DeckSwiper.propTypes = {
-	...ViewPropTypes,
-	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-	// eslint-disable-next-line react/forbid-prop-types
-	dataSource: PropTypes.array,
+if (__DEV__) {
+	const { ViewPropTypes } = require("react-native")
+	const PropTypes = require("prop-types")
+	DeckSwiper.propTypes = {
+		...ViewPropTypes,
+		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+		// eslint-disable-next-line react/forbid-prop-types
+		dataSource: PropTypes.array,
+	}
 }
 
 module.exports = connectStyle(DeckSwiper, MODULE_NAME$)

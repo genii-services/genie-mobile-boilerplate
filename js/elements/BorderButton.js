@@ -2,7 +2,6 @@
 console.debug("BorderButton")
 
 const React = require("react")
-const PropTypes = require("prop-types")
 const _ = require("lodash")
 const IconFA = require("react-native-vector-icons/FontAwesome")
 
@@ -83,10 +82,13 @@ const BorderButton = props => {
 	)
 }
 
-BorderButton.propTypes = {
-	name: PropTypes.string,
-	title: PropTypes.string,
-	borderColor: PropTypes.string,
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	BorderButton.propTypes = {
+		name: PropTypes.string,
+		title: PropTypes.string,
+		borderColor: PropTypes.string,
+	}
 }
 
 BorderButton.getDefaultStyle = ({ fontFamily }) => {

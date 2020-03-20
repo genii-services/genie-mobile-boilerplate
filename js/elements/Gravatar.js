@@ -2,7 +2,6 @@ const MODULE_NAME$ = "elements/Gravatar"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
-const PropTypes = require("prop-types")
 const { Image } = require("react-native")
 const _ = require("lodash")
 const md5 = require("blueimp-md5")
@@ -51,13 +50,17 @@ const Gravatar = props => {
 	return <Image {...rootProps} source={{ uri }} />
 }
 
-Gravatar.propTypes = {
-	...Image.propTypes,
-	email: PropTypes.string.isRequired,
-	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-	size: PropTypes.number,
-	circular: PropTypes.bool,
-	square: PropTypes.bool,
+if (__DEV__) {
+	const { ViewPropTypes } = require("react-native")
+	const PropTypes = require("prop-types")
+	Gravatar.propTypes = {
+		...Image.propTypes,
+		email: PropTypes.string.isRequired,
+		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+		size: PropTypes.number,
+		circular: PropTypes.bool,
+		square: PropTypes.bool,
+	}
 }
 
 module.exports = connectStyle(Gravatar, MODULE_NAME$)

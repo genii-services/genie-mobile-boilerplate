@@ -2,8 +2,7 @@ const MODULE_NAME$ = "elements/Footer"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
-const PropTypes = require("prop-types")
-const { View, ViewPropTypes } = require("react-native")
+const { View } = require("react-native")
 
 const { connectStyle } = require("/utils/style")
 const { useState, useStore } = require("/hooks")
@@ -23,14 +22,8 @@ const Footer = props => {
 		let inset = inSet || variable.Inset
 
 		const InsetValues = mode === "portrait" ? inset.portrait : inset.landscape
-		let oldHeight = null
-		if (style.height !== undefined) {
-			oldHeight = style.height
-		} else if (style[1]) {
-			oldHeight = style[1].height || style[0].height
-		} else {
-			oldHeight = style[0].height
-		}
+		let oldHeight = style.height !== undefined ? style.height : style[1] ? style[1].height || style[0].height : style[0].height
+
 		const height = oldHeight + InsetValues.bottomInset
 		return height
 	}
@@ -71,9 +64,12 @@ const Footer = props => {
 	)
 }
 
-Footer.propTypes = {
-	...ViewPropTypes,
-	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+if (__DEV__) {
+	const { ViewPropTypes } = require("react-native")
+	const PropTypes = require("prop-types")
+	Footer.propTypes = {
+		...ViewPropTypes,
+		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+	}
 }
-
 module.exports = connectStyle(Footer, MODULE_NAME$)

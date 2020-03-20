@@ -1,5 +1,4 @@
 const React = require("react")
-const PropTypes = require("prop-types")
 const _ = require("lodash")
 const { Image } = require("react-native")
 const { Icon } = require("/elements")
@@ -52,9 +51,12 @@ const IdPhoto = ({ source, id, watched, ...props }) => {
 	return !_its_unknown ? renderImage() : renderUnknown()
 }
 
-IdPhoto.propTypes = {
-	id: PropTypes.string,
-	watched: PropTypes.bool,
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	IdPhoto.propTypes = {
+		id: PropTypes.string,
+		watched: PropTypes.bool,
+	}
 }
 
 module.exports = IdPhoto

@@ -2,7 +2,6 @@ const MODULE_NAME$ = "elements/Icon"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
-const PropTypes = require("prop-types")
 
 const iosIconz = require("/data/iconz.ios.json")
 const androidIconz = require("/data/iconz.android.json")
@@ -51,14 +50,17 @@ const Icon = props => {
 	return <IconNB {...props} name={name} />
 }
 
-Icon.propTypes = {
-	...IconNB.propTypes,
-	style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-	name: PropTypes.string,
-	ios: PropTypes.string,
-	android: PropTypes.string,
-	active: PropTypes.bool,
-	type: PropTypes.string,
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	Icon.propTypes = {
+		...IconNB.propTypes,
+		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+		name: PropTypes.string,
+		ios: PropTypes.string,
+		android: PropTypes.string,
+		active: PropTypes.bool,
+		type: PropTypes.string,
+	}
 }
 
 module.exports = connectStyle(Icon, "elements/Icon")

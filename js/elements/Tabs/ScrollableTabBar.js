@@ -2,9 +2,8 @@ const MODULE_NAME$ = "Tabs/ScrollableTabBar"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
-const PropTypes = require("prop-types")
 const ReactNative = require("react-native")
-const { View, Animated, StyleSheet, ScrollView, Platform, Dimensions, ViewPropTypes } = ReactNative
+const { View, Animated, StyleSheet, ScrollView, Platform, Dimensions } = ReactNative
 const { isEqual } = require("lodash")
 
 const { connectStyle } = require("/utils/style")
@@ -231,20 +230,24 @@ const ScrollableTabBar = props => {
 	)
 }
 
-ScrollableTabBar.propTypes = {
-	goToPage: PropTypes.func,
-	activeTab: PropTypes.number,
-	tabs: PropTypes.array,
-	backgroundColor: PropTypes.string,
-	activeTextColor: PropTypes.string,
-	inactiveTextColor: PropTypes.string,
-	scrollOffset: PropTypes.number,
-	style: ViewPropTypes.style,
-	tabStyle: ViewPropTypes.style,
-	tabsContainerStyle: ViewPropTypes.style,
-	renderTab: PropTypes.func,
-	underlineStyle: ViewPropTypes.style,
-	onScroll: PropTypes.func,
+if (__DEV__) {
+	const { ViewPropTypes } = require("react-native")
+	const PropTypes = require("prop-types")
+	ScrollableTabBar.propTypes = {
+		goToPage: PropTypes.func,
+		activeTab: PropTypes.number,
+		tabs: PropTypes.array,
+		backgroundColor: PropTypes.string,
+		activeTextColor: PropTypes.string,
+		inactiveTextColor: PropTypes.string,
+		scrollOffset: PropTypes.number,
+		style: ViewPropTypes.style,
+		tabStyle: ViewPropTypes.style,
+		tabsContainerStyle: ViewPropTypes.style,
+		renderTab: PropTypes.func,
+		underlineStyle: ViewPropTypes.style,
+		onScroll: PropTypes.func,
+	}
 }
 
 const styles = StyleSheet.create({

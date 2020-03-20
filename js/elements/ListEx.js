@@ -3,7 +3,6 @@
  *           getDerivedStateFromProps 방식으로 변경
  */
 const React = require("react")
-// const PropTypes = require("prop-types")
 const _ = require("lodash")
 const { FlatList, RefreshControl, Text, TouchableHighlight, View } = require("react-native")
 
@@ -85,14 +84,17 @@ const List = props => {
 	// _loading ? <Spinner color='green'/> : undefined
 }
 
-List.propTypes = {
-	...FlatList.propTypes,
-	// nothingVisible: PropTypes.bool,
-}
-List.defaultProps = {
-	...FlatList.defaultProps,
-	onEndReachedThreshold: 0.025,
-	nothingText: "데이터가 없습니다.",
+if (__DEV__) {
+	const PropTypes = require("prop-types")
+	List.propTypes = {
+		...FlatList.propTypes,
+		// nothingVisible: PropTypes.bool,
+	}
+	List.defaultProps = {
+		...FlatList.defaultProps,
+		onEndReachedThreshold: 0.025,
+		nothingText: "데이터가 없습니다.",
+	}
 }
 
 const { CENTER } = require("/constants/style")
