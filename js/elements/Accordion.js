@@ -60,79 +60,76 @@ const AccordionSubItem = props => {
 }
 
 const AccordionItem = props => {
-	render() {
-		const { props } = this
-		const {
-			contentStyle,
-			expanded,
-			expandedIcon,
-			expandedIconStyle,
-			headerStyle,
-			icon,
-			iconStyle,
-			index,
-			item,
-			onAccordionClose,
-			onAccordionOpen,
-			renderContent,
-			renderHeader,
-			setSelected,
-		} = props
-
-		return (
-			<View>
-				<TouchableWithoutFeedback
-					onPress={() => {
-						onAccordionOpen && !expanded && onAccordionOpen(item, index)
-						onAccordionClose && expanded && onAccordionClose(item, index)
-						setSelected(index)
-					}}>
-					<View>
-						{renderHeader ? (
-							renderHeader(item, expanded)
-						) : (
-							<DefaultHeader
-								expanded={expanded}
-								expandedIcon={expandedIcon}
-								expandedIconStyle={expandedIconStyle}
-								headerStyle={headerStyle}
-								icon={icon}
-								iconStyle={iconStyle}
-								title={item.title}
-							/>
-						)}
-					</View>
-				</TouchableWithoutFeedback>
-				{expanded ? (
-					<AccordionSubItem>
-						{renderContent ? renderContent(item) : <DefaultContent content={item.content} contentStyle={contentStyle} />}
-					</AccordionSubItem>
-				) : null}
-			</View>
-		)
-	}
-}
-
-const Accordion = props => {
-	const [theme] = useStore("theme")
-	const [_selected, set_selected] = useState(props.expanded)
-
-	const setSelected = index => set_selected(_selected != index ? index : undefined)
-
 	const {
 		contentStyle,
-		dataArray,
+		expanded,
 		expandedIcon,
 		expandedIconStyle,
 		headerStyle,
 		icon,
 		iconStyle,
+		index,
+		item,
 		onAccordionClose,
 		onAccordionOpen,
 		renderContent,
 		renderHeader,
-		style,
+		setSelected,
 	} = props
+
+	return (
+		<View>
+			<TouchableWithoutFeedback
+				onPress={() => {
+					onAccordionOpen && !expanded && onAccordionOpen(item, index)
+					onAccordionClose && expanded && onAccordionClose(item, index)
+					setSelected(index)
+				}}>
+				<View>
+					{renderHeader ? (
+						renderHeader(item, expanded)
+					) : (
+						<DefaultHeader
+							expanded={expanded}
+							expandedIcon={expandedIcon}
+							expandedIconStyle={expandedIconStyle}
+							headerStyle={headerStyle}
+							icon={icon}
+							iconStyle={iconStyle}
+							title={item.title}
+						/>
+					)}
+				</View>
+			</TouchableWithoutFeedback>
+			{expanded && (
+				<AccordionSubItem>
+					{renderContent ? renderContent(item) : <DefaultContent content={item.content} contentStyle={contentStyle} />}
+				</AccordionSubItem>
+			)}
+		</View>
+	)
+}
+
+const Accordion = ({
+	contentStyle,
+	expandedIcon,
+	expandedIconStyle,
+	headerStyle,
+	icon,
+	iconStyle,
+	renderContent,
+	renderHeader,
+	onAccordionClose,
+	onAccordionOpen,
+
+	dataArray,
+	style,
+	...props
+}) => {
+	const [theme] = useStore("theme")
+	const [_selected, set_selected] = useState(props.expanded)
+
+	const setSelected = index => set_selected(_selected != index ? index : undefined)
 
 	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
 	return (
@@ -149,21 +146,21 @@ const Accordion = props => {
 			keyExtractor={(item, index) => String(index)}
 			renderItem={({ item, index }) => (
 				<AccordionItem
-					key={String(index)}
 					contentStyle={contentStyle}
-					expanded={_selected === index}
 					expandedIcon={expandedIcon}
 					expandedIconStyle={expandedIconStyle}
 					headerStyle={headerStyle}
 					icon={icon}
 					iconStyle={iconStyle}
-					index={index}
-					item={item}
 					renderContent={renderContent}
 					renderHeader={renderHeader}
 					onAccordionOpen={onAccordionOpen}
 					onAccordionClose={onAccordionClose}
-					setSelected={i => setSelected(i)}
+					key={String(index)}
+					expanded={_selected === index}
+					index={index}
+					item={item}
+					setSelected={setSelected}
 				/>
 			)}
 			{...props}
