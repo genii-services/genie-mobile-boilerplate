@@ -1,8 +1,8 @@
-import { PropTypes } from "prop-types"
+const { PropTypes } = require("prop-types")
 
-import resolveIncludes from "./resolveIncludes"
-import mergeComponentAndThemeStyles from "./mergeComponentAndThemeStyles"
-import normalizeStyle from "./StyleNormalizer/normalizeStyle"
+const resolveIncludes = require("./resolveIncludes")
+const mergeComponentAndThemeStyles = require("./mergeComponentAndThemeStyles")
+const normalizeStyle = require("./StyleNormalizer/normalizeStyle")
 
 // Privates, ideally those should be symbols
 const THEME_STYLE = "@@shoutem.theme/themeStyle"
@@ -36,7 +36,7 @@ const resolveStyle = (style, baseStyle) => normalizeStyle(resolveIncludes(style,
  *   }
  * }
  */
-export default class Theme {
+exports = module.exports = class Theme {
 	constructor(themeStyle) {
 		this[THEME_STYLE] = resolveStyle(themeStyle)
 		this[THEME_STYLE_CACHE] = {}

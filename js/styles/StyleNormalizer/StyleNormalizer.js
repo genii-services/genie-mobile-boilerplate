@@ -1,10 +1,11 @@
-import ShorthandsNormalizerFactory, { SIDES, HORIZONTAL, VERTICAL } from "./ShorthandsNormalizerFactory"
+const ShorthandsNormalizerFactory = require("./ShorthandsNormalizerFactory")
+const { SIDES, HORIZONTAL, VERTICAL } = ShorthandsNormalizerFactory
 
 /**
  * Style Normalizer uses ShorthandsNormalizerCreators to creates different normalizers
  * specific to properties.
  */
-export default class StyleNormalizer {
+exports = module.exports = class StyleNormalizer {
 	constructor() {
 		this.normalizers = {}
 		this.createNormalizers("margin", [HORIZONTAL, VERTICAL, SIDES])

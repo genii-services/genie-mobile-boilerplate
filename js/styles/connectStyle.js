@@ -1,11 +1,12 @@
-import React from "react"
-import hoistStatics from "hoist-non-react-statics"
-import * as _ from "lodash"
-import normalizeStyle from "./StyleNormalizer/normalizeStyle"
-import { StyleSheet } from "react-native"
+const React = require("react")
+const hoistStatics = require("hoist-non-react-statics")
+const _ = require("lodash")
+const normalizeStyle = require("./StyleNormalizer/normalizeStyle")
+const { StyleSheet } = require("react-native")
 
-import Theme, { ThemeShape } from "./Theme"
-import { resolveComponentStyle } from "./resolveComponentStyle"
+const Theme = require("./Theme")
+const { ThemeShape } = Theme
+const { resolveComponentStyle } = require("./resolveComponentStyle")
 
 let themeCache = {}
 
@@ -92,7 +93,7 @@ const StyledComponent = require("./StyledComponent")
  * @returns {StyledComponent} The new component that will handle
  * the styling of the wrapped component.
  */
-export default (componentStyleName, componentStyle = {}, mapPropsToStyleNames, options = {}) => {
+exports = module.exports = (componentStyleName, componentStyle = {}, mapPropsToStyleNames, options = {}) => {
 	function getComponentDisplayName(WrappedComponent) {
 		return WrappedComponent.displayName || WrappedComponent.name || "Component"
 	}

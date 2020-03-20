@@ -1,5 +1,5 @@
-import _ from "lodash"
-import customMerge from "./customMerge"
+const _ = require("lodash")
+const customMerge = require("./customMerge")
 
 /**
  * Matches any style properties that represent component style variants.
