@@ -25,10 +25,14 @@ const appInfo = require("/../app.json")
 const AT = "@"
 const title = "로그인"
 
+const aboutCounter = 0
+
 const LoginScreen = props => {
 	debugger
 	const _this = useThis()
 	const refs = useRefs()
+
+	const [_orientation, set_orientation] = useState()
 
 	useEffect(() => {
 		company.load()
@@ -47,11 +51,10 @@ const LoginScreen = props => {
 		let { emailAddress = "" } = loginInfo
 		let emailParts = emailAddress.split(AT)
 		set_timestamp(timestamp)
-		assign(nextState, loginInfo, {
-			emailName: emailParts[0],
-			domainName: emailParts[1] || domainNames[0],
-			domainNames,
-		})
+		assign(nextState, loginInfo, {})
+		set_emailName(emailParts[0])
+		set_domainName(emailParts[1] || domainNames[0])
+		_this.domainNames = domainNames
 	}
 
 	const handleOnPress = () => {
@@ -60,13 +63,13 @@ const LoginScreen = props => {
 	}
 
 	const renderDomainNamePicker = style => {
-		let { domainNames, domainName } = this.state
-		console.debug(this, domainName)
+		let { domainNames } = _this
+		console.debug(this, _domainName)
 		return (
 			<Button style={style.domainPicker} transparent onPress={handleOnPress}>
 				<Input
 					style={style.pickerText}
-					value={domainName}
+					value={_domainName}
 					editable={false}
 					onChangeText={domainName => set_domainName(domainName)}
 					onEndEditing={Keyboard.dismiss}
@@ -78,7 +81,7 @@ const LoginScreen = props => {
 
 	const handleOrientationDidChange = orientation => {
 		console.debug(this)
-		this.forceUpdate()
+		set_orientation(orientation)
 	}
 
 	const handleSubmit = isDevMode => {
@@ -102,9 +105,8 @@ const LoginScreen = props => {
 		auth.login(paramz)
 	}
 
-	aboutCounter = 0
 	const about = () => {
-		if (2 <= this.aboutCounter++) {
+		if (2 <= aboutCounter++) {
 			Alert.alert(
 				"프로그램 정보",
 				`ID: ${bundleID}\nVer: ${appVersion}.${buildNumber}\nMode: ${__DEV__ ? "Debug" : "Release"}\nHost: ${
@@ -113,7 +115,7 @@ const LoginScreen = props => {
 				[{ text: "확인" }],
 				{ cancelable: false }
 			)
-			this.aboutCounter = 0
+			aboutCounter = 0
 		}
 	}
 
@@ -141,7 +143,7 @@ const LoginScreen = props => {
 							// autoCorrect={false}
 							returnKeyType="next"
 							onChangeText={emailName => set_emailName(emailName)}
-							onSubmitEditing={this._password._root.focus}
+							onSubmitEditing={refs.password._root.focus}
 						/>
 						<Text style={_style.at}>@</Text>
 						{renderDomainNamePicker(style)}
@@ -152,7 +154,7 @@ const LoginScreen = props => {
 							placeholder="암호"
 							placeholderTextColor={grayscaleColors[0]}
 							secureTextEntry
-							ref={c => (this._password = c)}
+							ref={c => (refs.password = c)}
 							value={state.password}
 							returnKeyType="send"
 							onChangeText={password => set_password(password)}

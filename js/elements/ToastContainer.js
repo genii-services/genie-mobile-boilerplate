@@ -3,7 +3,6 @@ console.debug(MODULE_NAME$)
 
 /* eslint-disable class-methods-use-this */
 const React = require("react")
-const { Component } = React
 const PropTypes = require("prop-types")
 const { Keyboard, Platform, Animated, ViewPropTypes } = require("react-native")
 

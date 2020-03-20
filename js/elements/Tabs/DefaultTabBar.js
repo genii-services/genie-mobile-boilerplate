@@ -2,7 +2,6 @@ const MODULE_NAME$ = "Tabs/DefaultTabBar"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
-const { Component } = React
 const PropTypes = require("prop-types")
 const _ = require("lodash")
 const ReactNative = require("react-native")
@@ -19,9 +18,8 @@ const TabContainer = require("../TabContainer")
 
 const DefaultTabBar = props => {
 	const [theme] = useStore("theme")
-	const renderTabOption = (name, page) => {}
 
-	const renderTab = (
+	const renderDefaultTab = (
 		name,
 		page,
 		isTabActive,
@@ -35,31 +33,29 @@ const DefaultTabBar = props => {
 		disabled,
 		disabledTextColor
 	) => {
-		const headerContent = typeof name !== "string" ? name.props.children : undefined
-		const { activeTextColor, inactiveTextColor } = this.props
+		const headerContent = typeof name !== "string" && name.props.children
+		const { activeTextColor, inactiveTextColor } = props
 		const fontWeight = isTabActive ? "bold" : "normal"
 		const isDisabled = disabled !== undefined
-		let textColor
-		if (isDisabled) {
-			textColor = disabledTextColor
-		} else if (isTabActive) {
-			textColor = activeTextStyle ? activeTextStyle.color : activeTextColor // activeTextColor: default color for active Tab
-		} else {
-			textColor = textStyle ? textStyle.color : inactiveTextColor // inactiveTextColor: default color for inactive Tab
-		}
+		let textColor = isDisabled
+			? disabledTextColor
+			: isTabActive
+			? activeTextStyle
+				? activeTextStyle.color
+				: activeTextColor // activeTextColor: default color for active Tab
+			: textStyle
+			? textStyle.color
+			: inactiveTextColor // inactiveTextColor: default color for inactive Tab
 
-		if (typeof name === "string") {
-			return (
-				<Button style={{ flex: 1 }} disabled={isDisabled} key={name} onPress={() => onPressHandler(page)}>
-					<TabHeading style={isTabActive ? activeTabStyle : tabStyle} active={isTabActive}>
-						<Text style={[{ fontSize: tabFontSize }, isTabActive ? activeTextStyle : textStyle, { color: textColor }]}>
-							{name}
-						</Text>
-					</TabHeading>
-				</Button>
-			)
-		}
-		return (
+		return typeof name === "string" ? (
+			<Button style={{ flex: 1 }} disabled={isDisabled} key={name} onPress={() => onPressHandler(page)}>
+				<TabHeading style={isTabActive ? activeTabStyle : tabStyle} active={isTabActive}>
+					<Text style={[{ fontSize: tabFontSize }, isTabActive ? activeTextStyle : textStyle, { color: textColor }]}>
+						{name}
+					</Text>
+				</TabHeading>
+			</Button>
+		) : (
 			<Button style={{ flex: 1 }} disabled={isDisabled} key={_.random(1.2, 5.2)} onPress={() => onPressHandler(page)}>
 				<TabHeading style={tabHeaderStyle} active={isTabActive}>
 					{headerContent}
@@ -69,7 +65,6 @@ const DefaultTabBar = props => {
 	}
 
 	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
-	const platformStyle = variables.platformStyle
 	const containerWidth = props.containerWidth
 	const numberOfTabs = props.tabs.length
 	const tabUnderlineStyle = {
@@ -79,16 +74,12 @@ const DefaultTabBar = props => {
 		backgroundColor: variables.topTabBarActiveBorderColor,
 		bottom: 0,
 	}
-
-	const left = props.scrollValue.interpolate({
-		inputRange: [0, 1],
-		outputRange: [0, containerWidth / numberOfTabs],
-	})
+	const left = props.scrollValue.interpolate({ inputRange: [0, 1], outputRange: [0, containerWidth / numberOfTabs] })
 	return (
 		<TabContainer style={[{ backgroundColor: variables.tabDefaultBg }, props.tabContainerStyle]}>
 			{props.tabs.map((name, page) => {
 				const isTabActive = props.activeTab === page
-				const renderTab = props.renderTab || this.renderTab
+				const renderTab = props.renderTab || renderDefaultTab
 				return renderTab(
 					name,
 					page,

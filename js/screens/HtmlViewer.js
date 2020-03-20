@@ -16,15 +16,15 @@ const HtmlViewer = props => {
 		//the ScrollView has a scrollResponder which allows us to access more methods to control the ScrollView component
 		console.debug(this, "setZoomRef", node)
 		if (node) {
-			this.zoomRef = node
-			this.scrollResponderRef = this.zoomRef.getScrollResponder()
+			_this.zoomRef = node
+			_this.scrollResponderRef = _this.zoomRef.getScrollResponder()
 		}
 	}
 
 	const handleResetZoomScale = event => {
 		console.debug(this, "handleResetZoomScale", event)
 		/*
-		this.scrollResponderRef.scrollResponderZoomTo({
+		_this.scrollResponderRef.scrollResponderZoomTo({
 			x: 0,
 			y: 0,
 			width: props.zoomWidth,

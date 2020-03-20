@@ -97,7 +97,7 @@ const PermissionScreen = props => {
 				console.debug(this, "agree")
 				// auth.permissions = 2
 				if (authToken) router.push("home")
-				if (this.action == "edit") router.pop()
+				if (_this.action == "edit") router.pop()
 				else router.push("login")
 			}
 		)
@@ -120,7 +120,7 @@ const PermissionScreen = props => {
 				style: "cancel",
 			},
 			_photoPermission == "undetermined"
-				? { text: "OK", onPress: this._requestPermission }
+				? { text: "OK", onPress: _requestPermission }
 				: { text: "Open Settings", onPress: Permissions.openSettings },
 		])
 	}
@@ -156,8 +156,8 @@ const PermissionScreen = props => {
 				</View>
 			</Content>
 			<Footer style={style.footer}>
-				<Button style={style.footerButton} rounded onPress={this.agree}>
-					<Text style={style.buttonText}>{this.buttonLabel}</Text>
+				<Button style={style.footerButton} rounded onPress={agree}>
+					<Text style={style.buttonText}>{_this.buttonLabel}</Text>
 				</Button>
 			</Footer>
 		</Container>

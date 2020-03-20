@@ -4,16 +4,16 @@ console.debug(MODULE_NAME$)
 const React = require("react")
 const { FlatList, View } = require("react-native")
 
+const { useRefs } = require("/hooks")
 const { connectStyle } = require("/utils/style")
 
-const List = props => {
-	const { dataArray } = props
-
+const List = ({ dataArray, renderItem, renderRow, props }) => {
+	const refs = useRefs()
 	return dataArray ? (
 		<FlatList
-			ref={ref => (this._root = ref)}
+			ref={c => (refs._root = c)}
 			data={dataArray}
-			renderItem={({ item, index }) => (props.renderItem ? props.renderItem({ item, index }) : props.renderRow(item, 0, index))}
+			renderItem={({ item, index }) => (renderItem ? renderItem({ item, index }) : renderRow(item, 0, index))}
 			{...props}
 		/>
 	) : (

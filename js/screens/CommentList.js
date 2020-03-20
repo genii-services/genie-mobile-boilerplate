@@ -44,21 +44,21 @@ const CommentListScreen = props => {
 
 	const load = where => {
 		console.debug(CommentsScreen, where)
-		props.boardz.loadComments(this.boardUrl, this.articleID)
+		props.boardz.loadComments(_this.boardUrl, _this.articleID)
 	}
 
 	const refresh = where => {
 		console.debug(CommentsScreen, where)
-		props.boardz.reloadComments(this.boardUrl, this.articleID)
+		props.boardz.reloadComments(_this.boardUrl, _this.articleID)
 	}
 
 	const enterComment = text => {
 		console.debug(CommentsScreen)
-		props.boardz.enterComment(this.boardUrl, this.articleID, text)
+		props.boardz.enterComment(_this.boardUrl, _this.articleID, text)
 	}
 
 	let { style, footerStyle } = state
-	let commentable = this.board?.commentable
+	let commentable = _this.board?.commentable
 	let { comment } = props.boardz
 	console.debug(CommentsScreen, comment)
 	return (
@@ -82,8 +82,8 @@ const CommentListScreen = props => {
 				nothingText="댓글이 없습니다"
 				ListFooterComponent={() => <View style={{ height: 100 }} />}
 				status={comment.status}
-				onRefresh={() => this.refresh("List.onRefresh")}
-				onEndReached={() => this.load("List.onEndReached")}
+				onRefresh={() => refresh("List.onRefresh")}
+				onEndReached={() => load("List.onEndReached")}
 			/>
 			{commentable && (
 				<KeyboardAvoidingView behavior={itsIOS ? "padding" : null}>
@@ -93,7 +93,7 @@ const CommentListScreen = props => {
 						placeholder="댓글을 입력해 주세요."
 						minLength={1}
 						buttonTitle="등록"
-						onPress={text => this.enterComment(text)}
+						onPress={text => enterComment(text)}
 					/>
 				</KeyboardAvoidingView>
 			)}

@@ -61,7 +61,7 @@ const DetailScreen = props => {
 		//htmlOptions.viewport = 660 < screen.width ? `width=device-width, user-scalable=no` : `initial-scale=1, maximum-scale=1`
 		//console.debug(this, hasTable, htmlOptions)
 		return [
-			<Tabs tabBarUnderlineStyle={tabStyle.tabBarUnderline} key="tabs" locked ref={me => (this._tabs = me)}>
+			<Tabs tabBarUnderlineStyle={tabStyle.tabBarUnderline} key="tabs" locked>
 				<Tab
 					tabStyle={tabStyle.tab}
 					activeTabStyle={tabStyle.activeTab}
@@ -126,10 +126,10 @@ const DetailScreen = props => {
 							<Text style={{ marginTop: 23, fontSize: 18, color: "#9b9b9b" }}>요청한 게시글이 없습니다</Text>
 						</View>
 					)}
-					<Button light style={{ position: "absolute", right: 5, top: 6 }} onPress={() => this.setImageZoomScale(0.2)}>
+					<Button light style={{ position: "absolute", right: 5, top: 6 }} onPress={() => setImageZoomScale(0.2)}>
 						<Icon style={{ backgroundColor: "transparent" }} name="ios-add" />
 					</Button>
-					<Button light style={{ position: "absolute", right: 5, top: 55 }} onPress={() => this.setImageZoomScale(-0.2)}>
+					<Button light style={{ position: "absolute", right: 5, top: 55 }} onPress={() => setImageZoomScale(-0.2)}>
 						<Icon style={{ backgroundColor: "transparent" }} name="ios-remove" />
 					</Button>
 				</Tab>
@@ -143,7 +143,7 @@ const DetailScreen = props => {
 						data={item.attachments}
 						keyExtractor={item => item.fileID}
 						renderItem={({ item }) => (
-							<ListItem style={attachementFileStyle.listItem} icon onPress={() => this.share(item)}>
+							<ListItem style={attachementFileStyle.listItem} icon onPress={() => share(item)}>
 								{item.thumbnailUrl ? (
 									<FastImage style={attachementFileStyle.iconImage} source={{ uri: item.thumbnailUrl }} square />
 								) : (
@@ -164,7 +164,7 @@ const DetailScreen = props => {
 							<Button
 								key={k}
 								style={[style.button, style[_.lowerFirst(v.actionID)]]}
-								onPress={() => this.submit(v.actionID, v.actionLabel)}>
+								onPress={() => submit(v.actionID, v.actionLabel)}>
 								<Text style={style.buttonText}>{v.actionLabel}</Text>
 							</Button>
 						))}
@@ -237,7 +237,7 @@ const DetailScreen = props => {
 				title={props.title || "게시물"}
 				rightIconName="ios-chatboxes-outline"
 				// rightText={0 < item.commentCount ? item.commentCount : "0"}
-				onLeftPress={this.back}
+				onLeftPress={back}
 				onRightPress={() => router.push("comments", article.paramz /*{ boardUrl, articleID }*/)}
 			/>
 			{article.status === SUCCEED && renderContent(article)}

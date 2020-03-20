@@ -128,83 +128,41 @@ const Fab = props => {
 	const prepareButtonProps = child => {
 		const inp = clone(child.props)
 		delete inp.style
-
 		const defaultProps = {}
-
 		return computeProps(inp, defaultProps)
 	}
 
 	const fabTopValue = pos => {
-		if (pos === POSITION.TOP_LEFT) {
-			return {
-				top: variables.fabDefaultPosition,
-				bottom: undefined,
-				left: variables.fabDefaultPosition,
-				right: undefined,
-			}
-		} else if (pos === POSITION.BOTTOM_RIGHT) {
-			return {
-				top: undefined,
-				bottom: variables.fabDefaultPosition,
-				left: undefined,
-				right: variables.fabDefaultPosition,
-			}
-		} else if (pos === POSITION.BOTTOM_LEFT) {
-			return {
-				top: undefined,
-				bottom: variables.fabDefaultPosition,
-				left: variables.fabDefaultPosition,
-				right: undefined,
-			}
-		} else if (pos === POSITION.TOP_RIGHT) {
-			return {
-				top: variables.fabDefaultPosition,
-				bottom: undefined,
-				left: undefined,
-				right: variables.fabDefaultPosition,
-			}
+		switch (pos) {
+			case POSITION.TOP_LEFT:
+				return { top: variables.fabDefaultPosition, bottom: undefined, left: variables.fabDefaultPosition, right: undefined }
+			case POSITION.BOTTOM_RIGHT:
+				return { top: undefined, bottom: variables.fabDefaultPosition, left: undefined, right: variables.fabDefaultPosition }
+			case POSITION.BOTTOM_LEFT:
+				return { top: undefined, bottom: variables.fabDefaultPosition, left: variables.fabDefaultPosition, right: undefined }
+			case POSITION.TOP_RIGHT:
+				return { top: variables.fabDefaultPosition, bottom: undefined, left: undefined, right: variables.fabDefaultPosition }
 		}
 		return null
 	}
 
 	const fabOtherBtns = (direction, i) => {
 		const { active } = props
-		if (direction === DIRECTION.UP) {
-			return {
-				top: undefined,
-				bottom: active === false ? (itsIOS ? 50 : 5) : i * 50 + 65,
-				left: 8,
-				right: 0,
-			}
-		} else if (direction === DIRECTION.LEFT) {
-			return {
-				top: 8,
-				bottom: 0,
-				left: active === false ? (itsIOS ? 8 : 8) : -(i * 50 + variables.fabWidth + 2),
-				right: 0,
-			}
-		} else if (direction === DIRECTION.DOWN) {
-			return {
-				top: active === false ? (itsIOS ? 50 : 8) : i * 50 + 73,
-				bottom: 0,
-				left: 8,
-				right: 0,
-			}
-		} else if (direction === DIRECTION.RIGHT) {
-			return {
-				top: 8,
-				bottom: 0,
-				left: active === false ? (itsIOS ? 50 : 8) : i * 50 + 73,
-				right: 0,
-			}
+		switch (direction) {
+			case DIRECTION.UP:
+				return { top: undefined, bottom: active === false ? (itsIOS ? 50 : 5) : i * 50 + 65, left: 8, right: 0 }
+			case DIRECTION.LEFT:
+				return { top: 8, bottom: 0, left: active === false ? (itsIOS ? 8 : 8) : -(i * 50 + variables.fabWidth + 2), right: 0 }
+			case DIRECTION.DOWN:
+				return { top: active === false ? (itsIOS ? 50 : 8) : i * 50 + 73, bottom: 0, left: 8, right: 0 }
+			case DIRECTION.RIGHT:
+				return { top: 8, bottom: 0, left: active === false ? (itsIOS ? 50 : 8) : i * 50 + 73, right: 0 }
 		}
 		return null
 	}
 
 	const prepareFabProps = () => {
-		const defaultProps = {
-			style: getInitialStyle().fab,
-		}
+		const defaultProps = { style: getInitialStyle().fab }
 		const incomingProps = clone(props)
 		delete incomingProps.onPress
 
@@ -213,85 +171,45 @@ const Fab = props => {
 
 	const upAnimate = () => {
 		if (!props.active) {
-			Animated.spring(_this.containerHeight, {
-				toValue: _buttons * 51.3 + variables.fabWidth,
-			}).start()
-			Animated.spring(_this.buttonScale, {
-				toValue: 1,
-				useNativeDriver: true,
-			}).start()
+			Animated.spring(_this.containerHeight, { toValue: _buttons * 51.3 + variables.fabWidth }).start()
+			Animated.spring(_this.buttonScale, { toValue: 1, useNativeDriver: true }).start()
 		} else {
 			set_active(false)
-			Animated.spring(_this.containerHeight, {
-				toValue: variables.fabWidth,
-			}).start()
-			Animated.spring(_this.buttonScale, {
-				toValue: 0,
-				useNativeDriver: true,
-			}).start()
+			Animated.spring(_this.containerHeight, { toValue: variables.fabWidth }).start()
+			Animated.spring(_this.buttonScale, { toValue: 0, useNativeDriver: true }).start()
 		}
 	}
 
 	const leftAnimate = () => {
 		if (!props.active) {
-			Animated.spring(_this.containerWidth, {
-				toValue: _buttons * 51.3 + variables.fabWidth,
-			}).start()
-			Animated.spring(_this.buttonScale, {
-				toValue: 1,
-				useNativeDriver: true,
-			}).start()
+			Animated.spring(_this.containerWidth, { toValue: _buttons * 51.3 + variables.fabWidth }).start()
+			Animated.spring(_this.buttonScale, { toValue: 1, useNativeDriver: true }).start()
 		} else {
 			set_active(false)
-			Animated.spring(_this.containerHeight, {
-				toValue: variables.fabWidth,
-			}).start()
-			Animated.spring(_this.buttonScale, {
-				toValue: 0,
-				useNativeDriver: true,
-			}).start()
+			Animated.spring(_this.containerHeight, { toValue: variables.fabWidth }).start()
+			Animated.spring(_this.buttonScale, { toValue: 0, useNativeDriver: true }).start()
 		}
 	}
 
 	const rightAnimate = () => {
 		if (!props.active) {
-			Animated.spring(_this.containerWidth, {
-				toValue: _buttons * 51.3 + variables.fabWidth,
-			}).start()
-			Animated.spring(_this.buttonScale, {
-				toValue: 1,
-				useNativeDriver: true,
-			}).start()
+			Animated.spring(_this.containerWidth, { toValue: _buttons * 51.3 + variables.fabWidth }).start()
+			Animated.spring(_this.buttonScale, { toValue: 1, useNativeDriver: true }).start()
 		} else {
 			set_active(false)
-			Animated.spring(_this.containerHeight, {
-				toValue: variables.fabWidth,
-			}).start()
-			Animated.spring(_this.buttonScale, {
-				toValue: 0,
-				useNativeDriver: true,
-			}).start()
+			Animated.spring(_this.containerHeight, { toValue: variables.fabWidth }).start()
+			Animated.spring(_this.buttonScale, { toValue: 0, useNativeDriver: true }).start()
 		}
 	}
 
 	const downAnimate = () => {
 		if (!props.active) {
-			Animated.spring(_this.containerHeight, {
-				toValue: variables.fabWidth,
-			}).start()
-			Animated.spring(_this.buttonScale, {
-				toValue: 1,
-				useNativeDriver: true,
-			}).start()
+			Animated.spring(_this.containerHeight, { toValue: variables.fabWidth }).start()
+			Animated.spring(_this.buttonScale, { toValue: 1, useNativeDriver: true }).start()
 		} else {
 			set_active(false)
-			Animated.spring(_this.containerHeight, {
-				toValue: variables.fabWidth,
-			}).start()
-			Animated.spring(_this.buttonScale, {
-				toValue: 0,
-				useNativeDriver: true,
-			}).start()
+			Animated.spring(_this.containerHeight, { toValue: variables.fabWidth }).start()
+			Animated.spring(_this.buttonScale, { toValue: 0, useNativeDriver: true }).start()
 		}
 	}
 	const _animate = () => {

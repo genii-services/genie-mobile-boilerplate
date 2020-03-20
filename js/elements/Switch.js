@@ -1,10 +1,10 @@
 const MODULE_NAME$ = "elements/Switch"
 console.debug(MODULE_NAME$)
 
-const { Switch: Switch_ } = require("react-native")
+const ReactNative = require("react-native")
 
 const { connectStyle } = require("/utils/style")
 
-const Switch = Switch_
+const Switch = ReactNative.Switch
 
 module.exports = connectStyle(Switch, MODULE_NAME$)

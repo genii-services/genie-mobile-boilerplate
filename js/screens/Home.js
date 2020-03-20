@@ -4,37 +4,28 @@ const _ = require("lodash")
 const Orientation = require("react-native-orientation-locker").default
 const { Left, Right, ListItem, Item, Icon, Text } = require("/elements")
 
-const {urlz} = require("/data/config")
+const { urlz } = require("/data/config")
 const { yyyymmdd } = require("/utils/moment")
-const {useRouter}=require('/coordinators') // const router = require("/utils/router")
+const { useRouter } = require("/coordinators") // const router = require("/utils/router")
 const { List } = require("/elements")
 
 const { useAuth, useItems, useItem, useCounter, useMenu, useStyle } = require("/coordinators")
 
 const HomeScreen = props => {
-	let options = _.map(workInfos, v => v.displayName)
-	options.push("취소")
-
-	this.state = {
-		refresh: this.refresh,
-		board1: props.boardz.getBoard("Announcementsoneaday4"),
-		board2: props.boardz.getBoard("FamilyEvent4"),
-		refreshing: false,
-		options,
-	}
-
-	if (!refresh.top) refresh()
+	const [_board1, set_board1] = useState(props.boardz.getBoard("Announcementsoneaday4"))
+	const [_board2, set_board2] = useState(props.boardz.getBoard("FamilyEvent4"))
+	const [_refreshing, set_refreshing] = useState(false)
 
 	const { getStyle } = useStyle()
 	const style = getStyle(HomeScreen)
 
 	if (_timestamp !== timestamp) {
 		console.debug("Home.getDerivedStateFromProps", timestamp)
-			nextProps.boardz.reload(_board1)
-			nextProps.boardz.reload(_board2)
-			nextProps.counter.loadMailCount()
-			nextProps.menu.load()
-		}
+		nextProps.boardz.reload(_board1)
+		nextProps.boardz.reload(_board2)
+		nextProps.counter.loadMailCount()
+		nextProps.menu.load()
+
 		set_timestamp(timestamp)
 	}
 	// return _.size(nextState) ? nextState : null
@@ -90,15 +81,14 @@ const HomeScreen = props => {
 
 	const refresh = isUpdateRefreshing => {
 		if (isUpdateRefreshing) set_refreshing(true)
-		props.boardz.reload(state.board1)
-		props.boardz.reload(state.board2)
+		props.boardz.reload(_board1)
+		props.boardz.reload(_board2)
 		props.counter.loadMailCount()
 		props.menu.load()
 	}
 
 	loadData()
-	let {title} = props
-	let { options } = state
+	let { title } = props
 	return (
 		<Container>
 			<TitleBar drawer title={title} rightIconName="ios-refresh" onRightPress={refresh} />
@@ -159,8 +149,8 @@ const HomeScreen = props => {
 						onPress={() => router.browse(urlz.webmail)}
 					/>
 				</View>
-				{renderBoard(state.board1)}
-				{renderBoard(state.board2)}
+				{renderBoard(_board1)}
+				{renderBoard(_board2)}
 				<Item style={style.qnaArea} onPress={() => router.push("listArticle", { boardID: "Faq", title: "자주하는 질문" })}>
 					<Body>
 						<Text style={style.qnaAreaTitle}>자주하는 질문</Text>

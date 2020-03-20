@@ -21,7 +21,7 @@ const StyleProvider = props => {
 
 	const createTheme = props => new Theme(props.style)
 
-	const { children } = this.props
+	const { children } = props
 
 	return Children.only(children)
 }
