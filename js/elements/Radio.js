@@ -73,11 +73,12 @@ const Radio = props => {
 }
 
 if (__DEV__) {
-	const PropTypes = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+
 	Radio.propTypes = {
 		...TouchableOpacity.propTypes,
-		selected: PropTypes.bool,
-		standardStyle: PropTypes.bool,
+		selected: bool,
+		standardStyle: bool,
 	}
 }
 

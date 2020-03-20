@@ -66,10 +66,11 @@ const Footer = props => {
 
 if (__DEV__) {
 	const { ViewPropTypes } = require("react-native")
-	const PropTypes = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+
 	Footer.propTypes = {
 		...ViewPropTypes,
-		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+		style: oneOfType([object, number, array]),
 	}
 }
 module.exports = connectStyle(Footer, MODULE_NAME$)

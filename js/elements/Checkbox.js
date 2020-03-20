@@ -51,12 +51,12 @@ const CheckBox = props => {
 }
 
 if (__DEV__) {
-	const PropTypes = require("prop-types")
+	const { array, bool, func, number, object, oneOfType, string } = require("prop-types")
 	CheckBox.propTypes = {
 		...TouchableOpacity.propTypes,
-		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-		checked: PropTypes.bool,
-		onPress: PropTypes.func,
+		style: oneOfType([object, number, array]),
+		checked: bool,
+		onPress: func,
 	}
 }
 

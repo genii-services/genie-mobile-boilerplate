@@ -87,16 +87,16 @@ const RemoteImage = props => {
 }
 
 if (__DEV__) {
-	const PropTypes = require("prop-types")
+	const { any, bool, func, number, object, oneOfType, string } = require("prop-types")
 	RemoteImage.propTypes = {
 		...Image.propTypes,
-		name: PropTypes.string,
-		onPress: PropTypes.func,
-		source: PropTypes.any,
-		loadingVisible: PropTypes.bool,
-		zoomScale: PropTypes.number,
-		cropTop: PropTypes.number,
-		aspectRatio: PropTypes.number,
+		name: string,
+		onPress: func,
+		source: any,
+		loadingVisible: bool,
+		zoomScale: number,
+		cropTop: number,
+		aspectRatio: number,
 	}
 }
 

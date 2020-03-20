@@ -167,11 +167,11 @@ const PickerNB = props => {
 PickerNB.Item = Picker.Item
 
 if (__DEV__) {
+	const { array, bool, func, object, oneOfType, string } = require("prop-types")
 	const { ViewPropTypes } = require("react-native")
-	const PropTypes = require("prop-types")
 	PickerNB.propTypes = {
 		...ViewPropTypes,
-		renderButton: PropTypes.func,
+		renderButton: func,
 	}
 }
 

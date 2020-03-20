@@ -253,12 +253,13 @@ const DeckSwiper = props => {
 
 if (__DEV__) {
 	const { ViewPropTypes } = require("react-native")
-	const PropTypes = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+
 	DeckSwiper.propTypes = {
 		...ViewPropTypes,
-		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+		style: oneOfType([object, number, array]),
 		// eslint-disable-next-line react/forbid-prop-types
-		dataSource: PropTypes.array,
+		dataSource: array,
 	}
 }
 

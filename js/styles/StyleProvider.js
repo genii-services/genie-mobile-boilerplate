@@ -26,10 +26,10 @@ const StyleProvider = props => {
 }
 
 if (__DEV__) {
-	const PropTypes = require("prop-types")
+	const { array, bool, element, object, oneOfType, string } = require("prop-types")
 	StyleProvider.propTypes = {
-		children: PropTypes.element.isRequired,
-		style: PropTypes.object,
+		children: element.isRequired,
+		style: object,
 	}
 }
 

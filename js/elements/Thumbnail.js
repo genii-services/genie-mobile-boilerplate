@@ -11,13 +11,13 @@ const Thumbnail = props => {
 }
 
 if (__DEV__) {
-	const PropTypes = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("prop-types")
 	Thumbnail.propTypes = {
 		...Image.propTypes,
-		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-		square: PropTypes.bool,
-		circular: PropTypes.bool,
-		size: PropTypes.number,
+		style: oneOfType([object, number, array]),
+		square: bool,
+		circular: bool,
+		size: number,
 	}
 }
 

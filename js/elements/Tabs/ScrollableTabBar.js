@@ -231,22 +231,22 @@ const ScrollableTabBar = props => {
 }
 
 if (__DEV__) {
-	const { ViewPropTypes } = require("react-native")
-	const PropTypes = require("prop-types")
+	const { array, func, number, object, oneOfType, string } = require("prop-types")
+	const { style } = require("react-native").ViewPropTypes
 	ScrollableTabBar.propTypes = {
-		goToPage: PropTypes.func,
-		activeTab: PropTypes.number,
-		tabs: PropTypes.array,
-		backgroundColor: PropTypes.string,
-		activeTextColor: PropTypes.string,
-		inactiveTextColor: PropTypes.string,
-		scrollOffset: PropTypes.number,
-		style: ViewPropTypes.style,
-		tabStyle: ViewPropTypes.style,
-		tabsContainerStyle: ViewPropTypes.style,
-		renderTab: PropTypes.func,
-		underlineStyle: ViewPropTypes.style,
-		onScroll: PropTypes.func,
+		goToPage: func,
+		activeTab: number,
+		tabs: array,
+		backgroundColor: string,
+		activeTextColor: string,
+		inactiveTextColor: string,
+		scrollOffset: number,
+		style: style,
+		tabStyle: style,
+		tabsContainerStyle: style,
+		renderTab: func,
+		underlineStyle: style,
+		onScroll: func,
 	}
 }
 

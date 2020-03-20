@@ -13,11 +13,11 @@ const Text = ({ uppercase, children, ...props }) => {
 }
 
 if (__DEV__) {
-	const PropTypes = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("prop-types")
 	Text.propTypes = {
 		...RNText.propTypes,
-		uppercase: PropTypes.bool,
-		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+		uppercase: bool,
+		style: oneOfType([object, number, array]),
 	}
 }
 

@@ -83,11 +83,12 @@ const BorderButton = props => {
 }
 
 if (__DEV__) {
-	const PropTypes = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+
 	BorderButton.propTypes = {
-		name: PropTypes.string,
-		title: PropTypes.string,
-		borderColor: PropTypes.string,
+		name: string,
+		title: string,
+		borderColor: string,
 	}
 }
 

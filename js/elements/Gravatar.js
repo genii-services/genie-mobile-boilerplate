@@ -52,14 +52,15 @@ const Gravatar = props => {
 
 if (__DEV__) {
 	const { ViewPropTypes } = require("react-native")
-	const PropTypes = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+
 	Gravatar.propTypes = {
 		...Image.propTypes,
-		email: PropTypes.string.isRequired,
-		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-		size: PropTypes.number,
-		circular: PropTypes.bool,
-		square: PropTypes.bool,
+		email: string.isRequired,
+		style: oneOfType([object, number, array]),
+		size: number,
+		circular: bool,
+		square: bool,
 	}
 }
 

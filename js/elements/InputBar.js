@@ -56,12 +56,12 @@ const InputBar = props => {
 }
 
 if (__DEV__) {
-	const PropTypes = require("prop-types")
+	const { array, bool, func, object, oneOfType, string } = require("prop-types")
 	InputBar.propTypes = {
-		placeholder: PropTypes.string,
-		value: PropTypes.string,
-		onChangeText: PropTypes.func,
-		onPress: PropTypes.func,
+		placeholder: string,
+		value: string,
+		onChangeText: func,
+		onPress: func,
 	}
 }
 

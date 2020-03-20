@@ -43,12 +43,13 @@ const ProfileBar = props => {
 }
 
 if (__DEV__) {
-	const PropTypes = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+
 	ProfileBar.propTypes = {
-		name: PropTypes.string,
-		title: PropTypes.string,
-		backgroundColor: PropTypes.string,
-		nameDisplayType: PropTypes.number,
+		name: string,
+		title: string,
+		backgroundColor: string,
+		nameDisplayType: number,
 	}
 }
 

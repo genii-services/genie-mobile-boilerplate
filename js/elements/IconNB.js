@@ -59,9 +59,9 @@ const IconNB = props => {
 }
 
 if (__DEV__) {
-	const PropTypes = require("prop-types")
+	const { array, bool, number, object, oneOf, string } = require("prop-types")
 	IconNB.propTypes = {
-		type: PropTypes.oneOf(_.keys(Iconz)),
+		type: oneOf(_.keys(Iconz)),
 	}
 }
 

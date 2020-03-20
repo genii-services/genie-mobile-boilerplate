@@ -22,10 +22,11 @@ const Input = props => {
 }
 
 if (__DEV__) {
-	const PropTypes = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+
 	Input.propTypes = {
 		...TextInput.propTypes,
-		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+		style: oneOfType([object, number, array]),
 	}
 }
 

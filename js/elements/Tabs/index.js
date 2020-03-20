@@ -208,20 +208,21 @@ Tabs.DefaultTabBar = DefaultTabBar
 Tabs.ScrollableTabBar = ScrollableTabBar
 
 if (__DEV__) {
-	const { ViewPropTypes } = require("react-native")
-	const PropTypes = require("prop-types")
+	const { any, bool, func, number, object, oneOf, string } = require("prop-types")
+	const { style } = require("react-native").ViewPropTypes
+
 	Tabs.propTypes = {
-		tabBarPosition: PropTypes.oneOf(["top", "bottom", "overlayTop", "overlayBottom"]),
-		initialPage: PropTypes.number,
-		page: PropTypes.number,
-		onChangeTab: PropTypes.func,
-		onScroll: PropTypes.func,
-		renderTabBar: PropTypes.any,
-		style: ViewPropTypes.style,
-		contentProps: PropTypes.object,
-		scrollWithoutAnimation: PropTypes.bool,
-		locked: PropTypes.bool,
-		prerenderingSiblingsNumber: PropTypes.number,
+		tabBarPosition: oneOf(["top", "bottom", "overlayTop", "overlayBottom"]),
+		initialPage: number,
+		page: number,
+		onChangeTab: func,
+		onScroll: func,
+		renderTabBar: any,
+		style,
+		contentProps: object,
+		scrollWithoutAnimation: bool,
+		locked: bool,
+		prerenderingSiblingsNumber: number,
 	}
 }
 

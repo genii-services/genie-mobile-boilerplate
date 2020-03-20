@@ -137,15 +137,15 @@ const Html = props => {
 }
 
 if (__DEV__) {
-	const PropTypes = require("prop-types")
+	const { any, bool, number, object, oneOfType, string } = require("prop-types")
 	Html.propTypes = {
 		...WebView.propTypes,
-		source: PropTypes.any,
-		html: PropTypes.string,
-		baseUrl: PropTypes.string,
-		initialScale: PropTypes.number,
-		maximumScale: PropTypes.number,
-		zoomScale: PropTypes.number,
+		source: any,
+		html: string,
+		baseUrl: string,
+		initialScale: number,
+		maximumScale: number,
+		zoomScale: number,
 	}
 }
 

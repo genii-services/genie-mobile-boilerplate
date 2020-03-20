@@ -14,13 +14,13 @@ const Card = props => {
 }
 
 if (__DEV__) {
-	const PropTypes = require("prop-types")
+	const { array, func, number, object, oneOfType, string } = require("prop-types")
 	Card.propTypes = {
 		...ViewPropTypes,
-		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+		style: oneOfType([object, number, array]),
 		// eslint-disable-next-line react/forbid-prop-types
-		dataArray: PropTypes.array,
-		renderRow: PropTypes.func,
+		dataArray: array,
+		renderRow: func,
 	}
 }
 

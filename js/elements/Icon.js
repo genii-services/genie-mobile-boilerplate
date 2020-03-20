@@ -51,15 +51,16 @@ const Icon = props => {
 }
 
 if (__DEV__) {
-	const PropTypes = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+
 	Icon.propTypes = {
 		...IconNB.propTypes,
-		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-		name: PropTypes.string,
-		ios: PropTypes.string,
-		android: PropTypes.string,
-		active: PropTypes.bool,
-		type: PropTypes.string,
+		style: oneOfType([object, number, array]),
+		name: string,
+		ios: string,
+		android: string,
+		active: bool,
+		type: string,
 	}
 }
 

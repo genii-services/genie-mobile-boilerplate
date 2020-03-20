@@ -23,11 +23,11 @@ const LocalImage = props => {
 // STATIC METHODS
 
 if (__DEV__) {
-	const PropTypes = require("prop-types")
+	const { array, bool, func, object, oneOfType, string } = require("prop-types")
 	LocalImage.propTypes = {
 		...Thumbnail.propTypes,
-		name: PropTypes.string,
-		onPress: PropTypes.func,
+		name: string,
+		onPress: func,
 	}
 }
 

@@ -38,13 +38,13 @@ const Textarea = props => {
 }
 
 if (__DEV__) {
-	const PropTypes = require("prop-types")
+	const { array, bool, number, object, oneOfType } = require("prop-types")
 	Textarea.propTypes = {
 		...TextInput.propTypes,
-		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-		rowSpan: PropTypes.number,
-		bordered: PropTypes.bool,
-		underline: PropTypes.bool,
+		style: oneOfType([object, number, array]),
+		rowSpan: number,
+		bordered: bool,
+		underline: bool,
 	}
 }
 

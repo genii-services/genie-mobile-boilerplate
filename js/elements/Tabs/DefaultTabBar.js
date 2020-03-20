@@ -100,25 +100,25 @@ const DefaultTabBar = props => {
 }
 
 if (__DEV__) {
-	const { ViewPropTypes } = require("react-native")
-	const PropTypes = require("prop-types")
+	const { array, func, number, object, oneOfType, string } = require("prop-types")
+	const { style } = require("react-native").ViewPropTypes
 	DefaultTabBar.propTypes = {
-		goToPage: PropTypes.func,
-		activeTab: PropTypes.number,
-		tabs: PropTypes.array,
-		backgroundColor: PropTypes.string,
-		activeTextColor: PropTypes.string,
-		inactiveTextColor: PropTypes.string,
-		disabledTextColor: PropTypes.string,
-		tabStyle: ViewPropTypes.style,
-		renderTab: PropTypes.func,
-		underlineStyle: ViewPropTypes.style,
-		tabContainerStyle: ViewPropTypes.style,
+		goToPage: func,
+		activeTab: number,
+		tabs: array,
+		backgroundColor: string,
+		activeTextColor: string,
+		inactiveTextColor: string,
+		disabledTextColor: string,
+		tabStyle: style,
+		renderTab: func,
+		underlineStyle: style,
+		tabContainerStyle: style,
 	}
 }
 
 DefaultTabBar.contextTypes = {
-	theme: PropTypes.object,
+	theme: object,
 }
 
 DefaultTabBar.getDefaultProps = () => {

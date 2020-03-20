@@ -104,23 +104,24 @@ const Button = props => {
 }
 
 if (__DEV__) {
-	const PropTypes = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+
 	Button.propTypes = {
 		...TouchableOpacity.propTypes,
-		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-		block: PropTypes.bool,
-		primary: PropTypes.bool,
-		transparent: PropTypes.bool,
-		success: PropTypes.bool,
-		danger: PropTypes.bool,
-		warning: PropTypes.bool,
-		info: PropTypes.bool,
-		bordered: PropTypes.bool,
-		disabled: PropTypes.bool,
-		rounded: PropTypes.bool,
-		large: PropTypes.bool,
-		small: PropTypes.bool,
-		active: PropTypes.bool,
+		style: oneOfType([object, number, array]),
+		block: bool,
+		primary: bool,
+		transparent: bool,
+		success: bool,
+		danger: bool,
+		warning: bool,
+		info: bool,
+		bordered: bool,
+		disabled: bool,
+		rounded: bool,
+		large: bool,
+		small: bool,
+		active: bool,
 	}
 }
 

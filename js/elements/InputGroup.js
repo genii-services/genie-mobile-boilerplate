@@ -31,15 +31,16 @@ const InputGroup = props => {
 
 if (__DEV__) {
 	const { ViewPropTypes } = require("react-native")
-	const PropTypes = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+
 	InputGroup.propTypes = {
 		...ViewPropTypes,
-		regular: PropTypes.bool,
-		underline: PropTypes.bool,
-		rounded: PropTypes.bool,
-		success: PropTypes.bool,
-		error: PropTypes.bool,
-		disabled: PropTypes.bool,
+		regular: bool,
+		underline: bool,
+		rounded: bool,
+		success: bool,
+		error: bool,
+		disabled: bool,
 	}
 }
 

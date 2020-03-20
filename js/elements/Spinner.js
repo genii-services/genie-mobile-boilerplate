@@ -22,11 +22,12 @@ const Spinner = ({ color, ...props }) => {
 }
 
 if (__DEV__) {
-	const PropTypes = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+
 	Spinner.propTypes = {
 		...ActivityIndicator.propTypes,
-		color: PropTypes.string,
-		inverse: PropTypes.bool,
+		color: string,
+		inverse: bool,
 	}
 }
 

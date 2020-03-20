@@ -85,10 +85,11 @@ const List = props => {
 }
 
 if (__DEV__) {
-	const PropTypes = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+
 	List.propTypes = {
 		...FlatList.propTypes,
-		// nothingVisible: PropTypes.bool,
+		// nothingVisible: bool,
 	}
 	List.defaultProps = {
 		...FlatList.defaultProps,

@@ -45,11 +45,13 @@ const StyledComponent = props => {
 	// AddedProps are additional WrappedComponent props
 	// Usually they are set trough alternative ways,
 	// such as theme style, or trough options
-	const [_addedProps, set_addedProps] = useState(resolveAddedProps())
+	const [_addedProps, set_addedProps] = useState(() => {
+		const addedProps = {}
+		if (options.withRef) addedProps.ref = "wrappedInstance"
+		return addedProps
+	})
 	const [_styleNames, set_styleNames] = useState(styleNames)
 
-	const styleNames = getStyleNames(props)
-	const style = props.style
 	if (shouldRebuildStyle(props, nextContext, styleNames)) {
 		const finalStyle = getFinalStyle(nextProps, nextContext, style, styleNames)
 		set_style(finalStyle)
@@ -57,22 +59,10 @@ const StyledComponent = props => {
 		set_styleNames(styleNames)
 	}
 
-	const getParentPath = () => {
-		if (!context.parentPath) {
-			return [componentStyleName]
-		} else {
-			return [...context.parentPath, componentStyleName, ...getStyleNames(props)]
-		}
-	}
-
 	const getChildContext = () => {
-		return {
-			// parentStyle: props.virtual ?
-			//   context.parentStyle :
-			//   _childrenStyle,
-			// resolveStyle: resolveConnectedComponentStyle,
-			parentPath: getParentPath(),
-		}
+		parentPath: !context.parentPath ? [componentStyleName] : [...context.parentPath, componentStyleName, ...getStyleNames(props)]
+		// parentStyle: props.virtual ? context.parentStyle : _childrenStyle,
+		// resolveStyle: resolveConnectedComponentStyle,
 	}
 
 	const setNativeProps = nativeProps => wrappedInstance.setNativeProps && wrappedInstance.setNativeProps(nativeProps)
@@ -110,12 +100,6 @@ const StyledComponent = props => {
 		return _.uniq(mapPropsToStyleNames(styleNames, props))
 	}
 
-	const resolveAddedProps = () => {
-		const addedProps = {}
-		if (options.withRef) addedProps.ref = "wrappedInstance"
-		return addedProps
-	}
-
 	const getOrSetStylesInCache = (context, props, styleNames, path) => {
 		if (themeCache && themeCache[path.join(">")]) return themeCache[path.join(">")]
 
@@ -148,34 +132,29 @@ const StyledComponent = props => {
 }
 
 if (__DEV__) {
-	const { ViewPropTypes } = require("react-native")
-	const PropTypes = require("prop-types")
+	const { array, bool, func, number, object, oneOfType, string } = require("prop-types")
 
 	StyledComponent.contextTypes = {
 		theme: ThemeShape,
 		// The style inherited from the parent
-		// parentStyle: PropTypes.object,
-		parentPath: PropTypes.array,
+		// parentStyle: object,
+		parentPath: array,
 	}
 
 	StyledComponent.childContextTypes = {
 		// Provide the parent style to child components
-		// parentStyle: PropTypes.object,
-		// resolveStyle: PropTypes.func,
-		parentPath: PropTypes.array,
+		// parentStyle: object,
+		// resolveStyle: func,
+		parentPath: array,
 	}
 
 	StyledComponent.propTypes = {
 		// Element style that overrides any other style of the component
-		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-		// The style variant names to apply to this component,
-		// multiple variants may be separated with a space character
-		styleName: PropTypes.string,
-		// Virtual elements will propagate the parent
-		// style to their children, i.e., the children
-		// will behave as they are placed directly below
-		// the parent of a virtual element.
-		virtual: PropTypes.bool,
+		style: oneOfType([object, number, array]),
+		// The style variant names to apply to this component, multiple variants may be separated with a space character
+		styleName: string,
+		// Virtual elements will propagate the parent style to their children, i.e., the children will behave as they are placed directly below the parent of a virtual element.
+		virtual: bool,
 	}
 }
 

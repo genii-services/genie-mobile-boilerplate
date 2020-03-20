@@ -349,16 +349,17 @@ const Item = props => {
 }
 
 if (__DEV__) {
-	const PropTypes = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+
 	Item.propTypes = {
 		...TouchableOpacity.propTypes,
-		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-		inlineLabel: PropTypes.bool,
-		floatingLabel: PropTypes.bool,
-		stackedLabel: PropTypes.bool,
-		fixedLabel: PropTypes.bool,
-		success: PropTypes.bool,
-		error: PropTypes.bool,
+		style: oneOfType([object, number, array]),
+		inlineLabel: bool,
+		floatingLabel: bool,
+		stackedLabel: bool,
+		fixedLabel: bool,
+		success: bool,
+		error: bool,
 	}
 }
 

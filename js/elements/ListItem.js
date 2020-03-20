@@ -28,13 +28,14 @@ const ListItem = props => {
 }
 
 if (__DEV__) {
-	const PropTypes = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+
 	ListItem.propTypes = {
 		...TouchableHighlight.propTypes,
-		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-		touchableHighlightStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-		itemDivider: PropTypes.bool,
-		button: PropTypes.bool,
+		style: oneOfType([object, number, array]),
+		touchableHighlightStyle: oneOfType([object, array]),
+		itemDivider: bool,
+		button: bool,
 	}
 }
 

@@ -57,12 +57,13 @@ const Content = props => {
 }
 
 if (__DEV__) {
-	const PropTypes = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+
 	Content.propTypes = {
-		disableKBDismissScroll: PropTypes.bool,
-		keyboardShouldPersistTaps: PropTypes.string,
-		padder: PropTypes.bool,
-		style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+		disableKBDismissScroll: bool,
+		keyboardShouldPersistTaps: string,
+		padder: bool,
+		style: oneOfType([object, number, array]),
 	}
 }
 
