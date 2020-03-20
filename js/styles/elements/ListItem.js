@@ -8,25 +8,15 @@ const defaultTheme = require("/styles/themes/default")
 
 module.exports = (theme = defaultTheme) => {
 	const selectedStyle = {
-		"elements/Text": {
-			color: theme.listItemSelected,
-		},
-		"elements/Icon": {
-			color: theme.listItemSelected,
-		},
+		"elements/Text": { color: theme.listItemSelected },
+		"elements/Icon": { color: theme.listItemSelected },
 	}
 
 	const listItemTheme = {
 		"elements/InputGroup": {
-			"elements/Icon": {
-				paddingRight: 5,
-			},
-			"elements/IconNB": {
-				paddingRight: 5,
-			},
-			"elements/Input": {
-				paddingHorizontal: 5,
-			},
+			"elements/Icon": { paddingRight: 5 },
+			"elements/IconNB": { paddingRight: 5 },
+			"elements/Input": { paddingHorizontal: 5 },
 			flex: 1,
 			borderWidth: null,
 			margin: -10,
@@ -47,9 +37,7 @@ module.exports = (theme = defaultTheme) => {
 					color: null,
 					alignSelf: CENTER,
 				},
-				"elements/Input": {
-					alignSelf: CENTER,
-				},
+				"elements/Input": { alignSelf: CENTER },
 				alignSelf: CENTER,
 				alignItems: CENTER,
 				justifyContent: "flex-start",
@@ -61,9 +49,7 @@ module.exports = (theme = defaultTheme) => {
 			},
 			"elements/Button": {
 				".transparent": {
-					"elements/Text": {
-						fontWeight: "500",
-					},
+					"elements/Text": { fontWeight: "500" },
 					paddingHorizontal: null,
 					paddingLeft: itsIOS ? 10 : null,
 				},
@@ -75,19 +61,12 @@ module.exports = (theme = defaultTheme) => {
 			padding: 10,
 			marginLeft: null,
 		},
-		"elements/CheckBox": {
-			marginLeft: -10,
-			marginRight: 10,
-		},
+		"elements/CheckBox": { marginLeft: -10, marginRight: 10 },
 		".first": {
-			".itemHeader": {
-				paddingTop: theme.listItemPadding + 3,
-			},
+			".itemHeader": { paddingTop: theme.listItemPadding + 3 },
 		},
 		".itemHeader": {
-			".first": {
-				paddingTop: theme.listItemPadding + 3,
-			},
+			".first": { paddingTop: theme.listItemPadding + 3 },
 			borderBottomWidth: itsIOS ? theme.borderWidth : null,
 			marginLeft: null,
 			padding: theme.listItemPadding,
@@ -111,15 +90,9 @@ module.exports = (theme = defaultTheme) => {
 			borderColor: theme.listBorderColor,
 		},
 		".selected": {
-			"elements/Left": {
-				...selectedStyle,
-			},
-			"elements/Body": {
-				...selectedStyle,
-			},
-			"elements/Right": {
-				...selectedStyle,
-			},
+			"elements/Left": { ...selectedStyle },
+			"elements/Body": { ...selectedStyle },
+			"elements/Right": { ...selectedStyle },
 			...selectedStyle,
 		},
 		"elements/Left": {
@@ -135,17 +108,9 @@ module.exports = (theme = defaultTheme) => {
 				alignItems: null,
 				alignSelf: null,
 			},
-			"elements/Icon": {
-				width: theme.iconFontSize - 10,
-				fontSize: theme.iconFontSize - 10,
-			},
-			"elements/IconNB": {
-				width: theme.iconFontSize - 10,
-				fontSize: theme.iconFontSize - 10,
-			},
-			"elements/Text": {
-				alignSelf: CENTER,
-			},
+			"elements/Icon": { width: theme.iconFontSize - 10, fontSize: theme.iconFontSize - 10 },
+			"elements/IconNB": { width: theme.iconFontSize - 10, fontSize: theme.iconFontSize - 10 },
+			"elements/Text": { alignSelf: CENTER },
 			flexDirection: "row",
 		},
 		"elements/Body": {
@@ -160,23 +125,17 @@ module.exports = (theme = defaultTheme) => {
 			alignItems: null,
 		},
 		"elements/Right": {
-			"elements/Badge": {
-				alignSelf: null,
-			},
+			"elements/Badge": { alignSelf: null },
 			"elements/PickerNB": {
 				"elements/Button": {
 					marginRight: -15,
-					"elements/Text": {
-						color: theme.topTabBarActiveTextColor,
-					},
+					"elements/Text": { color: theme.topTabBarActiveTextColor },
 				},
 			},
 			"elements/Button": {
 				alignSelf: null,
 				".transparent": {
-					"elements/Text": {
-						color: theme.topTabBarActiveTextColor,
-					},
+					"elements/Text": { color: theme.topTabBarActiveTextColor },
 				},
 			},
 			"elements/Icon": {
@@ -196,21 +155,11 @@ module.exports = (theme = defaultTheme) => {
 				},
 				alignSelf: null,
 			},
-			"elements/Thumbnail": {
-				alignSelf: null,
-			},
-			"elements/Image": {
-				alignSelf: null,
-			},
-			"elements/Radio": {
-				alignSelf: null,
-			},
-			"elements/Checkbox": {
-				alignSelf: null,
-			},
-			"elements/Switch": {
-				alignSelf: null,
-			},
+			"elements/Thumbnail": { alignSelf: null },
+			"elements/Image": { alignSelf: null },
+			"elements/Radio": { alignSelf: null },
+			"elements/Checkbox": { alignSelf: null },
+			"elements/Switch": { alignSelf: null },
 			padding: null,
 			flex: 0.28,
 		},
@@ -256,25 +205,17 @@ module.exports = (theme = defaultTheme) => {
 				borderColor: theme.listBorderColor,
 			},
 			".noBorder": {
-				"elements/Body": {
-					borderBottomWidth: null,
-				},
-				"elements/Right": {
-					borderBottomWidth: null,
-				},
+				"elements/Body": { borderBottomWidth: null },
+				"elements/Right": { borderBottomWidth: null },
 			},
 			borderBottomWidth: null,
 			paddingVertical: null,
 			paddingRight: null,
 		},
 		".thumbnail": {
-			"elements/Left": {
-				flex: 0,
-			},
+			"elements/Left": { flex: 0 },
 			"elements/Body": {
-				"elements/Text": {
-					marginLeft: null,
-				},
+				"elements/Text": { marginLeft: null },
 				flex: 1,
 				paddingVertical: theme.listItemPadding + 8,
 				borderBottomWidth: theme.borderWidth,
@@ -390,9 +331,7 @@ module.exports = (theme = defaultTheme) => {
 					marginRight: itsIOS ? undefined : -5,
 					alignSelf: null,
 				},
-				"elements/PickerNB": {
-					...pickerTheme(),
-				},
+				"elements/PickerNB": { ...pickerTheme() },
 				flexDirection: "row",
 				alignItems: CENTER,
 				flex: 0,
@@ -404,12 +343,8 @@ module.exports = (theme = defaultTheme) => {
 				paddingRight: theme.listItemPadding + 5,
 			},
 			".noBorder": {
-				"elements/Body": {
-					borderBottomWidth: null,
-				},
-				"elements/Right": {
-					borderBottomWidth: null,
-				},
+				"elements/Body": { borderBottomWidth: null },
+				"elements/Right": { borderBottomWidth: null },
 			},
 			borderBottomWidth: null,
 			paddingVertical: null,

@@ -13,7 +13,7 @@
 // exports.TitleBar = require("./TitleBar")
 // exports.VLine = require("./VLine")
 
-const { StyleProvider, connectStyle } = require("native-base-shoutem-theme")
+const { StyleProvider, connectStyle } = require("/styles")
 const { Col, Row, Grid } = require("react-native-easy-grid")
 const { key } = require("lodash")
 
@@ -80,7 +80,7 @@ exports.View = require("./View")
 
 // Theme
 
-const { Theme } = require("native-base-shoutem-theme")
+const { Theme } = require("/styles")
 const getThemeStyle = require("/styles/elements")
 
 function setDefaultThemeStyle() {

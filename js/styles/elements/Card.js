@@ -2,6 +2,13 @@
 const defaultTheme = require("/styles/themes/default")
 
 module.exports = (theme = defaultTheme) => {
+	const {
+		borderWidth: borderWidth,
+		cardBorderRadius: borderRadius,
+		cardBorderColor: borderColor,
+		cardDefaultBg: backgroundColor,
+	} = theme
+
 	return {
 		".transparent": {
 			shadowColor: null,
@@ -20,11 +27,11 @@ module.exports = (theme = defaultTheme) => {
 		},
 		marginVertical: 5,
 		marginHorizontal: 2,
-		borderWidth: theme.borderWidth,
-		borderRadius: theme.cardBorderRadius,
-		borderColor: theme.cardBorderColor,
+		borderWidth,
+		borderRadius,
+		borderColor,
 		flexWrap: "nowrap",
-		backgroundColor: theme.cardDefaultBg,
+		backgroundColor,
 		shadowColor: "#000",
 		shadowOffset: { width: 0, height: 2 },
 		shadowOpacity: 0.1,

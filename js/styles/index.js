@@ -1,6 +1,14 @@
 /** 공통 라이브러리 */
 console.debug("styles")
 
+const connectStyle = require("./connectStyle")
+const { clearThemeCache } = connectStyle
+const { INCLUDE } = require("./resolveIncludes")
+const StyleProvider = require("./StyleProvider")
+const Theme = require("./Theme")
+const { ThemeShape } = Theme
+const { createVariations, createSharedStyle } = require("./addons")
+
 const { StyleSheet } = require("react-native")
 
 const { itsIOS, screen } = require("/utils/device")
@@ -51,4 +59,13 @@ module.exports = {
 	fontSizesArray,
 	textAlign,
 	W50PC,
+
+	connectStyle,
+	clearThemeCache,
+	INCLUDE,
+	StyleProvider,
+	Theme,
+	ThemeShape,
+	createVariations,
+	createSharedStyle,
 }

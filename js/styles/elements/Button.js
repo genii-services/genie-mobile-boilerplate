@@ -4,7 +4,8 @@ const { itsIOS } = require("/utils/device")
 const defaultTheme = require("/styles/themes/default")
 
 module.exports = (theme = defaultTheme) => {
-	const { platform, platformStyle } = theme
+	const { borderWidth, platformStyle } = theme
+	const borderWidthX2 = borderWidth * 2
 	const darkCommon = {
 		"elements/Text": { color: theme.brandDark },
 		"elements/Icon": { color: theme.brandDark },
@@ -57,54 +58,54 @@ module.exports = (theme = defaultTheme) => {
 				...darkCommon,
 				backgroundColor: "transparent",
 				borderColor: theme.brandDark,
-				borderWidth: theme.borderWidth * 2,
+				borderWidth: borderWidthX2,
 			},
 			".light": {
 				...lightCommon,
 				backgroundColor: "transparent",
 				borderColor: theme.brandLight,
-				borderWidth: theme.borderWidth * 2,
+				borderWidth: borderWidthX2,
 			},
 			".primary": {
 				...primaryCommon,
 				backgroundColor: "transparent",
 				borderColor: theme.buttonPrimaryBg,
-				borderWidth: theme.borderWidth * 2,
+				borderWidth: borderWidthX2,
 			},
 			".success": {
 				...successCommon,
 				backgroundColor: "transparent",
 				borderColor: theme.buttonSuccessBg,
-				borderWidth: theme.borderWidth * 2,
+				borderWidth: borderWidthX2,
 			},
 			".info": {
 				...infoCommon,
 				backgroundColor: "transparent",
 				borderColor: theme.buttonInfoBg,
-				borderWidth: theme.borderWidth * 2,
+				borderWidth: borderWidthX2,
 			},
 			".warning": {
 				...warningCommon,
 				backgroundColor: "transparent",
 				borderColor: theme.buttonWarningBg,
-				borderWidth: theme.borderWidth * 2,
+				borderWidth: borderWidthX2,
 			},
 			".danger": {
 				...dangerCommon,
 				backgroundColor: "transparent",
 				borderColor: theme.buttonDangerBg,
-				borderWidth: theme.borderWidth * 2,
+				borderWidth: borderWidthX2,
 			},
 			".disabled": {
 				backgroundColor: "transparent",
 				borderColor: theme.buttonDisabledBg,
-				borderWidth: theme.borderWidth * 2,
+				borderWidth: borderWidthX2,
 				"elements/Text": {
 					color: theme.buttonDisabledBg,
 				},
 			},
 			...primaryCommon,
-			borderWidth: theme.borderWidth * 2,
+			borderWidth: borderWidthX2,
 			elevation: null,
 			shadowColor: null,
 			shadowOffset: null,
@@ -182,7 +183,7 @@ module.exports = (theme = defaultTheme) => {
 			".disabled": {
 				backgroundColor: "transparent",
 				borderColor: theme.buttonDisabledBg,
-				borderWidth: theme.borderWidth * 2,
+				borderWidth: borderWidthX2,
 				"elements/Text": { color: theme.buttonDisabledBg },
 				"elements/Icon": { color: theme.buttonDisabledBg },
 				"elements/IconNB": { color: theme.buttonDisabledBg },
@@ -222,13 +223,13 @@ module.exports = (theme = defaultTheme) => {
 			color: theme.inverseTextColor,
 			fontSize: 24,
 			marginHorizontal: 16,
-			paddingTop: itsIOS ? 2 : undefined,
+			paddingTop: itsIOS && 2,
 		},
 		"elements/IconNB": {
 			color: theme.inverseTextColor,
 			fontSize: 24,
 			marginHorizontal: 16,
-			paddingTop: itsIOS ? 2 : undefined,
+			paddingTop: itsIOS && 2,
 		},
 
 		".iconLeft": {

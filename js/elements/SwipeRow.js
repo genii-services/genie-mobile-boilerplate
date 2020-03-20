@@ -2,10 +2,9 @@ const MODULE_NAME$ = "elements/SwipeRow"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
-const { Component } = React
-const PropTypes = require("prop-types")
 const { Animated, PanResponder, View } = require("react-native")
 
+const { useThis } = require("/hooks")
 const { connectStyle } = require("/utils/style")
 
 const { Left } = require("./Left")
@@ -17,248 +16,222 @@ const PREVIEW_OPEN_DELAY = 700
 const PREVIEW_CLOSE_DELAY = 300
 
 const SwipeRow = props => {
-	static defaultProps = {
-		leftOpenValue: 0,
-		rightOpenValue: 0,
-		closeOnRowPress: true,
-		disableLeftSwipe: false,
-		disableRightSwipe: false,
-		recalculateHiddenLayout: false,
-		preview: false,
-		previewDuration: 300,
-		directionalDistanceChangeThreshold: 2,
-		swipeToOpenPercent: 50,
+	const _this = useThis()
+	if (!_this.ref) {
+		_this.horizontalSwipeGestureBegan = false
+		_this.swipeInitialX = null
+		_this.parentScrollEnabled = true
+		_this.ranPreview = false
+		_this._translateX = new Animated.Value(0)
 	}
-	constructor(props) {
-		super(props)
-		this.horizontalSwipeGestureBegan = false
-		this.swipeInitialX = null
-		this.parentScrollEnabled = true
-		this.ranPreview = false
-		this.state = {
-			dimensionsSet: false,
-			hiddenHeight: 0,
-			hiddenWidth: 0,
-		}
-		this._translateX = new Animated.Value(0)
-	}
+	const [_dimensionsSet, set_dimensionsSet] = useState(false)
+	const [_hiddenHeight, set_hiddenHeight] = useState(0)
+	const [_hiddenWidth, set_hiddenWidth] = useState(0)
 
-	componentDidMount() {
-		this._panResponder = PanResponder.create({
-			onMoveShouldSetPanResponder: (e, gs) => this.handleOnMoveShouldSetPanResponder(e, gs),
-			onPanResponderMove: (e, gs) => this.handlePanResponderMove(e, gs),
-			onPanResponderRelease: (e, gs) => this.handlePanResponderEnd(e, gs),
-			onPanResponderTerminate: (e, gs) => this.handlePanResponderEnd(e, gs),
+	useEffect(() => {
+		_this._panResponder = PanResponder.create({
+			onMoveShouldSetPanResponder: (e, gs) => handleOnMoveShouldSetPanResponder(e, gs),
+			onPanResponderMove: (e, gs) => handlePanResponderMove(e, gs),
+			onPanResponderRelease: (e, gs) => handlePanResponderEnd(e, gs),
+			onPanResponderTerminate: (e, gs) => handlePanResponderEnd(e, gs),
 			onShouldBlockNativeResponder: _ => false,
 		})
-	}
+	}, [])
 
-	getPreviewAnimation(toValue, delay) {
-		return Animated.timing(this._translateX, {
-			duration: this.props.previewDuration,
+	const getPreviewAnimation = (toValue, delay) => {
+		return Animated.timing(_this._translateX, {
+			duration: props.previewDuration,
 			toValue,
 			delay,
 			useNativeDriver: true,
 		})
 	}
 
-	onContentLayout(e) {
-		this.setState({
-			dimensionsSet: !this.props.recalculateHiddenLayout,
-			hiddenHeight: e.nativeEvent.layout.height,
-			hiddenWidth: e.nativeEvent.layout.width,
-		})
+	const onContentLayout = e => {
+		set_dimensionsSet(!props.recalculateHiddenLayout)
+		set_hiddenHeight(e.nativeEvent.layout.height)
+		set_hiddenWidth(e.nativeEvent.layout.width)
 
-		if (this.props.preview && !this.ranPreview) {
-			this.ranPreview = true
-			const previewOpenValue = this.props.previewOpenValue || this.props.rightOpenValue * 0.5
-			this.getPreviewAnimation(previewOpenValue, PREVIEW_OPEN_DELAY).start(_ => {
-				this.getPreviewAnimation(0, PREVIEW_CLOSE_DELAY).start()
+		if (props.preview && !_this.ranPreview) {
+			_this.ranPreview = true
+			const previewOpenValue = props.previewOpenValue || props.rightOpenValue * 0.5
+			getPreviewAnimation(previewOpenValue, PREVIEW_OPEN_DELAY).start(_ => {
+				getPreviewAnimation(0, PREVIEW_CLOSE_DELAY).start()
 			})
 		}
 	}
 
-	handleOnMoveShouldSetPanResponder(e, gs) {
+	const handleOnMoveShouldSetPanResponder = (e, gs) => {
 		const { dx } = gs
-		return Math.abs(dx) > this.props.directionalDistanceChangeThreshold
+		return Math.abs(dx) > props.directionalDistanceChangeThreshold
 	}
 
-	handlePanResponderMove(e, gestureState) {
+	const handlePanResponderMove = (e, gestureState) => {
 		const { dx, dy } = gestureState
 		const absDx = Math.abs(dx)
 		const absDy = Math.abs(dy)
 
 		// this check may not be necessary because we don't capture the move until we pass the threshold
 		// just being extra safe here
-		if (absDx > this.props.directionalDistanceChangeThreshold || absDy > this.props.directionalDistanceChangeThreshold) {
+		if (absDx > props.directionalDistanceChangeThreshold || absDy > props.directionalDistanceChangeThreshold) {
 			// we have enough to determine direction
-			if (absDy > absDx && !this.horizontalSwipeGestureBegan) {
+			if (absDy > absDx && !_this.horizontalSwipeGestureBegan) {
 				// user is moving vertically, do nothing, listView will handle
 				return
 			}
 
 			// user is moving horizontally
-			if (this.parentScrollEnabled) {
+			if (_this.parentScrollEnabled) {
 				// disable scrolling on the listView parent
-				this.parentScrollEnabled = false
-				this.props.setScrollEnabled && this.props.setScrollEnabled(false)
+				_this.parentScrollEnabled = false
+				props.setScrollEnabled && props.setScrollEnabled(false)
 			}
 
-			if (this.swipeInitialX === null) {
+			if (_this.swipeInitialX === null) {
 				// set tranlateX value when user started swiping
-				this.swipeInitialX = this._translateX._value
+				_this.swipeInitialX = _this._translateX._value
 			}
-			if (!this.horizontalSwipeGestureBegan) {
-				this.horizontalSwipeGestureBegan = true
-				this.props.swipeGestureBegan && this.props.swipeGestureBegan()
-			}
-
-			let newDX = this.swipeInitialX + dx
-			if (this.props.disableLeftSwipe && newDX < 0) {
-				newDX = 0
-			}
-			if (this.props.disableRightSwipe && newDX > 0) {
-				newDX = 0
+			if (!_this.horizontalSwipeGestureBegan) {
+				_this.horizontalSwipeGestureBegan = true
+				props.swipeGestureBegan && props.swipeGestureBegan()
 			}
 
-			if (this.props.stopLeftSwipe && newDX > this.props.stopLeftSwipe) {
-				newDX = this.props.stopLeftSwipe
-			}
-			if (this.props.stopRightSwipe && newDX < this.props.stopRightSwipe) {
-				newDX = this.props.stopRightSwipe
-			}
+			let newDX = _this.swipeInitialX + dx
+			if (props.disableLeftSwipe && newDX < 0) newDX = 0
+			if (props.disableRightSwipe && newDX > 0) newDX = 0
 
-			this._translateX.setValue(newDX)
+			if (props.stopLeftSwipe && newDX > props.stopLeftSwipe) newDX = props.stopLeftSwipe
+			if (props.stopRightSwipe && newDX < props.stopRightSwipe) newDX = props.stopRightSwipe
+
+			_this._translateX.setValue(newDX)
 		}
 	}
 
-	handlePanResponderEnd(e, gestureState) {
+	const handlePanResponderEnd = (e, gestureState) => {
 		// re-enable scrolling on listView parent
-		if (!this.parentScrollEnabled) {
-			this.parentScrollEnabled = true
-			this.props.setScrollEnabled && this.props.setScrollEnabled(true)
+		if (!_this.parentScrollEnabled) {
+			_this.parentScrollEnabled = true
+			props.setScrollEnabled && props.setScrollEnabled(true)
 		}
 
 		// finish up the animation
 		let toValue = 0
-		if (this._translateX._value >= 0) {
+		if (_this._translateX._value >= 0) {
 			// trying to open right
-			if (this._translateX._value > this.props.leftOpenValue * (this.props.swipeToOpenPercent / 100)) {
+			if (_this._translateX._value > props.leftOpenValue * (props.swipeToOpenPercent / 100)) {
 				// we're more than halfway
-				toValue = this.props.leftOpenValue
+				toValue = props.leftOpenValue
 			}
 		} else {
 			// trying to open left
-			if (this._translateX._value < this.props.rightOpenValue * (this.props.swipeToOpenPercent / 100)) {
+			if (_this._translateX._value < props.rightOpenValue * (props.swipeToOpenPercent / 100)) {
 				// we're more than halfway
-				toValue = this.props.rightOpenValue
+				toValue = props.rightOpenValue
 			}
 		}
 
-		this.manuallySwipeRow(toValue)
+		manuallySwipeRow(toValue)
 	}
 
 	/*
 	 * This method is called by SwipeListView
 	 */
-	closeRow() {
-		this.manuallySwipeRow(0)
-	}
+	const closeRow = () => manuallySwipeRow(0)
 
-	openLeftRow() {
-		this.manuallySwipeRow(this.props.leftOpenValue)
-	}
+	const openLeftRow = () => manuallySwipeRow(props.leftOpenValue)
 
-	openRightRow() {
-		this.manuallySwipeRow(this.props.rightOpenValue)
-	}
+	const openRightRow = () => manuallySwipeRow(props.rightOpenValue)
 
-	manuallySwipeRow(toValue) {
-		Animated.spring(this._translateX, {
+	const manuallySwipeRow = toValue => {
+		Animated.spring(_this._translateX, {
 			toValue,
-			friction: this.props.friction,
-			tension: this.props.tension,
+			friction: props.friction,
+			tension: props.tension,
 			useNativeDriver: true,
 		}).start(_ => {
-			if (toValue === 0) {
-				this.props.onRowDidClose && this.props.onRowDidClose()
-			} else {
-				this.props.onRowDidOpen && this.props.onRowDidOpen()
-			}
+			if (toValue === 0) props.onRowDidClose && props.onRowDidClose()
+			else props.onRowDidOpen && props.onRowDidOpen()
 		})
 
-		if (toValue === 0) {
-			this.props.onRowClose && this.props.onRowClose()
-		} else {
-			this.props.onRowOpen && this.props.onRowOpen(toValue)
-		}
+		if (toValue === 0) props.onRowClose && props.onRowClose()
+		else props.onRowOpen && props.onRowOpen(toValue)
 
 		// reset everything
-		this.swipeInitialX = null
-		this.horizontalSwipeGestureBegan = false
+		_this.swipeInitialX = null
+		_this.horizontalSwipeGestureBegan = false
 	}
 
-	renderMainContent() {
+	const renderMainContent = () => {
 		// We do this annoying if statement for performance.
 		// We don't want the onLayout func to run after it runs once.
 		if (_dimensionsSet) {
 			return (
 				<Animated.View
-					{...this._panResponder.panHandlers}
+					{..._this._panResponder.panHandlers}
 					style={{
-						transform: [{ translateX: this._translateX }],
+						transform: [{ translateX: _this._translateX }],
 						zIndex: 2,
 					}}>
-					{!this.props.list ? (
-						<ListItem list style={this.props.style}>
-							{this.props.body}
+					{!props.list ? (
+						<ListItem list style={props.style}>
+							{props.body}
 						</ListItem>
 					) : (
-						<View style={[{ backgroundColor: "#FFF" }, this.props.style]}>{this.props.body}</View>
+						<View style={[{ backgroundColor: "#FFF" }, props.style]}>{props.body}</View>
 					)}
 				</Animated.View>
 			)
 		}
 		return (
 			<Animated.View
-				{...this._panResponder.panHandlers}
-				onLayout={e => this.onContentLayout(e)}
+				{..._this._panResponder.panHandlers}
+				onLayout={e => onContentLayout(e)}
 				style={{
-					transform: [{ translateX: this._translateX }],
+					transform: [{ translateX: _this._translateX }],
 					zIndex: 2,
 				}}>
-				{!this.props.list ? (
-					<ListItem list style={this.props.style}>
-						{this.props.body}
+				{!props.list ? (
+					<ListItem list style={props.style}>
+						{props.body}
 					</ListItem>
 				) : (
-					<View style={[{ backgroundColor: "#FFF" }, this.props.style]}>{this.props.body}</View>
+					<View style={[{ backgroundColor: "#FFF" }, props.style]}>{props.body}</View>
 				)}
 			</Animated.View>
 		)
 	}
 
-	render() {
-		return (
-			<View style={this.props.style ? this.props.style : undefined}>
-				<View
-					style={[
-						styles.hidden,
-						{
-							height: _hiddenHeight,
-							flex: 1,
-							flexDirection: "row",
-							justifyContent: "space-between",
-						},
-					]}>
-					<Left style={{ width: this.props.leftOpenValue, zIndex: 1 }}>{this.props.left}</Left>
-					<Body style={{ flex: 0 }} />
-					<Right style={{ width: -this.props.rightOpenValue, zIndex: 1 }}>{this.props.right}</Right>
-				</View>
-				{this.renderMainContent()}
+	return (
+		<View ref={c => (_this.ref = c)} style={props.style}>
+			<View
+				style={[
+					styles.hidden,
+					{
+						height: _hiddenHeight,
+						flex: 1,
+						flexDirection: "row",
+						justifyContent: "space-between",
+					},
+				]}>
+				<Left style={{ width: props.leftOpenValue, zIndex: 1 }}>{props.left}</Left>
+				<Body style={{ flex: 0 }} />
+				<Right style={{ width: -props.rightOpenValue, zIndex: 1 }}>{props.right}</Right>
 			</View>
-		)
-	}
+			{renderMainContent()}
+		</View>
+	)
+}
+SwipeRow.defaultProps = {
+	leftOpenValue: 0,
+	rightOpenValue: 0,
+	closeOnRowPress: true,
+	disableLeftSwipe: false,
+	disableRightSwipe: false,
+	recalculateHiddenLayout: false,
+	preview: false,
+	previewDuration: 300,
+	directionalDistanceChangeThreshold: 2,
+	swipeToOpenPercent: 50,
 }
 
 const styles = {

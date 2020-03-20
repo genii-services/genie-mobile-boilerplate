@@ -9,7 +9,7 @@ exports.getStyle = (style, prop) => {
 	return style[prop]
 }
 
-const { connectStyle } = require("native-base-shoutem-theme")
+const { connectStyle } = require("/styles")
 
 const mapPropsToStyleNames = (styleNames, props) => {
 	const keys = _.keys(props)
