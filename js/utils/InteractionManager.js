@@ -1,6 +1,6 @@
-import { InteractionManager } from "react-native"
+const { InteractionManager } = require("react-native")
 
-export default {
+module.exports = {
 	...InteractionManager,
 	runAfterInteractions: f => {
 		let called = false

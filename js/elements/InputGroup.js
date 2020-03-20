@@ -2,34 +2,32 @@ const MODULE_NAME$ = "elements/InputGroup"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
-const { Component } = React
 const PropTypes = require("prop-types")
 const { View, ViewPropTypes } = require("react-native")
 
 const variables = require("/styles/themes/default")
-const computeProps = require("/utils/computeProps")
+const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
 
-class InputGroup extends Component {
-	getInitialStyle() {
+const InputGroup = props => {
+	const getInitialStyle = () => {
 		return {
 			roundedInputGroup: {
-				borderWidth: this.props.rounded ? 1 : undefined,
-				borderRadius: this.props.rounded ? variables.inputGroupRoundedBorderRadius : undefined,
+				borderWidth: props.rounded ? 1 : undefined,
+				borderRadius: props.rounded ? variables.inputGroupRoundedBorderRadius : undefined,
 			},
 		}
 	}
 
-	prepareRootProps() {
+	const prepareRootProps = () => {
 		const defaultProps = {
-			style: this.getInitialStyle().roundedInputGroup,
+			style: getInitialStyle().roundedInputGroup,
 		}
 
-		return computeProps(this.props, defaultProps)
+		return computeProps(props, defaultProps)
 	}
-	render() {
-		return <View {...this.prepareRootProps()}>{this.props.children}</View>
-	}
+
+	return <View {...prepareRootProps()}>{props.children}</View>
 }
 
 InputGroup.propTypes = {

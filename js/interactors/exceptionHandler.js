@@ -1,11 +1,12 @@
 /** 공통 라이브러리 */
 const MODULE_NAME$ = "interactors/exceptionHandler"
+console.debug(MODULE_NAME$)
 
 const { Alert } = require("react-native")
 const { getJSExceptionHandler, setNativeExceptionHandler, setJSExceptionHandler } = require("react-native-exception-handler")
 const RNRestart = require("react-native-restart")
 
-import "/utils/debug"
+require("/utils/debug")
 const { yyyymmddhhmmss } = require("/utils/moment")
 const { exitApp } = require("/utils/app")
 const fs = require("/utils/fs")

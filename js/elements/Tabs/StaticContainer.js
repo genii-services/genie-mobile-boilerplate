@@ -1,6 +1,6 @@
 const React = require("react")
 
-class StaticContainer extends React.Component {
+const StaticContainer = props => {
 	shouldComponentUpdate(nextProps) {
 		return !!nextProps.shouldUpdate
 	}

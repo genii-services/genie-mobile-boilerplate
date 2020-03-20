@@ -2,14 +2,14 @@ const MODULE_NAME$ = "elements/Fab"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
-const { Component } = React
 const { Platform, Animated, TouchableOpacity, TouchableNativeFeedback, View, StyleSheet } = require("react-native")
 const { remove, merge, clone } = require("lodash")
 
 const { itsIOS } = require("/utils/device")
-const computeProps = require("/utils/computeProps")
+const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
 
+const { useThis } = require("/hooks")
 const variables = require("/styles/themes/default")
 
 const Button = require("./Button")
@@ -30,20 +30,16 @@ const POSITION = {
 
 const AnimatedFab = Animated.createAnimatedComponent(Button)
 
-class Fab extends Component {
-	constructor(props) {
-		super(props)
-		this.containerHeight = new Animated.Value(variables.fabWidth)
-		this.containerWidth = new Animated.Value(0)
-		this.buttonScale = new Animated.Value(0)
-		this.state = {
-			buttons: undefined,
-			active: false,
-		}
-	}
+const Fab = props => {
+	const _this = useThis()
+	_this.containerHeight = new Animated.Value(variables.fabWidth)
+	_this.containerWidth = new Animated.Value(0)
+	_this.buttonScale = new Animated.Value(0)
+	const [_buttons, set_buttons] = useState()
+	const [_active, set_active] = useState(false)
 
-	componentDidMount() {
-		const childrenArray = React.Children.toArray(this.props.children)
+	useEffect(() => {
+		const childrenArray = React.Children.toArray(props.children)
 		const icon = remove(childrenArray, item => {
 			if (item.type.displayName === "Styled(Button)") {
 				return true
@@ -51,40 +47,31 @@ class Fab extends Component {
 			return null
 		})
 		// eslint-disable-next-line react/no-did-mount-set-state
-		this.setState({
-			buttons: icon.length,
-		})
-		this.activeTimer = setTimeout(() => {
-			this.setState({
-				active: this.props.active,
-			})
+		set_buttons(icon.length)
+		_this.activeTimer = setTimeout(() => {
+			set_active(props.active)
 		}, 0)
-	}
+		return () => _this.activeTimer && clearTimeout(_this.activeTimer)
+	}, [])
 
-	componentWillUnmount() {
-		if (this.activeTimer) {
-			clearTimeout(this.activeTimer)
-		}
-	}
-
-	getOtherButtonStyle(child, i) {
-		const { active, direction } = this.props
+	const getOtherButtonStyle = (child, i) => {
+		const { active, direction } = props
 		const type = {
-			top: direction ? this.fabOtherBtns(direction, i).top : undefined,
-			left: direction ? this.fabOtherBtns(direction, i).left : 8,
-			right: direction ? this.fabOtherBtns(direction, i).right : 0,
-			bottom: direction ? this.fabOtherBtns(direction, i).bottom : active === false ? (itsIOS ? 8 : 8) : i * 50 + 50,
+			top: direction ? fabOtherBtns(direction, i).top : undefined,
+			left: direction ? fabOtherBtns(direction, i).left : 8,
+			right: direction ? fabOtherBtns(direction, i).right : 0,
+			bottom: direction ? fabOtherBtns(direction, i).bottom : active === false ? (itsIOS ? 8 : 8) : i * 50 + 50,
 		}
 
-		return merge(this.getInitialStyle().buttonStyle, StyleSheet.flatten(child.props.style), type)
+		return merge(getInitialStyle().buttonStyle, StyleSheet.flatten(child.props.style), type)
 	}
 
-	getContainerStyle() {
-		return merge(this.getInitialStyle().container, this.props.containerStyle)
+	const getContainerStyle = () => {
+		return merge(getInitialStyle().container, props.containerStyle)
 	}
 
-	getInitialStyle(iconStyle) {
-		const { direction, position } = this.props
+	const getInitialStyle = iconStyle => {
+		const { direction, position } = props
 		return {
 			fab: {
 				height: variables.fabWidth,
@@ -106,12 +93,12 @@ class Fab extends Component {
 			},
 			container: {
 				position: "absolute",
-				top: position ? this.fabTopValue(position).top : undefined,
-				bottom: position ? this.fabTopValue(position).bottom : variables.fabContainerBottom,
-				right: position ? this.fabTopValue(position).right : variables.fabContainerBottom,
-				left: position ? this.fabTopValue(position).left : undefined,
+				top: position ? fabTopValue(position).top : undefined,
+				bottom: position ? fabTopValue(position).bottom : variables.fabContainerBottom,
+				right: position ? fabTopValue(position).right : variables.fabContainerBottom,
+				left: position ? fabTopValue(position).left : undefined,
 				width: variables.fabWidth,
-				height: this.containerHeight,
+				height: _this.containerHeight,
 				flexDirection: direction
 					? direction === DIRECTION.LEFT || direction === DIRECTION.RIGHT
 						? "row"
@@ -131,14 +118,14 @@ class Fab extends Component {
 				width: variables.fabButtonHeight,
 				left: variables.fabButtonLeft,
 				borderRadius: variables.fabButtonBorderRadius,
-				transform: this.state.active ? [{ scale: new Animated.Value(1) }] : [{ scale: this.buttonScale }],
+				transform: _active ? [{ scale: new Animated.Value(1) }] : [{ scale: _this.buttonScale }],
 				marginBottom: variables.fabButtonMarginBottom,
 				backgroundColor: variables.fabBackgroundColor,
 			},
 		}
 	}
 
-	prepareButtonProps = child => {
+	const prepareButtonProps = child => {
 		const inp = clone(child.props)
 		delete inp.style
 
@@ -147,7 +134,7 @@ class Fab extends Component {
 		return computeProps(inp, defaultProps)
 	}
 
-	fabTopValue = pos => {
+	const fabTopValue = pos => {
 		if (pos === POSITION.TOP_LEFT) {
 			return {
 				top: variables.fabDefaultPosition,
@@ -180,8 +167,8 @@ class Fab extends Component {
 		return null
 	}
 
-	fabOtherBtns(direction, i) {
-		const { active } = this.props
+	const fabOtherBtns = (direction, i) => {
+		const { active } = props
 		if (direction === DIRECTION.UP) {
 			return {
 				top: undefined,
@@ -214,108 +201,100 @@ class Fab extends Component {
 		return null
 	}
 
-	prepareFabProps() {
+	const prepareFabProps = () => {
 		const defaultProps = {
-			style: this.getInitialStyle().fab,
+			style: getInitialStyle().fab,
 		}
-		const incomingProps = clone(this.props)
+		const incomingProps = clone(props)
 		delete incomingProps.onPress
 
 		return computeProps(incomingProps, defaultProps)
 	}
 
-	upAnimate() {
-		if (!this.props.active) {
-			Animated.spring(this.containerHeight, {
-				toValue: this.state.buttons * 51.3 + variables.fabWidth,
+	const upAnimate = () => {
+		if (!props.active) {
+			Animated.spring(_this.containerHeight, {
+				toValue: _buttons * 51.3 + variables.fabWidth,
 			}).start()
-			Animated.spring(this.buttonScale, {
+			Animated.spring(_this.buttonScale, {
 				toValue: 1,
 				useNativeDriver: true,
 			}).start()
 		} else {
-			this.setState({
-				active: false,
-			})
-			Animated.spring(this.containerHeight, {
+			set_active(false)
+			Animated.spring(_this.containerHeight, {
 				toValue: variables.fabWidth,
 			}).start()
-			Animated.spring(this.buttonScale, {
+			Animated.spring(_this.buttonScale, {
 				toValue: 0,
 				useNativeDriver: true,
 			}).start()
 		}
 	}
 
-	leftAnimate() {
-		if (!this.props.active) {
-			Animated.spring(this.containerWidth, {
-				toValue: this.state.buttons * 51.3 + variables.fabWidth,
+	const leftAnimate = () => {
+		if (!props.active) {
+			Animated.spring(_this.containerWidth, {
+				toValue: _buttons * 51.3 + variables.fabWidth,
 			}).start()
-			Animated.spring(this.buttonScale, {
+			Animated.spring(_this.buttonScale, {
 				toValue: 1,
 				useNativeDriver: true,
 			}).start()
 		} else {
-			this.setState({
-				active: false,
-			})
-			Animated.spring(this.containerHeight, {
+			set_active(false)
+			Animated.spring(_this.containerHeight, {
 				toValue: variables.fabWidth,
 			}).start()
-			Animated.spring(this.buttonScale, {
+			Animated.spring(_this.buttonScale, {
 				toValue: 0,
 				useNativeDriver: true,
 			}).start()
 		}
 	}
 
-	rightAnimate() {
-		if (!this.props.active) {
-			Animated.spring(this.containerWidth, {
-				toValue: this.state.buttons * 51.3 + variables.fabWidth,
+	const rightAnimate = () => {
+		if (!props.active) {
+			Animated.spring(_this.containerWidth, {
+				toValue: _buttons * 51.3 + variables.fabWidth,
 			}).start()
-			Animated.spring(this.buttonScale, {
+			Animated.spring(_this.buttonScale, {
 				toValue: 1,
 				useNativeDriver: true,
 			}).start()
 		} else {
-			this.setState({
-				active: false,
-			})
-			Animated.spring(this.containerHeight, {
+			set_active(false)
+			Animated.spring(_this.containerHeight, {
 				toValue: variables.fabWidth,
 			}).start()
-			Animated.spring(this.buttonScale, {
+			Animated.spring(_this.buttonScale, {
 				toValue: 0,
 				useNativeDriver: true,
 			}).start()
 		}
 	}
 
-	downAnimate() {
-		if (!this.props.active) {
-			Animated.spring(this.containerHeight, {
+	const downAnimate = () => {
+		if (!props.active) {
+			Animated.spring(_this.containerHeight, {
 				toValue: variables.fabWidth,
 			}).start()
-			Animated.spring(this.buttonScale, {
+			Animated.spring(_this.buttonScale, {
 				toValue: 1,
 				useNativeDriver: true,
 			}).start()
 		} else {
-			this.setState({
-				active: false,
-			})
-			Animated.spring(this.containerHeight, {
+			set_active(false)
+			Animated.spring(_this.containerHeight, {
 				toValue: variables.fabWidth,
 			}).start()
-			Animated.spring(this.buttonScale, {
+			Animated.spring(_this.buttonScale, {
 				toValue: 0,
 				useNativeDriver: true,
 			}).start()
 		}
 	}
-	_animate() {
+	const _animate = () => {
 		const {
 			props: { direction, position },
 		} = this
@@ -325,50 +304,48 @@ class Fab extends Component {
 				if (position === POSITION.TOP_LEFT || position === POSITION.TOP_RIGHT) {
 					console.warn("Passing direction = up with position = topLeft/topRight is not suggested.")
 				} else {
-					this.upAnimate()
+					upAnimate()
 				}
 			} else if (direction === DIRECTION.LEFT) {
 				if (position === POSITION.TOP_LEFT || position === POSITION.BOTTOM_LEFT) {
 					console.warn("Passing direction = left with position = topLeft/bottomLeft is not suggested.")
 				} else {
-					this.leftAnimate()
+					leftAnimate()
 				}
 			} else if (direction === DIRECTION.RIGHT) {
 				if (position === POSITION.TOP_RIGHT || position === POSITION.BOTTOM_RIGHT) {
 					console.warn("Passing direction = right with position = topRight/bottomRight is not suggested.")
 				} else {
-					this.rightAnimate()
+					rightAnimate()
 				}
 			} else if (direction === DIRECTION.DOWN) {
 				if (position === POSITION.BOTTOM_LEFT || position === POSITION.BOTTOM_RIGHT) {
 					console.warn("Passing direction = down with position = bottomLeft/bottomRight is not suggested.")
 				} else {
-					this.downAnimate()
+					downAnimate()
 				}
 			}
 		} else {
-			this.upAnimate()
+			upAnimate()
 		}
 	}
 
-	fabOnPress() {
-		if (this.props.onPress) {
-			this.props.onPress()
-			this._animate()
-			this.activeTimer = setTimeout(() => {
-				this.setState({
-					active: this.props.active,
-				})
+	const fabOnPress = () => {
+		if (props.onPress) {
+			props.onPress()
+			_animate()
+			_this.activeTimer = setTimeout(() => {
+				set_active(props.active)
 			}, 100)
 		}
 	}
 
-	renderButtons() {
-		const childrenArray = React.Children.toArray(this.props.children)
+	const renderButtons = () => {
+		const childrenArray = React.Children.toArray(props.children)
 		const newChildren = []
 		childrenArray.slice(1).map((child, i) =>
 			newChildren.push(
-				<AnimatedFab style={this.getOtherButtonStyle(child, i)} {...this.prepareButtonProps(child, i)} fabButton key={i}>
+				<AnimatedFab style={getOtherButtonStyle(child, i)} {...prepareButtonProps(child, i)} fabButton key={i}>
 					{child.props.children}
 				</AnimatedFab>
 			)
@@ -376,8 +353,8 @@ class Fab extends Component {
 		return newChildren
 	}
 
-	renderFab() {
-		const childrenArray = React.Children.toArray(this.props.children)
+	const renderFab = () => {
+		const childrenArray = React.Children.toArray(props.children)
 		remove(childrenArray, item => {
 			if (item.type.displayName === "Styled(Button)") {
 				return true
@@ -385,31 +362,29 @@ class Fab extends Component {
 			return null
 		})
 		return React.cloneElement(childrenArray[0], {
-			style: this.getInitialStyle(childrenArray[0].props.style).iconStyle,
+			style: getInitialStyle(childrenArray[0].props.style).iconStyle,
 		})
 	}
 
-	render() {
-		const { style } = this.props
-		return (
-			<Animated.View style={this.getContainerStyle()}>
-				{this.renderButtons()}
-				{itsIOS || variables.androidRipple === false || Platform.Version <= 21 ? (
-					<TouchableOpacity onPress={() => this.fabOnPress()} {...this.prepareFabProps()} activeOpacity={1}>
-						{this.renderFab()}
-					</TouchableOpacity>
-				) : (
-					<TouchableNativeFeedback
-						onPress={() => this.fabOnPress()}
-						// eslint-disable-next-line new-cap
-						background={TouchableNativeFeedback.Ripple(variables.androidRippleColor, false)}
-						{...this.prepareFabProps()}>
-						<View style={[this.getInitialStyle().fab, style]}>{this.renderFab()}</View>
-					</TouchableNativeFeedback>
-				)}
-			</Animated.View>
-		)
-	}
+	const { style } = props
+	return (
+		<Animated.View style={getContainerStyle()}>
+			{renderButtons()}
+			{itsIOS || variables.androidRipple === false || Platform.Version <= 21 ? (
+				<TouchableOpacity onPress={() => fabOnPress()} {...prepareFabProps()} activeOpacity={1}>
+					{renderFab()}
+				</TouchableOpacity>
+			) : (
+				<TouchableNativeFeedback
+					onPress={() => fabOnPress()}
+					// eslint-disable-next-line new-cap
+					background={TouchableNativeFeedback.Ripple(variables.androidRippleColor, false)}
+					{...prepareFabProps()}>
+					<View style={[getInitialStyle().fab, style]}>{renderFab()}</View>
+				</TouchableNativeFeedback>
+			)}
+		</Animated.View>
+	)
 }
 
 module.exports = connectStyle(Fab, MODULE_NAME$)

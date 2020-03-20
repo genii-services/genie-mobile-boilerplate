@@ -7,7 +7,7 @@ const { Image } = require("react-native")
 const _ = require("lodash")
 const md5 = require("blueimp-md5")
 
-const computeProps = require("/utils/computeProps")
+const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
 
 const GRAVATAR_URI = "https://www.gravatar.com/avatar/"

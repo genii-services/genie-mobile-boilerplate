@@ -16,7 +16,7 @@ const { ListItem } = require("./ListItem")
 const PREVIEW_OPEN_DELAY = 700
 const PREVIEW_CLOSE_DELAY = 300
 
-class SwipeRow extends Component {
+const SwipeRow = props => {
 	static defaultProps = {
 		leftOpenValue: 0,
 		rightOpenValue: 0,
@@ -201,7 +201,7 @@ class SwipeRow extends Component {
 	renderMainContent() {
 		// We do this annoying if statement for performance.
 		// We don't want the onLayout func to run after it runs once.
-		if (this.state.dimensionsSet) {
+		if (_dimensionsSet) {
 			return (
 				<Animated.View
 					{...this._panResponder.panHandlers}
@@ -245,7 +245,7 @@ class SwipeRow extends Component {
 					style={[
 						styles.hidden,
 						{
-							height: this.state.hiddenHeight,
+							height: _hiddenHeight,
 							flex: 1,
 							flexDirection: "row",
 							justifyContent: "space-between",

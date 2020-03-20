@@ -1,11 +1,8 @@
 const React = require("react")
-const { Component } = React
 const RNDrawer = require("react-native-drawer")
 
-export default class Drawer extends Component {
-	render() {
-		return <RNDrawer {...this.props} />
-	}
+const Drawer = props => {
+	return <RNDrawer {...props} />
 }
 
 Drawer.defaultProps = {
@@ -31,3 +28,5 @@ Drawer.defaultProps = {
 		mainOverlay: { opacity: ratio / 2 },
 	}),
 }
+
+module.exports = Drawer

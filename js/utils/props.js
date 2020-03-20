@@ -1,22 +1,27 @@
-"use_strict"
-import _ from "lodash"
-import { StyleSheet } from "react-native"
+exports.childrenType = function(props, propName, component) {
+	let error
+	const prop = props[propName]
+	React.Children.forEach(prop, child => {
+		if (typeof child !== "string" && typeof child !== "number") {
+			error = new Error(`${component} should have only string or number`)
+		}
+	})
+	return error
+}
 
-module.exports = function(incomingProps, defaultProps) {
-	// External props has a higher precedence
-	let computedProps = {}
+const _ = require("lodash")
+const { StyleSheet } = require("react-native")
 
+exports.computeProps = function(incomingProps, defaultProps) {
 	const clonedIncomingProps = _.clone(incomingProps)
 	delete clonedIncomingProps.children
 
 	const incomingPropsStyle = incomingProps.style
 	delete clonedIncomingProps.style
 
-	if (incomingProps) {
-		_.assign(computedProps, defaultProps, incomingProps)
-	} else {
-		computedProps = defaultProps
-	}
+	// External props has a higher precedence
+	let computedProps = incomingProps ? _.assign({}, defaultProps, incomingProps) : defaultProps
+
 	// Pass the merged Style Object instead
 	if (incomingPropsStyle) {
 		let computedPropsStyle = {}

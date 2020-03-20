@@ -6,7 +6,7 @@ const PropTypes = require("prop-types")
 const { TextInput } = require("react-native")
 
 const variables = require("/styles/themes/default")
-const computeProps = require("/utils/computeProps")
+const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
 
 const Textarea = props => {

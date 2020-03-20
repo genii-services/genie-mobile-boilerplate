@@ -1,7 +1,7 @@
 const { Component } = require("react")
 const PropTypes = require("prop-types")
 
-class NativeBaseComponent extends Component {
+const NativeBaseComponent = props => {
 	static contextTypes = {
 		theme: PropTypes.object,
 		foregroundColor: PropTypes.string,

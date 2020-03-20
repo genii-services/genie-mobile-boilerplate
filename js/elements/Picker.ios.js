@@ -3,13 +3,12 @@ console.debug(MODULE_NAME$)
 
 /* eslint-disable react/sort-comp */
 const React = require("react")
-const { Component } = React
 const PropTypes = require("prop-types")
 const { FlatList, Modal, View, ViewPropTypes } = require("react-native")
 const { Picker } = require("@react-native-community/picker")
 const { find, get } = require("lodash")
 
-const computeProps = require("../utils/computeProps")
+const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
 
 const Text = require("./Text")
@@ -23,17 +22,26 @@ const { Left } = require("./Left")
 const { Right } = require("./Right")
 const { Body } = require("./Body")
 
-class PickerNB extends Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			modalVisible: false,
-			currentLabel: this.getLabel(props),
-			dataSource: this.getChildren(props.children),
-		}
+const PickerNB = props => {
+	const getChildren = children => (children && !Array.isArray(children) ? [].concat(children) : [].concat.apply([], children)) // eslint-disable-line prefer-spread
+	const children = getChildren(props.children)
+
+	const getLabel = () => {
+		const item = find(children, child => child.props.value === props.selectedValue)
+		return get(item, "props.label")
 	}
 
-	getInitialStyle = () => {
+	const nextLabel = getLabel(props)
+
+	const [_modalVisible, set_modalVisible] = useState(false)
+	const [_currentLabel, set_currentLabel] = useState(nextLabel)
+	const [_dataSource, set_dataSource] = useState(children)
+
+	set_currentLabel(nextLabel)
+	set_dataSource(children)
+	set_dataSource(children)
+
+	const getInitialStyle = () => {
 		return {
 			picker: {
 				// alignItems: 'flex-end'
@@ -42,89 +50,58 @@ class PickerNB extends Component {
 		}
 	}
 
-	getLabel(props) {
-		const children = this.getChildren(props.children)
-		const item = find(children, child => child.props.value === props.selectedValue)
-		return get(item, "props.label")
+	const getSelectedItem = () => {
+		return find(props.children, child => child.props.value === props.selectedValue)
 	}
 
-	getSelectedItem() {
-		return find(this.props.children, child => child.props.value === this.props.selectedValue)
-	}
-
-	getChildren = children => {
-		if (children && !Array.isArray(children)) {
-			return [].concat(children)
-		}
-		// eslint-disable-next-line prefer-spread
-		const appliedChildren = [].concat.apply([], children)
-		return appliedChildren
-	}
-
-	prepareRootProps() {
+	const prepareRootProps = () => {
 		const defaultProps = {
-			style: this.getInitialStyle().picker,
-			itemStyle: this.getInitialStyle().pickerItem,
+			style: getInitialStyle().picker,
+			itemStyle: getInitialStyle().pickerItem,
 		}
 
-		return computeProps(this.props, defaultProps)
+		return computeProps(props, defaultProps)
 	}
 
-	_setModalVisible(visible) {
-		this.setState({ modalVisible: visible })
-	}
-
-	renderIcon() {
-		return React.cloneElement(this.props.iosIcon, {
-			style: [
-				{
-					fontSize: 22,
-					lineHeight: 26,
-				},
-				{ ...this.props.iosIcon.props.style },
-			],
+	const renderIcon = () => {
+		return React.cloneElement(props.iosIcon, {
+			style: [{ fontSize: 22, lineHeight: 26 }, { ...props.iosIcon.props.style }],
 		})
 	}
 
-	renderButton() {
+	const renderButton = () => {
 		const onPress = () => {
-			if (this.props.enabled !== undefined && !this.props.enabled) return
-			this._setModalVisible(true)
+			if (props.enabled !== undefined && !props.enabled) return
+			set_modalVisible(true)
 		}
-		const text = this.state.currentLabel ? this.state.currentLabel : this.props.placeholder
-		if (this.props.renderButton) {
-			return this.props.renderButton({
-				onPress,
-				text,
-				picker: this,
-				selectedItem: this.getSelectedItem(),
-			})
-		}
+		const text = _currentLabel ? _currentLabel : props.placeholder
+		if (props.renderButton) return props.renderButton({ onPress, text, picker: this, selectedItem: getSelectedItem() })
+
 		return (
-			<Button style={this.props.style} dark picker transparent onPress={onPress}>
-				{this.state.currentLabel ? (
-					<Text style={[this.props.textStyle]} note={this.props.note} numberOfLines={1} ellipsizeMode="tail">
-						{this.state.currentLabel}
+			<Button style={props.style} dark picker transparent onPress={onPress}>
+				{_currentLabel ? (
+					<Text style={[props.textStyle]} note={props.note} numberOfLines={1} ellipsizeMode="tail">
+						{_currentLabel}
 					</Text>
 				) : (
 					<Text
-						style={[this.props.textStyle, this.props.placeholderStyle]}
-						note={this.props.note !== false}
+						style={[props.textStyle, props.placeholderStyle]}
+						note={props.note !== false}
 						numberOfLines={1}
 						ellipsizeMode="tail">
-						{this.props.placeholder}
+						{props.placeholder}
 					</Text>
 				)}
-				{this.props.iosIcon === undefined ? null : this.renderIcon()}
+				{props.iosIcon === undefined ? null : renderIcon()}
 			</Button>
 		)
 	}
 
-	renderHeader() {
-		return this.props.renderHeader ? (
-			this.props.renderHeader(() => this._setModalVisible(false))
+	const renderHeader = () => {
+		return props.renderHeader ? (
+			props.renderHeader(() => set_modalVisible(false))
 		) : (
-			<Header style={this.props.headerStyle}>
+			<Header style={props.headerStyle}>
 				<Left>
 					<Button
 						style={{
@@ -133,86 +110,59 @@ class PickerNB extends Component {
 							shadowRadius: null,
 							shadowOpacity: null,
 							marginLeft: 3,
-							...this.props.headerBackButtonStyle,
+							...props.headerBackButtonStyle,
 						}}
 						transparent
-						onPress={() => {
-							this._setModalVisible(false)
-						}}>
-						<Text style={this.props.headerBackButtonTextStyle}>{this.props.headerBackButtonText || "Back"}</Text>
+						onPress={() => set_modalVisible(false)}>
+						<Text style={props.headerBackButtonTextStyle}>{props.headerBackButtonText || "Back"}</Text>
 					</Button>
 				</Left>
 				<Body>
-					<Title style={this.props.headerTitleStyle}>{this.props.iosHeader || "Select One"}</Title>
+					<Title style={props.headerTitleStyle}>{props.iosHeader || "Select One"}</Title>
 				</Body>
 				<Right />
 			</Header>
 		)
 	}
 
-	// eslint-disable-next-line camelcase
-	UNSAFE_componentWillReceiveProps(nextProps) {
-		const currentLabel = this.state.currentLabel
-		const nextLabel = this.getLabel(nextProps)
-		const currentDS = this.state.dataSource
-		const nextDS = this.getChildren(nextProps.children)
-
-		if (currentLabel !== nextLabel) {
-			this.setState({
-				currentLabel: nextLabel,
-			})
-		}
-		if (currentDS !== nextDS) {
-			this.setState({
-				dataSource: nextDS,
-			})
-		}
-	}
-
-	render() {
-		return (
-			<View ref={c => (this._root = c)}>
-				{this.renderButton()}
-				<Modal
-					// supportedOrientations={this.props.supportedOrientations || null}
-					supportedOrientations={["portrait", "landscape"]}
-					animationType="slide"
-					transparent={false}
-					visible={this.state.modalVisible}
-					onRequestClose={() => this._setModalVisible(false)}>
-					<Container style={this.props.modalStyle}>
-						{this.renderHeader()}
-						<FlatList
-							data={this.state.dataSource}
-							keyExtractor={(item, index) => String(index)}
-							renderItem={({ item }) => (
-								<ListItem
-									selected={item.props.value === this.props.selectedValue}
-									button
-									style={this.props.itemStyle}
-									onPress={() => {
-										this._setModalVisible(false)
-										this.props.onValueChange(item.props.value)
-										this.setState({ current: item.props.label })
-									}}>
-									<Left>
-										<Text style={this.props.itemTextStyle}>{item.props.label}</Text>
-									</Left>
-									<Right>
-										{item.props.value === this.props.selectedValue ? (
-											<Radio selected />
-										) : (
-											<Radio selected={false} />
-										)}
-									</Right>
-								</ListItem>
-							)}
-						/>
-					</Container>
-				</Modal>
-			</View>
-		)
-	}
+	return (
+		<View>
+			{renderButton()}
+			<Modal
+				// supportedOrientations={props.supportedOrientations || null}
+				supportedOrientations={["portrait", "landscape"]}
+				animationType="slide"
+				transparent={false}
+				visible={_modalVisible}
+				onRequestClose={() => set_modalVisible(false)}>
+				<Container style={props.modalStyle}>
+					{renderHeader()}
+					<FlatList
+						data={_dataSource}
+						keyExtractor={(item, index) => String(index)}
+						renderItem={({ item }) => (
+							<ListItem
+								selected={item.props.value === props.selectedValue}
+								button
+								style={props.itemStyle}
+								onPress={() => {
+									set_modalVisible(false)
+									props.onValueChange(item.props.value)
+									set_current(item.props.label)
+								}}>
+								<Left>
+									<Text style={props.itemTextStyle}>{item.props.label}</Text>
+								</Left>
+								<Right>
+									<Radio selected={item.props.value === props.selectedValue} />
+								</Right>
+							</ListItem>
+						)}
+					/>
+				</Container>
+			</Modal>
+		</View>
+	)
 }
 
 PickerNB.Item = Picker.Item

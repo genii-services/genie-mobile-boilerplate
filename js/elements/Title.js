@@ -1,5 +1,5 @@
-MODULE_NAME$ = "elements/Title"
-console.log(MODULE_NAME$)
+const MODULE_NAME$ = "elements/Title"
+console.debug(MODULE_NAME$)
 
 const React = require("react")
 const PropTypes = require("prop-types")

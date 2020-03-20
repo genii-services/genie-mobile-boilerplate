@@ -9,7 +9,7 @@ const Ionicons = require("react-native-vector-icons/Ionicons")
 const { useStore } = require("/hooks")
 const { connectStyle } = require("/utils/style")
 const variable = require("/styles/themes/default")
-const computeProps = require("../utils/computeProps")
+const { computeProps } = require("/utils/props")
 const { itsIOS } = require("/utils/device")
 
 const CheckBox = props => {
@@ -35,7 +35,6 @@ const CheckBox = props => {
 	const { checked } = props
 	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
 	const platformStyle = variables.platformStyle
-	const platform = variables.platform
 	return (
 		<TouchableOpacity {...prepareRootProps(variables)}>
 			<Ionicons

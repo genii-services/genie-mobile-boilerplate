@@ -1,258 +1,239 @@
 const React = require("react")
-const { Component } = React
 const PropTypes = require("prop-types")
-const createReactClass = require("create-react-class")
 const _ = require("lodash")
 const InteractionManager = require("/utils/InteractionManager")
 const ReactNative = require("react-native")
 const { Dimensions, View, Animated, ScrollView, StyleSheet, Platform, ViewPropTypes } = ReactNative
 const TimerMixin = require("react-timer-mixin")
 
+const { useThis } = require("/hooks")
+
 const DefaultTabBar = require("./DefaultTabBar")
 const SceneComponent = require("./SceneComponent")
 const ScrollableTabBar = require("./ScrollableTabBar")
 
-const Tabs = createReactClass({
-	mixins: [TimerMixin],
-	statics: {
-		DefaultTabBar,
-		ScrollableTabBar,
-	},
+const Tabs = props => {
+	const _this = useThis()
 
-	propTypes: {
-		tabBarPosition: PropTypes.oneOf(["top", "bottom", "overlayTop", "overlayBottom"]),
-		initialPage: PropTypes.number,
-		page: PropTypes.number,
-		onChangeTab: PropTypes.func,
-		onScroll: PropTypes.func,
-		renderTabBar: PropTypes.any,
-		style: ViewPropTypes.style,
-		contentProps: PropTypes.object,
-		scrollWithoutAnimation: PropTypes.bool,
-		locked: PropTypes.bool,
-		prerenderingSiblingsNumber: PropTypes.number,
-	},
+	const [_currentPage, set_currentPage] = useState(props.initialPage)
+	const [_scrollValue] = useState(new Animated.Value(props.initialPage))
+	const [_containerWidth, set_containerWidth] = useState(Dimensions.get("window").width)
+	const [_sceneKeys, set_sceneKeys] = useState(newSceneKeys({ currentPage: props.initialPage }))
 
-	getDefaultProps() {
-		return {
-			tabBarPosition: "top",
-			initialPage: 0,
-			page: -1,
-			onChangeTab: () => {},
-			onScroll: () => {},
-			contentProps: {},
-			scrollWithoutAnimation: false,
-			locked: false,
-			prerenderingSiblingsNumber: 0,
-		}
-	},
-
-	getInitialState() {
-		return {
-			currentPage: this.props.initialPage,
-			scrollValue: new Animated.Value(this.props.initialPage),
-			containerWidth: Dimensions.get("window").width,
-			sceneKeys: this.newSceneKeys({ currentPage: this.props.initialPage }),
-		}
-	},
-
-	componentDidMount() {
-		const scrollFn = () => this.scrollView && this.state.scrollValue.setValue(this.props.initialPage)
+	useEffect(() => {
+		const scrollFn = () => _this.scrollView && _scrollValue.setValue(props.initialPage)
 
 		InteractionManager.runAfterInteractions(scrollFn)
 		// because of contentOffset is not working on Android
-		setTimeout(() => this.scrollView.scrollTo({ x: this.props.initialPage * this.state.containerWidth, animated: false }))
-	},
+		setTimeout(() => _this.scrollView.scrollTo({ x: props.initialPage * _containerWidth, animated: false }))
+	}, [])
+	if (_this.children !== props.children) {
+		_this.children = props.children
+		updateSceneKeys({ page: _currentPage, children: props.children })
+	}
 
-	UNSAFE_componentWillReceiveProps(props) {
-		if (props.children !== this.props.children) {
-			this.updateSceneKeys({ page: this.state.currentPage, children: props.children })
-		}
+	props.page >= 0 && props.page !== _currentPage && goToPage(props.page)
 
-		props.page >= 0 && props.page !== this.state.currentPage && this.goToPage(props.page)
-	},
-
-	goToPage(pageNumber) {
-		const offset = pageNumber * this.state.containerWidth
-		this.scrollView &&
-			this.scrollView.scrollTo({
+	const goToPage = pageNumber => {
+		const offset = pageNumber * _containerWidth
+		_this.scrollView &&
+			_this.scrollView.scrollTo({
 				x: offset,
 				y: 0,
-				animated: !this.props.scrollWithoutAnimation,
+				animated: !props.scrollWithoutAnimation,
 			})
 
-		const currentPage = this.state.currentPage
-		this.updateSceneKeys({ page: pageNumber, callback: this._onChangeTab.bind(this, currentPage, pageNumber) })
-	},
+		const currentPage = _currentPage
+		updateSceneKeys({ page: pageNumber, callback: _onChangeTab.bind(this, currentPage, pageNumber) })
+	}
 
-	renderTabBar(props) {
-		return this.props.renderTabBar === false ? null : this.props.renderTabBar ? (
-			React.cloneElement(this.props.renderTabBar(props), props)
+	const renderTabBar = props => {
+		return props.renderTabBar === false ? null : props.renderTabBar ? (
+			React.cloneElement(props.renderTabBar(props), props)
 		) : (
 			<DefaultTabBar {...props} />
 		)
-	},
+	}
 
-	updateSceneKeys({ page, children = this.props.children, callback = () => {} }) {
-		const newKeys = this.newSceneKeys({
-			previousKeys: this.state.sceneKeys,
+	const updateSceneKeys = ({ page, children = props.children, callback = () => {} }) => {
+		const newKeys = newSceneKeys({
+			previousKeys: _sceneKeys,
 			currentPage: page,
 			children,
 		})
-		this.setState({ currentPage: page, sceneKeys: newKeys }, callback)
-	},
+		set_currentPage(page)
+		set_sceneKeys(newKeys)
+	}
 
-	newSceneKeys({ previousKeys = [], currentPage = 0, children = this.props.children }) {
+	useEffect(() => _this.onUpdateSceneKeys && _this.onUpdateSceneKeys(), [sceneKeys])
+
+	const newSceneKeys = ({ previousKeys = [], currentPage = 0, children = props.children }) => {
 		const newKeys = []
 		children &&
-			this._children(children).forEach((child, idx) => {
-				const key = this._makeSceneKey(child, idx)
-				if (this._keyExists(previousKeys, key) || this._shouldRenderSceneKey(idx, currentPage)) newKeys.push(key)
+			getGrandchildren(children).forEach((child, idx) => {
+				const key = _makeSceneKey(child, idx)
+				if (_keyExists(previousKeys, key) || _shouldRenderSceneKey(idx, currentPage)) newKeys.push(key)
 			})
 		return newKeys
-	},
+	}
 
-	_shouldRenderSceneKey(idx, currentPageKey) {
-		const numOfSibling = this.props.prerenderingSiblingsNumber
+	const _shouldRenderSceneKey = (idx, currentPageKey) => {
+		const numOfSibling = props.prerenderingSiblingsNumber
 		return idx < currentPageKey + numOfSibling + 1 && idx > currentPageKey - numOfSibling - 1
-	},
+	}
 
-	_keyExists(sceneKeys, key) {
-		return sceneKeys.find(sceneKey => key === sceneKey)
-	},
+	const _keyExists = (sceneKeys, key) => sceneKeys.find(sceneKey => key === sceneKey)
 
-	_makeSceneKey(child, idx) {
-		return `${child.props.heading}_${idx}`
-	},
+	const _makeSceneKey = (child, idx) => `${child.props.heading}_${idx}`
 
-	renderScrollableContent() {
-		const scenes = this._composeScenes()
+	const renderScrollableContent = () => {
+		const scenes = _composeScenes()
 		return (
 			<ScrollView
 				horizontal
 				pagingEnabled
 				automaticallyAdjustContentInsets={false}
 				keyboardShouldPersistTaps="handled"
-				contentOffset={{ x: this.props.initialPage * this.state.containerWidth }}
-				ref={scrollView => (this.scrollView = scrollView)}
+				contentOffset={{ x: props.initialPage * _containerWidth }}
+				ref={scrollView => (_this.scrollView = scrollView)}
 				onScroll={e => {
 					const offsetX = e.nativeEvent.contentOffset.x
-					this._updateScrollValue(offsetX / this.state.containerWidth)
+					_updateScrollValue(offsetX / _containerWidth)
 				}}
-				onMomentumScrollBegin={this._onMomentumScrollBeginAndEnd}
-				onMomentumScrollEnd={this._onMomentumScrollBeginAndEnd}
+				onMomentumScrollBegin={_onMomentumScrollBeginAndEnd}
+				onMomentumScrollEnd={_onMomentumScrollBeginAndEnd}
 				scrollEventThrottle={16}
 				scrollsToTop={false}
 				showsHorizontalScrollIndicator={false}
-				scrollEnabled={!this.props.locked}
+				scrollEnabled={!props.locked}
 				directionalLockEnabled
 				alwaysBounceVertical={false}
 				keyboardDismissMode="on-drag"
-				{...this.props.contentProps}>
+				{...props.contentProps}>
 				{scenes}
 			</ScrollView>
 		)
-	},
+	}
 
-	_composeScenes() {
-		return _.map(this._children(), (child, idx) => {
-			const key = this._makeSceneKey(child, idx)
+	const _composeScenes = () => {
+		return _.map(getGrandchildren(), (child, idx) => {
+			const key = _makeSceneKey(child, idx)
 			return (
 				<SceneComponent
 					key={child.key}
-					shouldUpdated={this._shouldRenderSceneKey(idx, this.state.currentPage)}
-					style={{ width: this.state.containerWidth }}>
-					{this._keyExists(this.state.sceneKeys, key) ? child : <View heading={child.props.heading} />}
+					shouldUpdated={_shouldRenderSceneKey(idx, _currentPage)}
+					style={{ width: _containerWidth }}>
+					{_keyExists(_sceneKeys, key) ? child : <View heading={child.props.heading} />}
 				</SceneComponent>
 			)
 		})
-	},
+	}
 
-	_onMomentumScrollBeginAndEnd(e) {
+	const _onMomentumScrollBeginAndEnd = e => {
 		const offsetX = e.nativeEvent.contentOffset.x
-		const page = Math.round(offsetX / this.state.containerWidth)
-		if (this.state.currentPage !== page) this._updateSelectedPage(page)
-	},
+		const page = Math.round(offsetX / _containerWidth)
+		if (_currentPage !== page) _updateSelectedPage(page)
+	}
 
-	_updateSelectedPage(nextPage) {
+	const _updateSelectedPage = nextPage => {
 		let localNextPage = nextPage(typeof localNextPage === "object")
 		localNextPage = nextPage.nativeEvent.position
 
-		const currentPage = this.state.currentPage
-		this.updateSceneKeys({ page: localNextPage, callback: this._onChangeTab.bind(this, currentPage, localNextPage) })
-	},
+		const currentPage = _currentPage
+		updateSceneKeys({ page: localNextPage, callback: _onChangeTab.bind(this, currentPage, localNextPage) })
+	}
 
-	_onChangeTab(prevPage, currentPage) {
-		this.props.onChangeTab({
-			i: currentPage,
-			ref: this._children()[currentPage],
-			from: prevPage,
-		})
-	},
+	const _onChangeTab = (prevPage, currentPage) =>
+		props.onChangeTab({ i: currentPage, ref: getGrandchildren()[currentPage], from: prevPage })
 
-	_updateScrollValue(value) {
-		this.state.scrollValue.setValue(value)
-		this.props.onScroll(value)
-	},
+	const _updateScrollValue = value => {
+		_scrollValue.setValue(value)
+		props.onScroll(value)
+	}
 
-	_handleLayout(e) {
+	const _handleLayout = e => {
 		const { width } = e.nativeEvent.layout
-		if (!width || width <= 0 || Math.round(width) === Math.round(this.state.containerWidth)) return
+		if (!width || width <= 0 || Math.round(width) === Math.round(_containerWidth)) return
 
-		this.setState({ containerWidth: width })
-		this.requestAnimationFrame(() => this.goToPage(this.state.currentPage))
-	},
+		set_containerWidth(width)
+		requestAnimationFrame(() => goToPage(_currentPage))
+	}
 
-	_children(children = this.props.children) {
-		return React.Children.map(children, child => child)
-	},
+	const getGrandchildren = (children = props.children) => React.Children.map(children, child => child)
 
-	render() {
-		const { props } = this
-		const { tabBarPosition } = props
-		const overlayTabs = tabBarPosition === "overlayTop" || tabBarPosition === "overlayBottom"
-		const { _children } = this
-		const c = _children()
-		const tabBarProps = {
-			goToPage: this.goToPage,
-			tabs: _.map(c, child => child.props.heading),
-			tabStyle: _.map(c, child => child.props.tabStyle),
-			activeTabStyle: _.map(c, child => child.props.activeTabStyle),
-			textStyle: _.map(c, child => child.props.textStyle),
-			activeTextStyle: _.map(c, child => child.props.activeTextStyle),
-			tabHeaderStyle: _.map(c, child => _.get(child.props.heading.props, "style", undefined)),
-			disabled: _.map(c, child => child.props.disabled),
-			activeTab: this.state.currentPage,
-			scrollValue: this.state.scrollValue,
-			containerWidth: this.state.containerWidth,
+	const { tabBarPosition } = props
+	const overlayTabs = tabBarPosition === "overlayTop" || tabBarPosition === "overlayBottom"
+	const c = getGrandchildren()
+	const tabBarProps = {
+		goToPage: goToPage,
+		tabs: _.map(c, child => child.props.heading),
+		tabStyle: _.map(c, child => child.props.tabStyle),
+		activeTabStyle: _.map(c, child => child.props.activeTabStyle),
+		textStyle: _.map(c, child => child.props.textStyle),
+		activeTextStyle: _.map(c, child => child.props.activeTextStyle),
+		tabHeaderStyle: _.map(c, child => _.get(child.props.heading.props, "style", undefined)),
+		disabled: _.map(c, child => child.props.disabled),
+		activeTab: _currentPage,
+		scrollValue: _scrollValue,
+		containerWidth: _containerWidth,
+	}
+
+	if (props.tabBarBackgroundColor) tabBarProps.backgroundColor = props.tabBarBackgroundColor
+	if (props.tabBarActiveTextColor) tabBarProps.activeTextColor = props.tabBarActiveTextColor
+	if (props.tabBarInactiveTextColor) tabBarProps.inactiveTextColor = props.tabBarInactiveTextColor
+	if (props.tabBarTextStyle) tabBarProps.textStyle = props.tabBarTextStyle
+	if (props.tabBarUnderlineStyle) tabBarProps.underlineStyle = props.tabBarUnderlineStyle
+	if (props.tabContainerStyle) tabBarProps.tabContainerStyle = props.tabContainerStyle
+
+	if (overlayTabs) {
+		tabBarProps.style = {
+			position: "absolute",
+			left: 0,
+			right: 0,
+			[tabBarPosition === "overlayTop" ? "top" : "bottom"]: 0,
+			backgroundColor: "rgba(255, 255, 255, 0.7)",
 		}
+	}
 
-		if (props.tabBarBackgroundColor) tabBarProps.backgroundColor = props.tabBarBackgroundColor
-		if (props.tabBarActiveTextColor) tabBarProps.activeTextColor = props.tabBarActiveTextColor
-		if (props.tabBarInactiveTextColor) tabBarProps.inactiveTextColor = props.tabBarInactiveTextColor
-		if (props.tabBarTextStyle) tabBarProps.textStyle = props.tabBarTextStyle
-		if (props.tabBarUnderlineStyle) tabBarProps.underlineStyle = props.tabBarUnderlineStyle
-		if (props.tabContainerStyle) tabBarProps.tabContainerStyle = props.tabContainerStyle
+	return (
+		<View style={[styles.container, props.style]} onLayout={_handleLayout}>
+			{(tabBarPosition === "top" || tabBarPosition === "overlayTop") && renderTabBar(tabBarProps)}
+			{renderScrollableContent()}
+			{(tabBarPosition === "bottom" || tabBarPosition === "overlayBottom") && renderTabBar(tabBarProps)}
+		</View>
+	)
+}
 
-		if (overlayTabs) {
-			tabBarProps.style = {
-				position: "absolute",
-				left: 0,
-				right: 0,
-				[tabBarPosition === "overlayTop" ? "top" : "bottom"]: 0,
-				backgroundColor: "rgba(255, 255, 255, 0.7)",
-			}
-		}
+// mixins: [TimerMixin]
+Tabs.DefaultTabBar = DefaultTabBar
+Tabs.ScrollableTabBar = ScrollableTabBar
 
-		return (
-			<View style={[styles.container, props.style]} onLayout={this._handleLayout}>
-				{(tabBarPosition === "top" || tabBarPosition === "overlayTop") && this.renderTabBar(tabBarProps)}
-				{this.renderScrollableContent()}
-				{(tabBarPosition === "bottom" || tabBarPosition === "overlayBottom") && this.renderTabBar(tabBarProps)}
-			</View>
-		)
-	},
-})
+Tabs.propTypes = {
+	tabBarPosition: PropTypes.oneOf(["top", "bottom", "overlayTop", "overlayBottom"]),
+	initialPage: PropTypes.number,
+	page: PropTypes.number,
+	onChangeTab: PropTypes.func,
+	onScroll: PropTypes.func,
+	renderTabBar: PropTypes.any,
+	style: ViewPropTypes.style,
+	contentProps: PropTypes.object,
+	scrollWithoutAnimation: PropTypes.bool,
+	locked: PropTypes.bool,
+	prerenderingSiblingsNumber: PropTypes.number,
+}
+Tabs.getDefaultProps = () => {
+	return {
+		tabBarPosition: "top",
+		initialPage: 0,
+		page: -1,
+		onChangeTab: () => {},
+		onScroll: () => {},
+		contentProps: {},
+		scrollWithoutAnimation: false,
+		locked: false,
+		prerenderingSiblingsNumber: 0,
+	}
+}
 
 const styles = StyleSheet.create({
 	container: {

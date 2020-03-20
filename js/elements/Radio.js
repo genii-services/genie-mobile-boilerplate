@@ -6,7 +6,7 @@ const { TouchableOpacity, Platform } = require("react-native")
 const Ionicons = require("react-native-vector-icons/Ionicons").default
 
 const { useState, useStore, useThis } = require("/hooks")
-const computeProps = require("/utils/computeProps")
+const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
 const variable = require("/styles/themes/default")
 

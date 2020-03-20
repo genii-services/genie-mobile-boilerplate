@@ -1,5 +1,5 @@
 const MODULE_NAME$ = "elements/Subtitle"
-console.log(MODULE_NAME$, "load")
+console.debug(MODULE_NAME$)
 
 const { Text } = require("react-native")
 

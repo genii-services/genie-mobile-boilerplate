@@ -59,7 +59,7 @@ const AccordionSubItem = props => {
 	return <Animated.View style={{ ...style, opacity: _fadeAnim }}>{children}</Animated.View>
 }
 
-class AccordionItem extends React.Component {
+const AccordionItem = props => {
 	render() {
 		const { props } = this
 		const {
@@ -151,7 +151,7 @@ const Accordion = props => {
 				<AccordionItem
 					key={String(index)}
 					contentStyle={contentStyle}
-					expanded={this.state.selected === index}
+					expanded={_selected === index}
 					expandedIcon={expandedIcon}
 					expandedIconStyle={expandedIconStyle}
 					headerStyle={headerStyle}
@@ -163,7 +163,7 @@ const Accordion = props => {
 					renderHeader={renderHeader}
 					onAccordionOpen={onAccordionOpen}
 					onAccordionClose={onAccordionClose}
-					setSelected={i => this.setSelected(i)}
+					setSelected={i => setSelected(i)}
 				/>
 			)}
 			{...props}

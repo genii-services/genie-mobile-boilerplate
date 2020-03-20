@@ -1,5 +1,5 @@
 const React = require("react")
-const { Modal, View, Platform, DatePickerIOS, DatePickerAndroid } = require("react-native")
+const { Modal, View, DatePickerIOS, DatePickerAndroid } = require("react-native")
 
 const { useState, useStore } = require("/hooks")
 const { itsAndroid } = require("/utils/device")
@@ -11,7 +11,7 @@ const DatePicker = props => {
 	const [theme] = useStore("theme")
 
 	const [_modalVisible, set_modalVisible] = useState(false)
-	const [_defaultDate, set_defaultDate] = useState(props.defaultDate || new Date())
+	const [_defaultDate] = useState(props.defaultDate || new Date())
 	const [_chosenDate, set_chosenDate] = useState(!props.placeHolderText && props.defaultDate && props.defaultDate)
 
 	const setDate = date => {
@@ -26,16 +26,16 @@ const DatePicker = props => {
 	const openAndroidDatePicker = async () => {
 		try {
 			const newDate = await DatePickerAndroid.open({
-				date: this.state.chosenDate ? this.state.chosenDate : this.state.defaultDate,
-				minDate: this.props.minimumDate,
-				maxDate: this.props.maximumDate,
-				mode: this.props.androidMode,
+				date: _chosenDate ? _chosenDate : _defaultDate,
+				minDate: props.minimumDate,
+				maxDate: props.maximumDate,
+				mode: props.androidMode,
 			})
 			const { action, year, month, day } = newDate
 			if (action === "dateSetAction") {
 				const selectedDate = new Date(year, month, day)
-				this.setState({ chosenDate: selectedDate })
-				this.props.onDateChange(selectedDate)
+				set_chosenDate(selectedDate)
+				props.onDateChange(selectedDate)
 			}
 		} catch ({ code, message }) {
 			console.warn("Cannot open date picker", message)
@@ -43,8 +43,8 @@ const DatePicker = props => {
 	}
 
 	const formatChosenDate = date => {
-		if (this.props.formatChosenDate) {
-			return this.props.formatChosenDate(date)
+		if (props.formatChosenDate) {
+			return props.formatChosenDate(date)
 		}
 		return [date.getDate(), date.getMonth() + 1, date.getFullYear()].join("/")
 	}
@@ -70,10 +70,7 @@ const DatePicker = props => {
 				<Text
 					onPress={() => !disabled && showDatePicker()}
 					style={[
-						{
-							padding: variables.datePickerPadding,
-							color: variables.datePickerTextColor,
-						},
+						{ padding: variables.datePickerPadding, color: variables.datePickerTextColor },
 						_chosenDate ? textStyle : placeHolderTextStyle,
 					]}>
 					{_chosenDate ? formatChosenDate(_chosenDate) : placeHolderText || "Select Date"}

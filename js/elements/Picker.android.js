@@ -7,7 +7,7 @@ const { Picker: Picker_ } = require("@react-native-community/picker")
 
 const { connectStyle } = require("/utils/style")
 
-export default class Picker extends Component {
+export default const Picker = props => {
 	render() {
 		return <Picker_ {...this.props}>{this.props.children}</Picker_>
 	}

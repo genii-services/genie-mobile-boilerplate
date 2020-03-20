@@ -21,7 +21,7 @@ const POSITION = {
 	TOP: "top",
 }
 
-class ToastContainer extends Component {
+const ToastContainer = props => {
 	static toastInstance
 	static show({ ...config }) {
 		this.toastInstance._root.showToast({ config })
@@ -53,19 +53,19 @@ class ToastContainer extends Component {
 	getToastStyle() {
 		return {
 			position: POSITION.ABSOLUTE,
-			opacity: this.state.fadeAnim,
+			opacity: _fadeAnim,
 			width: "100%",
 			elevation: 9,
 			paddingHorizontal: itsIOS ? 20 : 0,
-			top: this.state.position === POSITION.TOP ? 30 : undefined,
-			bottom: this.state.position === POSITION.BOTTOM ? this.getTop() : undefined,
+			top: _position === POSITION.TOP ? 30 : undefined,
+			bottom: _position === POSITION.BOTTOM ? this.getTop() : undefined,
 		}
 	}
 
 	getTop() {
 		if (itsIOS) {
-			if (this.state.isKeyboardVisible) {
-				return this.state.keyboardHeight
+			if (_isKeyboardVisible) {
+				return _keyboardHeight
 			}
 			return 30
 		}
@@ -82,7 +82,7 @@ class ToastContainer extends Component {
 		return undefined
 	}
 	getModalState() {
-		return this.state.modalVisible
+		return _modalVisible
 	}
 
 	keyboardDidHide() {
@@ -123,7 +123,7 @@ class ToastContainer extends Component {
 			this.closeTimeout = setTimeout(this.closeToast.bind(this, "timeout"), duration)
 		}
 		// Fade the toast in now.
-		Animated.timing(this.state.fadeAnim, {
+		Animated.timing(_fadeAnim, {
 			toValue: 1,
 			duration: 200,
 		}).start()
@@ -139,25 +139,21 @@ class ToastContainer extends Component {
 	}
 	closeToast(reason) {
 		clearTimeout(this.closeTimeout)
-		Animated.timing(this.state.fadeAnim, {
+		Animated.timing(_fadeAnim, {
 			toValue: 0,
 			duration: 200,
 		}).start(this.closeModal.bind(this, reason))
 	}
 
 	render() {
-		if (this.state.modalVisible) {
+		if (_modalVisible) {
 			return (
 				<Animated.View style={this.getToastStyle()}>
-					<Toast
-						style={this.state.style}
-						danger={this.state.type === "danger"}
-						success={this.state.type === "success"}
-						warning={this.state.type === "warning"}>
-						<Text style={this.state.textStyle}>{this.state.text}</Text>
-						{this.state.buttonText && (
-							<Button style={this.state.buttonStyle} onPress={() => this.closeToast("user")}>
-								<Text style={this.state.buttonTextStyle}>{this.state.buttonText}</Text>
+					<Toast style={_style} danger={_type === "danger"} success={_type === "success"} warning={_type === "warning"}>
+						<Text style={_textStyle}>{_text}</Text>
+						{_buttonText && (
+							<Button style={_buttonStyle} onPress={() => this.closeToast("user")}>
+								<Text style={_buttonTextStyle}>{_buttonText}</Text>
 							</Button>
 						)}
 					</Toast>
