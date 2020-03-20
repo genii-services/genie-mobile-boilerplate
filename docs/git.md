@@ -6,13 +6,19 @@
 git remote add <단축이름> <url> 명령을 사용한다.
 
 ```bash
-git remote add origin https://github.com/genii-services/genii-mobile-boilerplate.git
+git remote add origin https://github.com/genii-services/genie-mobile-boilerplate.git
 ```
 
-## git 원격저장소 확인
+## 원격저장소 확인
 
 ```bash
 git remote -v
+```
+
+## 원격 저장소 url 변경
+
+```bash
+git remote set-url origin https://github.com/genii-services/genie-mobile-boilerplate.git
 ```
 
 ## 리모트 저장소에 Push 하기
