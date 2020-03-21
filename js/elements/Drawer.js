@@ -1,8 +1,8 @@
 const React = require("react")
-const RNDrawer = require("react-native-drawer")
+const Drawer_ = require("react-native-drawer")
 
 const Drawer = props => {
-	return <RNDrawer {...props} />
+	return <Drawer_ {...props} />
 }
 
 Drawer.defaultProps = {

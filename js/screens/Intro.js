@@ -1,7 +1,6 @@
 console.debug("IntroScreen")
 
 const React = require("react")
-const _ = require("lodash")
 const { TouchableHighlight, Text } = require("react-native")
 const { Container } = require("/elements")
 
