@@ -115,10 +115,10 @@ if (__DEV__) {
 		underlineStyle: style,
 		tabContainerStyle: style,
 	}
-}
 
-DefaultTabBar.contextTypes = {
-	theme: object,
+	DefaultTabBar.contextTypes = {
+		theme: object,
+	}
 }
 
 DefaultTabBar.getDefaultProps = () => {

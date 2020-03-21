@@ -2,7 +2,7 @@ const MODULE_NAME$ = "elements/InputGroup"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
-const { View, ViewPropTypes } = require("react-native")
+const { View } = require("react-native")
 
 const variables = require("/styles/themes/default")
 const { computeProps } = require("/utils/props")
@@ -30,9 +30,8 @@ const InputGroup = props => {
 }
 
 if (__DEV__) {
-	const { ViewPropTypes } = require("react-native")
 	const { array, bool, number, object, oneOfType, string } = require("prop-types")
-
+	const { ViewPropTypes } = require("react-native")
 	InputGroup.propTypes = {
 		...ViewPropTypes,
 		regular: bool,

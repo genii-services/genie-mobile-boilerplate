@@ -51,9 +51,7 @@ const Gravatar = props => {
 }
 
 if (__DEV__) {
-	const { ViewPropTypes } = require("react-native")
 	const { array, bool, number, object, oneOfType, string } = require("prop-types")
-
 	Gravatar.propTypes = {
 		...Image.propTypes,
 		email: string.isRequired,

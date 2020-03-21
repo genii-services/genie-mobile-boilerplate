@@ -113,6 +113,7 @@ const ToastContainer = props => {
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType } = require("prop-types")
+	const { ViewPropTypes } = require("react-native")
 	ToastContainer.propTypes = {
 		...ViewPropTypes,
 		style: oneOfType([object, number, array]),
