@@ -1,11 +1,17 @@
-const { useThis } = require("/hooks")
+const _ = require("lodash")
+const { StyleSheet } = require("react-native")
+
+const Theme = require("./Theme")
+const { ThemeShape } = Theme
+const { resolveComponentStyle } = require("./resolveComponentStyle")
+
+const { useState, useThis } = require("/hooks")
 
 const StyledComponent = props => {
 	const { mapPropsToStyleNames, options } = props
 	const getStyleNames = props => {
 		const styleNamesArr = _.map(props, (value, key) => (typeof value !== "object" && value === true ? "." + key : false))
 		_.remove(styleNamesArr, (value, index) => value === false)
-
 		return styleNamesArr
 	}
 
@@ -24,15 +30,11 @@ const StyledComponent = props => {
 
 		const concreteStyle = getConcreteStyle(_.merge({}, resolvedStyle))
 
-		if (_.isArray(style)) {
-			return [concreteStyle, ...style]
-		}
-
-		if (typeof style == "number" || typeof style == "object") {
-			return [concreteStyle, style]
-		}
-
-		return concreteStyle
+		return _.isArray(style)
+			? [concreteStyle, ...style]
+			: typeof style == "number" || typeof style == "object"
+			? [concreteStyle, style]
+			: concreteStyle
 	}
 
 	const _this = useThis()
@@ -45,7 +47,7 @@ const StyledComponent = props => {
 	// AddedProps are additional WrappedComponent props
 	// Usually they are set trough alternative ways,
 	// such as theme style, or trough options
-	const [_addedProps, set_addedProps] = useState(() => {
+	const [_addedProps] = useState(() => {
 		const addedProps = {}
 		if (options.withRef) addedProps.ref = "wrappedInstance"
 		return addedProps
@@ -153,14 +155,9 @@ if (__DEV__) {
 		style: oneOfType([object, number, array]),
 		// The style variant names to apply to this component, multiple variants may be separated with a space character
 		styleName: string,
-		// Virtual elements will propagate the parent style to their children, i.e., the children will behave as they are placed directly below the parent of a virtual element.
+		// 가상요소는 부모스타일을 자녀에게 전파합니다. 즉, 자녀는 가상요소의 부모 바로 아래에 배치될 때 동작함
 		virtual: bool,
 	}
 }
 
-StyledComponent.defaultProps = {
-	virtual: options.virtual,
-}
-
-StyledComponent.displayName = `Styled(${componentDisplayName})`
-StyledComponent.WrappedComponent = WrappedComponent
+module.exports = StyledComponent

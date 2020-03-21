@@ -1,12 +1,5 @@
-const React = require("react")
 const hoistStatics = require("hoist-non-react-statics")
 const _ = require("lodash")
-const normalizeStyle = require("./StyleNormalizer/normalizeStyle")
-const { StyleSheet } = require("react-native")
-
-const Theme = require("./Theme")
-const { ThemeShape } = Theme
-const { resolveComponentStyle } = require("./resolveComponentStyle")
 
 let themeCache = {}
 
@@ -14,7 +7,7 @@ let themeCache = {}
  * clear theme cache
  * @export
  */
-export function clearThemeCache() {
+function clearThemeCache() {
 	themeCache = {}
 }
 
@@ -36,8 +29,7 @@ function throwConnectStyleError(errorMessage, componentDisplayName) {
  * @returns {Theme} The Theme object.
  */
 function getTheme(context) {
-	// Fallback to a default theme if the component isn't
-	// rendered in a StyleProvider.
+	// Fallback to a default theme if the component isn't rendered in a StyleProvider.
 	return context.theme || Theme.getDefaultTheme()
 }
 
@@ -79,19 +71,17 @@ function getConcreteStyle(style) {
 const StyledComponent = require("./StyledComponent")
 
 /**
- * Resolves the final component style by using the theme style, if available and
- * merging it with the style provided directly through the style prop, and style
- * variants applied through the styleName prop.
+ * 사용 가능한 경우 테마 스타일을 사용하고
+ * 스타일 속성을 통해 직접 제공된 스타일 및 styleName 속성을 통해
+ * 적용된 스타일 변형과 병합하여 최종 구성 요소 스타일을 해결
  *
- * @param componentStyleName The component name that will be used
- * to target this component in style rules.
+ * @param componentStyleName The component name that will be used to target this component in style rules.
  * @param componentStyle The default component style.
  * @param mapPropsToStyleNames Pure function to customize styleNames depending on props.
  * @param options The additional connectStyle options
  * @param options.virtual The default value of the virtual prop
  * @param options.withRef Create component ref with addedProps; if true, ref name is wrappedInstance
- * @returns {StyledComponent} The new component that will handle
- * the styling of the wrapped component.
+ * @returns {StyledComponent} The new component that will handle the styling of the wrapped component.
  */
 exports = module.exports = (componentStyleName, componentStyle = {}, mapPropsToStyleNames, options = {}) => {
 	function getComponentDisplayName(WrappedComponent) {
@@ -99,12 +89,19 @@ exports = module.exports = (componentStyleName, componentStyle = {}, mapPropsToS
 	}
 
 	return function wrapWithStyledComponent(WrappedComponent) {
+		const componentDisplayName = getComponentDisplayName(WrappedComponent)
 		if (__DEV__) {
-			const componentDisplayName = getComponentDisplayName(WrappedComponent)
 			if (!_.isPlainObject(componentStyle)) throwConnectStyleError("Component style must be plain object", componentDisplayName)
 			if (!_.isString(componentStyleName)) throwConnectStyleError("Component Style Name must be string", componentDisplayName)
 		}
 
-		return hoistStatics(StyledComponent, WrappedComponent)
+		StyledComponent.defaultProps = {
+			virtual: options.virtual,
+		}
+
+		StyledComponent.displayName = `Styled(${componentDisplayName})`
+		StyledComponent.WrappedComponent = WrappedComponent
+		return hoistStatics(StyledComponent, WrappedComponent, { mapPropsToStyleNames, options })
 	}
 }
+exports.clearThemeCache = clearThemeCache

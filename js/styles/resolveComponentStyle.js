@@ -83,7 +83,7 @@ function splitStyle(style) {
  * @param elementStyle The style passed through the style prop of the component
  * @returns {{componentStyle, childrenStyle}} The resolved component and children styles.
  */
-export function resolveComponentStyle(componentName, styleNames = [], themeStyle = {}, parentStyle = {}) {
+module.exports = function resolveComponentStyle(componentName, styleNames = [], themeStyle = {}, parentStyle = {}) {
 	// const mergedStyle = _.merge({},
 	//   themeStyle,
 	//   parentStyle['*'],

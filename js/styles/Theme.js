@@ -54,10 +54,7 @@ exports = module.exports = class Theme {
 	 * if the StyleProvider is not configured in the app.
 	 */
 	static getDefaultTheme() {
-		if (!defaultTheme) {
-			defaultTheme = new Theme({})
-		}
-
+		if (!defaultTheme) defaultTheme = new Theme({})
 		return defaultTheme
 	}
 
@@ -73,9 +70,7 @@ exports = module.exports = class Theme {
 	 * @param defaultStyle - default component style that will be used as base style.
 	 */
 	createComponentStyle(componentName, defaultStyle) {
-		if (this[THEME_STYLE_CACHE][componentName]) {
-			return this[THEME_STYLE_CACHE][componentName]
-		}
+		if (this[THEME_STYLE_CACHE][componentName]) return this[THEME_STYLE_CACHE][componentName]
 
 		const componentIncludedStyle = resolveStyle(defaultStyle, this[THEME_STYLE])
 
@@ -94,6 +89,6 @@ exports = module.exports = class Theme {
 	}
 }
 
-export const ThemeShape = PropTypes.shape({
+exports.ThemeShape = PropTypes.shape({
 	createComponentStyle: PropTypes.func.isRequired,
 })
