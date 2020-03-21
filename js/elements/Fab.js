@@ -9,7 +9,7 @@ const { itsIOS } = require("/utils/device")
 const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
 
-const { useThis } = require("/hooks")
+const { createAnimatedComponent, useThis } = require("/hooks")
 const variables = require("/styles/themes/default")
 
 const Button = require("./Button")
@@ -28,7 +28,7 @@ const POSITION = {
 	TOP_RIGHT: "topRight",
 }
 
-const AnimatedFab = Animated.createAnimatedComponent(Button)
+const AnimatedFab = createAnimatedComponent(Button)
 
 const Fab = props => {
 	const _this = useThis()
