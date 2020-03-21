@@ -13,3 +13,5 @@ exports.createCtx = require("./createCtx")
 exports.useInput = require("./useInput")
 exports.useRefs = require("./useRefs")
 exports.useThis = require("./useThis")
+
+exports.createAnimatedComponent = require("./createAnimatedComponent")
