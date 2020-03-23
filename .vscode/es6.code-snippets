@@ -55,5 +55,15 @@
 		"prefix": "+mn",
 		"description": "const MODULE_NAME$",
 		"body": ["const MODULE_NAME$ = \"${TM_DIRECTORY/^.*\\/(.*)/$1/}/${TM_FILENAME_BASE}\"", "console.debug(MODULE_NAME$)"]
+	},
+	"Filename": {
+		"prefix": "+fn",
+		"description": "Insert Filename",
+		"body": ["${TM_FILENAME_BASE}"]
+	},
+	"Head Comment": {
+		"prefix": "+hc",
+		"description": "Insert Head Comment",
+		"body": ["/** ${TM_FILENAME_BASE} */"]
 	}
 }
