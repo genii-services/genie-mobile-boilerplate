@@ -80,16 +80,16 @@ exports.View = require("./View")
 
 // Theme
 
-const { Theme } = require("/styles")
+const { Theme } = require("/utils/style")
 const getThemeStyle = require("/styles/elements")
 
 function setDefaultThemeStyle() {
 	const theme = getThemeStyle()
 	Theme.setDefaultThemeStyle(theme)
 }
-setDefaultThemeStyle()
 
 exports.setDefaultThemeStyle = setDefaultThemeStyle
-exports.getTheme = getThemeStyle
 exports.variables = require("/styles/themes/default")
 exports.mapPropsToStyleNames = (styleNames, props) => keys(props)
+
+setDefaultThemeStyle()

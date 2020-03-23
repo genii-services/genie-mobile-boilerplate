@@ -3,7 +3,6 @@ const _ = require("lodash")
 
 const { Children } = React
 const Theme = require("./Theme")
-const { ThemeShape } = Theme
 
 /**
  *  컨텍스트를 통해서 자식 컴포넌트에 테마를 제공

@@ -59,9 +59,8 @@ exports = module.exports = class Theme {
 	}
 
 	/**
-	 * Creates a component style by merging the theme style on top of the
-	 * provided default component style. Any rules in the theme style will
-	 * override the rules from the base component style.
+	 * 제공된 기본 구성 요소 스타일 위에 테마 스타일을 병합하여 구성 요소 스타일을 만든다.
+	 * 테마 스타일의 규칙은 기본 구성 요소 스타일의 규칙보다 우선합니다.
 	 *
 	 * This method will also resolve any INCLUDE keywords in the theme or
 	 * component styles before returning the final style.

@@ -27,7 +27,6 @@ module.exports = function normalizeStyle(style) {
 				normalizedStyle[prop] = val
 			}
 			/* eslint-enable no-param-reassign */
-
 			return normalizedStyle
 		},
 		{}

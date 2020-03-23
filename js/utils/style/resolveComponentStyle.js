@@ -61,20 +61,20 @@ function splitStyle(style) {
 }
 
 /**
- * Resolves the final component style by merging all of the styles that can be
- * applied to a component in the proper order.
+ * 구성 요소에 적용할 수 있는 모든 스타일을 올바른 순서로 병합하여
+ * 최종 구성 요소 스타일을 해결합니다.
  *
- * This function extracts the applicable parts of the theme, parent and element
- * styles, and merges the styles that target the component, and component variants
- * with those styles to get the final style.
+ * 이 함수는 테마의 해당 부분, 부모 및 요소 스타일을 추출하고
+ * 구성 요소를 대상으로하는 스타일과 해당 스타일과 변형된 구성 요소을 병합하여
+ * 최종 스타일을 얻습니다.
  *
- * The styles are merged in the following order, where the styles with the
- * higher index override the styles with the lower one:
- * 1. Theme component style
- * 2. Parent component style
- * 3. Theme style variants specified through styleName
- * 4. Parent style variants specified through styleName
- * 5. Element style passed through the style prop
+ * 스타일은 다음 순서로 병합됩니다.
+ * 인덱스가 높은 스타일은 스타일이 낮은 스타일보다 우선합니다.
+ * 1. 테마 컴포넌트 스타일
+ * 2. 상위 컴포넌트 스타일
+ * 3. styleName을 통해 지정된 변형된 테마 스타일
+ * 4. styleName을 통해 지정된 변형된 상위 스타일
+ * 5. 스타일 속성을 통해 전달된 요소 스타일
  *
  * @param componentName The component name ('shoutem.ui.Text')
  * @param styleName Style names ('large rounded')
