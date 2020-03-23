@@ -1,7 +1,8 @@
 /** 공통 라이브러리 */
 const React = require("react")
-
 const { View, TouchableHighlight } = require("react-native")
+
+const { FLEX_START, NOWRAP } = require("/constants/style")
 
 const ListItem = ({ onPress, onLongPress, ...props }) => {
 	return (
@@ -13,10 +14,10 @@ const ListItem = ({ onPress, onLongPress, ...props }) => {
 						borderBottomColor: props.borderColor,
 						borderBottomWidth: props.borderWidth,
 						flex: 1,
-						flexWrap: "nowrap",
+						flexWrap: NOWRAP,
 						padding: 10,
-						justifyContent: "flex-start",
-						alignItems: "flex-start",
+						justifyContent: FLEX_START,
+						alignItems: FLEX_START,
 					},
 					props.style,
 				]}

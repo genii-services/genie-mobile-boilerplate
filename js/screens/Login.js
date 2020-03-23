@@ -8,6 +8,7 @@ const IconFA = require("react-native-vector-icons/FontAwesome")
 // const { MessageBarManager } require("react-native-message-bar")
 
 const { UNDEFINED } = require("/constants")
+const { TRANSPARENT } = require("/constants/style")
 const { assign } = require("/utils")
 const { PROCESSING } = require("/utils/progress")
 const config = require("/data/config")
@@ -139,7 +140,7 @@ const LoginScreen = props => {
 							placeholderTextColor={grayscaleColors[0]}
 							value={state.emailName}
 							autoCapitalize="none"
-							// underlineColorAndroid="transparent"
+							// underlineColorAndroid=TRANSPARENT
 							// autoCorrect={false}
 							returnKeyType="next"
 							onChangeText={emailName => set_emailName(emailName)}

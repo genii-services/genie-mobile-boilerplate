@@ -1,3 +1,5 @@
+/** Tab Viewpart Style */
+
 const Tab = ({ fontFamily, fontSizes, colors, backgroundColors, textAlign }) => {
 	return {
 		tabBarUnderline: {

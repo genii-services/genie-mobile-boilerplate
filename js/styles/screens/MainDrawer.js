@@ -1,3 +1,5 @@
+/** MainDrawer Screen Style */
+const { COLUMN, FLEX_START, FLEX_END, NOWRAP, PC100, ROW, SPACE_BETWEEN, WHITE } = require("/constants/style")
 const { itsIOS, itsIphoneX } = require("/utils/device")
 
 const MainDrawerStyle = ({ fontFamily, fontSizes, backgroundColors }) => {
@@ -10,33 +12,33 @@ const MainDrawerStyle = ({ fontFamily, fontSizes, backgroundColors }) => {
 		},
 		// for renderForGuest
 		guest_container: {
-			height: "100%",
+			height: PC100,
 			margin: 0,
 			paddingVertical: 30,
 			paddingHorizontal: 20,
-			justifyContent: "space-between",
-			alignItems: "flex-start",
+			justifyContent: SPACE_BETWEEN,
+			alignItems: FLEX_START,
 			backgroundColor: "#134a7a",
 		},
 		guest_container_view: {
-			width: "100%",
-			flexDirection: "column",
-			flexWrap: "nowrap",
-			alignContent: "flex-end",
-			justifyContent: "flex-end",
+			width: PC100,
+			flexDirection: COLUMN,
+			flexWrap: NOWRAP,
+			alignContent: FLEX_END,
+			justifyContent: FLEX_END,
 			paddingVertical: 20,
 			paddingHorizontal: 0,
 		},
-		guest_container_text1: { paddingHorizontal: 20, paddingVertical: 5, color: "white", fontSize: 16 },
-		guest_container_text2: { paddingHorizontal: 20, paddingVertical: 5, color: "white", fontSize: 14 },
+		guest_container_text1: { paddingHorizontal: 20, paddingVertical: 5, color: WHITE, fontSize: 16 },
+		guest_container_text2: { paddingHorizontal: 20, paddingVertical: 5, color: WHITE, fontSize: 14 },
 		guest_container_view2: {
-			width: "100%",
-			flexDirection: "row",
-			flexWrap: "nowrap",
-			alignContent: "flex-end",
-			justifyContent: "flex-end",
+			width: PC100,
+			flexDirection: ROW,
+			flexWrap: NOWRAP,
+			alignContent: FLEX_END,
+			justifyContent: FLEX_END,
 		},
-		guest_container_text3: { paddingHorizontal: 20, paddingVertical: 5, color: "white" },
+		guest_container_text3: { paddingHorizontal: 20, paddingVertical: 5, color: WHITE },
 		//
 		profile: {
 			backgroundColor: "#1a66a8",
@@ -45,7 +47,7 @@ const MainDrawerStyle = ({ fontFamily, fontSizes, backgroundColors }) => {
 		},
 		profileText: {
 			fontFamily,
-			color: "white",
+			color: WHITE,
 		},
 		list: {
 			marginLeft: 0,

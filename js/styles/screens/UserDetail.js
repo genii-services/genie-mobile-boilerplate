@@ -1,10 +1,13 @@
+/** UserDetail Screen Style */
+const { CENTER, FLEX_START, RIGHT, WHITE } = require("/constants/style")
+
 module.exports = ({ fontFamily, fontSizes, grayscaleColors, textAlign }) => {
 	return {
 		container: {
-			backgroundColor: "white",
+			backgroundColor: WHITE,
 		},
 		list: {
-			backgroundColor: "white",
+			backgroundColor: WHITE,
 		},
 		listHeader: {
 			minHeight: 106,
@@ -12,7 +15,7 @@ module.exports = ({ fontFamily, fontSizes, grayscaleColors, textAlign }) => {
 			borderTopWidth: 0,
 			borderBottomWidth: 1,
 			marginLeft: 0,
-			alignItems: "flex-start",
+			alignItems: FLEX_START,
 		},
 		listHeaderPhoto: {
 			borderRadius: 20,
@@ -47,7 +50,7 @@ module.exports = ({ fontFamily, fontSizes, grayscaleColors, textAlign }) => {
 			width: "33%",
 			fontSize: fontSizes[6],
 			fontWeight: "500",
-			textAlign: "right",
+			textAlign: RIGHT,
 		},
 		listItemText: {
 			width: "60%",
@@ -87,7 +90,7 @@ module.exports = ({ fontFamily, fontSizes, grayscaleColors, textAlign }) => {
 			height: 30,
 			marginBottom: 6,
 			fontSize: Math.min(fontSizes[11], 30),
-			color: "white",
+			color: WHITE,
 			textAlign,
 		},
 		footerText: {
@@ -95,7 +98,7 @@ module.exports = ({ fontFamily, fontSizes, grayscaleColors, textAlign }) => {
 			height: 19,
 			fontFamily,
 			fontSize: Math.min(fontSizes[6], 16),
-			color: "white",
+			color: WHITE,
 			textAlign,
 		},
 	}

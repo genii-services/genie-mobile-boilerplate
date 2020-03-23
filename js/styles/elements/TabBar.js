@@ -1,5 +1,5 @@
-/** 공통 라이브러리 */
-const { CENTER } = require("/constants/style")
+/** TabBar Element Style */
+const { CENTER, ROW, TRANSPARENT } = require("/constants/style")
 const defaultTheme = require("/styles/themes/default")
 
 module.exports = (theme = defaultTheme) => {
@@ -39,11 +39,11 @@ module.exports = (theme = defaultTheme) => {
 			alignItems: CENTER,
 			justifyContent: CENTER,
 			borderRadius: null,
-			borderBottomColor: "transparent",
+			borderBottomColor: TRANSPARENT,
 			backgroundColor: theme.tabBgColor,
 		},
 		height: 45,
-		flexDirection: "row",
+		flexDirection: ROW,
 		justifyContent: "space-around",
 		borderWidth: 1,
 		borderTopWidth: 0,

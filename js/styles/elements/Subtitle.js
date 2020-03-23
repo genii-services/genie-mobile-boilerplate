@@ -1,4 +1,4 @@
-/** 공통 라이브러리 */
+/** Element Style */
 const { CENTER } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 const defaultTheme = require("/styles/themes/default")

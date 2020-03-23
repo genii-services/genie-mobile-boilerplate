@@ -3,6 +3,7 @@
 const React = require("react")
 const { Animated, TouchableWithoutFeedback, FlatList, StyleSheet, View } = require("react-native")
 
+const { CENTER, ROW, SPACE_BETWEEN } = require("/constants/style")
 const { useState, useStore } = require("/hooks")
 const variable = require("/styles/themes/default")
 
@@ -170,10 +171,10 @@ const Accordion = ({
 
 const styles = StyleSheet.create({
 	defaultHeader: {
-		flexDirection: "row",
+		flexDirection: ROW,
 		padding: variable.accordionContentPadding,
-		justifyContent: "space-between",
-		alignItems: "center",
+		justifyContent: SPACE_BETWEEN,
+		alignItems: CENTER,
 	},
 })
 

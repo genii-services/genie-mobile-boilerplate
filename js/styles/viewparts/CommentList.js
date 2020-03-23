@@ -1,3 +1,6 @@
+/** CommentList Viewpart Style */
+const { ABSOLUTE, FLEX_START } = require("/constants/style")
+
 const CommentList = ({ fontFamily, fontSizes, grayscaleColors, backgroundColors }) => {
 	return {
 		container: {
@@ -6,7 +9,7 @@ const CommentList = ({ fontFamily, fontSizes, grayscaleColors, backgroundColors 
 		list: {},
 		item: {
 			marginLeft: 0,
-			alignItems: "flex-start",
+			alignItems: FLEX_START,
 		},
 		icon: {
 			width: 40,
@@ -36,7 +39,7 @@ const CommentList = ({ fontFamily, fontSizes, grayscaleColors, backgroundColors 
 			color: grayscaleColors[8],
 		},
 		bottomInputBox: {
-			position: "absolute",
+			position: ABSOLUTE,
 			bottom: -20,
 			left: 0,
 			right: 0,

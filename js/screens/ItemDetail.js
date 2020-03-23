@@ -5,7 +5,7 @@ const { Button, Container, Content, Footer, FooterTab, Icon, Item, ListItem, Tab
 const IconFA = require("react-native-vector-icons/FontAwesome")
 const FastImage = require("react-native-fast-image")
 
-const { CENTER } = require("/constants/style")
+const { ABSOLUTE, CENTER, FLEX_START, ROW, TRANSPARENT, WHITE } = require("/constants/style")
 const { SUCCEED, PROCESSING } = require("/utils/progress")
 const config = require("/data/config")
 const { toFileSize } = require("/utils/string")
@@ -83,7 +83,7 @@ const DetailScreen = props => {
 											{item.author + (item.authorDept ? " (" + item.authorDept + ")" : "")}
 										</Text>
 										{publishPeriod !== "" && (
-											<View style={{ flexDirection: "row" }}>
+											<View style={{ flexDirection: ROW }}>
 												<Text style={style.articleHeaderText2}>
 													{publishPeriods.length < 2 ? "게시일" : "게시기간" + ": "}
 												</Text>
@@ -106,14 +106,14 @@ const DetailScreen = props => {
 							<ScrollView
 								contentContainerStyle={{ flex: 0 }}
 								maximumZoomScale={5}
-								indicatorStyle="white"
+								indicatorStyle={WHITE}
 								canCancelContentTouches
 								bouncesZoom>
 								<ScrollView
 									horizontal
 									contentContainerStyle={{ flex: 0 }}
 									maximumZoomScale={5}
-									indicatorStyle="white"
+									indicatorStyle={WHITE}
 									canCancelContentTouches
 									bouncesZoom>
 									<Html html={html} baseUrl={originz.portal} {...htmlOptions} />
@@ -126,11 +126,11 @@ const DetailScreen = props => {
 							<Text style={{ marginTop: 23, fontSize: 18, color: "#9b9b9b" }}>요청한 게시글이 없습니다</Text>
 						</View>
 					)}
-					<Button light style={{ position: "absolute", right: 5, top: 6 }} onPress={() => setImageZoomScale(0.2)}>
-						<Icon style={{ backgroundColor: "transparent" }} name="ios-add" />
+					<Button light style={{ position: ABSOLUTE, right: 5, top: 6 }} onPress={() => setImageZoomScale(0.2)}>
+						<Icon style={{ backgroundColor: TRANSPARENT }} name="ios-add" />
 					</Button>
-					<Button light style={{ position: "absolute", right: 5, top: 55 }} onPress={() => setImageZoomScale(-0.2)}>
-						<Icon style={{ backgroundColor: "transparent" }} name="ios-remove" />
+					<Button light style={{ position: ABSOLUTE, right: 5, top: 55 }} onPress={() => setImageZoomScale(-0.2)}>
+						<Icon style={{ backgroundColor: TRANSPARENT }} name="ios-remove" />
 					</Button>
 				</Tab>
 				<Tab

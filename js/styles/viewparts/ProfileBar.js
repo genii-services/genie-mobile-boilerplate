@@ -1,9 +1,11 @@
+/** ProfileBar Viewpart Style */
+
 const ProfileBarStyle = ({ fontSizes }) => {
 	return {
 		profileArea: {
 			margin: 0,
 			padding: 10,
-			backgroundColor: "#eeeeee",
+			backgroundColor: "#eee",
 		},
 		photo: {
 			width: 40,

@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-/** 공통 라이브러리 */
+/** Element Style */
 
 const _ = require("lodash")
 

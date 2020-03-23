@@ -1,7 +1,7 @@
 /** 공통 라이브러리 */
 const React = require("react")
 
-const { CENTER } = require("/constants/style")
+const { BOLD, CENTER, ROW } = require("/constants/style")
 
 const Button = require("./Button")
 const Icon = require("./Icon")
@@ -41,7 +41,7 @@ HIcon.getDefaultStyle = ({ fontFamily }) => {
 			marginHorizontal: 0,
 			paddingTop: 0, // padding은 작동하지 않음
 			paddingBottom: 0,
-			flexDirection: "row",
+			flexDirection: ROW,
 			justifyContent: CENTER,
 			alignItems: CENTER,
 		},
@@ -60,7 +60,7 @@ HIcon.getDefaultStyle = ({ fontFamily }) => {
 			fontFamily,
 			fontSize: 18,
 			lineHeight: 36, // icon height에 맞춰서 수직 중앙에 배열
-			fontWeight: "bold",
+			fontWeight: BOLD,
 			color: "#666666",
 		},
 		buttonTextRight: {
@@ -68,7 +68,7 @@ HIcon.getDefaultStyle = ({ fontFamily }) => {
 			fontFamily,
 			fontSize: 18,
 			lineHeight: 36, // icon height에 맞춰서 수직 중앙에 배열
-			fontWeight: "bold",
+			fontWeight: BOLD,
 			color: "#38A2E4",
 		},
 	}

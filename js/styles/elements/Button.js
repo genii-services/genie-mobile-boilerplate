@@ -1,5 +1,5 @@
-/** 공통 라이브러리 */
-const { CENTER, MATERIAL } = require("/constants/style")
+/** Element Style */
+const { CENTER, COLUMN, FLEX_END, MATERIAL, ROW, SPACE_BETWEEN, TRANSPARENT } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 const defaultTheme = require("/styles/themes/default")
 
@@ -44,7 +44,7 @@ module.exports = (theme = defaultTheme) => {
 	const buttonTheme = {
 		".disabled": {
 			".transparent": {
-				backgroundColor: "transparent",
+				backgroundColor: TRANSPARENT,
 				"elements/Text": { color: theme.buttonDisabledBg },
 				"elements/Icon": { color: theme.buttonDisabledBg },
 				"elements/IconNB": { color: theme.buttonDisabledBg },
@@ -56,48 +56,48 @@ module.exports = (theme = defaultTheme) => {
 		".bordered": {
 			".dark": {
 				...darkCommon,
-				backgroundColor: "transparent",
+				backgroundColor: TRANSPARENT,
 				borderColor: theme.brandDark,
 				borderWidth: borderWidthX2,
 			},
 			".light": {
 				...lightCommon,
-				backgroundColor: "transparent",
+				backgroundColor: TRANSPARENT,
 				borderColor: theme.brandLight,
 				borderWidth: borderWidthX2,
 			},
 			".primary": {
 				...primaryCommon,
-				backgroundColor: "transparent",
+				backgroundColor: TRANSPARENT,
 				borderColor: theme.buttonPrimaryBg,
 				borderWidth: borderWidthX2,
 			},
 			".success": {
 				...successCommon,
-				backgroundColor: "transparent",
+				backgroundColor: TRANSPARENT,
 				borderColor: theme.buttonSuccessBg,
 				borderWidth: borderWidthX2,
 			},
 			".info": {
 				...infoCommon,
-				backgroundColor: "transparent",
+				backgroundColor: TRANSPARENT,
 				borderColor: theme.buttonInfoBg,
 				borderWidth: borderWidthX2,
 			},
 			".warning": {
 				...warningCommon,
-				backgroundColor: "transparent",
+				backgroundColor: TRANSPARENT,
 				borderColor: theme.buttonWarningBg,
 				borderWidth: borderWidthX2,
 			},
 			".danger": {
 				...dangerCommon,
-				backgroundColor: "transparent",
+				backgroundColor: TRANSPARENT,
 				borderColor: theme.buttonDangerBg,
 				borderWidth: borderWidthX2,
 			},
 			".disabled": {
-				backgroundColor: "transparent",
+				backgroundColor: TRANSPARENT,
 				borderColor: theme.buttonDisabledBg,
 				borderWidth: borderWidthX2,
 				"elements/Text": {
@@ -111,7 +111,7 @@ module.exports = (theme = defaultTheme) => {
 			shadowOffset: null,
 			shadowOpacity: null,
 			shadowRadius: null,
-			backgroundColor: "transparent",
+			backgroundColor: TRANSPARENT,
 		},
 
 		".dark": {
@@ -119,7 +119,7 @@ module.exports = (theme = defaultTheme) => {
 			backgroundColor: theme.brandDark,
 		},
 		".light": {
-			".transparent": { ...lightCommon, backgroundColor: "transparent" },
+			".transparent": { ...lightCommon, backgroundColor: TRANSPARENT },
 			".bordered": { ...lightCommon },
 			...darkCommon,
 			backgroundColor: theme.brandLight,
@@ -166,7 +166,7 @@ module.exports = (theme = defaultTheme) => {
 		},
 
 		".transparent": {
-			backgroundColor: "transparent",
+			backgroundColor: TRANSPARENT,
 			elevation: 0,
 			shadowColor: null,
 			shadowOffset: null,
@@ -181,7 +181,7 @@ module.exports = (theme = defaultTheme) => {
 			".success": { ...successCommon },
 			".light": { ...lightCommon },
 			".disabled": {
-				backgroundColor: "transparent",
+				backgroundColor: TRANSPARENT,
 				borderColor: theme.buttonDisabledBg,
 				borderWidth: borderWidthX2,
 				"elements/Text": { color: theme.buttonDisabledBg },
@@ -205,7 +205,7 @@ module.exports = (theme = defaultTheme) => {
 		".capitalize": {},
 
 		".vertical": {
-			flexDirection: "column",
+			flexDirection: COLUMN,
 			height: null,
 		},
 
@@ -216,7 +216,7 @@ module.exports = (theme = defaultTheme) => {
 			color: theme.inverseTextColor,
 			fontSize: theme.buttonTextSize,
 			paddingHorizontal: 16,
-			backgroundColor: "transparent",
+			backgroundColor: TRANSPARENT,
 		},
 
 		"elements/Icon": {
@@ -253,14 +253,14 @@ module.exports = (theme = defaultTheme) => {
 		borderColor: theme.buttonPrimaryBg,
 		borderWidth: null,
 		height: 45,
-		flexDirection: "row",
+		flexDirection: ROW,
 		elevation: 2,
 		shadowColor: platformStyle === MATERIAL && theme.brandDark,
 		shadowOffset: platformStyle === MATERIAL && { width: 0, height: 2 },
 		shadowOpacity: platformStyle === MATERIAL && 0.2,
 		shadowRadius: platformStyle === MATERIAL && 1.2,
 		alignItems: CENTER,
-		justifyContent: "space-between",
+		justifyContent: SPACE_BETWEEN,
 	}
 	return buttonTheme
 }

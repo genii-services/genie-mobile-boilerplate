@@ -1,11 +1,11 @@
-/** 공통 라이브러리 */
-const { CENTER } = require("/constants/style")
+/** Element Style */
+const { CENTER, ROW } = require("/constants/style")
 const { itsAndroid, itsIOS } = require("/utils/device")
 const defaultTheme = require("/styles/themes/default")
 
 module.exports = (theme = defaultTheme) => {
 	const tabHeadingTheme = {
-		flexDirection: "row",
+		flexDirection: ROW,
 		backgroundColor: theme.tabDefaultBg,
 		flex: 1,
 		alignItems: CENTER,

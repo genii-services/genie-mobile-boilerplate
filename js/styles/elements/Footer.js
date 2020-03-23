@@ -1,5 +1,5 @@
-/** 공통 라이브러리 */
-const { CENTER, MATERIAL } = require("/constants/style")
+/** Element Style */
+const { CENTER, FLEX_START, FLEX_END, MATERIAL, ROW, TRANSPARENT } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 const defaultTheme = require("/styles/themes/default")
 
@@ -19,7 +19,7 @@ module.exports = (theme = defaultTheme) => {
 		"elements/Left": {
 			"elements/Button": {
 				".transparent": {
-					backgroundColor: "transparent",
+					backgroundColor: TRANSPARENT,
 					borderColor: null,
 					elevation: 0,
 					shadowColor: null,
@@ -37,17 +37,17 @@ module.exports = (theme = defaultTheme) => {
 			},
 			flex: 1,
 			alignSelf: CENTER,
-			alignItems: "flex-start",
+			alignItems: FLEX_START,
 		},
 		"elements/Body": {
 			flex: 1,
 			alignItems: CENTER,
 			alignSelf: CENTER,
-			flexDirection: "row",
+			flexDirection: ROW,
 			"elements/Button": {
 				alignSelf: CENTER,
 				".transparent": {
-					backgroundColor: "transparent",
+					backgroundColor: TRANSPARENT,
 					borderColor: null,
 					elevation: 0,
 					shadowColor: null,
@@ -71,7 +71,7 @@ module.exports = (theme = defaultTheme) => {
 		"elements/Right": {
 			"elements/Button": {
 				".transparent": {
-					backgroundColor: "transparent",
+					backgroundColor: TRANSPARENT,
 					borderColor: null,
 					elevation: 0,
 					shadowColor: null,
@@ -89,10 +89,10 @@ module.exports = (theme = defaultTheme) => {
 			},
 			flex: 1,
 			alignSelf: CENTER,
-			alignItems: "flex-end",
+			alignItems: FLEX_END,
 		},
 		backgroundColor: theme.footerDefaultBg,
-		flexDirection: "row",
+		flexDirection: ROW,
 		justifyContent: CENTER,
 		borderTopWidth: itsIOS && platformStyle !== MATERIAL ? theme.borderWidth : undefined,
 		borderColor: itsIOS && platformStyle !== MATERIAL ? "#cbcbcb" : undefined,

@@ -2,6 +2,7 @@
 const React = require("react")
 const DatePicker_ = require("react-native-datepicker")
 
+const { ABSOLUTE, FLEX_START, LEFT } = require("/constants/style")
 const { toString } = require("/utils/string")
 const { fontFamily } = require("/styles")
 
@@ -25,7 +26,7 @@ const DatePicker = props => {
 			showIcon={false}
 			customStyles={{
 				dateIcon: {
-					position: "absolute",
+					position: ABSOLUTE,
 					marginLeft: 0,
 					paddingRight: 0,
 					top: 4,
@@ -34,18 +35,18 @@ const DatePicker = props => {
 					// View 컴포넌트라서 textAlign 불가
 					borderWidth: 0,
 					marginLeft: 0,
-					alignSelf: "flex-start",
+					alignSelf: FLEX_START,
 				},
 				dateTouchBody: {
 					borderWidth: 0,
 				},
 				dateText: {
 					marginLeft: 0,
-					textAlign: "left",
-					alignSelf: "flex-start",
+					textAlign: LEFT,
+					alignSelf: FLEX_START,
 				},
 				placeholderText: {
-					alignSelf: "flex-start",
+					alignSelf: FLEX_START,
 				},
 				// ... You can check the source to find the other keys.
 			}}
@@ -75,7 +76,7 @@ DatePicker.defaultProps = {
 		paddingRight: 0,
 		fontSize: 15,
 		lineHeight: 16,
-		textAlign: "left",
+		textAlign: LEFT,
 		color: "#4a4a4a",
 	},
 	title: "날짜 선택",

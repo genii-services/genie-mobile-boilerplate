@@ -4,6 +4,7 @@ console.debug(MODULE_NAME$)
 const React = require("react")
 const { Animated, PanResponder, View } = require("react-native")
 
+const { ABSOLUTE, HIDDEN, ROW, SPACE_BETWEEN } = require("/constants/style")
 const { useThis } = require("/hooks")
 const { connectStyle } = require("/utils/style")
 
@@ -177,7 +178,7 @@ const SwipeRow = props => {
 							{props.body}
 						</ListItem>
 					) : (
-						<View style={[{ backgroundColor: "#FFF" }, props.style]}>{props.body}</View>
+						<View style={[{ backgroundColor: WHITE }, props.style]}>{props.body}</View>
 					)}
 				</Animated.View>
 			)
@@ -195,7 +196,7 @@ const SwipeRow = props => {
 						{props.body}
 					</ListItem>
 				) : (
-					<View style={[{ backgroundColor: "#FFF" }, props.style]}>{props.body}</View>
+					<View style={[{ backgroundColor: WHITE }, props.style]}>{props.body}</View>
 				)}
 			</Animated.View>
 		)
@@ -209,8 +210,8 @@ const SwipeRow = props => {
 					{
 						height: _hiddenHeight,
 						flex: 1,
-						flexDirection: "row",
-						justifyContent: "space-between",
+						flexDirection: ROW,
+						justifyContent: SPACE_BETWEEN,
 					},
 				]}>
 				<Left style={{ width: props.leftOpenValue, zIndex: 1 }}>{props.left}</Left>
@@ -242,8 +243,8 @@ const styles = {
 	hidden: {
 		bottom: 0,
 		left: 0,
-		overflow: "hidden",
-		position: "absolute",
+		overflow: HIDDEN,
+		position: ABSOLUTE,
 		right: 0,
 		top: 0,
 	},

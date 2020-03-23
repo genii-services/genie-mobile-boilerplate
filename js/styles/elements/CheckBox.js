@@ -1,9 +1,10 @@
-/** 공통 라이브러리 */
+/** Element Style */
+const { CENTER, HIDDEN, FLEX_END, MATERIAL, SPACE_BETWEEN, TRANSPARENT } = require("/constants/style")
 const defaultTheme = require("/styles/themes/default")
 
 module.exports = (theme = defaultTheme) => {
 	const Icon = {
-		color: "transparent",
+		color: TRANSPARENT,
 		lineHeight: theme.CheckboxIconSize,
 		marginTop: theme.CheckboxIconMarginTop,
 		fontSize: theme.CheckboxFontSize,
@@ -16,7 +17,7 @@ module.exports = (theme = defaultTheme) => {
 		"elements/Icon": Icon,
 		"elements/IconNB": Icon,
 		borderRadius: theme.CheckboxRadius,
-		overflow: "hidden",
+		overflow: HIDDEN,
 		width: theme.checkboxSize,
 		height: theme.checkboxSize,
 		borderWidth: theme.CheckboxBorderWidth,

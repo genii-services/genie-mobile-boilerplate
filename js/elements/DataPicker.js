@@ -3,6 +3,7 @@ debugger
 const React = require("react")
 const _ = require("lodash")
 
+const { ABSOLUTE, FLEX_START, LEFT } = require("/constants/style")
 const { __find } = require("/utils")
 const { fontFamily } = require("/styles")
 
@@ -70,7 +71,7 @@ DataPicker.defaultProps = {
 		fontFamily,
 		fontSize: 15,
 		lineHeight: 16,
-		textAlign: "left",
+		textAlign: LEFT,
 		color: "#4a4a4a",
 	},
 	placeholderStyle: {
@@ -81,7 +82,7 @@ DataPicker.defaultProps = {
 		fontFamily,
 		fontSize: 15,
 		lineHeight: 16,
-		textAlign: "left",
+		textAlign: LEFT,
 		color: "#606060",
 	},
 	labelProp: "label",

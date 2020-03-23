@@ -3,20 +3,20 @@ console.debug(MODULE_NAME$)
 
 /* eslint-disable class-methods-use-this */
 const React = require("react")
-const { Keyboard, Platform, Animated } = require("react-native")
+const { Keyboard, Animated } = require("react-native")
 
+const { ABSOLUTE, BOTTOM, PC100, TOP } = require("/constants/style")
+const { itsIOS } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
 
 const Text = require("./Text")
 const Button = require("./Button")
 const { Toast } = require("./Toast")
 
-const { itsIOS } = require("/utils/device")
-
 const POSITION = {
-	ABSOLUTE: "absolute",
-	BOTTOM: "bottom",
-	TOP: "top",
+	ABSOLUTE,
+	BOTTOM,
+	TOP,
 }
 
 const ToastContainer = props => {
@@ -44,7 +44,7 @@ const ToastContainer = props => {
 		return {
 			position: POSITION.ABSOLUTE,
 			opacity: _fadeAnim,
-			width: "100%",
+			width: PC100,
 			elevation: 9,
 			paddingHorizontal: itsIOS ? 20 : 0,
 			top: _position === POSITION.TOP && 30,

@@ -1,4 +1,5 @@
-/** 공통 라이브러리 */
+/** Element Style */
+const { BLACK, FLEX_START, FLEX_END, NOWRAP, SPACE_BETWEEN, TRANSPARENT } = require("/constants/style")
 const defaultTheme = require("/styles/themes/default")
 
 module.exports = (theme = defaultTheme) => {
@@ -16,7 +17,7 @@ module.exports = (theme = defaultTheme) => {
 			shadowOpacity: null,
 			shadowRadius: null,
 			elevation: null,
-			backgroundColor: "transparent",
+			backgroundColor: TRANSPARENT,
 			borderWidth: 0,
 		},
 		".noShadow": {
@@ -30,9 +31,9 @@ module.exports = (theme = defaultTheme) => {
 		borderWidth,
 		borderRadius,
 		borderColor,
-		flexWrap: "nowrap",
+		flexWrap: NOWRAP,
 		backgroundColor,
-		shadowColor: "#000",
+		shadowColor: BLACK,
 		shadowOffset: { width: 0, height: 2 },
 		shadowOpacity: 0.1,
 		shadowRadius: 1.5,

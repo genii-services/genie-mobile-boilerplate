@@ -4,16 +4,16 @@ const React = require("react")
 const { useState } = React
 const _ = require("lodash")
 const { Platform, View } = require("react-native")
-const { Container, Left, Right, ListItem, Button, Text, Icon } = require("/elements")
 const IconFA = require("react-native-vector-icons/FontAwesome")
 const parseColor = require("color-parse")
 
-const { displayName } = require("../../app.json")
+const { displayName } = require("/../app.json")
+const { WHITE, PC100 } = require("/constants/style")
 const { appVersion, buildNumber } = require("/utils/device")
 const { exitApp } = require("/utils/app")
 const { rgbaToHex } = require("/utils/color")
 const { useRouter } = require("/coordinators") // const router = require("/utils/router")
-const { List, LocalImage } = require("/elements")
+const { Button, Container, Icon, Left, List, ListItem, LocalImage, Right, Text } = require("/elements")
 const { ProfileBar } = require("/viewparts")
 const { useAuth, useStyle } = require("/coordinators")
 const menuItems = require("/data/menuItems")
@@ -80,7 +80,7 @@ const MainDrawer = props => {
 				}
 			})
 		}
-		const emptiedStyle = !subStyle && items && items.length && { height: "100%" }
+		const emptiedStyle = !subStyle && items && items.length && { height: PC100 }
 		return (
 			<List
 				style={[style.list, changedStyle, emptiedStyle]} // 메뉴가 안나올 경우 Pull to refresh를 위해 공간 확보
@@ -97,7 +97,7 @@ const MainDrawer = props => {
 		let leftItem = (
 			<Left style={{ marginVertical: 8 }}>
 				{item.iconName ? (
-					<IconFA name={item.iconName} style={{ color: "white", fontSize: 24 }} />
+					<IconFA name={item.iconName} style={{ color: WHITE, fontSize: 24 }} />
 				) : (
 					<LocalImage style={style.listItemImage} name={item.imageName} square />
 				)}

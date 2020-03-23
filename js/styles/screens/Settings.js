@@ -1,3 +1,6 @@
+/** Settings Screen Style */
+const { FLEX_START, FLEX_END, SPACE_BETWEEN } = require("/constants/style")
+
 const SettingsScreenStyle = ({ fontSizes, grayscaleColors }) => {
 	return {
 		container: {
@@ -10,11 +13,11 @@ const SettingsScreenStyle = ({ fontSizes, grayscaleColors }) => {
 			padding: 0,
 		},
 		listItemDivider: {
-			justifyContent: "space-between",
+			justifyContent: SPACE_BETWEEN,
 			paddingLeft: 25,
 		},
 		listItem: {
-			justifyContent: "space-between",
+			justifyContent: SPACE_BETWEEN,
 			margin: 0,
 			padding: 0,
 			paddingLeft: 10,
@@ -23,7 +26,7 @@ const SettingsScreenStyle = ({ fontSizes, grayscaleColors }) => {
 			fontSize: fontSizes[5],
 		},
 		right: {
-			justifyContent: "flex-end",
+			justifyContent: FLEX_END,
 			marginTop: -10,
 			marginBottom: -10,
 			marginRight: 0,

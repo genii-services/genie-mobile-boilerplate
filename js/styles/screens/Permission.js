@@ -1,4 +1,6 @@
+/** Permission Screen Style */
 const { W50PC } = require("/styles")
+const { CENTER, FLEX_START, NORMAL, PC100, ROW } = require("/constants/style")
 
 const PermissionScreenStyle = ({ colors, fontFamily }) => {
 	return {
@@ -7,7 +9,7 @@ const PermissionScreenStyle = ({ colors, fontFamily }) => {
 		},
 		header: {
 			backgroundColor: colors.dark,
-			alignItems: "center",
+			alignItems: CENTER,
 		},
 		content: {
 			paddingHorizontal: "5%",
@@ -18,22 +20,22 @@ const PermissionScreenStyle = ({ colors, fontFamily }) => {
 		},
 		titleWrapper: {
 			marginTop: 100,
-			width: "100%",
-			flexDirection: "row",
-			alignItems: "center",
-			justifyContent: "center",
+			width: PC100,
+			flexDirection: ROW,
+			alignItems: CENTER,
+			justifyContent: CENTER,
 		},
 		logo: {
 			marginBottom: 40,
 			width: 128,
-			alignSelf: "center", // 좌우 중간
+			alignSelf: CENTER, // 좌우 중간
 		},
 		titleText: {
 			marginLeft: 10,
 			fontFamily,
 			fontSize: 17,
-			fontWeight: "normal",
-			fontStyle: "normal",
+			fontWeight: NORMAL,
+			fontStyle: NORMAL,
 			letterSpacing: 0.87,
 			color: colors.black,
 		},
@@ -43,7 +45,7 @@ const PermissionScreenStyle = ({ colors, fontFamily }) => {
 			backgroundColor: colors.blue,
 		},
 		buttonText: {
-			textAlign: "center",
+			textAlign: CENTER,
 			width: W50PC,
 			fontSize: 14,
 			color: colors.light,
@@ -55,8 +57,8 @@ const PermissionScreenStyle = ({ colors, fontFamily }) => {
 		accessTitleText: {
 			fontFamily,
 			fontSize: 16,
-			fontWeight: "normal",
-			fontStyle: "normal",
+			fontWeight: NORMAL,
+			fontStyle: NORMAL,
 			letterSpacing: 0.82,
 			color: colors.black,
 		},
@@ -65,15 +67,15 @@ const PermissionScreenStyle = ({ colors, fontFamily }) => {
 			opacity: 0.6,
 			fontFamily,
 			fontSize: 14,
-			fontWeight: "normal",
-			fontStyle: "normal",
+			fontWeight: NORMAL,
+			fontStyle: NORMAL,
 			lineHeight: 20,
 			letterSpacing: 0.06,
 			textAlign: "justify",
 			color: "#2a2a2a",
 		},
 		accessItem: {
-			flexDirection: "row",
+			flexDirection: ROW,
 			marginTop: 24,
 			height: 44,
 		},
@@ -86,11 +88,11 @@ const PermissionScreenStyle = ({ colors, fontFamily }) => {
 		},
 		accessItemRight: {
 			flex: 8,
-			alignItems: "flex-start",
-			justifyContent: "center",
+			alignItems: FLEX_START,
+			justifyContent: CENTER,
 		},
 		footer: {
-			alignItems: "center",
+			alignItems: CENTER,
 			backgroundColor: colors.white,
 		},
 	}

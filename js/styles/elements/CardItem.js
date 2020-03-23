@@ -1,7 +1,7 @@
-/** 공통 라이브러리 */
+/** Element Style */
 const { StyleSheet } = require("react-native")
 
-const { CENTER } = require("/constants/style")
+const { CENTER, FLEX_START, ROW } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 const defaultTheme = require("/styles/themes/default")
 
@@ -55,7 +55,7 @@ module.exports = (theme = defaultTheme) => {
 				},
 			},
 			flex: 1,
-			flexDirection: "row",
+			flexDirection: ROW,
 			alignItems: CENTER,
 		},
 		".content": {
@@ -82,7 +82,7 @@ module.exports = (theme = defaultTheme) => {
 			},
 			flex: 1,
 			alignSelf: "stretch",
-			alignItems: "flex-start",
+			alignItems: FLEX_START,
 		},
 		"elements/Right": {
 			"elements/Badge": {
@@ -157,7 +157,7 @@ module.exports = (theme = defaultTheme) => {
 			borderBottomLeftRadius: theme.cardBorderRadius,
 			borderBottomRightRadius: theme.cardBorderRadius,
 		},
-		flexDirection: "row",
+		flexDirection: ROW,
 		alignItems: CENTER,
 		borderRadius: theme.cardBorderRadius,
 		padding: theme.cardItemPadding + 5,

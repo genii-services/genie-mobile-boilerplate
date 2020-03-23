@@ -1,5 +1,5 @@
-/** 공통 라이브러리 */
-const { CENTER } = require("/constants/style")
+/** Element Style */
+const { CENTER, ROW, TRANSPARENT } = require("/constants/style")
 const defaultTheme = require("/styles/themes/default")
 
 module.exports = (theme = defaultTheme) => {
@@ -123,8 +123,8 @@ module.exports = (theme = defaultTheme) => {
 		borderRightWidth: 0,
 		borderLeftWidth: 0,
 		borderColor: theme.inputBorderColor,
-		backgroundColor: "transparent",
-		flexDirection: "row",
+		backgroundColor: TRANSPARENT,
+		flexDirection: ROW,
 		alignItems: CENTER,
 	}
 

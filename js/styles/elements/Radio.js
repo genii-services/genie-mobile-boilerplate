@@ -1,4 +1,5 @@
-/** 공통 라이브러리 */
+/** Element Style */
+const { CENTER, TRANSPARENT } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 const defaultTheme = require("/styles/themes/default")
 
@@ -13,7 +14,7 @@ module.exports = (theme = defaultTheme) => {
 					},
 				},
 				"elements/IconNB": {
-					color: "transparent",
+					color: TRANSPARENT,
 					lineHeight: undefined,
 					fontSize: undefined,
 				},

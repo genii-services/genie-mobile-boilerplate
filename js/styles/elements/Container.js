@@ -1,4 +1,4 @@
-/** 공통 라이브러리 */
+/** Element Style */
 const { itsIOS, deviceHeight } = require("/utils/device")
 const defaultTheme = require("/styles/themes/default")
 

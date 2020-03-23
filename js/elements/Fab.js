@@ -5,6 +5,7 @@ const React = require("react")
 const { Platform, Animated, TouchableOpacity, TouchableNativeFeedback, View, StyleSheet } = require("react-native")
 const { remove, merge, clone } = require("lodash")
 
+const { ABSOLUTE, CENTER, COLUMN, LEFT, RIGHT, ROW } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
@@ -16,8 +17,8 @@ const Button = require("./Button")
 
 const DIRECTION = {
 	DOWN: "down",
-	LEFT: "left",
-	RIGHT: "right",
+	LEFT,
+	RIGHT,
 	UP: "up",
 }
 
@@ -84,27 +85,23 @@ const Fab = props => {
 					height: variables.fabShadowOffsetHeight,
 				},
 				shadowOpacity: variables.fabShadowOpacity,
-				justifyContent: "center",
-				alignItems: "center",
+				justifyContent: CENTER,
+				alignItems: CENTER,
 				shadowRadius: variables.fabShadowRadius,
-				position: "absolute",
+				position: ABSOLUTE,
 				bottom: variables.fabBottom,
 				backgroundColor: variables.fabBackgroundColor,
 			},
 			container: {
-				position: "absolute",
+				position: ABSOLUTE,
 				top: position ? fabTopValue(position).top : undefined,
 				bottom: position ? fabTopValue(position).bottom : variables.fabContainerBottom,
 				right: position ? fabTopValue(position).right : variables.fabContainerBottom,
 				left: position ? fabTopValue(position).left : undefined,
 				width: variables.fabWidth,
 				height: _this.containerHeight,
-				flexDirection: direction
-					? direction === DIRECTION.LEFT || direction === DIRECTION.RIGHT
-						? "row"
-						: "column"
-					: "column",
-				alignItems: "center",
+				flexDirection: direction ? (direction === DIRECTION.LEFT || direction === DIRECTION.RIGHT ? ROW : COLUMN) : COLUMN,
+				alignItems: CENTER,
 			},
 			iconStyle: {
 				color: variables.fabIconColor,
@@ -113,7 +110,7 @@ const Fab = props => {
 				...iconStyle,
 			},
 			buttonStyle: {
-				position: "absolute",
+				position: ABSOLUTE,
 				height: variables.fabButtonHeight,
 				width: variables.fabButtonHeight,
 				left: variables.fabButtonLeft,
@@ -274,9 +271,7 @@ const Fab = props => {
 	const renderFab = () => {
 		const childrenArray = React.Children.toArray(props.children)
 		remove(childrenArray, item => {
-			if (item.type.displayName === "Styled(Button)") {
-				return true
-			}
+			if (item.type.displayName === "Styled(Button)") return true
 			return null
 		})
 		return React.cloneElement(childrenArray[0], {

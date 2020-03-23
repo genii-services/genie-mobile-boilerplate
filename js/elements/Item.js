@@ -7,6 +7,7 @@ const React = require("react")
 const { TouchableOpacity, Animated, Platform, View, StyleSheet } = require("react-native")
 const { isArray, remove } = require("lodash")
 
+const { ABSOLUTE, COLUMN, ROW } = require("/constants/style")
 const { useThis } = require("/hooks")
 const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
@@ -159,7 +160,7 @@ const Item = props => {
 						<Animated.View
 							key="float"
 							style={{
-								position: "absolute",
+								position: ABSOLUTE,
 								left: props.last && isIcon ? 40 : props.last ? 15 : isIcon ? 26 : 0,
 								right: 0,
 								top: _topAnim,
@@ -214,7 +215,7 @@ const Item = props => {
 						<Animated.View
 							key="float"
 							style={{
-								position: "absolute",
+								position: ABSOLUTE,
 								left: props.last && isImage ? 57 : props.last ? 15 : isImage ? 42 : 0,
 								right: 0,
 								top: _topAnim,
@@ -257,7 +258,7 @@ const Item = props => {
 				<Animated.View
 					key="float"
 					style={{
-						position: "absolute",
+						position: ABSOLUTE,
 						left: props.last ? 15 : 0,
 						right: 0,
 						top: _topAnim,
@@ -295,12 +296,12 @@ const Item = props => {
 				<View
 					key="s"
 					style={{
-						flexDirection: "row",
+						flexDirection: ROW,
 						flex: 1,
 						width: variables.deviceWidth - 15,
 					}}>
 					<Icon key="s1" {...iconProps} />
-					<View style={{ flexDirection: "column" }}>
+					<View style={{ flexDirection: COLUMN }}>
 						<Label key="s2" {...labelProps} />
 						<Input key="s3" {...inputProps} style={{ width: variables.deviceWidth - 40 }} />
 					</View>

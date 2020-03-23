@@ -1,5 +1,5 @@
-/** 공통 라이브러리 */
-const { CENTER } = require("/constants/style")
+/** Element Style */
+const { CENTER, FLEX_END } = require("/constants/style")
 
 module.exports = () => {
 	return {
@@ -8,6 +8,6 @@ module.exports = () => {
 		},
 		flex: 1,
 		alignSelf: CENTER,
-		alignItems: "flex-end",
+		alignItems: FLEX_END,
 	}
 }

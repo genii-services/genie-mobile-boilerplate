@@ -1,5 +1,5 @@
-/** 공통 라이브러리 */
-const { CENTER } = require("/constants/style")
+/** Element Style */
+const { CENTER, ROW, SPACE_BETWEEN, TRANSPARENT, WHITE } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 const defaultTheme = require("/styles/themes/default")
 
@@ -16,17 +16,17 @@ module.exports = (theme = defaultTheme) => {
 		},
 		backgroundColor: "rgba(0,0,0,0.8)",
 		borderRadius: itsIOS ? 5 : 0,
-		flexDirection: "row",
-		justifyContent: "space-between",
+		flexDirection: ROW,
+		justifyContent: SPACE_BETWEEN,
 		alignItems: CENTER,
 		padding: 10,
 		minHeight: 50,
 		"elements/Text": {
-			color: "#fff",
+			color: WHITE,
 			flex: 1,
 		},
 		"elements/Button": {
-			backgroundColor: "transparent",
+			backgroundColor: TRANSPARENT,
 			height: 30,
 			elevation: 0,
 			"elements/Text": {

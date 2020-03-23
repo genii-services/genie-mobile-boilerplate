@@ -1,7 +1,7 @@
-/** 공통 라이브러리 */
+/** Element Style */
 const { PixelRatio } = require("react-native")
 
-const { CENTER } = require("/constants/style")
+const { CENTER, FLEX_START, FLEX_END, ROW, TRANSPARENT, WHITE } = require("/constants/style")
 const { itsAndroid, itsIOS } = require("/utils/device")
 const pickerTheme = require("./Picker")
 const defaultTheme = require("/styles/themes/default")
@@ -20,12 +20,12 @@ module.exports = (theme = defaultTheme) => {
 			flex: 1,
 			borderWidth: null,
 			margin: -10,
-			borderBottomColor: "transparent",
+			borderBottomColor: TRANSPARENT,
 		},
 		".searchBar": {
 			"elements/Item": {
 				"elements/Icon": {
-					backgroundColor: "transparent",
+					backgroundColor: TRANSPARENT,
 					color: theme.dropdownLinkColor,
 					fontSize: itsIOS ? theme.iconFontSize - 10 : theme.iconFontSize - 5,
 					alignItems: CENTER,
@@ -33,18 +33,18 @@ module.exports = (theme = defaultTheme) => {
 					paddingRight: 8,
 				},
 				"elements/IconNB": {
-					backgroundColor: "transparent",
+					backgroundColor: TRANSPARENT,
 					color: null,
 					alignSelf: CENTER,
 				},
 				"elements/Input": { alignSelf: CENTER },
 				alignSelf: CENTER,
 				alignItems: CENTER,
-				justifyContent: "flex-start",
+				justifyContent: FLEX_START,
 				flex: 1,
 				height: itsIOS ? 30 : 40,
-				borderColor: "transparent",
-				backgroundColor: "#fff",
+				borderColor: TRANSPARENT,
+				backgroundColor: WHITE,
 				borderRadius: 5,
 			},
 			"elements/Button": {
@@ -73,7 +73,7 @@ module.exports = (theme = defaultTheme) => {
 			paddingLeft: theme.listItemPadding + 5,
 			paddingTop: itsIOS ? theme.listItemPadding + 25 : undefined,
 			paddingBottom: itsAndroid ? theme.listItemPadding + 20 : undefined,
-			flexDirection: "row",
+			flexDirection: ROW,
 			borderColor: theme.listBorderColor,
 			"elements/Text": {
 				fontSize: 14,
@@ -86,7 +86,7 @@ module.exports = (theme = defaultTheme) => {
 			padding: theme.listItemPadding,
 			paddingLeft: theme.listItemPadding + 5,
 			backgroundColor: theme.listDividerBg,
-			flexDirection: "row",
+			flexDirection: ROW,
 			borderColor: theme.listBorderColor,
 		},
 		".selected": {
@@ -111,7 +111,7 @@ module.exports = (theme = defaultTheme) => {
 			"elements/Icon": { width: theme.iconFontSize - 10, fontSize: theme.iconFontSize - 10 },
 			"elements/IconNB": { width: theme.iconFontSize - 10, fontSize: theme.iconFontSize - 10 },
 			"elements/Text": { alignSelf: CENTER },
-			flexDirection: "row",
+			flexDirection: ROW,
 		},
 		"elements/Body": {
 			"elements/Text": {
@@ -178,7 +178,7 @@ module.exports = (theme = defaultTheme) => {
 		".avatar": {
 			"elements/Left": {
 				flex: 0,
-				alignSelf: "flex-start",
+				alignSelf: FLEX_START,
 				paddingTop: 14,
 			},
 			"elements/Body": {
@@ -332,12 +332,12 @@ module.exports = (theme = defaultTheme) => {
 					alignSelf: null,
 				},
 				"elements/PickerNB": { ...pickerTheme() },
-				flexDirection: "row",
+				flexDirection: ROW,
 				alignItems: CENTER,
 				flex: 0,
 				alignSelf: "stretch",
 				height: 44,
-				justifyContent: "flex-end",
+				justifyContent: FLEX_END,
 				borderBottomWidth: 1 / PixelRatio.getPixelSizeForLayoutSize(1),
 				borderColor: theme.listBorderColor,
 				paddingRight: theme.listItemPadding + 5,
@@ -361,7 +361,7 @@ module.exports = (theme = defaultTheme) => {
 			paddingLeft: theme.listItemPadding + 6,
 		},
 		alignItems: CENTER,
-		flexDirection: "row",
+		flexDirection: ROW,
 		paddingRight: theme.listItemPadding + 6,
 		paddingVertical: theme.listItemPadding + 3,
 		marginLeft: theme.listItemPadding + 6,

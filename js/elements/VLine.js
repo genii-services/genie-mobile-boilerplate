@@ -1,7 +1,8 @@
 /** 공통 라이브러리 */
 const React = require("react")
-
 const { View } = require("react-native")
+
+const { ABSOLUTE, BLACK, CENTER, PC100, TRANSPARENT, WHITE } = require("/constants/style")
 
 const VLine = props => {
 	return (
@@ -16,7 +17,7 @@ const VLine = props => {
 				borderRightColor: props.borderColor,
 				borderRightWidth: props.borderWidth,
 				width: props.width || 1,
-				height: "100%",
+				height: PC100,
 			}}
 			{...props}
 		/>

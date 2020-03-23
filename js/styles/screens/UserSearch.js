@@ -1,3 +1,4 @@
+/** UserSearch Screen Style */
 const UserSearchScreenStyle = ({ fontFamily, fontSizes, grayscaleColors, backgroundColors }) => {
 	return {
 		container: {

@@ -1,3 +1,6 @@
+/** AttachementFile Viewpart Style */
+const { RIGHT } = require("/constants/style")
+
 const AttachementFileStyle = ({ fontSizes, grayscaleColors }) => {
 	return {
 		listItem: {
@@ -33,7 +36,7 @@ const AttachementFileStyle = ({ fontSizes, grayscaleColors }) => {
 			marginRight: 16,
 			fontSize: fontSizes[3],
 			color: grayscaleColors[5],
-			textAlign: "right",
+			textAlign: RIGHT,
 		},
 	}
 }

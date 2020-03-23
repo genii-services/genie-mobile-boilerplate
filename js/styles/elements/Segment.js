@@ -1,5 +1,5 @@
-/** 공통 라이브러리 */
-const { CENTER } = require("/constants/style")
+/** Segment Element Style */
+const { CENTER, ROW, TRANSPARENT } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 const defaultTheme = require("/styles/themes/default")
 
@@ -7,7 +7,7 @@ module.exports = (theme = defaultTheme) => {
 	return {
 		height: 45,
 		borderColor: theme.segmentBorderColorMain,
-		flexDirection: "row",
+		flexDirection: ROW,
 		justifyContent: CENTER,
 		backgroundColor: theme.segmentBackgroundColor,
 		"elements/Button": {
@@ -16,7 +16,7 @@ module.exports = (theme = defaultTheme) => {
 			paddingTop: 3,
 			paddingBottom: 3,
 			height: 30,
-			backgroundColor: "transparent",
+			backgroundColor: TRANSPARENT,
 			borderWidth: 1,
 			borderLeftWidth: 0,
 			borderColor: theme.segmentBorderColor,

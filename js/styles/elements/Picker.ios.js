@@ -1,4 +1,4 @@
-/** 공통 라이브러리 */
+/** Element Style */
 
 module.exports = () => {
 	return {}

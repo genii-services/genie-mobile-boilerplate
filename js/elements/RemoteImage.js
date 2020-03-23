@@ -4,7 +4,7 @@ const { Image, RefreshControl, TouchableHighlight, Text, View } = require("react
 const FastImage = require("react-native-fast-image")
 
 const { STRING } = require("/constants")
-const { CENTER } = require("/constants/style")
+const { ABSOLUTE, CENTER, COLUMN, PC100, ROW } = require("/constants/style")
 const { useThis } = require("/hooks")
 const { useStyle } = require("/coordinators")
 
@@ -114,17 +114,17 @@ RemoteImage.defaultProps = {
 RemoteImage.getDefaultStyle = () => {
 	return {
 		container: {
-			flexDirection: "row",
+			flexDirection: ROW,
 			flex: 1,
-			width: "100%",
-			height: "100%",
+			width: PC100,
+			height: PC100,
 		},
 		loadingArea: {
-			width: "100%",
+			width: PC100,
 			// height:'50%',
 			paddingTop: "40%",
-			position: "absolute",
-			flexDirection: "column",
+			position: ABSOLUTE,
+			flexDirection: COLUMN,
 			justifyContent: CENTER,
 			alignItems: CENTER,
 		},

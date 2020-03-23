@@ -4,6 +4,7 @@ const InteractionManager = require("/utils/InteractionManager")
 const ReactNative = require("react-native")
 const { Dimensions, View, Animated, ScrollView, StyleSheet, Platform, ViewPropTypes } = ReactNative
 
+const { ABSOLUTE, BOLD, CENTER, NORMAL } = require("/constants/style")
 const { useThis } = require("/hooks")
 
 const DefaultTabBar = require("./DefaultTabBar")
@@ -189,7 +190,7 @@ const Tabs = props => {
 
 	if (overlayTabs) {
 		tabBarProps.style = {
-			position: "absolute",
+			position: ABSOLUTE,
 			left: 0,
 			right: 0,
 			[tabBarPosition === "overlayTop" ? "top" : "bottom"]: 0,

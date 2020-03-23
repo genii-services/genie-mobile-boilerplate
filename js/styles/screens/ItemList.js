@@ -1,7 +1,10 @@
+/** ItemList Screen Style */
+const { ABSOLUTE, BLACK, CENTER, PC100, TRANSPARENT, WHITE } = require("/constants/style")
+
 const ItemListStyle = ({ fontFamily, fontSizes, grayscaleColors, backgroundColors }) => {
 	return {
 		list: {
-			height: "100%",
+			height: PC100,
 			backgroundColor: backgroundColors[5], // white
 		},
 		listItem: {

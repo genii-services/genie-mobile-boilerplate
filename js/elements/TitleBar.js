@@ -3,7 +3,8 @@ const React = require("react")
 const { StatusBar, View } = require("react-native")
 
 const { FUNCTION } = require("/constants")
-const { CENTER } = require("/constants/style")
+const { CENTER, FLEX_START, FLEX_END, PC100, ROW, WHITE } = require("/constants/style")
+
 const { itsIphoneX } = require("/utils/device")
 const { useRouter } = require("/coordinators") // const router = require("/utils/router")
 const { useStyle } = require("/coordinators")
@@ -70,7 +71,7 @@ const TitleBar = props => {
 	return (
 		<Header style={[style.header, props.style]}>
 			<StatusBar backgroundColor={style.header.backgroundColor} />
-			<View style={{ flex: 1, flexDirection: "row", alignItems: CENTER }}>
+			<View style={{ flex: 1, flexDirection: ROW, alignItems: CENTER }}>
 				<Button style={[style.button, style.left]} transparent onPress={handleOnLeftPress} onLongPress={handleOnLeftPress}>
 					{renderButton(
 						props.leftText,
@@ -117,7 +118,7 @@ TitleBar.defaultProps = {
 TitleBar.getDefaultStyle = ({ fontFamily }) => {
 	return {
 		header: {
-			// width: "100%",
+			// width: PC100,
 			// height: itsIphoneX ? 100 : null,
 			marginTop: 0,
 			marginBottom: 0,
@@ -135,20 +136,20 @@ TitleBar.getDefaultStyle = ({ fontFamily }) => {
 			fontSize: 17,
 			lineHeight: 18,
 			fontWeight: "600",
-			color: "white",
+			color: WHITE,
 			textAlign: CENTER,
 			textAlignVertical: CENTER, // Android only
 		},
 		left: {
 			paddingLeft: 10,
-			justifyContent: "flex-start",
+			justifyContent: FLEX_START,
 		},
 		center: {
 			flex: 1,
 		},
 		right: {
 			paddingRight: 10,
-			justifyContent: "flex-end",
+			justifyContent: FLEX_END,
 		},
 		button: {
 			minWidth: 32,
@@ -163,7 +164,7 @@ TitleBar.getDefaultStyle = ({ fontFamily }) => {
 			paddingRight: 0,
 		},
 		hview: {
-			flexDirection: "row",
+			flexDirection: ROW,
 			alignItems: CENTER,
 			justifyContent: CENTER,
 		},
@@ -178,7 +179,7 @@ TitleBar.getDefaultStyle = ({ fontFamily }) => {
 			paddingRight: 0,
 			fontSize: 15,
 			fontWeight: "500",
-			color: "white",
+			color: WHITE,
 			textAlign: CENTER,
 		},
 		icon: {
@@ -191,7 +192,7 @@ TitleBar.getDefaultStyle = ({ fontFamily }) => {
 			paddingLeft: 0,
 			paddingRight: 0,
 			fontSize: 26,
-			color: "white",
+			color: WHITE,
 			textAlign: CENTER,
 		},
 		image: {

@@ -5,6 +5,8 @@ const React = require("react")
 const _ = require("lodash")
 const { View, Keyboard } = require("react-native")
 
+const { ABSOLUTE, BLACK, ROW } = require("/constants/style")
+
 const Button = require("./Button")
 const Icon = require("./Icon")
 const Input = require("./Input")
@@ -74,7 +76,7 @@ InputBar.defaultProps = {
 InputBar.getDefaultStyle = ({ fontFamily }) => {
 	return {
 		container: {
-			flexDirection: "row",
+			flexDirection: ROW,
 			height: 60,
 			margin: 0,
 			paddingTop: 12,
@@ -102,7 +104,7 @@ InputBar.getDefaultStyle = ({ fontFamily }) => {
 			height: 18, // item 아래쪽으로 삐져나가는 것을 보정하기 위해 폰트사이즈(정확히 lineHeight)와 동기화
 			margin: 0,
 			padding: 0,
-			color: "black",
+			color: BLACK,
 			backgroundColor: "#ffffff",
 			fontFamily,
 			fontSize: 15,
@@ -116,7 +118,7 @@ InputBar.getDefaultStyle = ({ fontFamily }) => {
 			backgroundColor: "#ececec",
 		},
 		buttonIcon: {
-			color: "black",
+			color: BLACK,
 		},
 		buttonText: {
 			fontFamily,

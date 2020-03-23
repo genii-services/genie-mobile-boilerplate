@@ -1,3 +1,6 @@
+/** Search Viewpart Style */
+const { MATERIAL, ROW } = require("/constants/style")
+
 const SearchStyle = ({ fontSizes, grayscaleColors, backgroundColors }) => {
 	return {
 		list: {
@@ -22,7 +25,7 @@ const SearchStyle = ({ fontSizes, grayscaleColors, backgroundColors }) => {
 		},
 		tels: {
 			flex: 1,
-			flexDirection: "row",
+			flexDirection: ROW,
 		},
 		mobileTel: {
 			fontSize: fontSizes[3],

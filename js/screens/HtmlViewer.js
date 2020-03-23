@@ -1,13 +1,12 @@
 const React = require("react")
 
 const { View, Text } = require("react-native")
-const { Content, Button, Icon } = require("/elements")
 const { WebView } = require("react-native-webview")
 
-const { CENTER } = require("/constants/style")
+const { ABSOLUTE, BLACK, CENTER, PC100, TRANSPARENT, WHITE } = require("/constants/style")
 const { itsIOS, itsIphoneX, screen } = require("/utils/device")
 const { useRouter } = require("/coordinators") // const router = require("/utils/router")
-const { Html } = require("/elements")
+const { Content, Button, Html, Icon } = require("/elements")
 
 const HtmlViewer = props => {
 	const router = useRouter()
@@ -39,10 +38,10 @@ const HtmlViewer = props => {
 	let iosHeight = itsIphoneX ? 30 : 0
 	console.debug(this, source)
 	return (
-		<View style={{ backgroundColor: "white", height: "100%" }}>
+		<View style={{ backgroundColor: WHITE, height: PC100 }}>
 			<Text
 				style={{
-					width: "100%",
+					width: PC100,
 					height: iosHeight + 48,
 					textAlign: CENTER,
 					paddingTop: top + 10,
@@ -50,17 +49,17 @@ const HtmlViewer = props => {
 				}}>
 				{props.title}
 			</Text>
-			<Content style={{ backgroundColor: "white", height: "100%" }}>
+			<Content style={{ backgroundColor: WHITE, height: PC100 }}>
 				{html ? (
 					<Html html={html} baseUrl={props.baseUrl} styleModified={false} maximumScale={1} />
 				) : source ? (
-					<WebView style={{ width: "100%", height: "100%", borderWidth: 1, backgroundColor: "black" }} source={source} />
+					<WebView style={{ width: PC100, height: PC100, borderWidth: 1, backgroundColor: BLACK }} source={source} />
 				) : (
 					<View />
 				)}
 			</Content>
-			<Button transparent style={{ position: "absolute", left: 0, top, marginTop: 0, paddingTop: 0 }} onPress={router.pop}>
-				<Icon style={{ fontSize: 24, color: "gray", backgroundColor: "transparent" }} name="ios-close" />
+			<Button transparent style={{ position: ABSOLUTE, left: 0, top, marginTop: 0, paddingTop: 0 }} onPress={router.pop}>
+				<Icon style={{ fontSize: 24, color: "gray", backgroundColor: TRANSPARENT }} name="ios-close" />
 			</Button>
 		</View>
 	)

@@ -1,6 +1,8 @@
 const React = require("react")
 const Drawer_ = require("react-native-drawer")
 
+const { BLACK } = require("/constants/style")
+
 const Drawer = props => {
 	return <Drawer_ {...props} />
 }
@@ -13,7 +15,7 @@ Drawer.defaultProps = {
 	closedDrawerOffset: 0,
 	styles: {
 		drawer: {
-			shadowColor: "#000000",
+			shadowColor: BLACK,
 			shadowOpacity: 0,
 			shadowRadius: 0,
 			elevation: 5,

@@ -1,5 +1,5 @@
-/** 공통 라이브러리 */
-const { CENTER } = require("/constants/style")
+/** Element Style */
+const { CENTER, FLEX_START, FLEX_END, ROW, SPACE_BETWEEN, TRANSPARENT } = require("/constants/style")
 const { itsAndroid, itsIOS } = require("/utils/device")
 const defaultTheme = require("/styles/themes/default")
 
@@ -21,7 +21,7 @@ module.exports = (theme = defaultTheme) => {
 				backgroundColor: theme.tabActiveBgColor,
 			},
 			flexDirection: null,
-			backgroundColor: "transparent",
+			backgroundColor: TRANSPARENT,
 			borderColor: null,
 			elevation: 0,
 			shadowColor: null,
@@ -36,7 +36,7 @@ module.exports = (theme = defaultTheme) => {
 				"elements/Badge": {
 					"elements/Text": {
 						fontSize: 11,
-						fontWeight: itsIOS ? "600" : undefined,
+						fontWeight: itsIOS && "600",
 						lineHeight: 14,
 					},
 					top: -3,
@@ -64,8 +64,8 @@ module.exports = (theme = defaultTheme) => {
 			},
 		},
 		backgroundColor: itsAndroid ? theme.footerDefaultBg : undefined,
-		flexDirection: "row",
-		justifyContent: "space-between",
+		flexDirection: ROW,
+		justifyContent: SPACE_BETWEEN,
 		flex: 1,
 		alignSelf: "stretch",
 	}

@@ -1,11 +1,11 @@
-/** 공통 라이브러리 */
-const { CENTER } = require("/constants/style")
+/** Tab Element Style */
+const { CENTER, WHITE } = require("/constants/style")
 
 module.exports = () => {
 	return {
 		"elements/ListItem": {
 			".list": {
-				backgroundColor: "#FFF",
+				backgroundColor: WHITE,
 			},
 			marginLeft: 0,
 		},

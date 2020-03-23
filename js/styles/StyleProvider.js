@@ -6,7 +6,7 @@ const Theme = require("./Theme")
 const { ThemeShape } = Theme
 
 /**
- *  Provides a theme to child components trough context.
+ *  컨텍스트를 통해서 자식 컴포넌트에 테마를 제공
  */
 const StyleProvider = props => {
 	const { useThis } = require("/hooks")
@@ -26,7 +26,7 @@ const StyleProvider = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, element, object, oneOfType, string } = require("prop-types")
+	const { element, object } = require("prop-types")
 	StyleProvider.propTypes = {
 		children: element.isRequired,
 		style: object,

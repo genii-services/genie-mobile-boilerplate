@@ -6,6 +6,7 @@ const ReactNative = require("react-native")
 const { View, Animated, StyleSheet, ScrollView, Platform, Dimensions } = ReactNative
 const { isEqual } = require("lodash")
 
+const { ABSOLUTE, BLACK, BOLD, CENTER, NORMAL, ROW } = require("/constants/style")
 const { connectStyle } = require("/utils/style")
 const { useState, useStore, useThis } = require("/hooks")
 const variable = require("/styles/themes/default")
@@ -24,7 +25,7 @@ const ScrollableTabBar = props => {
 		return {
 			scrollOffset: 52,
 			activeTextColor: "navy",
-			inactiveTextColor: "black",
+			inactiveTextColor: BLACK,
 			backgroundColor: variable.tabDefaultBg,
 			style: {},
 			tabStyle: {},
@@ -128,7 +129,7 @@ const ScrollableTabBar = props => {
 		const headerContent = typeof name !== "string" ? name.props.children : undefined
 		const { activeTextColor, inactiveTextColor } = props
 		const textColor = isTabActive ? activeTextColor : inactiveTextColor
-		const fontWeight = isTabActive ? "bold" : "normal"
+		const fontWeight = isTabActive ? BOLD : NORMAL
 
 		if (typeof name === "string") {
 			return (
@@ -177,7 +178,7 @@ const ScrollableTabBar = props => {
 
 	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
 	const tabUnderlineStyle = {
-		position: "absolute",
+		position: ABSOLUTE,
 		height: 4,
 		backgroundColor: variables.topTabBarActiveBorderColor,
 		bottom: 0,
@@ -253,8 +254,8 @@ if (__DEV__) {
 const styles = StyleSheet.create({
 	tab: {
 		height: 49,
-		alignItems: "center",
-		justifyContent: "center",
+		alignItems: CENTER,
+		justifyContent: CENTER,
 		paddingLeft: 20,
 		paddingRight: 20,
 	},
@@ -267,7 +268,7 @@ const styles = StyleSheet.create({
 		borderColor: "#ccc",
 	},
 	tabs: {
-		flexDirection: "row",
+		flexDirection: ROW,
 		justifyContent: "space-around",
 	},
 })

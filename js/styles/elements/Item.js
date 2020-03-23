@@ -1,5 +1,5 @@
-/** 공통 라이브러리 */
-const { CENTER } = require("/constants/style")
+/** Element Style */
+const { CENTER, FLEX_START, ROW, TRANSPARENT } = require("/constants/style")
 const { itsIOS, deviceWidth } = require("/utils/device")
 const defaultTheme = require("/styles/themes/default")
 
@@ -44,12 +44,12 @@ module.exports = (theme = defaultTheme) => {
 				left: null,
 				right: null,
 				paddingTop: 5,
-				alignSelf: "flex-start",
+				alignSelf: FLEX_START,
 				fontSize: theme.inputFontSize - 2,
 			},
 			"elements/Icon": { marginTop: 36 },
 			"elements/Input": {
-				alignSelf: itsIOS ? "stretch" : "flex-start",
+				alignSelf: itsIOS ? "stretch" : FLEX_START,
 				flex: 1,
 				width: itsIOS ? null : deviceWidth - 25,
 				fontSize: theme.inputFontSize,
@@ -78,7 +78,7 @@ module.exports = (theme = defaultTheme) => {
 				paddingLeft: 5,
 				fontSize: theme.inputFontSize,
 			},
-			flexDirection: "row",
+			flexDirection: ROW,
 		},
 		"elements/Label": {
 			fontSize: theme.inputFontSize,
@@ -217,8 +217,8 @@ module.exports = (theme = defaultTheme) => {
 		borderRightWidth: 0,
 		borderLeftWidth: 0,
 		borderColor: theme.inputBorderColor,
-		backgroundColor: "transparent",
-		flexDirection: "row",
+		backgroundColor: TRANSPARENT,
+		flexDirection: ROW,
 		alignItems: CENTER,
 		marginLeft: 2,
 	}

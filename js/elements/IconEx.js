@@ -4,14 +4,14 @@ console.debug("Icon")
 const React = require("react")
 const { View } = require("react-native")
 
-const { CENTER } = require("/constants/style")
+const { ABSOLUTE, CENTER, FLEX_START, WHITE } = require("/constants/style")
 
 const Icon_ = require("./IconNB")
 
 const Icon = props => {
 	//let icon = /^fa-/.test(props.name) ? <Icon_ theme={{ iconFamily: 'FontAwesome' }} {...props} /> : <Icon_ {...props} />
 	return (
-		<View style={[{ justifyContent: "flex-start", alignItems: CENTER }, props.style]}>
+		<View style={[{ justifyContent: FLEX_START, alignItems: CENTER }, props.style]}>
 			{/*<Image style={props.backgroundImageStyle} backgroundImage={props.backgroundImage} />*/}
 			<Icon_
 				style={[props.backgroundIconStyle, { color: props.color || props.backgroundIconStyle.color }]}
@@ -51,7 +51,7 @@ Icon.defaultProps = {
 	},*/
 	backgroundIconName: "md-clipboard",
 	backgroundIconStyle: {
-		position: "absolute",
+		position: ABSOLUTE,
 		marginTop: -4,
 		fontSize: 48,
 		color: "#e0314c",
@@ -63,7 +63,7 @@ Icon.defaultProps = {
 		fontSize: 24,
 		marginTop: 7,
 		paddingTop: 4,
-		color: "white",
+		color: WHITE,
 		textAlign: CENTER,
 	},
 }

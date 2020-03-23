@@ -5,7 +5,7 @@ const React = require("react")
 const _ = require("lodash")
 const IconFA = require("react-native-vector-icons/FontAwesome")
 
-const { CENTER } = require("/constants/style")
+const { BOLD, CENTER, COLUMN, WHITE } = require("/constants/style")
 const { itsIOS, itsTablet, screen } = require("/utils/device")
 const { useStyle } = require("/coordinators")
 
@@ -95,7 +95,7 @@ if (__DEV__) {
 BorderButton.getDefaultStyle = ({ fontFamily }) => {
 	return {
 		rectButton: {
-			flexDirection: "column",
+			flexDirection: COLUMN,
 			justifyContent: CENTER,
 			alignItems: CENTER,
 			marginVertical: 5,
@@ -104,7 +104,7 @@ BorderButton.getDefaultStyle = ({ fontFamily }) => {
 			padding: 5,
 			borderRadius: 4,
 			borderWidth: 9,
-			backgroundColor: "white",
+			backgroundColor: WHITE,
 			minWidth: 90,
 			minHeight: 90,
 		},
@@ -119,7 +119,7 @@ BorderButton.getDefaultStyle = ({ fontFamily }) => {
 			marginRight: -100,
 
 			fontFamily,
-			fontWeight: "bold",
+			fontWeight: BOLD,
 			fontSize: 18,
 			lineHeight: 19,
 			textAlign: CENTER,

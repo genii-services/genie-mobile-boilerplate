@@ -1,4 +1,6 @@
 const React = require("react")
+
+const { BLACK, WHITE } = require("/constants/style")
 const { Container, Header, Content, Badge, Text, Icon } = require("/elements")
 
 const BadgeExample = props => {
@@ -25,10 +27,10 @@ const BadgeExample = props => {
 					<Text>2</Text>
 				</Badge>
 				<Badge primary>
-					<Icon name="star" style={{ fontSize: 15, color: "#fff", lineHeight: 20 }} />
+					<Icon name="star" style={{ fontSize: 15, color: WHITE, lineHeight: 20 }} />
 				</Badge>
-				<Badge style={{ backgroundColor: "black" }}>
-					<Text style={{ color: "white" }}>1866</Text>
+				<Badge style={{ backgroundColor: BLACK }}>
+					<Text style={{ color: WHITE }}>1866</Text>
 				</Badge>
 			</Content>
 		</Container>

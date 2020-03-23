@@ -3,13 +3,14 @@ const { StatusBar, View } = require("react-native")
 const async = require("async")
 const Permissions = require("react-native-permissions")
 const { PERMISSIONS } = Permissions
-const { Button, Container, Content, Footer, Icon, Left, Right, Text } = require("/elements")
 
+const { BLACK, PC100 } = require("/constants/style")
 const { itsAndroid } = require("/utils/device")
 const { useRouter } = require("/coordinators") // const router = require("/utils/router")
 const { useAuth } = require("/coordinators")
 const { useThis } = require("/hooks")
 const { useRefs } = require("/hooks")
+const { Button, Container, Content, Footer, Icon, Left, Right, Text } = require("/elements")
 const Logo = require("@svgs/genie.svg")
 
 const dataArray = [
@@ -130,7 +131,7 @@ const PermissionScreen = props => {
 	let logoScale = 1
 	return (
 		<Container style={style.container}>
-			<StatusBar barStyle="light-content" backgroundColor="#000" />
+			<StatusBar barStyle="light-content" backgroundColor={BLACK} />
 			<Content style={style.content} contentContainerStyle={{ alignItems: "center" }}>
 				<View style={style.titleWrapper}>
 					<Logo style={style.logo} scale={logoScale} />

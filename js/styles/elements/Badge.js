@@ -1,5 +1,5 @@
-/** 공통 라이브러리 */
-const { CENTER } = require("/constants/style")
+/** Element Style */
+const { CENTER, FLEX_START } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 const defaultTheme = require("/styles/themes/default")
 
@@ -30,7 +30,7 @@ module.exports = (theme = defaultTheme) => {
 		backgroundColor: theme.badgeBg,
 		padding: theme.badgePadding,
 		paddingHorizontal: 6,
-		alignSelf: "flex-start",
+		alignSelf: FLEX_START,
 		justifyContent: itsIOS && CENTER,
 		borderRadius: 13.5,
 		height: 27,

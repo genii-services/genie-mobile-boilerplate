@@ -1,7 +1,7 @@
-/** 공통 라이브러리 */
+/** Element Style */
 const { PixelRatio, StatusBar } = require("react-native")
 
-const { CENTER, TRANSPARENT, MATERIAL } = require("/constants/style")
+const { BLACK, CENTER, FLEX_START, FLEX_END, MATERIAL, ROW, TRANSPARENT } = require("/constants/style")
 const { itsAndroid, itsIOS } = require("/utils/device")
 const defaultTheme = require("/styles/themes/default")
 
@@ -12,16 +12,16 @@ module.exports = (theme = defaultTheme) => {
 		".span": {
 			height: 128,
 			"elements/Left": {
-				alignSelf: "flex-start",
+				alignSelf: FLEX_START,
 			},
 			"elements/Body": {
-				alignSelf: "flex-end",
-				alignItems: "flex-start",
+				alignSelf: FLEX_END,
+				alignItems: FLEX_START,
 				justifyContent: CENTER,
 				paddingBottom: 26,
 			},
 			"elements/Right": {
-				alignSelf: "flex-start",
+				alignSelf: FLEX_START,
 			},
 		},
 		".hasSubtitle": {
@@ -74,12 +74,8 @@ module.exports = (theme = defaultTheme) => {
 			shadowRadius: null,
 			shadowOpacity: null,
 			borderBottomWidth: null,
-			"elements/Left": {
-				flex: 0.3,
-			},
-			"elements/Right": {
-				flex: 0.3,
-			},
+			"elements/Left": { flex: 0.3 },
+			"elements/Right": { flex: 0.3 },
 			"elements/Body": {
 				flex: 1,
 				"elements/Segment": {
@@ -148,17 +144,15 @@ module.exports = (theme = defaultTheme) => {
 				},
 				alignSelf: CENTER,
 				alignItems: CENTER,
-				justifyContent: "flex-start",
+				justifyContent: FLEX_START,
 				flex: 1,
 				height: theme.searchBarHeight,
-				borderColor: "transparent",
+				borderColor: TRANSPARENT,
 				backgroundColor: theme.toolbarInputColor,
 			},
 			"elements/Button": {
 				".transparent": {
-					"elements/Text": {
-						fontWeight: "500",
-					},
+					"elements/Text": { fontWeight: "500" },
 					paddingHorizontal: null,
 					paddingLeft: itsIOS ? 10 : null,
 				},
@@ -243,15 +237,15 @@ module.exports = (theme = defaultTheme) => {
 			},
 			flex: itsIOS && platformStyle !== MATERIAL ? 1 : 0.4,
 			alignSelf: CENTER,
-			alignItems: "flex-start",
+			alignItems: FLEX_START,
 		},
 		"elements/Body": {
 			flex: 1,
-			alignItems: itsIOS && platformStyle !== MATERIAL ? CENTER : "flex-start",
+			alignItems: itsIOS && platformStyle !== MATERIAL ? CENTER : FLEX_START,
 			alignSelf: CENTER,
 			"elements/Segment": {
 				borderWidth: 0,
-				alignSelf: "flex-end",
+				alignSelf: FLEX_END,
 				marginRight: itsIOS ? -40 : -55,
 			},
 			"elements/Button": {
@@ -342,12 +336,12 @@ module.exports = (theme = defaultTheme) => {
 			},
 			flex: 1,
 			alignSelf: CENTER,
-			alignItems: "flex-end",
-			flexDirection: "row",
-			justifyContent: "flex-end",
+			alignItems: FLEX_END,
+			flexDirection: ROW,
+			justifyContent: FLEX_END,
 		},
 		backgroundColor: theme.toolbarDefaultBg,
-		flexDirection: "row",
+		flexDirection: ROW,
 		// paddingHorizontal: 10,
 		paddingLeft: itsIOS && theme.platformStyle !== MATERIAL ? 6 : 10,
 		paddingRight: 10,
@@ -357,7 +351,7 @@ module.exports = (theme = defaultTheme) => {
 		borderBottomColor: theme.toolbarDefaultBorder,
 		height: theme.itsIOS && theme.platformStyle === MATERIAL ? theme.toolbarHeight + 10 : theme.toolbarHeight,
 		elevation: 3,
-		shadowColor: platformStyle === MATERIAL ? "#000" : undefined,
+		shadowColor: platformStyle === MATERIAL ? BLACK : undefined,
 		shadowOffset: platformStyle === MATERIAL ? { width: 0, height: 2 } : undefined,
 		shadowOpacity: platformStyle === MATERIAL ? 0.2 : undefined,
 		shadowRadius: platformStyle === MATERIAL ? 1.2 : undefined,

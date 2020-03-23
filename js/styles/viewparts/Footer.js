@@ -1,14 +1,17 @@
+/** Footer Viewpart Style */
+const { COLUMN, FLEX_START, FLEX_END, NOWRAP, PC100, ROW, SPACE_BETWEEN, WHITE } = require("/constants/style")
+
 const FooterStyle = () => {
 	return {
 		footer: {
-			width: "100%",
+			width: PC100,
 		},
 		inputBar: {
 			marginVertical: 8,
 			marginHorizontal: 10,
 
 			borderWidth: 1,
-			width: "100%",
+			width: PC100,
 			paddingLeft: 0,
 			paddingRight: 0,
 		},

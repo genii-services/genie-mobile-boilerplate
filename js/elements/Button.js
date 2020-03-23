@@ -5,9 +5,8 @@ console.debug(MODULE_NAME$)
 const React = require("react")
 const { TouchableOpacity, Platform, View, TouchableNativeFeedback, StyleSheet } = require("react-native")
 
-const { useStore } = require("/hooks")
-const { useRefs } = require("/hooks")
-
+const { CENTER, ROW, TRANSPARENT } = require("/constants/style")
+const { useStore, useRefs } = require("/hooks")
 const variable = require("/styles/themes/default")
 const { itsIOS } = require("/utils/device")
 const { computeProps } = require("/utils/props")
@@ -94,7 +93,7 @@ const Button = props => {
 			onPress={props.onPress}
 			background={
 				props.transparent
-					? TouchableNativeFeedback.Ripple("transparent")
+					? TouchableNativeFeedback.Ripple(TRANSPARENT)
 					: TouchableNativeFeedback.Ripple(variables.androidRippleColor, false)
 			}
 			{...prepareRootProps()}>
@@ -128,9 +127,9 @@ if (__DEV__) {
 const styles = StyleSheet.create({
 	childContainer: {
 		flexShrink: 1,
-		flexDirection: "row",
-		justifyContent: "center",
-		alignItems: "center",
+		flexDirection: ROW,
+		justifyContent: CENTER,
+		alignItems: CENTER,
 	},
 })
 

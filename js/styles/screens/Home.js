@@ -1,3 +1,6 @@
+/** Home Screen Style */
+const { CENTER, FLEX_START, FLEX_END, RIGHT, ROW, WHITE } = require("/constants/style")
+
 const HomeScreenStyle = ({ fontFamily, fontSizes, colors, grayscaleColors, backgroundColors }) => {
 	console.debug("Settings.getStyle", "fontSizes[0]", fontSizes[0])
 	return StyleSheet.create({
@@ -28,7 +31,7 @@ const HomeScreenStyle = ({ fontFamily, fontSizes, colors, grayscaleColors, backg
 			paddingTop: 15,
 			paddingBottom: 5,
 			backgroundColor: backgroundColors[5], // white
-			flexDirection: "row",
+			flexDirection: ROW,
 			justifyContent: "space-around",
 		},
 
@@ -36,7 +39,7 @@ const HomeScreenStyle = ({ fontFamily, fontSizes, colors, grayscaleColors, backg
 			marginHorizontal: 10,
 			marginVertical: 10,
 			padding: 0,
-			flexDirection: "row",
+			flexDirection: ROW,
 			justifyContent: "space-around",
 			flexWrap: "wrap",
 		},
@@ -52,7 +55,7 @@ const HomeScreenStyle = ({ fontFamily, fontSizes, colors, grayscaleColors, backg
 			fontFamily,
 			fontSize: Math.min(fontSizes[10], 25),
 			fontWeight: "600",
-			color: "white",
+			color: WHITE,
 		},
 		qnaAreaText: {
 			fontFamily,
@@ -111,7 +114,7 @@ const HomeScreenStyle = ({ fontFamily, fontSizes, colors, grayscaleColors, backg
 			lineHeight: fontSizes[4] + 1,
 			fontWeight: "500",
 			color: grayscaleColors[5],
-			textAlign: "right",
+			textAlign: RIGHT,
 			//letterSpacing:-1,
 		},
 	})

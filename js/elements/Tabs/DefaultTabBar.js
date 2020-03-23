@@ -6,6 +6,7 @@ const _ = require("lodash")
 const ReactNative = require("react-native")
 const { Animated } = ReactNative
 
+const { ABSOLUTE, BOLD, FLEX_START, FLEX_END, NORMAL, SPACE_BETWEEN, TRANSPARENT } = require("/constants/style")
 const { connectStyle } = require("/utils/style")
 const { useState, useStore, useThis } = require("/hooks")
 const variable = require("/styles/themes/default")
@@ -34,7 +35,7 @@ const DefaultTabBar = props => {
 	) => {
 		const headerContent = typeof name !== "string" && name.props.children
 		const { activeTextColor, inactiveTextColor } = props
-		const fontWeight = isTabActive ? "bold" : "normal"
+		const fontWeight = isTabActive ? BOLD : NORMAL
 		const isDisabled = disabled !== undefined
 		let textColor = isDisabled
 			? disabledTextColor
@@ -67,7 +68,7 @@ const DefaultTabBar = props => {
 	const containerWidth = props.containerWidth
 	const numberOfTabs = props.tabs.length
 	const tabUnderlineStyle = {
-		position: "absolute",
+		position: ABSOLUTE,
 		width: containerWidth / numberOfTabs,
 		height: 4,
 		backgroundColor: variables.topTabBarActiveBorderColor,
@@ -126,7 +127,7 @@ DefaultTabBar.getDefaultProps = () => {
 		activeTextColor: variable.topTabBarActiveTextColor,
 		inactiveTextColor: variable.topTabBarTextColor,
 		disabledTextColor: variable.tabBarDisabledTextColor,
-		backgroundColor: "transparent",
+		backgroundColor: TRANSPARENT,
 		tabFontSize: variable.tabFontSize,
 	}
 }

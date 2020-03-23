@@ -5,6 +5,7 @@ const React = require("react")
 const { View, Animated, PanResponder } = require("react-native")
 const clamp = require("clamp")
 
+const { ABSOLUTE, COLUMN, LEFT, RIGHT } = require("/constants/style")
 const { connectStyle } = require("/utils/style")
 
 const SWIPE_THRESHOLD = 120
@@ -45,7 +46,7 @@ const DeckSwiper = props => {
 	})
 
 	const getInitialStyle = () => {
-		return { topCard: { position: "absolute", top: 0, right: 0, left: 0 } }
+		return { topCard: { position: ABSOLUTE, top: 0, right: 0, left: 0 } }
 	}
 
 	const getCardStyles = () => {
@@ -69,59 +70,37 @@ const DeckSwiper = props => {
 			onMoveShouldSetPanResponderCapture: (evt, gestureState) => Math.abs(gestureState.dx) > 5,
 
 			onPanResponderGrant: () => {
-				_pan.setOffset({
-					x: _pan.x._value,
-					y: _pan.y._value,
-				})
+				_pan.setOffset({ x: _pan.x._value, y: _pan.y._value })
 				_pan.setValue({ x: 0, y: 0 })
 			},
 
 			onPanResponderMove: (e, gestureState) => {
-				if (gestureState.dx > 20) {
-					if (props.onSwiping) props.onSwiping("right", gestureState.dx)
-				} else if (gestureState.dx < -20) {
-					if (props.onSwiping) props.onSwiping("left", gestureState.dx)
-				}
+				if (gestureState.dx > 20) props.onSwiping && props.onSwiping(RIGHT, gestureState.dx)
+				else if (gestureState.dx < -20) props.onSwiping && props.onSwiping(LEFT, gestureState.dx)
+
 				let val = Math.abs(gestureState.dx * 0.0013)
-				if (val > 0.2) {
-					val = 0.2
-				}
+				if (0.2 < val) val = 0.2
+
 				Animated.timing(_fadeAnim, { toValue: 0.8 + val }).start()
-				Animated.spring(_enter, {
-					toValue: 0.8 + val,
-					friction: 7,
-				}).start()
+				Animated.spring(_enter, { toValue: 0.8 + val, friction: 7 }).start()
 				Animated.event([null, { dx: _pan.x }])(e, gestureState)
 			},
 
 			onPanResponderRelease: (e, { vx, vy }) => {
-				if (props.onSwiping) props.onSwiping(null)
-				let velocity
-
-				if (vx >= 0) {
-					velocity = clamp(vx, 4.5, 10)
-				} else if (vx < 0) {
-					velocity = clamp(vx * -1, 4.5, 10) * -1
-				}
+				props.onSwiping && props.onSwiping(null)
+				let velocity = vx >= 0 ? clamp(vx, 4.5, 10) : vx < 0 ? clamp(vx * -1, 4.5, 10) * -1 : undefined
 
 				if (Math.abs(_pan.x._value) > SWIPE_THRESHOLD) {
 					if (velocity > 0) {
-						props.onSwipeRight ? props.onSwipeRight(_selectedItem) : undefined
+						props.onSwipeRight && props.onSwipeRight(_selectedItem)
 						selectNext()
 					} else {
-						props.onSwipeLeft ? props.onSwipeLeft(_selectedItem) : undefined
+						props.onSwipeLeft && props.onSwipeLeft(_selectedItem)
 						selectNext()
 					}
-
-					Animated.decay(_pan, {
-						velocity: { x: velocity, y: vy },
-						deceleration: 0.98,
-					}).start(_resetState.bind(this))
+					Animated.decay(_pan, { velocity: { x: velocity, y: vy }, deceleration: 0.98 }).start(_resetState.bind(this))
 				} else {
-					Animated.spring(_pan, {
-						toValue: { x: 0, y: 0 },
-						friction: 4,
-					}).start()
+					Animated.spring(_pan, { toValue: { x: 0, y: 0 }, friction: 4 }).start()
 				}
 			},
 		})
@@ -137,28 +116,22 @@ const DeckSwiper = props => {
 	}
 
 	const swipeRight = () => {
-		if (props.onSwiping) props.onSwiping("right")
+		if (props.onSwiping) props.onSwiping(RIGHT)
 		setTimeout(() => {
 			Animated.timing(_fadeAnim, { toValue: 1 }).start()
 			Animated.spring(_enter, { toValue: 1, friction: 7 }).start()
 			selectNext()
-			Animated.decay(_pan, {
-				velocity: { x: 8, y: 1 },
-				deceleration: 0.98,
-			}).start(_resetState.bind(this))
+			Animated.decay(_pan, { velocity: { x: 8, y: 1 }, deceleration: 0.98 }).start(_resetState.bind(this))
 		}, 300)
 	}
 
 	const swipeLeft = () => {
-		if (props.onSwiping) props.onSwiping("left")
+		if (props.onSwiping) props.onSwiping(LEFT)
 		setTimeout(() => {
 			Animated.timing(_fadeAnim, { toValue: 1 }).start()
 			Animated.spring(_enter, { toValue: 1, friction: 7 }).start()
 			selectNext()
-			Animated.decay(_pan, {
-				velocity: { x: -8, y: 1 },
-				deceleration: 0.98,
-			}).start(_resetState.bind(this))
+			Animated.decay(_pan, { velocity: { x: -8, y: 1 }, deceleration: 0.98 }).start(_resetState.bind(this))
 		}, 300)
 	}
 
@@ -206,14 +179,14 @@ const DeckSwiper = props => {
 	if (_disabled) {
 		// disable swiping and renderEmpty
 		return (
-			<View style={{ position: "relative", flexDirection: "column" }}>
+			<View style={{ position: "relative", flexDirection: COLUMN }}>
 				{<View>{props.renderEmpty && props.renderEmpty()}</View>}
 			</View>
 		)
 	} else if (_lastCard) {
 		// display renderEmpty underneath last viable card
 		return (
-			<View style={{ position: "relative", flexDirection: "column" }}>
+			<View style={{ position: "relative", flexDirection: COLUMN }}>
 				{_selectedItem === undefined ? (
 					<View />
 				) : (
@@ -232,7 +205,7 @@ const DeckSwiper = props => {
 		)
 	}
 	return (
-		<View style={{ position: "relative", flexDirection: "column" }}>
+		<View style={{ position: "relative", flexDirection: COLUMN }}>
 			{_selectedItem === undefined ? (
 				<View />
 			) : (

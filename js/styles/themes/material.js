@@ -3,15 +3,15 @@
 const color = require("color")
 const { PixelRatio } = require("react-native")
 
-const { MATERIAL } = require("/constants/style")
+const { BLACK, FLEX_START, MATERIAL, TRANSPARENT, WHITE } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 
 const platformStyle = MATERIAL
 const fontFamily = "System"
-const colors = ["#FFFFFF", "#F1F9FF", "#BCB0BD", "#7F747D", "#46494B", "#26292B", "#000000"]
+const colors = [WHITE, "#F1F9FF", "#BCB0BD", "#7F747D", "#46494B", "#26292B", BLACK]
 
-const textColor = "#000"
-const inverseTextColor = "#fff"
+const textColor = BLACK
+const inverseTextColor = WHITE
 
 const brandPrimary = "#3F51B5"
 const brandInfo = "#62B1F6"
@@ -19,7 +19,7 @@ const brandSuccess = "#5cb85c"
 const brandDanger = "#d9534f"
 const brandWarning = "#f0ad4e"
 
-const toolbarDefaultBg = "#3F51B5"
+const toolbarDefaultBg = brandPrimary
 const tabBgColor = "#F8F8F8"
 
 const fontSizeBase = 15
@@ -33,17 +33,17 @@ module.exports = {
 
 	// Accordion
 	headerStyle: "#edebed",
-	iconStyle: "#000",
+	iconStyle: BLACK,
 	contentStyle: "#f5f4f5",
-	expandedIconStyle: "#000",
+	expandedIconStyle: BLACK,
 	accordionBorderColor: "#d3d3d3",
 
 	// ActionSheet
 	elevation: 4,
 	containerTouchableBackgroundColor: "rgba(0,0,0,0.4)",
-	innerTouchableBackgroundColor: "#fff",
+	innerTouchableBackgroundColor: WHITE,
 	listItemHeight: 50,
-	listItemBorderColor: "transparent",
+	listItemBorderColor: TRANSPARENT,
 	marginHorizontal: -15,
 	marginLeft: 14,
 	marginTop: 15,
@@ -59,7 +59,7 @@ module.exports = {
 
 	// Badge
 	badgeBg: "#ED1727",
-	badgeColor: "#fff",
+	badgeColor: WHITE,
 	badgePadding: 0,
 
 	// Button
@@ -84,7 +84,7 @@ module.exports = {
 	iconSizeSmall: iconFontSize * 0.6,
 
 	// Card
-	cardDefaultBg: "#fff",
+	cardDefaultBg: WHITE,
 	cardBorderColor: "#ccc",
 	cardBorderRadius: 2,
 	cardItemPadding: itsIOS ? 10 : 12,
@@ -99,7 +99,7 @@ module.exports = {
 	CheckboxFontSize: 17,
 	checkboxBgColor: "#039BE5",
 	checkboxSize: 20,
-	checkboxTickColor: "#fff",
+	checkboxTickColor: WHITE,
 
 	// Color
 	brandPrimary,
@@ -107,15 +107,15 @@ module.exports = {
 	brandSuccess,
 	brandDanger,
 	brandWarning,
-	brandDark: "#000",
+	brandDark: BLACK,
 	brandLight: "#f4f4f4",
 
 	// Container
-	containerBgColor: "#fff",
+	containerBgColor: WHITE,
 
 	// Date Picker
-	datePickerTextColor: "#000",
-	datePickerBg: "transparent",
+	datePickerTextColor: BLACK,
+	datePickerBg: TRANSPARENT,
 
 	// FAB
 	fabWidth: 56,
@@ -130,27 +130,27 @@ module.exports = {
 
 	// Footer
 	footerHeight: 55,
-	footerDefaultBg: "#3F51B5",
+	footerDefaultBg: brandPrimary,
 	footerPaddingBottom: 0,
 
 	// FooterTab
 	tabBarTextColor: "#bfc6ea",
 	tabBarTextSize: 11,
-	activeTab: "#fff",
+	activeTab: WHITE,
 	sTabBarActiveTextColor: "#007aff",
-	tabBarActiveTextColor: "#fff",
-	tabActiveBgColor: "#3F51B5",
+	tabBarActiveTextColor: WHITE,
+	tabActiveBgColor: brandPrimary,
 
 	// Header
-	toolbarBtnColor: "#fff",
+	toolbarBtnColor: WHITE,
 	toolbarDefaultBg,
 	toolbarHeight: 56,
 	toolbarSearchIconSize: 23,
-	toolbarInputColor: "#fff",
+	toolbarInputColor: WHITE,
 	searchBarHeight: itsIOS ? 30 : 40,
 	searchBarInputHeight: itsIOS ? 40 : 50,
-	toolbarBtnTextColor: "#fff",
-	toolbarDefaultBorder: "#3F51B5",
+	toolbarBtnTextColor: WHITE,
+	toolbarDefaultBorder: brandPrimary,
 	iosStatusbar: "light-content",
 	statusBarColor: color(toolbarDefaultBg)
 		.darken(0.2)
@@ -181,14 +181,14 @@ module.exports = {
 	lineHeight: 24,
 
 	// List
-	listBg: "transparent",
+	listBg: TRANSPARENT,
 	listBorderColor: "#c9c9c9",
 	listDividerBg: "#f4f4f4",
 	listBtnUnderlayColor: "#DDD",
 	listItemPadding: 12,
 	listNoteColor: "#808080",
 	listNoteSize: 13,
-	listItemSelected: "#3F51B5",
+	listItemSelected: brandPrimary,
 
 	// Progress Bar
 	defaultProgressColor: "#E4202D",
@@ -196,35 +196,35 @@ module.exports = {
 
 	// Radio Button
 	radioBtnSize: 23,
-	radioSelectedColorAndroid: "#3F51B5",
+	radioSelectedColorAndroid: brandPrimary,
 	radioBtnLineHeight: 24,
 	radioColor: brandPrimary,
 
 	// Segment
-	segmentBackgroundColor: "#3F51B5",
-	segmentActiveBackgroundColor: "#fff",
-	segmentTextColor: "#fff",
-	segmentActiveTextColor: "#3F51B5",
-	segmentBorderColor: "#fff",
-	segmentBorderColorMain: "#3F51B5",
+	segmentBackgroundColor: brandPrimary,
+	segmentActiveBackgroundColor: WHITE,
+	segmentTextColor: WHITE,
+	segmentActiveTextColor: brandPrimary,
+	segmentBorderColor: WHITE,
+	segmentBorderColorMain: brandPrimary,
 
 	// Spinner
 	defaultSpinnerColor: "#45D56E",
 	inverseSpinnerColor: "#1A191B",
 
 	// Tab
-	tabDefaultBg: "#3F51B5",
+	tabDefaultBg: brandPrimary,
 	topTabBarTextColor: "#b3c7f9",
-	topTabBarActiveTextColor: "#fff",
-	topTabBarBorderColor: "#fff",
-	topTabBarActiveBorderColor: "#fff",
+	topTabBarActiveTextColor: WHITE,
+	topTabBarBorderColor: WHITE,
+	topTabBarActiveBorderColor: WHITE,
 
 	// Tabs
 	tabBgColor,
 	tabFontSize: 15,
 
 	// Text
-	textColor: "#000",
+	textColor: BLACK,
 	inverseTextColor,
 	noteFontSize: 14,
 	defaultTextColor: textColor,
@@ -233,8 +233,8 @@ module.exports = {
 	titleFontfamily: fontFamily,
 	titleFontSize: 19,
 	subTitleFontSize: 14,
-	subtitleColor: "#FFF",
-	titleFontColor: "#FFF",
+	subtitleColor: WHITE,
+	titleFontColor: WHITE,
 
 	// Other
 	borderRadiusBase: 2,

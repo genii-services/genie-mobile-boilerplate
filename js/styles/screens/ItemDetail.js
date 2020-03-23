@@ -1,3 +1,6 @@
+/** ItemDetail Screen Style */
+const { CENTER, FLEX_START, FLEX_END, MATERIAL, ROW, WHITE } = require("/constants/style")
+
 const DetailScreenStyle = ({ fontFamily, fontSizes, grayscaleColors }) => {
 	return {
 		articleHeader: {
@@ -69,7 +72,7 @@ const DetailScreenStyle = ({ fontFamily, fontSizes, grayscaleColors }) => {
 			fontSize: fontSizes[6],
 			lineHeight: fontSizes[6] + 1,
 			fontWeight: "500",
-			color: "white",
+			color: WHITE,
 		},
 		approve: {
 			backgroundColor: "#e0314c",
