@@ -3,7 +3,6 @@ const _ = require("lodash")
 const InteractionManager = require("/utils/InteractionManager")
 const ReactNative = require("react-native")
 const { Dimensions, View, Animated, ScrollView, StyleSheet, Platform, ViewPropTypes } = ReactNative
-const TimerMixin = require("react-timer-mixin")
 
 const { useThis } = require("/hooks")
 
@@ -25,6 +24,9 @@ const Tabs = props => {
 		InteractionManager.runAfterInteractions(scrollFn)
 		// because of contentOffset is not working on Android
 		setTimeout(() => _this.scrollView.scrollTo({ x: props.initialPage * _containerWidth, animated: false }))
+		return () => {
+			_.map(_this.reqz, (v, k) => cancelAnimationFrame(k))
+		}
 	}, [])
 	if (_this.children !== props.children) {
 		_this.children = props.children
@@ -155,7 +157,8 @@ const Tabs = props => {
 		if (!width || width <= 0 || Math.round(width) === Math.round(_containerWidth)) return
 
 		set_containerWidth(width)
-		requestAnimationFrame(() => goToPage(_currentPage))
+		const req = requestAnimationFrame(() => goToPage(_currentPage))
+		_this.reqz[req] = req
 	}
 
 	const getGrandchildren = (children = props.children) => React.Children.map(children, child => child)
