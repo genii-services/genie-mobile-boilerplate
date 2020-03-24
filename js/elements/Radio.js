@@ -7,7 +7,7 @@ const Ionicons = require("react-native-vector-icons/Ionicons").default
 const { useState, useStore, useThis } = require("/hooks")
 const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
-const variable = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
 const Radio = props => {
 	const [theme] = useStore("theme")
@@ -19,7 +19,7 @@ const Radio = props => {
 		return computeProps(props, defaultProps)
 	}
 
-	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
+	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
 
 	return (
 		<TouchableOpacity {...prepareRootProps()}>
@@ -27,10 +27,10 @@ const Radio = props => {
 				props.selected && (
 					<Ionicons
 						style={{
-							color: props.selectedColor ? props.selectedColor : variables.radioColor,
+							color: props.selectedColor ? props.selectedColor : style.radioColor,
 							lineHeight: 25,
 							height: 20,
-							fontSize: variables.radioBtnSize,
+							fontSize: style.radioBtnSize,
 						}}
 						name="ios-checkmark"
 					/>
@@ -43,19 +43,19 @@ const Radio = props => {
 								? props.selected
 									? props.selectedColor
 										? props.selectedColor
-										: variables.radioColor
+										: style.radioColor
 									: props.color
 									? props.color
 									: undefined
 								: props.selected
 								? props.selectedColor
 									? props.selectedColor
-									: variables.radioSelectedColorAndroid
+									: style.radioSelectedColorAndroid
 								: props.color
 								? props.color
 								: undefined,
-						lineHeight: variables.radioBtnLineHeight,
-						fontSize: variables.radioBtnSize,
+						lineHeight: style.radioBtnLineHeight,
+						fontSize: style.radioBtnSize,
 					}}
 					name={
 						Platform.OS === "ios"

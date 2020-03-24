@@ -1,12 +1,12 @@
 /** Element Style */
 const { CENTER, ROW } = require("/constants/style")
 const { itsAndroid, itsIOS } = require("/utils/device")
-const defaultTheme = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (theme = defaultTheme) => {
-	const tabHeadingTheme = {
+module.exports = (style = defaultThemeStyle) => {
+	return {
 		flexDirection: ROW,
-		backgroundColor: theme.tabDefaultBg,
+		backgroundColor: style.tabDefaultBg,
 		flex: 1,
 		alignItems: CENTER,
 		justifyContent: CENTER,
@@ -16,23 +16,21 @@ module.exports = (theme = defaultTheme) => {
 			minWidth: itsAndroid ? undefined : 60,
 		},
 		"elements/Text": {
-			color: theme.topTabBarTextColor,
+			color: style.topTabBarTextColor,
 			marginHorizontal: 7,
 		},
 		"elements/Icon": {
-			color: theme.topTabBarTextColor,
+			color: style.topTabBarTextColor,
 			fontSize: itsIOS ? 26 : undefined,
 		},
 		".active": {
 			"elements/Text": {
-				color: theme.topTabBarActiveTextColor,
+				color: style.topTabBarActiveTextColor,
 				fontWeight: "600",
 			},
 			"elements/Icon": {
-				color: theme.topTabBarActiveTextColor,
+				color: style.topTabBarActiveTextColor,
 			},
 		},
 	}
-
-	return tabHeadingTheme
 }

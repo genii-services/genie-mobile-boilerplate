@@ -1,9 +1,9 @@
 /** TabBar Element Style */
 const { CENTER, ROW, TRANSPARENT } = require("/constants/style")
-const defaultTheme = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (theme = defaultTheme) => {
-	const tabBarTheme = {
+module.exports = (style = defaultThemeStyle) => {
+	return {
 		".tabIcon": {
 			height: undefined,
 		},
@@ -13,20 +13,20 @@ module.exports = (theme = defaultTheme) => {
 		"elements/Button": {
 			".transparent": {
 				"elements/Text": {
-					fontSize: theme.tabFontSize,
-					color: theme.sTabBarActiveTextColor,
+					fontSize: style.tabFontSize,
+					color: style.sTabBarActiveTextColor,
 					fontWeight: "400",
 				},
 				"elements/IconNB": {
-					color: theme.sTabBarActiveTextColor,
+					color: style.sTabBarActiveTextColor,
 				},
 			},
 			"elements/IconNB": {
-				color: theme.sTabBarActiveTextColor,
+				color: style.sTabBarActiveTextColor,
 			},
 			"elements/Text": {
-				fontSize: theme.tabFontSize,
-				color: theme.sTabBarActiveTextColor,
+				fontSize: style.tabFontSize,
+				color: style.sTabBarActiveTextColor,
 				fontWeight: "400",
 			},
 			".isTabActive": {
@@ -40,7 +40,7 @@ module.exports = (theme = defaultTheme) => {
 			justifyContent: CENTER,
 			borderRadius: null,
 			borderBottomColor: TRANSPARENT,
-			backgroundColor: theme.tabBgColor,
+			backgroundColor: style.tabBgColor,
 		},
 		height: 45,
 		flexDirection: ROW,
@@ -50,8 +50,6 @@ module.exports = (theme = defaultTheme) => {
 		borderLeftWidth: 0,
 		borderRightWidth: 0,
 		borderBottomColor: "#ccc",
-		backgroundColor: theme.tabBgColor,
+		backgroundColor: style.tabBgColor,
 	}
-
-	return tabBarTheme
 }

@@ -11,7 +11,7 @@ const { ABSOLUTE, COLUMN, ROW } = require("/constants/style")
 const { useThis } = require("/hooks")
 const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
-const variables = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
 const Input = require("./Input")
 const Label = require("./Label")
@@ -35,8 +35,8 @@ const Item = props => {
 	const getInitialStyle = () => {
 		return {
 			roundedInputGroup: {
-				borderWidth: props.rounded && variables.borderWidth * 2,
-				borderRadius: props.rounded && variables.inputGroupRoundedBorderRadius,
+				borderWidth: props.rounded && defaultThemeStyle.borderWidth * 2,
+				borderRadius: props.rounded && defaultThemeStyle.inputGroupRoundedBorderRadius,
 			},
 		}
 	}
@@ -298,12 +298,12 @@ const Item = props => {
 					style={{
 						flexDirection: ROW,
 						flex: 1,
-						width: variables.deviceWidth - 15,
+						width: defaultThemeStyle.deviceWidth - 15,
 					}}>
 					<Icon key="s1" {...iconProps} />
 					<View style={{ flexDirection: COLUMN }}>
 						<Label key="s2" {...labelProps} />
-						<Input key="s3" {...inputProps} style={{ width: variables.deviceWidth - 40 }} />
+						<Input key="s3" {...inputProps} style={{ width: defaultThemeStyle.deviceWidth - 40 }} />
 					</View>
 				</View>
 			)

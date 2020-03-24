@@ -9,7 +9,7 @@ const { View, StatusBar, StyleSheet } = require("react-native")
 
 const { connectStyle } = require("/utils/style")
 const { useState, useStore } = require("/hooks")
-const variable = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
 const Header = props => {
 	const [theme] = useStore("theme")
@@ -17,13 +17,13 @@ const Header = props => {
 	const [_orientation, set_orientation] = useState("portrait")
 
 	const layoutChange = val => {
-		const maxComp = Math.max(variable.deviceWidth, variable.deviceHeight)
+		const maxComp = Math.max(defaultThemeStyle.deviceWidth, defaultThemeStyle.deviceHeight)
 		set_orientation(val.width >= maxComp ? "landscape" : "portrait")
 	}
 
 	const calculateHeight = (mode, inSet) => {
 		const { style } = props
-		let inset = inSet || variable.Inset
+		let inset = inSet || defaultThemeStyle.Inset
 
 		const InsetValues = mode === "portrait" ? inset.portrait : inset.landscape
 		let oldHeight =
@@ -40,7 +40,7 @@ const Header = props => {
 	}
 
 	const calculatePadder = (mode, inSet) => {
-		let inset = inSet || variable.Inset
+		let inset = inSet || defaultThemeStyle.Inset
 		const InsetValues = mode === "portrait" ? inset.portrait : inset.landscape
 		let topPadder = null
 		const style = StyleSheet.flatten(props.style)
@@ -55,24 +55,24 @@ const Header = props => {
 
 	const { androidStatusBarColor, iosBarStyle, style, transparent, translucent } = props
 
-	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
-	const platformStyle = variables.platformStyle
+	const defaultStyle = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
+	const { platformStyle } = defaultStyle
 
 	return (
 		<View onLayout={e => layoutChange(e.nativeEvent.layout)}>
 			<StatusBar
-				backgroundColor={androidStatusBarColor ? androidStatusBarColor : variables.statusBarColor}
-				barStyle={iosBarStyle ? iosBarStyle : platformStyle === "material" ? "light-content" : variables.iosStatusbar}
+				backgroundColor={androidStatusBarColor ? androidStatusBarColor : defaultStyle.statusBarColor}
+				barStyle={iosBarStyle ? iosBarStyle : platformStyle === "material" ? "light-content" : defaultStyle.iosStatusbar}
 				translucent={transparent ? true : translucent}
 			/>
-			{variables.isIphoneX ? (
+			{defaultStyle.isIphoneX ? (
 				<View
 					{...props}
 					style={[
 						style,
 						{
-							height: calculateHeight(_orientation, variables.Inset),
-							paddingTop: calculatePadder(_orientation, variables.Inset),
+							height: calculateHeight(_orientation, defaultStyle.Inset),
+							paddingTop: calculatePadder(_orientation, defaultStyle.Inset),
 						},
 					]}
 				/>

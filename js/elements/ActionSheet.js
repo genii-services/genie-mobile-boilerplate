@@ -6,6 +6,7 @@ console.debug(MODULE_NAME$)
 const React = require("react")
 const { ActionSheetIOS, Dimensions, FlatList, Modal, TouchableOpacity, StyleSheet } = require("react-native")
 
+const { CENTER, FLEX_START, FLEX_END } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
 const { useThis } = require("/hooks")
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
 	containerTouchable: {
 		backgroundColor: commonColor.containerTouchableBackgroundColor,
 		flex: 1,
-		justifyContent: "flex-end",
+		justifyContent: FLEX_END,
 	},
 	flatList: {
 		marginHorizontal: commonColor.marginHorizontal,

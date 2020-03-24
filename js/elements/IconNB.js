@@ -47,7 +47,7 @@ const IconNB = props => {
 	const setIcon = iconType => {
 		if (iconType === undefined && theme) {
 			// eslint-disable-next-line
-			iconType = theme["@@shoutem.theme/themeStyle"].variables.iconFamily
+			iconType = theme["@@shoutem.theme/themeStyle"].defaultStyle.iconFamily
 		}
 		_this.Icon = Iconz[iconType] || defaultIcon
 		_this.type = iconType || "Ionicons"

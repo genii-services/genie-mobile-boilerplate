@@ -1,10 +1,10 @@
 /** TabContainer Element Style */
 const { BLACK, MATERIAL, ROW } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
-const defaultTheme = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (theme = defaultTheme) => {
-	const { platformStyle } = theme
+module.exports = (style = defaultThemeStyle) => {
+	const { platformStyle } = style
 
 	const tabContainerTheme = {
 		elevation: 3,
@@ -15,8 +15,8 @@ module.exports = (theme = defaultTheme) => {
 		shadowOpacity: platformStyle === MATERIAL ? 0.2 : undefined,
 		shadowRadius: platformStyle === MATERIAL ? 1.2 : undefined,
 		justifyContent: "space-around",
-		borderBottomWidth: itsIOS ? theme.borderWidth : 0,
-		borderColor: theme.topTabBarBorderColor,
+		borderBottomWidth: itsIOS ? style.borderWidth : 0,
+		borderColor: style.topTabBarBorderColor,
 	}
 
 	return tabContainerTheme

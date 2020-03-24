@@ -9,8 +9,11 @@ const CardExample = props => {
 				<Card>
 					<CardItem>
 						<Body>
-							<H1>
-								Header 1<Text style={{ color: "red" }}>//Your text here</Text>
+							<H1 id="h1">
+								Header 1
+								<Text id="txt" style={{ color: "red" }}>
+									//Your text here
+								</Text>
 							</H1>
 						</Body>
 					</CardItem>

@@ -11,7 +11,7 @@ const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
 
 const { createAnimatedComponent, useThis } = require("/hooks")
-const variables = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
 const Button = require("./Button")
 
@@ -33,7 +33,7 @@ const AnimatedFab = createAnimatedComponent(Button)
 
 const Fab = props => {
 	const _this = useThis()
-	_this.containerHeight = new Animated.Value(variables.fabWidth)
+	_this.containerHeight = new Animated.Value(defaultThemeStyle.fabWidth)
 	_this.containerWidth = new Animated.Value(0)
 	_this.buttonScale = new Animated.Value(0)
 	const [_buttons, set_buttons] = useState()
@@ -42,16 +42,12 @@ const Fab = props => {
 	useEffect(() => {
 		const childrenArray = React.Children.toArray(props.children)
 		const icon = remove(childrenArray, item => {
-			if (item.type.displayName === "Styled(Button)") {
-				return true
-			}
+			if (item.type.displayName === "Styled(Button)") return true
 			return null
 		})
 		// eslint-disable-next-line react/no-did-mount-set-state
 		set_buttons(icon.length)
-		_this.activeTimer = setTimeout(() => {
-			set_active(props.active)
-		}, 0)
+		_this.activeTimer = setTimeout(() => set_active(props.active), 0)
 		return () => _this.activeTimer && clearTimeout(_this.activeTimer)
 	}, [])
 
@@ -67,57 +63,55 @@ const Fab = props => {
 		return merge(getInitialStyle().buttonStyle, StyleSheet.flatten(child.props.style), type)
 	}
 
-	const getContainerStyle = () => {
-		return merge(getInitialStyle().container, props.containerStyle)
-	}
+	const getContainerStyle = () => merge(getInitialStyle().container, props.containerStyle)
 
 	const getInitialStyle = iconStyle => {
 		const { direction, position } = props
 		return {
 			fab: {
-				height: variables.fabWidth,
-				width: variables.fabWidth,
-				borderRadius: variables.fabBorderRadius,
-				elevation: variables.fabElevation,
-				shadowColor: variables.fabShadowColor,
+				height: defaultThemeStyle.fabWidth,
+				width: defaultThemeStyle.fabWidth,
+				borderRadius: defaultThemeStyle.fabBorderRadius,
+				elevation: defaultThemeStyle.fabElevation,
+				shadowColor: defaultThemeStyle.fabShadowColor,
 				shadowOffset: {
-					width: variables.fabShadowOffsetWidth,
-					height: variables.fabShadowOffsetHeight,
+					width: defaultThemeStyle.fabShadowOffsetWidth,
+					height: defaultThemeStyle.fabShadowOffsetHeight,
 				},
-				shadowOpacity: variables.fabShadowOpacity,
+				shadowOpacity: defaultThemeStyle.fabShadowOpacity,
 				justifyContent: CENTER,
 				alignItems: CENTER,
-				shadowRadius: variables.fabShadowRadius,
+				shadowRadius: defaultThemeStyle.fabShadowRadius,
 				position: ABSOLUTE,
-				bottom: variables.fabBottom,
-				backgroundColor: variables.fabBackgroundColor,
+				bottom: defaultThemeStyle.fabBottom,
+				backgroundColor: defaultThemeStyle.fabBackgroundColor,
 			},
 			container: {
 				position: ABSOLUTE,
 				top: position ? fabTopValue(position).top : undefined,
-				bottom: position ? fabTopValue(position).bottom : variables.fabContainerBottom,
-				right: position ? fabTopValue(position).right : variables.fabContainerBottom,
+				bottom: position ? fabTopValue(position).bottom : defaultThemeStyle.fabContainerBottom,
+				right: position ? fabTopValue(position).right : defaultThemeStyle.fabContainerBottom,
 				left: position ? fabTopValue(position).left : undefined,
-				width: variables.fabWidth,
+				width: defaultThemeStyle.fabWidth,
 				height: _this.containerHeight,
 				flexDirection: direction ? (direction === DIRECTION.LEFT || direction === DIRECTION.RIGHT ? ROW : COLUMN) : COLUMN,
 				alignItems: CENTER,
 			},
 			iconStyle: {
-				color: variables.fabIconColor,
-				fontSize: variables.fabIconSize,
+				color: defaultThemeStyle.fabIconColor,
+				fontSize: defaultThemeStyle.fabIconSize,
 				lineHeight: itsIOS ? 27 : undefined,
 				...iconStyle,
 			},
 			buttonStyle: {
 				position: ABSOLUTE,
-				height: variables.fabButtonHeight,
-				width: variables.fabButtonHeight,
-				left: variables.fabButtonLeft,
-				borderRadius: variables.fabButtonBorderRadius,
+				height: defaultThemeStyle.fabButtonHeight,
+				width: defaultThemeStyle.fabButtonHeight,
+				left: defaultThemeStyle.fabButtonLeft,
+				borderRadius: defaultThemeStyle.fabButtonBorderRadius,
 				transform: _active ? [{ scale: new Animated.Value(1) }] : [{ scale: _this.buttonScale }],
-				marginBottom: variables.fabButtonMarginBottom,
-				backgroundColor: variables.fabBackgroundColor,
+				marginBottom: defaultThemeStyle.fabButtonMarginBottom,
+				backgroundColor: defaultThemeStyle.fabBackgroundColor,
 			},
 		}
 	}
@@ -132,13 +126,33 @@ const Fab = props => {
 	const fabTopValue = pos => {
 		switch (pos) {
 			case POSITION.TOP_LEFT:
-				return { top: variables.fabDefaultPosition, bottom: undefined, left: variables.fabDefaultPosition, right: undefined }
+				return {
+					top: defaultThemeStyle.fabDefaultPosition,
+					bottom: undefined,
+					left: defaultThemeStyle.fabDefaultPosition,
+					right: undefined,
+				}
 			case POSITION.BOTTOM_RIGHT:
-				return { top: undefined, bottom: variables.fabDefaultPosition, left: undefined, right: variables.fabDefaultPosition }
+				return {
+					top: undefined,
+					bottom: defaultThemeStyle.fabDefaultPosition,
+					left: undefined,
+					right: defaultThemeStyle.fabDefaultPosition,
+				}
 			case POSITION.BOTTOM_LEFT:
-				return { top: undefined, bottom: variables.fabDefaultPosition, left: variables.fabDefaultPosition, right: undefined }
+				return {
+					top: undefined,
+					bottom: defaultThemeStyle.fabDefaultPosition,
+					left: defaultThemeStyle.fabDefaultPosition,
+					right: undefined,
+				}
 			case POSITION.TOP_RIGHT:
-				return { top: variables.fabDefaultPosition, bottom: undefined, left: undefined, right: variables.fabDefaultPosition }
+				return {
+					top: defaultThemeStyle.fabDefaultPosition,
+					bottom: undefined,
+					left: undefined,
+					right: defaultThemeStyle.fabDefaultPosition,
+				}
 		}
 		return null
 	}
@@ -149,7 +163,12 @@ const Fab = props => {
 			case DIRECTION.UP:
 				return { top: undefined, bottom: active === false ? (itsIOS ? 50 : 5) : i * 50 + 65, left: 8, right: 0 }
 			case DIRECTION.LEFT:
-				return { top: 8, bottom: 0, left: active === false ? (itsIOS ? 8 : 8) : -(i * 50 + variables.fabWidth + 2), right: 0 }
+				return {
+					top: 8,
+					bottom: 0,
+					left: active === false ? (itsIOS ? 8 : 8) : -(i * 50 + defaultThemeStyle.fabWidth + 2),
+					right: 0,
+				}
 			case DIRECTION.DOWN:
 				return { top: active === false ? (itsIOS ? 50 : 8) : i * 50 + 73, bottom: 0, left: 8, right: 0 }
 			case DIRECTION.RIGHT:
@@ -168,44 +187,44 @@ const Fab = props => {
 
 	const upAnimate = () => {
 		if (!props.active) {
-			Animated.spring(_this.containerHeight, { toValue: _buttons * 51.3 + variables.fabWidth }).start()
+			Animated.spring(_this.containerHeight, { toValue: _buttons * 51.3 + defaultThemeStyle.fabWidth }).start()
 			Animated.spring(_this.buttonScale, { toValue: 1, useNativeDriver: true }).start()
 		} else {
 			set_active(false)
-			Animated.spring(_this.containerHeight, { toValue: variables.fabWidth }).start()
+			Animated.spring(_this.containerHeight, { toValue: defaultThemeStyle.fabWidth }).start()
 			Animated.spring(_this.buttonScale, { toValue: 0, useNativeDriver: true }).start()
 		}
 	}
 
 	const leftAnimate = () => {
 		if (!props.active) {
-			Animated.spring(_this.containerWidth, { toValue: _buttons * 51.3 + variables.fabWidth }).start()
+			Animated.spring(_this.containerWidth, { toValue: _buttons * 51.3 + defaultThemeStyle.fabWidth }).start()
 			Animated.spring(_this.buttonScale, { toValue: 1, useNativeDriver: true }).start()
 		} else {
 			set_active(false)
-			Animated.spring(_this.containerHeight, { toValue: variables.fabWidth }).start()
+			Animated.spring(_this.containerHeight, { toValue: defaultThemeStyle.fabWidth }).start()
 			Animated.spring(_this.buttonScale, { toValue: 0, useNativeDriver: true }).start()
 		}
 	}
 
 	const rightAnimate = () => {
 		if (!props.active) {
-			Animated.spring(_this.containerWidth, { toValue: _buttons * 51.3 + variables.fabWidth }).start()
+			Animated.spring(_this.containerWidth, { toValue: _buttons * 51.3 + defaultThemeStyle.fabWidth }).start()
 			Animated.spring(_this.buttonScale, { toValue: 1, useNativeDriver: true }).start()
 		} else {
 			set_active(false)
-			Animated.spring(_this.containerHeight, { toValue: variables.fabWidth }).start()
+			Animated.spring(_this.containerHeight, { toValue: defaultThemeStyle.fabWidth }).start()
 			Animated.spring(_this.buttonScale, { toValue: 0, useNativeDriver: true }).start()
 		}
 	}
 
 	const downAnimate = () => {
 		if (!props.active) {
-			Animated.spring(_this.containerHeight, { toValue: variables.fabWidth }).start()
+			Animated.spring(_this.containerHeight, { toValue: defaultThemeStyle.fabWidth }).start()
 			Animated.spring(_this.buttonScale, { toValue: 1, useNativeDriver: true }).start()
 		} else {
 			set_active(false)
-			Animated.spring(_this.containerHeight, { toValue: variables.fabWidth }).start()
+			Animated.spring(_this.containerHeight, { toValue: defaultThemeStyle.fabWidth }).start()
 			Animated.spring(_this.buttonScale, { toValue: 0, useNativeDriver: true }).start()
 		}
 	}
@@ -283,7 +302,7 @@ const Fab = props => {
 	return (
 		<Animated.View style={getContainerStyle()}>
 			{renderButtons()}
-			{itsIOS || variables.androidRipple === false || Platform.Version <= 21 ? (
+			{itsIOS || defaultThemeStyle.androidRipple === false || Platform.Version <= 21 ? (
 				<TouchableOpacity onPress={() => fabOnPress()} {...prepareFabProps()} activeOpacity={1}>
 					{renderFab()}
 				</TouchableOpacity>
@@ -291,7 +310,7 @@ const Fab = props => {
 				<TouchableNativeFeedback
 					onPress={() => fabOnPress()}
 					// eslint-disable-next-line new-cap
-					background={TouchableNativeFeedback.Ripple(variables.androidRippleColor, false)}
+					background={TouchableNativeFeedback.Ripple(defaultThemeStyle.androidRippleColor, false)}
 					{...prepareFabProps()}>
 					<View style={[getInitialStyle().fab, style]}>{renderFab()}</View>
 				</TouchableNativeFeedback>

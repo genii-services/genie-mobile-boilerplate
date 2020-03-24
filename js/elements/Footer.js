@@ -6,20 +6,22 @@ const { View } = require("react-native")
 
 const { connectStyle } = require("/utils/style")
 const { useState, useStore } = require("/hooks")
-const variable = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
 const Footer = props => {
 	const [theme] = useStore("theme")
-	const [_orientation, set_orientation] = useState(variable.deviceHeight > variable.deviceWidth ? "portrait" : "landscape")
+	const [_orientation, set_orientation] = useState(
+		defaultThemeStyle.deviceHeight > defaultThemeStyle.deviceWidth ? "portrait" : "landscape"
+	)
 
 	const layoutChange = val => {
-		const maxComp = Math.max(variable.deviceWidth, variable.deviceHeight)
+		const maxComp = Math.max(defaultThemeStyle.deviceWidth, defaultThemeStyle.deviceHeight)
 		set_orientation(val.width >= maxComp ? "landscape" : "portrait")
 	}
 
 	const calculateHeight = (mode, inSet) => {
 		const { style } = props
-		let inset = inSet || variable.Inset
+		let inset = inSet || defaultThemeStyle.Inset
 
 		const InsetValues = mode === "portrait" ? inset.portrait : inset.landscape
 		let oldHeight = style.height !== undefined ? style.height : style[1] ? style[1].height || style[0].height : style[0].height
@@ -30,7 +32,7 @@ const Footer = props => {
 
 	const calculatePadder = (mode, inSet) => {
 		const { style } = props
-		let inset = inSet || variable.Inset
+		let inset = inSet || defaultThemeStyle.Inset
 
 		const InsetValues = mode === "portrait" ? inset.portrait : inset.landscape
 		let bottomPadder = null
@@ -46,16 +48,16 @@ const Footer = props => {
 		return bottomPadder
 	}
 
-	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
-	return variables.isIphoneX ? (
+	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
+	return style.isIphoneX ? (
 		<View
 			{...props}
 			onLayout={e => layoutChange(e.nativeEvent.layout)}
 			style={[
 				style,
 				{
-					height: calculateHeight(_orientation, variables.Inset),
-					paddingBottom: calculatePadder(_orientation, variables.Inset),
+					height: calculateHeight(_orientation, style.Inset),
+					paddingBottom: calculatePadder(_orientation, style.Inset),
 				},
 			]}
 		/>

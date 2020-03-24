@@ -1,19 +1,19 @@
 /** Element Style */
 const { CENTER, FLEX_START, FLEX_END, MATERIAL, ROW, TRANSPARENT } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
-const defaultTheme = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (theme = defaultTheme) => {
-	const { platformStyle } = theme
+module.exports = (style = defaultThemeStyle) => {
+	const { platformStyle } = style
 
 	const iconCommon = {
-		"elements/Icon": { color: theme.tabBarActiveTextColor },
+		"elements/Icon": { color: style.tabBarActiveTextColor },
 	}
 	const iconNBCommon = {
-		"elements/IconNB": { color: theme.tabBarActiveTextColor },
+		"elements/IconNB": { color: style.tabBarActiveTextColor },
 	}
 	const textCommon = {
-		"elements/Text": { color: theme.tabBarActiveTextColor },
+		"elements/Text": { color: style.tabBarActiveTextColor },
 	}
 	const footerTheme = {
 		"elements/Left": {
@@ -59,8 +59,8 @@ module.exports = (theme = defaultTheme) => {
 					...textCommon,
 				},
 				".full": {
-					height: theme.footerHeight,
-					paddingBottom: theme.footerPaddingBottom,
+					height: style.footerHeight,
+					paddingBottom: style.footerPaddingBottom,
 					flex: 1,
 				},
 				...iconCommon,
@@ -91,13 +91,13 @@ module.exports = (theme = defaultTheme) => {
 			alignSelf: CENTER,
 			alignItems: FLEX_END,
 		},
-		backgroundColor: theme.footerDefaultBg,
+		backgroundColor: style.footerDefaultBg,
 		flexDirection: ROW,
 		justifyContent: CENTER,
-		borderTopWidth: itsIOS && platformStyle !== MATERIAL ? theme.borderWidth : undefined,
+		borderTopWidth: itsIOS && platformStyle !== MATERIAL ? style.borderWidth : undefined,
 		borderColor: itsIOS && platformStyle !== MATERIAL ? "#cbcbcb" : undefined,
-		height: theme.footerHeight,
-		paddingBottom: theme.footerPaddingBottom,
+		height: style.footerHeight,
+		paddingBottom: style.footerPaddingBottom,
 		elevation: 3,
 		left: 0,
 		right: 0,

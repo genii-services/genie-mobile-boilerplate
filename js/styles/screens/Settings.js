@@ -1,5 +1,5 @@
 /** Settings Screen Style */
-const { FLEX_START, FLEX_END, SPACE_BETWEEN } = require("/constants/style")
+const { FLEX_START, FLEX_END, RIGHT, SPACE_BETWEEN } = require("/constants/style")
 
 const SettingsScreenStyle = ({ fontSizes, grayscaleColors }) => {
 	return {

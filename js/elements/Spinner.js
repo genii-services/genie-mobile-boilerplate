@@ -6,16 +6,16 @@ const { ActivityIndicator } = require("react-native")
 
 const { connectStyle } = require("/utils/style")
 const { useState, useStore, useThis } = require("/hooks")
-const variable = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
 const Spinner = ({ color, ...props }) => {
 	const [theme] = useStore("theme")
 
-	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
+	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
 	return (
 		<ActivityIndicator
 			{...props}
-			color={color ? color : props.inverse ? variables.inverseSpinnerColor : variables.defaultSpinnerColor}
+			color={color ? color : props.inverse ? style.inverseSpinnerColor : style.defaultSpinnerColor}
 			size={props.size || "large"}
 		/>
 	)

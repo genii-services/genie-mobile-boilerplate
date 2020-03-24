@@ -1,17 +1,17 @@
 /** Element Style */
 const { CENTER } = require("/constants/style")
-const defaultTheme = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (theme = defaultTheme) => {
+module.exports = (style = defaultThemeStyle) => {
 	return {
 		".group": {
 			height: 50,
-			paddingVertical: theme.listItemPadding - 8,
-			paddingTop: theme.listItemPadding + 12,
+			paddingVertical: style.listItemPadding - 8,
+			paddingTop: style.listItemPadding + 12,
 			".bordered": {
 				height: 50,
-				paddingVertical: theme.listItemPadding - 8,
-				paddingTop: theme.listItemPadding + 12,
+				paddingVertical: style.listItemPadding - 8,
+				paddingTop: style.listItemPadding + 12,
 			},
 		},
 		".bordered": {
@@ -22,14 +22,14 @@ module.exports = (theme = defaultTheme) => {
 				borderBottomWidth: 0,
 			},
 			height: 35,
-			paddingTop: theme.listItemPadding + 2,
-			paddingBottom: theme.listItemPadding,
-			borderBottomWidth: theme.borderWidth,
-			borderTopWidth: theme.borderWidth,
-			borderColor: theme.listBorderColor,
+			paddingTop: style.listItemPadding + 2,
+			paddingBottom: style.listItemPadding,
+			borderBottomWidth: style.borderWidth,
+			borderTopWidth: style.borderWidth,
+			borderColor: style.listBorderColor,
 		},
 		"elements/Text": {
-			fontSize: theme.tabBarTextSize - 2,
+			fontSize: style.tabBarTextSize - 2,
 			color: "#777",
 		},
 		".noTopBorder": {
@@ -42,6 +42,6 @@ module.exports = (theme = defaultTheme) => {
 		backgroundColor: "#F0EFF5",
 		flex: 1,
 		justifyContent: CENTER,
-		paddingLeft: theme.listItemPadding + 5,
+		paddingLeft: style.listItemPadding + 5,
 	}
 }

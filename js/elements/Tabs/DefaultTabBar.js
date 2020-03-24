@@ -9,7 +9,7 @@ const { Animated } = ReactNative
 const { ABSOLUTE, BOLD, FLEX_START, FLEX_END, NORMAL, SPACE_BETWEEN, TRANSPARENT } = require("/constants/style")
 const { connectStyle } = require("/utils/style")
 const { useState, useStore, useThis } = require("/hooks")
-const variable = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
 const Button = require("./Button")
 const TabHeading = require("../TabHeading")
@@ -64,19 +64,19 @@ const DefaultTabBar = props => {
 		)
 	}
 
-	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
+	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
 	const containerWidth = props.containerWidth
 	const numberOfTabs = props.tabs.length
 	const tabUnderlineStyle = {
 		position: ABSOLUTE,
 		width: containerWidth / numberOfTabs,
 		height: 4,
-		backgroundColor: variables.topTabBarActiveBorderColor,
+		backgroundColor: style.topTabBarActiveBorderColor,
 		bottom: 0,
 	}
 	const left = props.scrollValue.interpolate({ inputRange: [0, 1], outputRange: [0, containerWidth / numberOfTabs] })
 	return (
-		<TabContainer style={[{ backgroundColor: variables.tabDefaultBg }, props.tabContainerStyle]}>
+		<TabContainer style={[{ backgroundColor: style.tabDefaultBg }, props.tabContainerStyle]}>
 			{props.tabs.map((name, page) => {
 				const isTabActive = props.activeTab === page
 				const renderTab = props.renderTab || renderDefaultTab
@@ -90,7 +90,7 @@ const DefaultTabBar = props => {
 					props.textStyle[page],
 					props.activeTextStyle[page],
 					props.tabHeaderStyle[page],
-					variables.tabFontSize,
+					style.tabFontSize,
 					props.disabled[page],
 					props.disabledTextColor
 				)
@@ -124,11 +124,11 @@ if (__DEV__) {
 
 DefaultTabBar.getDefaultProps = () => {
 	return {
-		activeTextColor: variable.topTabBarActiveTextColor,
-		inactiveTextColor: variable.topTabBarTextColor,
-		disabledTextColor: variable.tabBarDisabledTextColor,
+		activeTextColor: defaultThemeStyle.topTabBarActiveTextColor,
+		inactiveTextColor: defaultThemeStyle.topTabBarTextColor,
+		disabledTextColor: defaultThemeStyle.tabBarDisabledTextColor,
 		backgroundColor: TRANSPARENT,
-		tabFontSize: variable.tabFontSize,
+		tabFontSize: defaultThemeStyle.tabFontSize,
 	}
 }
 

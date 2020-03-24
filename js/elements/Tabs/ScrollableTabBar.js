@@ -9,7 +9,7 @@ const { isEqual } = require("lodash")
 const { ABSOLUTE, BLACK, BOLD, CENTER, NORMAL, ROW } = require("/constants/style")
 const { connectStyle } = require("/utils/style")
 const { useState, useStore, useThis } = require("/hooks")
-const variable = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
 const TabHeading = require("../TabHeading")
 const Text = require("../Text")
@@ -26,12 +26,12 @@ const ScrollableTabBar = props => {
 			scrollOffset: 52,
 			activeTextColor: "navy",
 			inactiveTextColor: BLACK,
-			backgroundColor: variable.tabDefaultBg,
+			backgroundColor: defaultThemeStyle.tabDefaultBg,
 			style: {},
 			tabStyle: {},
 			tabsContainerStyle: {},
 			underlineStyle: {},
-			tabFontSize: variable.tabFontSize,
+			tabFontSize: defaultThemeStyle.tabFontSize,
 		}
 	}
 
@@ -176,11 +176,11 @@ const ScrollableTabBar = props => {
 		updateView({ value: props.scrollValue._value })
 	}
 
-	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
+	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
 	const tabUnderlineStyle = {
 		position: ABSOLUTE,
 		height: 4,
-		backgroundColor: variables.topTabBarActiveBorderColor,
+		backgroundColor: style.topTabBarActiveBorderColor,
 		bottom: 0,
 	}
 
@@ -221,7 +221,7 @@ const ScrollableTabBar = props => {
 							props.textStyle[page],
 							props.activeTextStyle[page],
 							props.tabHeaderStyle[page],
-							variables.tabFontSize
+							style.tabFontSize
 						)
 					})}
 					<Animated.View style={[tabUnderlineStyle, dynamicTabUnderline, props.underlineStyle]} />

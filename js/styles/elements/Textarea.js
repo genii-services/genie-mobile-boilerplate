@@ -1,19 +1,19 @@
 /** Element Style */
-const defaultTheme = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (theme = defaultTheme) => {
+module.exports = (style = defaultThemeStyle) => {
 	return {
 		".underline": {
-			borderBottomWidth: theme.borderWidth,
+			borderBottomWidth: style.borderWidth,
 			marginTop: 5,
-			borderColor: theme.inputBorderColor,
+			borderColor: style.inputBorderColor,
 		},
 		".bordered": {
 			borderWidth: 1,
 			marginTop: 5,
-			borderColor: theme.inputBorderColor,
+			borderColor: style.inputBorderColor,
 		},
-		color: theme.textColor,
+		color: style.textColor,
 		paddingLeft: 10,
 		paddingRight: 5,
 		fontSize: 15,

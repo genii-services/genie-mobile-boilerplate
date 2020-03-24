@@ -1,14 +1,9 @@
 exports = module.exports = function customMerge(obj1, obj2) {
 	const objToReturn = {}
+	if (!obj1) return obj2
+	else if (!obj2) return obj1
 
 	let property1, property2
-
-	if (!obj1) {
-		return obj2
-	} else if (!obj2) {
-		return obj1
-	}
-
 	for (property1 in obj1) {
 		for (property2 in obj2) {
 			if (property1 === property2) {

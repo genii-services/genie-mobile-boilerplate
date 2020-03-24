@@ -3,33 +3,33 @@ const { StyleSheet } = require("react-native")
 
 const { CENTER, FLEX_START, ROW } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
-const defaultTheme = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (theme = defaultTheme) => {
+module.exports = (style = defaultThemeStyle) => {
 	const transparentBtnCommon = {
 		"elements/Text": {
-			fontSize: theme.DefaultFontSize - 3,
-			color: theme.sTabBarActiveTextColor,
+			fontSize: style.DefaultFontSize - 3,
+			color: style.sTabBarActiveTextColor,
 		},
 		"elements/Icon": {
-			fontSize: theme.iconFontSize - 10,
-			color: theme.sTabBarActiveTextColor,
+			fontSize: style.iconFontSize - 10,
+			color: style.sTabBarActiveTextColor,
 			marginHorizontal: null,
 		},
 		"elements/IconNB": {
-			fontSize: theme.iconFontSize - 10,
-			color: theme.sTabBarActiveTextColor,
+			fontSize: style.iconFontSize - 10,
+			color: style.sTabBarActiveTextColor,
 		},
 		paddingVertical: null,
 		paddingHorizontal: null,
 	}
 
-	const cardItemTheme = {
+	return {
 		"elements/Left": {
 			"elements/Body": {
 				"elements/Text": {
 					".note": {
-						color: theme.listNoteColor,
+						color: style.listNoteColor,
 						fontWeight: "400",
 						marginRight: 20,
 					},
@@ -39,10 +39,10 @@ module.exports = (theme = defaultTheme) => {
 				alignItems: null,
 			},
 			"elements/Icon": {
-				fontSize: theme.iconFontSize,
+				fontSize: style.iconFontSize,
 			},
 			"elements/IconNB": {
-				fontSize: theme.iconFontSize,
+				fontSize: style.iconFontSize,
 			},
 			"elements/Text": {
 				marginLeft: 10,
@@ -51,7 +51,7 @@ module.exports = (theme = defaultTheme) => {
 			"elements/Button": {
 				".transparent": {
 					...transparentBtnCommon,
-					paddingRight: theme.cardItemPadding + 5,
+					paddingRight: style.cardItemPadding + 5,
 				},
 			},
 			flex: 1,
@@ -61,14 +61,14 @@ module.exports = (theme = defaultTheme) => {
 		".content": {
 			"elements/Text": {
 				color: itsIOS ? "#555" : "#222",
-				fontSize: theme.DefaultFontSize - 2,
+				fontSize: style.DefaultFontSize - 2,
 			},
 		},
 		".cardBody": { padding: -5, "elements/Text": { marginTop: 5 } },
 		"elements/Body": {
 			"elements/Text": {
 				".note": {
-					color: theme.listNoteColor,
+					color: style.listNoteColor,
 					fontWeight: "200",
 					marginRight: 20,
 				},
@@ -76,7 +76,7 @@ module.exports = (theme = defaultTheme) => {
 			"elements/Button": {
 				".transparent": {
 					...transparentBtnCommon,
-					paddingRight: theme.cardItemPadding + 5,
+					paddingRight: style.cardItemPadding + 5,
 					alignSelf: "stretch",
 				},
 			},
@@ -92,9 +92,9 @@ module.exports = (theme = defaultTheme) => {
 				".transparent": { ...transparentBtnCommon },
 				alignSelf: null,
 			},
-			"elements/Icon": { alignSelf: null, fontSize: theme.iconFontSize - 8, color: theme.cardBorderColor },
-			"elements/IconNB": { alignSelf: null, fontSize: theme.iconFontSize - 8, color: theme.cardBorderColor },
-			"elements/Text": { fontSize: theme.DefaultFontSize - 1, alignSelf: null },
+			"elements/Icon": { alignSelf: null, fontSize: style.iconFontSize - 8, color: style.cardBorderColor },
+			"elements/IconNB": { alignSelf: null, fontSize: style.iconFontSize - 8, color: style.cardBorderColor },
+			"elements/Text": { fontSize: style.DefaultFontSize - 1, alignSelf: null },
 			"elements/Thumbnail": { alignSelf: null },
 			"elements/Image": { alignSelf: null },
 			"elements/Radio": { alignSelf: null },
@@ -109,13 +109,13 @@ module.exports = (theme = defaultTheme) => {
 			},
 			".bordered": {
 				"elements/Text": {
-					color: theme.brandPrimary,
+					color: style.brandPrimary,
 					fontWeight: itsIOS ? "600" : "500",
 				},
-				borderBottomWidth: theme.borderWidth,
+				borderBottomWidth: style.borderWidth,
 			},
 			borderBottomWidth: null,
-			paddingVertical: theme.cardItemPadding + 5,
+			paddingVertical: style.cardItemPadding + 5,
 		},
 		".footer": {
 			"elements/Text": {
@@ -124,46 +124,44 @@ module.exports = (theme = defaultTheme) => {
 			},
 			".bordered": {
 				"elements/Text": {
-					color: theme.brandPrimary,
+					color: style.brandPrimary,
 					fontWeight: itsIOS ? "600" : "500",
 				},
-				borderTopWidth: theme.borderWidth,
+				borderTopWidth: style.borderWidth,
 			},
 			borderBottomWidth: null,
 		},
 		"elements/Text": {
 			".note": {
-				color: theme.listNoteColor,
+				color: style.listNoteColor,
 				fontWeight: "200",
 			},
 		},
 		"elements/Icon": {
-			width: theme.iconFontSize + 5,
-			fontSize: theme.iconFontSize - 2,
+			width: style.iconFontSize + 5,
+			fontSize: style.iconFontSize - 2,
 		},
 		"elements/IconNB": {
-			width: theme.iconFontSize + 5,
-			fontSize: theme.iconFontSize - 2,
+			width: style.iconFontSize + 5,
+			fontSize: style.iconFontSize - 2,
 		},
 		".bordered": {
 			borderBottomWidth: StyleSheet.hairlineWidth,
-			borderColor: theme.cardBorderColor,
+			borderColor: style.cardBorderColor,
 		},
 		".first": {
-			borderTopLeftRadius: theme.cardBorderRadius,
-			borderTopRightRadius: theme.cardBorderRadius,
+			borderTopLeftRadius: style.cardBorderRadius,
+			borderTopRightRadius: style.cardBorderRadius,
 		},
 		".last": {
-			borderBottomLeftRadius: theme.cardBorderRadius,
-			borderBottomRightRadius: theme.cardBorderRadius,
+			borderBottomLeftRadius: style.cardBorderRadius,
+			borderBottomRightRadius: style.cardBorderRadius,
 		},
 		flexDirection: ROW,
 		alignItems: CENTER,
-		borderRadius: theme.cardBorderRadius,
-		padding: theme.cardItemPadding + 5,
-		paddingVertical: theme.cardItemPadding,
-		backgroundColor: theme.cardDefaultBg,
+		borderRadius: style.cardBorderRadius,
+		padding: style.cardItemPadding + 5,
+		paddingVertical: style.cardItemPadding,
+		backgroundColor: style.cardDefaultBg,
 	}
-
-	return cardItemTheme
 }

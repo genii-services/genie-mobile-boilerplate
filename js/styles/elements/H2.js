@@ -1,10 +1,10 @@
 /** Element Style */
-const defaultTheme = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (theme = defaultTheme) => {
+module.exports = (style = defaultThemeStyle) => {
 	return {
-		color: theme.textColor,
-		fontSize: theme.fontSizeH2,
-		lineHeight: theme.lineHeightH2,
+		color: style.textColor,
+		fontSize: style.fontSizeH2,
+		lineHeight: style.lineHeightH2,
 	}
 }

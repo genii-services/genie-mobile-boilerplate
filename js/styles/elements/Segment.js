@@ -1,15 +1,15 @@
 /** Segment Element Style */
 const { CENTER, ROW, TRANSPARENT } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
-const defaultTheme = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (theme = defaultTheme) => {
+module.exports = (style = defaultThemeStyle) => {
 	return {
 		height: 45,
-		borderColor: theme.segmentBorderColorMain,
+		borderColor: style.segmentBorderColorMain,
 		flexDirection: ROW,
 		justifyContent: CENTER,
-		backgroundColor: theme.segmentBackgroundColor,
+		backgroundColor: style.segmentBackgroundColor,
 		"elements/Button": {
 			alignSelf: CENTER,
 			borderRadius: 0,
@@ -19,15 +19,15 @@ module.exports = (theme = defaultTheme) => {
 			backgroundColor: TRANSPARENT,
 			borderWidth: 1,
 			borderLeftWidth: 0,
-			borderColor: theme.segmentBorderColor,
+			borderColor: style.segmentBorderColor,
 			elevation: 0,
 			".active": {
-				backgroundColor: theme.segmentActiveBackgroundColor,
+				backgroundColor: style.segmentActiveBackgroundColor,
 				"elements/Text": {
-					color: theme.segmentActiveTextColor,
+					color: style.segmentActiveTextColor,
 				},
 				"elements/Icon": {
-					color: theme.segmentActiveTextColor,
+					color: style.segmentActiveTextColor,
 				},
 			},
 			".first": {
@@ -40,13 +40,13 @@ module.exports = (theme = defaultTheme) => {
 				borderBottomRightRadius: itsIOS ? 5 : undefined,
 			},
 			"elements/Text": {
-				color: theme.segmentTextColor,
+				color: style.segmentTextColor,
 				fontSize: 14,
 			},
 			"elements/Icon": {
 				fontSize: 22,
 				paddingTop: 0,
-				color: theme.segmentTextColor,
+				color: style.segmentTextColor,
 			},
 		},
 	}

@@ -1,16 +1,16 @@
 /** Element Style */
-const defaultTheme = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (theme = defaultTheme) => {
+module.exports = (style = defaultThemeStyle) => {
 	return {
 		".multiline": {
 			height: null,
 		},
-		height: theme.inputHeightBase,
-		color: theme.inputColor,
+		height: style.inputHeightBase,
+		color: style.inputColor,
 		paddingLeft: 5,
 		paddingRight: 5,
 		flex: 1,
-		fontSize: theme.inputFontSize,
+		fontSize: style.inputFontSize,
 	}
 }

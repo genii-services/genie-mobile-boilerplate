@@ -1,112 +1,112 @@
 /** Element Style */
 const { CENTER, ROW, TRANSPARENT } = require("/constants/style")
-const defaultTheme = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (theme = defaultTheme) => {
-	const inputGroupTheme = {
+module.exports = (style = defaultThemeStyle) => {
+	return {
 		"elements/Icon": {
 			fontSize: 24,
-			color: theme.sTabBarActiveTextColor,
+			color: style.sTabBarActiveTextColor,
 			paddingHorizontal: 5,
 		},
 		"elements/IconNB": {
 			fontSize: 24,
-			color: theme.sTabBarActiveTextColor,
+			color: style.sTabBarActiveTextColor,
 			paddingHorizontal: 5,
 		},
 		"elements/Input": {
-			height: theme.inputHeightBase,
-			color: theme.inputColor,
+			height: style.inputHeightBase,
+			color: style.inputColor,
 			paddingLeft: 5,
 			paddingRight: 5,
 			flex: 1,
-			fontSize: theme.inputFontSize,
-			lineHeight: theme.inputLineHeight,
+			fontSize: style.inputFontSize,
+			lineHeight: style.inputLineHeight,
 		},
 		".underline": {
 			".success": {
-				borderColor: theme.inputSuccessBorderColor,
+				borderColor: style.inputSuccessBorderColor,
 			},
 			".error": {
-				borderColor: theme.inputErrorBorderColor,
+				borderColor: style.inputErrorBorderColor,
 			},
 			paddingLeft: 5,
-			borderWidth: theme.borderWidth,
+			borderWidth: style.borderWidth,
 			borderTopWidth: 0,
 			borderRightWidth: 0,
 			borderLeftWidth: 0,
-			borderColor: theme.inputBorderColor,
+			borderColor: style.inputBorderColor,
 		},
 		".regular": {
 			".success": {
-				borderColor: theme.inputSuccessBorderColor,
+				borderColor: style.inputSuccessBorderColor,
 			},
 			".error": {
-				borderColor: theme.inputErrorBorderColor,
+				borderColor: style.inputErrorBorderColor,
 			},
 			paddingLeft: 5,
-			borderWidth: theme.borderWidth,
-			borderColor: theme.inputBorderColor,
+			borderWidth: style.borderWidth,
+			borderColor: style.inputBorderColor,
 		},
 		".rounded": {
 			".success": {
-				borderColor: theme.inputSuccessBorderColor,
+				borderColor: style.inputSuccessBorderColor,
 			},
 			".error": {
-				borderColor: theme.inputErrorBorderColor,
+				borderColor: style.inputErrorBorderColor,
 			},
 			paddingLeft: 5,
-			borderWidth: theme.borderWidth,
-			borderRadius: theme.inputGroupRoundedBorderRadius,
-			borderColor: theme.inputBorderColor,
+			borderWidth: style.borderWidth,
+			borderRadius: style.inputGroupRoundedBorderRadius,
+			borderColor: style.inputBorderColor,
 		},
 
 		".success": {
 			"elements/Icon": {
-				color: theme.inputSuccessBorderColor,
+				color: style.inputSuccessBorderColor,
 			},
 			"elements/IconNB": {
-				color: theme.inputSuccessBorderColor,
+				color: style.inputSuccessBorderColor,
 			},
 			".rounded": {
 				borderRadius: 30,
-				borderColor: theme.inputSuccessBorderColor,
+				borderColor: style.inputSuccessBorderColor,
 			},
 			".regular": {
-				borderColor: theme.inputSuccessBorderColor,
+				borderColor: style.inputSuccessBorderColor,
 			},
 			".underline": {
-				borderWidth: theme.borderWidth,
+				borderWidth: style.borderWidth,
 				borderTopWidth: 0,
 				borderRightWidth: 0,
 				borderLeftWidth: 0,
-				borderColor: theme.inputSuccessBorderColor,
+				borderColor: style.inputSuccessBorderColor,
 			},
-			borderColor: theme.inputSuccessBorderColor,
+			borderColor: style.inputSuccessBorderColor,
 		},
 
 		".error": {
 			"elements/Icon": {
-				color: theme.inputErrorBorderColor,
+				color: style.inputErrorBorderColor,
 			},
 			"elements/IconNB": {
-				color: theme.inputErrorBorderColor,
+				color: style.inputErrorBorderColor,
 			},
 			".rounded": {
 				borderRadius: 30,
-				borderColor: theme.inputErrorBorderColor,
+				borderColor: style.inputErrorBorderColor,
 			},
 			".regular": {
-				borderColor: theme.inputErrorBorderColor,
+				borderColor: style.inputErrorBorderColor,
 			},
 			".underline": {
-				borderWidth: theme.borderWidth,
+				borderWidth: style.borderWidth,
 				borderTopWidth: 0,
 				borderRightWidth: 0,
 				borderLeftWidth: 0,
-				borderColor: theme.inputErrorBorderColor,
+				borderColor: style.inputErrorBorderColor,
 			},
-			borderColor: theme.inputErrorBorderColor,
+			borderColor: style.inputErrorBorderColor,
 		},
 		".disabled": {
 			"elements/Icon": {
@@ -118,15 +118,13 @@ module.exports = (theme = defaultTheme) => {
 		},
 
 		paddingLeft: 5,
-		borderWidth: theme.borderWidth,
+		borderWidth: style.borderWidth,
 		borderTopWidth: 0,
 		borderRightWidth: 0,
 		borderLeftWidth: 0,
-		borderColor: theme.inputBorderColor,
+		borderColor: style.inputBorderColor,
 		backgroundColor: TRANSPARENT,
 		flexDirection: ROW,
 		alignItems: CENTER,
 	}
-
-	return inputGroupTheme
 }

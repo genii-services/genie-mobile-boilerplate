@@ -5,26 +5,27 @@ const React = require("react")
 const { SafeAreaView } = require("react-native")
 const { KeyboardAwareScrollView } = require("react-native-keyboard-aware-scroll-view")
 
-const { useState, useStore } = require("/hooks")
-const variable = require("/styles/themes/default")
+const { useState, useStore, useThis } = require("/hooks")
+const defaultThemeStyle = require("/styles/themes/default")
 const { connectStyle } = require("/utils/style")
 
 const Content = props => {
+	const _this = useThis()
 	const [theme] = useStore("theme")
 
 	const [_orientation, set_orientation] = useState("portrait")
 
 	const layoutChange = val => {
-		const maxComp = Math.max(variable.deviceWidth, variable.deviceHeight)
+		const maxComp = Math.max(defaultThemeStyle.deviceWidth, defaultThemeStyle.deviceHeight)
 
 		set_orientation(val.width >= maxComp ? "landscape" : "portrait")
 	}
 
 	const { children, contentContainerStyle, disableKBDismissScroll, keyboardShouldPersistTaps, padder, style } = props
 	const containerStyle = { flex: 1 }
-	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
+	const defaultStyle = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
 
-	return variables.isIphoneX ? (
+	return defaultStyle.isIphoneX ? (
 		<SafeAreaView style={containerStyle}>
 			<KeyboardAwareScrollView
 				automaticallyAdjustContentInsets={false}
@@ -36,7 +37,7 @@ const Content = props => {
 				}}
 				{...props}
 				style={style}
-				contentContainerStyle={[{ padding: padder ? variables.contentPadding : undefined }, contentContainerStyle]}>
+				contentContainerStyle={[{ padding: padder ? defaultStyle.contentPadding : undefined }, contentContainerStyle]}>
 				{children}
 			</KeyboardAwareScrollView>
 		</SafeAreaView>
@@ -50,7 +51,7 @@ const Content = props => {
 				_this._root = c
 			}}
 			{...props}
-			contentContainerStyle={[{ padding: padder ? variables.contentPadding : undefined }, contentContainerStyle]}>
+			contentContainerStyle={[{ padding: padder ? defaultStyle.contentPadding : undefined }, contentContainerStyle]}>
 			{children}
 		</KeyboardAwareScrollView>
 	)

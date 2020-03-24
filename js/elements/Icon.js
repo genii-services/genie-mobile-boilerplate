@@ -8,7 +8,7 @@ const androidIconz = require("/data/iconz.android.json")
 const { itsIOS } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
 const { useStore } = require("/hooks")
-const variable = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
 const IconNB = require("./IconNB")
 
@@ -16,11 +16,10 @@ const Icon = props => {
 	const [theme] = useStore("theme")
 
 	const getName = () => {
-		const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
-		const platformStyle = variables.platformStyle
-		const platform = variables.platform
+		const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
+		const { platformStyle, platform } = style
 
-		if ((props.type || variables.iconFamily) === "Ionicons") {
+		if ((props.type || style.iconFamily) === "Ionicons") {
 			const icon = platform === "ios" && platformStyle !== "material" ? iosIconz[props.name] : androidIconz[props.name]
 			return typeof icon !== "object"
 				? props.name

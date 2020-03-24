@@ -5,7 +5,7 @@ const { Animated, TouchableWithoutFeedback, FlatList, StyleSheet, View } = requi
 
 const { CENTER, ROW, SPACE_BETWEEN } = require("/constants/style")
 const { useState, useStore } = require("/hooks")
-const variable = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
 const Text = require("./Text")
 const Icon = require("./Icon")
@@ -13,25 +13,25 @@ const Icon = require("./Icon")
 const DefaultHeader = props => {
 	const [theme] = useStore("theme")
 	const { expanded, expandedIcon, expandedIconStyle, headerStyle, icon, iconStyle, title } = props
-	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
+	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
 	return (
 		<View
 			style={[
 				// eslint-disable-next-line no-use-before-define
 				styles.defaultHeader,
-				headerStyle || { backgroundColor: variables.headerStyle },
+				headerStyle || { backgroundColor: style.headerStyle },
 			]}>
 			<Text> {title}</Text>
 			<Icon
 				style={[
-					{ fontSize: variables.accordionIconFontSize },
+					{ fontSize: style.accordionIconFontSize },
 					expanded
 						? expandedIcon && expandedIconStyle
 							? expandedIconStyle
-							: { color: variables.expandedIconStyle }
+							: { color: style.expandedIconStyle }
 						: icon && iconStyle
 						? iconStyle
-						: { color: variables.iconStyle },
+						: { color: style.iconStyle },
 				]}
 				name={expanded ? expandedIcon || "ios-arrow-up" : icon || "ios-arrow-down"}
 			/>
@@ -42,9 +42,9 @@ const DefaultHeader = props => {
 const DefaultContent = props => {
 	const [theme] = useStore("theme")
 	const { content, contentStyle } = props
-	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
+	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
 	return (
-		<Text style={[{ padding: variable.accordionContentPadding }, contentStyle || { backgroundColor: variables.contentStyle }]}>
+		<Text style={[{ padding: defaultThemeStyle.accordionContentPadding }, contentStyle || { backgroundColor: style.contentStyle }]}>
 			{content}
 		</Text>
 	)
@@ -132,15 +132,15 @@ const Accordion = ({
 
 	const setSelected = index => set_selected(_selected != index ? index : undefined)
 
-	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
+	const defaultStyle = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
 	return (
 		<FlatList
 			data={dataArray}
 			extraData={_selected}
 			style={[
 				{
-					borderColor: variables.accordionBorderColor,
-					borderWidth: variables.borderWidth,
+					borderColor: defaultStyle.accordionBorderColor,
+					borderWidth: defaultStyle.borderWidth,
 				},
 				style,
 			]}
@@ -172,7 +172,7 @@ const Accordion = ({
 const styles = StyleSheet.create({
 	defaultHeader: {
 		flexDirection: ROW,
-		padding: variable.accordionContentPadding,
+		padding: defaultThemeStyle.accordionContentPadding,
 		justifyContent: SPACE_BETWEEN,
 		alignItems: CENTER,
 	},

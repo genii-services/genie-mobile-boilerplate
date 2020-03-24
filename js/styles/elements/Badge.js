@@ -1,34 +1,34 @@
 /** Element Style */
 const { CENTER, FLEX_START } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
-const defaultTheme = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (theme = defaultTheme) => {
+module.exports = (style = defaultThemeStyle) => {
 	const badgeTheme = {
 		".primary": {
-			backgroundColor: theme.buttonPrimaryBg,
+			backgroundColor: style.buttonPrimaryBg,
 		},
 		".warning": {
-			backgroundColor: theme.buttonWarningBg,
+			backgroundColor: style.buttonWarningBg,
 		},
 		".info": {
-			backgroundColor: theme.buttonInfoBg,
+			backgroundColor: style.buttonInfoBg,
 		},
 		".success": {
-			backgroundColor: theme.buttonSuccessBg,
+			backgroundColor: style.buttonSuccessBg,
 		},
 		".danger": {
-			backgroundColor: theme.buttonDangerBg,
+			backgroundColor: style.buttonDangerBg,
 		},
 		"elements/Text": {
-			color: theme.badgeColor,
-			fontSize: theme.fontSizeBase,
-			lineHeight: theme.lineHeight - 1,
+			color: style.badgeColor,
+			fontSize: style.fontSizeBase,
+			lineHeight: style.lineHeight - 1,
 			textAlign: CENTER,
 			paddingHorizontal: 3,
 		},
-		backgroundColor: theme.badgeBg,
-		padding: theme.badgePadding,
+		backgroundColor: style.badgeBg,
+		padding: style.badgePadding,
 		paddingHorizontal: 6,
 		alignSelf: FLEX_START,
 		justifyContent: itsIOS && CENTER,

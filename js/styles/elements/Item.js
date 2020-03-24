@@ -1,10 +1,10 @@
 /** Element Style */
 const { CENTER, FLEX_START, ROW, TRANSPARENT } = require("/constants/style")
 const { itsIOS, deviceWidth } = require("/utils/device")
-const defaultTheme = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (theme = defaultTheme) => {
-	const itemTheme = {
+module.exports = (style = defaultThemeStyle) => {
+	return {
 		".floatingLabel": {
 			"elements/Input": {
 				height: 50,
@@ -12,7 +12,7 @@ module.exports = (theme = defaultTheme) => {
 				paddingTop: 3,
 				paddingBottom: 7,
 				".multiline": {
-					minHeight: theme.inputHeightBase,
+					minHeight: style.inputHeightBase,
 					paddingTop: itsIOS ? 10 : 3,
 					paddingBottom: itsIOS ? 14 : 10,
 				},
@@ -30,11 +30,11 @@ module.exports = (theme = defaultTheme) => {
 				flex: 1,
 				height: null,
 				width: null,
-				fontSize: theme.inputFontSize,
+				fontSize: style.inputFontSize,
 			},
 			"elements/Input": {
 				flex: 2,
-				fontSize: theme.inputFontSize,
+				fontSize: style.inputFontSize,
 			},
 		},
 		".stackedLabel": {
@@ -45,23 +45,23 @@ module.exports = (theme = defaultTheme) => {
 				right: null,
 				paddingTop: 5,
 				alignSelf: FLEX_START,
-				fontSize: theme.inputFontSize - 2,
+				fontSize: style.inputFontSize - 2,
 			},
 			"elements/Icon": { marginTop: 36 },
 			"elements/Input": {
 				alignSelf: itsIOS ? "stretch" : FLEX_START,
 				flex: 1,
 				width: itsIOS ? null : deviceWidth - 25,
-				fontSize: theme.inputFontSize,
-				lineHeight: theme.inputLineHeight - 6,
-				".secureTextEntry": { fontSize: theme.inputFontSize },
+				fontSize: style.inputFontSize,
+				lineHeight: style.inputLineHeight - 6,
+				".secureTextEntry": { fontSize: style.inputFontSize },
 				".multiline": {
 					paddingTop: itsIOS ? 9 : undefined,
 					paddingBottom: itsIOS ? 9 : undefined,
 				},
 			},
 			flexDirection: null,
-			minHeight: theme.inputHeightBase + 15,
+			minHeight: style.inputHeightBase + 15,
 		},
 		".inlineLabel": {
 			"elements/Label": {
@@ -72,17 +72,17 @@ module.exports = (theme = defaultTheme) => {
 				paddingRight: 20,
 				height: null,
 				width: null,
-				fontSize: theme.inputFontSize,
+				fontSize: style.inputFontSize,
 			},
 			"elements/Input": {
 				paddingLeft: 5,
-				fontSize: theme.inputFontSize,
+				fontSize: style.inputFontSize,
 			},
 			flexDirection: ROW,
 		},
 		"elements/Label": {
-			fontSize: theme.inputFontSize,
-			color: theme.inputColorPlaceholder,
+			fontSize: style.inputFontSize,
+			color: style.inputColorPlaceholder,
 			paddingRight: 5,
 		},
 		"elements/Icon": {
@@ -97,27 +97,27 @@ module.exports = (theme = defaultTheme) => {
 			".multiline": {
 				height: null,
 			},
-			height: theme.inputHeightBase,
-			color: theme.inputColor,
+			height: style.inputHeightBase,
+			color: style.inputColor,
 			flex: 1,
 			top: itsIOS ? 1.5 : undefined,
-			fontSize: theme.inputFontSize,
+			fontSize: style.inputFontSize,
 		},
 		".underline": {
 			"elements/Input": {
 				paddingLeft: 15,
 			},
 			".success": {
-				borderColor: theme.inputSuccessBorderColor,
+				borderColor: style.inputSuccessBorderColor,
 			},
 			".error": {
-				borderColor: theme.inputErrorBorderColor,
+				borderColor: style.inputErrorBorderColor,
 			},
-			borderWidth: theme.borderWidth * 2,
+			borderWidth: style.borderWidth * 2,
 			borderTopWidth: 0,
 			borderRightWidth: 0,
 			borderLeftWidth: 0,
-			borderColor: theme.inputBorderColor,
+			borderColor: style.inputBorderColor,
 		},
 		".regular": {
 			"elements/Input": {
@@ -127,13 +127,13 @@ module.exports = (theme = defaultTheme) => {
 				paddingLeft: 10,
 			},
 			".success": {
-				borderColor: theme.inputSuccessBorderColor,
+				borderColor: style.inputSuccessBorderColor,
 			},
 			".error": {
-				borderColor: theme.inputErrorBorderColor,
+				borderColor: style.inputErrorBorderColor,
 			},
-			borderWidth: theme.borderWidth * 2,
-			borderColor: theme.inputBorderColor,
+			borderWidth: style.borderWidth * 2,
+			borderColor: style.inputBorderColor,
 		},
 		".rounded": {
 			"elements/Input": {
@@ -143,62 +143,62 @@ module.exports = (theme = defaultTheme) => {
 				paddingLeft: 10,
 			},
 			".success": {
-				borderColor: theme.inputSuccessBorderColor,
+				borderColor: style.inputSuccessBorderColor,
 			},
 			".error": {
-				borderColor: theme.inputErrorBorderColor,
+				borderColor: style.inputErrorBorderColor,
 			},
-			borderWidth: theme.borderWidth * 2,
+			borderWidth: style.borderWidth * 2,
 			borderRadius: 30,
-			borderColor: theme.inputBorderColor,
+			borderColor: style.inputBorderColor,
 		},
 
 		".success": {
 			"elements/Icon": {
-				color: theme.inputSuccessBorderColor,
+				color: style.inputSuccessBorderColor,
 			},
 			"elements/IconNB": {
-				color: theme.inputSuccessBorderColor,
+				color: style.inputSuccessBorderColor,
 			},
 			".rounded": {
 				borderRadius: 30,
-				borderColor: theme.inputSuccessBorderColor,
+				borderColor: style.inputSuccessBorderColor,
 			},
 			".regular": {
-				borderColor: theme.inputSuccessBorderColor,
+				borderColor: style.inputSuccessBorderColor,
 			},
 			".underline": {
-				borderWidth: theme.borderWidth * 2,
+				borderWidth: style.borderWidth * 2,
 				borderTopWidth: 0,
 				borderRightWidth: 0,
 				borderLeftWidth: 0,
-				borderColor: theme.inputSuccessBorderColor,
+				borderColor: style.inputSuccessBorderColor,
 			},
-			borderColor: theme.inputSuccessBorderColor,
+			borderColor: style.inputSuccessBorderColor,
 		},
 
 		".error": {
 			"elements/Icon": {
-				color: theme.inputErrorBorderColor,
+				color: style.inputErrorBorderColor,
 			},
 			"elements/IconNB": {
-				color: theme.inputErrorBorderColor,
+				color: style.inputErrorBorderColor,
 			},
 			".rounded": {
 				borderRadius: 30,
-				borderColor: theme.inputErrorBorderColor,
+				borderColor: style.inputErrorBorderColor,
 			},
 			".regular": {
-				borderColor: theme.inputErrorBorderColor,
+				borderColor: style.inputErrorBorderColor,
 			},
 			".underline": {
-				borderWidth: theme.borderWidth * 2,
+				borderWidth: style.borderWidth * 2,
 				borderTopWidth: 0,
 				borderRightWidth: 0,
 				borderLeftWidth: 0,
-				borderColor: theme.inputErrorBorderColor,
+				borderColor: style.inputErrorBorderColor,
 			},
-			borderColor: theme.inputErrorBorderColor,
+			borderColor: style.inputErrorBorderColor,
 		},
 		".disabled": {
 			"elements/Icon": {
@@ -212,16 +212,14 @@ module.exports = (theme = defaultTheme) => {
 			marginLeft: 0,
 		},
 
-		borderWidth: theme.borderWidth * 2,
+		borderWidth: style.borderWidth * 2,
 		borderTopWidth: 0,
 		borderRightWidth: 0,
 		borderLeftWidth: 0,
-		borderColor: theme.inputBorderColor,
+		borderColor: style.inputBorderColor,
 		backgroundColor: TRANSPARENT,
 		flexDirection: ROW,
 		alignItems: CENTER,
 		marginLeft: 2,
 	}
-
-	return itemTheme
 }

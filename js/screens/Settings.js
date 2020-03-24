@@ -3,7 +3,6 @@ const { Switch } = require("react-native")
 const { ActionSheet, Button, Container, Content, Icon, List, ListItem, Text } = require("/elements")
 // const { Switch } = require("react-native-switch")
 
-const { RIGHT } = require("/constants/style")
 const config = require("/data/config")
 const { appVersion, buildNumber, deviceID } = require("/utils/device")
 const { upgradeApp } = require("/utils/app")

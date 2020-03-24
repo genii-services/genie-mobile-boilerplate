@@ -1,24 +1,24 @@
 /** Element Style */
 const { CENTER, FLEX_START, FLEX_END, ROW, SPACE_BETWEEN, TRANSPARENT } = require("/constants/style")
 const { itsAndroid, itsIOS } = require("/utils/device")
-const defaultTheme = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (theme = defaultTheme) => {
-	const footerTabTheme = {
+module.exports = (style = defaultThemeStyle) => {
+	return {
 		"elements/Button": {
 			".active": {
 				"elements/Text": {
-					color: theme.tabBarActiveTextColor,
-					fontSize: theme.tabBarTextSize,
+					color: style.tabBarActiveTextColor,
+					fontSize: style.tabBarTextSize,
 					lineHeight: 16,
 				},
 				"elements/Icon": {
-					color: theme.tabBarActiveTextColor,
+					color: style.tabBarActiveTextColor,
 				},
 				"elements/IconNB": {
-					color: theme.tabBarActiveTextColor,
+					color: style.tabBarActiveTextColor,
 				},
-				backgroundColor: theme.tabActiveBgColor,
+				backgroundColor: style.tabActiveBgColor,
 			},
 			flexDirection: null,
 			backgroundColor: TRANSPARENT,
@@ -30,7 +30,7 @@ module.exports = (theme = defaultTheme) => {
 			shadowOpacity: null,
 			alignSelf: CENTER,
 			flex: 1,
-			height: theme.footerHeight,
+			height: style.footerHeight,
 			justifyContent: CENTER,
 			".badge": {
 				"elements/Badge": {
@@ -52,23 +52,21 @@ module.exports = (theme = defaultTheme) => {
 				},
 			},
 			"elements/Icon": {
-				color: theme.tabBarTextColor,
+				color: style.tabBarTextColor,
 			},
 			"elements/IconNB": {
-				color: theme.tabBarTextColor,
+				color: style.tabBarTextColor,
 			},
 			"elements/Text": {
-				color: theme.tabBarTextColor,
-				fontSize: theme.tabBarTextSize,
+				color: style.tabBarTextColor,
+				fontSize: style.tabBarTextSize,
 				lineHeight: 16,
 			},
 		},
-		backgroundColor: itsAndroid ? theme.footerDefaultBg : undefined,
+		backgroundColor: itsAndroid ? style.footerDefaultBg : undefined,
 		flexDirection: ROW,
 		justifyContent: SPACE_BETWEEN,
 		flex: 1,
 		alignSelf: "stretch",
 	}
-
-	return footerTabTheme
 }

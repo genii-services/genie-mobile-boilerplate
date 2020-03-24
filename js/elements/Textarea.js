@@ -4,7 +4,7 @@ console.debug(MODULE_NAME$)
 const React = require("react")
 const { TextInput } = require("react-native")
 
-const variables = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
 
@@ -30,7 +30,7 @@ const Textarea = props => {
 			ref={c => (refs._textInput = c)}
 			{...prepareRootProps()}
 			multiline
-			placeholderTextColor={props.placeholderTextColor || variables.inputColorPlaceholder}
+			placeholderTextColor={props.placeholderTextColor || defaultThemeStyle.inputColorPlaceholder}
 			underlineColorAndroid="rgba(0,0,0,0)"
 			editable={!props.disabled}
 		/>

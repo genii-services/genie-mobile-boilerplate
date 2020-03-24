@@ -1,18 +1,18 @@
 /** Element Style */
 const { CENTER, ROW, SPACE_BETWEEN, TRANSPARENT, WHITE } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
-const defaultTheme = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (theme = defaultTheme) => {
+module.exports = (style = defaultThemeStyle) => {
 	return {
 		".danger": {
-			backgroundColor: theme.brandDanger,
+			backgroundColor: style.brandDanger,
 		},
 		".warning": {
-			backgroundColor: theme.brandWarning,
+			backgroundColor: style.brandWarning,
 		},
 		".success": {
-			backgroundColor: theme.brandSuccess,
+			backgroundColor: style.brandSuccess,
 		},
 		backgroundColor: "rgba(0,0,0,0.8)",
 		borderRadius: itsIOS ? 5 : 0,

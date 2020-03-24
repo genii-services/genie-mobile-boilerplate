@@ -7,7 +7,7 @@ const { TouchableOpacity, Platform, View, TouchableNativeFeedback, StyleSheet } 
 
 const { CENTER, ROW, TRANSPARENT } = require("/constants/style")
 const { useStore, useRefs } = require("/hooks")
-const variable = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 const { itsIOS } = require("/utils/device")
 const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
@@ -21,8 +21,9 @@ const Button = props => {
 	const getInitialStyle = () => {
 		return {
 			borderedBtn: {
-				borderWidth: props.bordered ? variable.buttonDefaultBorderWidth : undefined,
-				borderRadius: props.rounded && props.bordered ? variable.borderRadiusLarge : variable.buttonDefaultBorderRadius,
+				borderWidth: props.bordered ? defaultThemeStyle.buttonDefaultBorderWidth : undefined,
+				borderRadius:
+					props.rounded && props.bordered ? defaultThemeStyle.borderRadiusLarge : defaultThemeStyle.buttonDefaultBorderRadius,
 			},
 		}
 	}
@@ -40,35 +41,35 @@ const Button = props => {
 		return computeProps(props, defaultProps)
 	}
 
-	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
+	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
 	const children = itsIOS
 		? props.children
 		: React.Children.map(props.children, child =>
 				child && child.type === Text
 					? React.cloneElement(child, {
-							uppercase: variables.buttonUppercaseAndroidText,
+							uppercase: style.buttonUppercaseAndroidText,
 							...child.props,
 					  })
 					: child
 		  )
-	if (itsIOS || Platform.OS === "web" || variables.androidRipple === false || Platform.Version < 21) {
+	if (itsIOS || Platform.OS === "web" || style.androidRipple === false || Platform.Version < 21) {
 		return (
 			<TouchableOpacity
 				{...prepareRootProps()}
 				ref={c => (refs._root = c)}
-				activeOpacity={props.activeOpacity > 0 ? props.activeOpacity : variable.buttonDefaultActiveOpacity}>
+				activeOpacity={props.activeOpacity > 0 ? props.activeOpacity : defaultThemeStyle.buttonDefaultActiveOpacity}>
 				{children}
 			</TouchableOpacity>
 		)
 	}
 	if (props.rounded) {
 		const buttonStyle = { ...prepareRootProps().style }
-		const buttonFlex = props.full || props.block ? variable.buttonDefaultFlex : buttonStyle.flex
+		const buttonFlex = props.full || props.block ? defaultThemeStyle.buttonDefaultFlex : buttonStyle.flex
 		return (
 			<View style={[{ maxHeight: buttonStyle.height }, buttonStyle, { paddingTop: undefined, paddingBottom: undefined }]}>
 				<TouchableNativeFeedback
 					ref={c => (refs._root = c)}
-					background={TouchableNativeFeedback.Ripple(props.androidRippleColor || variables.androidRippleColor, true)}
+					background={TouchableNativeFeedback.Ripple(props.androidRippleColor || style.androidRippleColor, true)}
 					{...prepareRootProps()}>
 					<View
 						style={[
@@ -94,7 +95,7 @@ const Button = props => {
 			background={
 				props.transparent
 					? TouchableNativeFeedback.Ripple(TRANSPARENT)
-					: TouchableNativeFeedback.Ripple(variables.androidRippleColor, false)
+					: TouchableNativeFeedback.Ripple(style.androidRippleColor, false)
 			}
 			{...prepareRootProps()}>
 			<View {...prepareRootProps()}>{children}</View>

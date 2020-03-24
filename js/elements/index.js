@@ -13,12 +13,9 @@
 // exports.TitleBar = require("./TitleBar")
 // exports.VLine = require("./VLine")
 
-const { StyleProvider, connectStyle } = require("/styles")
 const { Col, Row, Grid } = require("react-native-easy-grid")
 const { key } = require("lodash")
 
-exports.StyleProvider = StyleProvider
-exports.connectStyle = connectStyle
 exports.keys = key
 exports.Col = Col
 exports.Row = Row
@@ -77,19 +74,3 @@ exports.Thumbnail = require("./Thumbnail")
 exports.Title = require("./Title")
 exports.ToastContainer = require("./ToastContainer")
 exports.View = require("./View")
-
-// Theme
-
-const { Theme } = require("/utils/style")
-const getThemeStyle = require("/styles/elements")
-
-function setDefaultThemeStyle() {
-	const theme = getThemeStyle()
-	Theme.setDefaultThemeStyle(theme)
-}
-
-exports.setDefaultThemeStyle = setDefaultThemeStyle
-exports.variables = require("/styles/themes/default")
-exports.mapPropsToStyleNames = (styleNames, props) => keys(props)
-
-setDefaultThemeStyle()

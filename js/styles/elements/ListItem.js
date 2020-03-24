@@ -4,15 +4,15 @@ const { PixelRatio } = require("react-native")
 const { CENTER, FLEX_START, FLEX_END, ROW, TRANSPARENT, WHITE } = require("/constants/style")
 const { itsAndroid, itsIOS } = require("/utils/device")
 const pickerTheme = require("./Picker")
-const defaultTheme = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (theme = defaultTheme) => {
+module.exports = (style = defaultThemeStyle) => {
 	const selectedStyle = {
-		"elements/Text": { color: theme.listItemSelected },
-		"elements/Icon": { color: theme.listItemSelected },
+		"elements/Text": { color: style.listItemSelected },
+		"elements/Icon": { color: style.listItemSelected },
 	}
 
-	const listItemTheme = {
+	return {
 		"elements/InputGroup": {
 			"elements/Icon": { paddingRight: 5 },
 			"elements/IconNB": { paddingRight: 5 },
@@ -26,8 +26,8 @@ module.exports = (theme = defaultTheme) => {
 			"elements/Item": {
 				"elements/Icon": {
 					backgroundColor: TRANSPARENT,
-					color: theme.dropdownLinkColor,
-					fontSize: itsIOS ? theme.iconFontSize - 10 : theme.iconFontSize - 5,
+					color: style.dropdownLinkColor,
+					fontSize: itsIOS ? style.iconFontSize - 10 : style.iconFontSize - 5,
 					alignItems: CENTER,
 					marginTop: 2,
 					paddingRight: 8,
@@ -57,37 +57,37 @@ module.exports = (theme = defaultTheme) => {
 				width: itsIOS ? undefined : 0,
 				height: itsIOS ? undefined : 0,
 			},
-			backgroundColor: theme.toolbarInputColor,
+			backgroundColor: style.toolbarInputColor,
 			padding: 10,
 			marginLeft: null,
 		},
 		"elements/CheckBox": { marginLeft: -10, marginRight: 10 },
 		".first": {
-			".itemHeader": { paddingTop: theme.listItemPadding + 3 },
+			".itemHeader": { paddingTop: style.listItemPadding + 3 },
 		},
 		".itemHeader": {
-			".first": { paddingTop: theme.listItemPadding + 3 },
-			borderBottomWidth: itsIOS ? theme.borderWidth : null,
+			".first": { paddingTop: style.listItemPadding + 3 },
+			borderBottomWidth: itsIOS ? style.borderWidth : null,
 			marginLeft: null,
-			padding: theme.listItemPadding,
-			paddingLeft: theme.listItemPadding + 5,
-			paddingTop: itsIOS ? theme.listItemPadding + 25 : undefined,
-			paddingBottom: itsAndroid ? theme.listItemPadding + 20 : undefined,
+			padding: style.listItemPadding,
+			paddingLeft: style.listItemPadding + 5,
+			paddingTop: itsIOS ? style.listItemPadding + 25 : undefined,
+			paddingBottom: itsAndroid ? style.listItemPadding + 20 : undefined,
 			flexDirection: ROW,
-			borderColor: theme.listBorderColor,
+			borderColor: style.listBorderColor,
 			"elements/Text": {
 				fontSize: 14,
-				color: itsIOS ? undefined : theme.listNoteColor,
+				color: itsIOS ? undefined : style.listNoteColor,
 			},
 		},
 		".itemDivider": {
 			borderBottomWidth: null,
 			marginLeft: null,
-			padding: theme.listItemPadding,
-			paddingLeft: theme.listItemPadding + 5,
-			backgroundColor: theme.listDividerBg,
+			padding: style.listItemPadding,
+			paddingLeft: style.listItemPadding + 5,
+			backgroundColor: style.listDividerBg,
 			flexDirection: ROW,
-			borderColor: theme.listBorderColor,
+			borderColor: style.listBorderColor,
 		},
 		".selected": {
 			"elements/Left": { ...selectedStyle },
@@ -99,7 +99,7 @@ module.exports = (theme = defaultTheme) => {
 			"elements/Body": {
 				"elements/Text": {
 					".note": {
-						color: theme.listNoteColor,
+						color: style.listNoteColor,
 						fontWeight: "200",
 					},
 					fontWeight: "600",
@@ -108,16 +108,16 @@ module.exports = (theme = defaultTheme) => {
 				alignItems: null,
 				alignSelf: null,
 			},
-			"elements/Icon": { width: theme.iconFontSize - 10, fontSize: theme.iconFontSize - 10 },
-			"elements/IconNB": { width: theme.iconFontSize - 10, fontSize: theme.iconFontSize - 10 },
+			"elements/Icon": { width: style.iconFontSize - 10, fontSize: style.iconFontSize - 10 },
+			"elements/IconNB": { width: style.iconFontSize - 10, fontSize: style.iconFontSize - 10 },
 			"elements/Text": { alignSelf: CENTER },
 			flexDirection: ROW,
 		},
 		"elements/Body": {
 			"elements/Text": {
-				marginHorizontal: theme.listItemPadding,
+				marginHorizontal: style.listItemPadding,
 				".note": {
-					color: theme.listNoteColor,
+					color: style.listNoteColor,
 					fontWeight: "200",
 				},
 			},
@@ -129,28 +129,28 @@ module.exports = (theme = defaultTheme) => {
 			"elements/PickerNB": {
 				"elements/Button": {
 					marginRight: -15,
-					"elements/Text": { color: theme.topTabBarActiveTextColor },
+					"elements/Text": { color: style.topTabBarActiveTextColor },
 				},
 			},
 			"elements/Button": {
 				alignSelf: null,
 				".transparent": {
-					"elements/Text": { color: theme.topTabBarActiveTextColor },
+					"elements/Text": { color: style.topTabBarActiveTextColor },
 				},
 			},
 			"elements/Icon": {
 				alignSelf: null,
-				fontSize: theme.iconFontSize - 8,
+				fontSize: style.iconFontSize - 8,
 				color: "#c9c8cd",
 			},
 			"elements/IconNB": {
 				alignSelf: null,
-				fontSize: theme.iconFontSize - 8,
+				fontSize: style.iconFontSize - 8,
 				color: "#c9c8cd",
 			},
 			"elements/Text": {
 				".note": {
-					color: theme.listNoteColor,
+					color: style.listNoteColor,
 					fontWeight: "200",
 				},
 				alignSelf: null,
@@ -165,14 +165,14 @@ module.exports = (theme = defaultTheme) => {
 		},
 		"elements/Text": {
 			".note": {
-				color: theme.listNoteColor,
+				color: style.listNoteColor,
 				fontWeight: "200",
 			},
 			alignSelf: CENTER,
 		},
 		".last": {
-			marginLeft: -(theme.listItemPadding + 5),
-			paddingLeft: (theme.listItemPadding + 5) * 2,
+			marginLeft: -(style.listItemPadding + 5),
+			paddingLeft: (style.listItemPadding + 5) * 2,
 			top: 1,
 		},
 		".avatar": {
@@ -186,23 +186,23 @@ module.exports = (theme = defaultTheme) => {
 					marginLeft: null,
 				},
 				flex: 1,
-				paddingVertical: theme.listItemPadding,
-				borderBottomWidth: theme.borderWidth,
-				borderColor: theme.listBorderColor,
-				marginLeft: theme.listItemPadding + 5,
+				paddingVertical: style.listItemPadding,
+				borderBottomWidth: style.borderWidth,
+				borderColor: style.listBorderColor,
+				marginLeft: style.listItemPadding + 5,
 			},
 			"elements/Right": {
 				"elements/Text": {
 					".note": {
-						fontSize: theme.noteFontSize - 2,
+						fontSize: style.noteFontSize - 2,
 					},
 				},
 				flex: 0,
-				paddingRight: theme.listItemPadding + 5,
+				paddingRight: style.listItemPadding + 5,
 				alignSelf: "stretch",
-				paddingVertical: theme.listItemPadding,
-				borderBottomWidth: theme.borderWidth,
-				borderColor: theme.listBorderColor,
+				paddingVertical: style.listItemPadding,
+				borderBottomWidth: style.borderWidth,
+				borderColor: style.listBorderColor,
 			},
 			".noBorder": {
 				"elements/Body": { borderBottomWidth: null },
@@ -217,17 +217,17 @@ module.exports = (theme = defaultTheme) => {
 			"elements/Body": {
 				"elements/Text": { marginLeft: null },
 				flex: 1,
-				paddingVertical: theme.listItemPadding + 8,
-				borderBottomWidth: theme.borderWidth,
-				borderColor: theme.listBorderColor,
-				marginLeft: theme.listItemPadding + 5,
+				paddingVertical: style.listItemPadding + 8,
+				borderBottomWidth: style.borderWidth,
+				borderColor: style.listBorderColor,
+				marginLeft: style.listItemPadding + 5,
 			},
 			"elements/Right": {
 				"elements/Button": {
 					".transparent": {
 						"elements/Text": {
-							fontSize: theme.listNoteSize,
-							color: theme.sTabBarActiveTextColor,
+							fontSize: style.listNoteSize,
+							color: style.sTabBarActiveTextColor,
 						},
 					},
 					height: null,
@@ -235,10 +235,10 @@ module.exports = (theme = defaultTheme) => {
 				flex: 0,
 				justifyContent: CENTER,
 				alignSelf: "stretch",
-				paddingRight: theme.listItemPadding + 5,
-				paddingVertical: theme.listItemPadding + 5,
-				borderBottomWidth: theme.borderWidth,
-				borderColor: theme.listBorderColor,
+				paddingRight: style.listItemPadding + 5,
+				paddingVertical: style.listItemPadding + 5,
+				borderBottomWidth: style.borderWidth,
+				borderColor: style.listBorderColor,
 			},
 			".noBorder": {
 				"elements/Body": {
@@ -260,18 +260,18 @@ module.exports = (theme = defaultTheme) => {
 				"elements/Right": {
 					borderBottomWidth: null,
 				},
-				borderBottomWidth: theme.borderWidth,
-				borderColor: theme.listBorderColor,
+				borderBottomWidth: style.borderWidth,
+				borderColor: style.listBorderColor,
 			},
 			"elements/Left": {
 				"elements/Button": {
 					"elements/IconNB": {
 						marginHorizontal: null,
-						fontSize: theme.iconFontSize - 5,
+						fontSize: style.iconFontSize - 5,
 					},
 					"elements/Icon": {
 						marginHorizontal: null,
-						fontSize: theme.iconFontSize - 8,
+						fontSize: style.iconFontSize - 8,
 					},
 					alignSelf: CENTER,
 					height: 29,
@@ -283,14 +283,14 @@ module.exports = (theme = defaultTheme) => {
 					justifyContent: CENTER,
 				},
 				"elements/Icon": {
-					width: theme.iconFontSize - 5,
-					fontSize: theme.iconFontSize - 2,
+					width: style.iconFontSize - 5,
+					fontSize: style.iconFontSize - 2,
 				},
 				"elements/IconNB": {
-					width: theme.iconFontSize - 5,
-					fontSize: theme.iconFontSize - 2,
+					width: style.iconFontSize - 5,
+					fontSize: style.iconFontSize - 2,
 				},
-				paddingRight: theme.listItemPadding + 5,
+				paddingRight: style.listItemPadding + 5,
 				flex: 0,
 				height: 44,
 				justifyContent: CENTER,
@@ -305,7 +305,7 @@ module.exports = (theme = defaultTheme) => {
 				height: 44,
 				justifyContent: CENTER,
 				borderBottomWidth: 1 / PixelRatio.getPixelSizeForLayoutSize(1),
-				borderColor: theme.listBorderColor,
+				borderColor: style.listBorderColor,
 			},
 			"elements/Right": {
 				"elements/Text": {
@@ -315,14 +315,14 @@ module.exports = (theme = defaultTheme) => {
 				},
 				"elements/IconNB": {
 					color: "#C8C7CC",
-					fontSize: theme.iconFontSize - 10,
+					fontSize: style.iconFontSize - 10,
 					alignSelf: CENTER,
 					paddingLeft: 10,
 					paddingTop: 3,
 				},
 				"elements/Icon": {
 					color: "#C8C7CC",
-					fontSize: theme.iconFontSize - 10,
+					fontSize: style.iconFontSize - 10,
 					alignSelf: CENTER,
 					paddingLeft: 10,
 					paddingTop: 3,
@@ -339,8 +339,8 @@ module.exports = (theme = defaultTheme) => {
 				height: 44,
 				justifyContent: FLEX_END,
 				borderBottomWidth: 1 / PixelRatio.getPixelSizeForLayoutSize(1),
-				borderColor: theme.listBorderColor,
-				paddingRight: theme.listItemPadding + 5,
+				borderColor: style.listBorderColor,
+				paddingRight: style.listItemPadding + 5,
 			},
 			".noBorder": {
 				"elements/Body": { borderBottomWidth: null },
@@ -357,18 +357,16 @@ module.exports = (theme = defaultTheme) => {
 		},
 		".noIndent": {
 			marginLeft: null,
-			padding: theme.listItemPadding,
-			paddingLeft: theme.listItemPadding + 6,
+			padding: style.listItemPadding,
+			paddingLeft: style.listItemPadding + 6,
 		},
 		alignItems: CENTER,
 		flexDirection: ROW,
-		paddingRight: theme.listItemPadding + 6,
-		paddingVertical: theme.listItemPadding + 3,
-		marginLeft: theme.listItemPadding + 6,
+		paddingRight: style.listItemPadding + 6,
+		paddingVertical: style.listItemPadding + 3,
+		marginLeft: style.listItemPadding + 6,
 		borderBottomWidth: 1 / PixelRatio.getPixelSizeForLayoutSize(1),
-		backgroundColor: theme.listBg,
-		borderColor: theme.listBorderColor,
+		backgroundColor: style.listBg,
+		borderColor: style.listBorderColor,
 	}
-
-	return listItemTheme
 }

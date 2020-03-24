@@ -7,42 +7,42 @@ const Ionicons = require("react-native-vector-icons/Ionicons")
 
 const { useStore } = require("/hooks")
 const { connectStyle } = require("/utils/style")
-const variable = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 const { computeProps } = require("/utils/props")
 const { itsIOS } = require("/utils/device")
 
 const CheckBox = props => {
 	const [theme] = useStore("theme")
 
-	const getInitialStyle = variables => {
+	const getInitialStyle = style => {
 		const { color, checked } = props
 		return {
 			checkStyle: {
-				borderColor: color || variables.checkboxBgColor,
-				backgroundColor: checked === true ? color || variables.checkboxBgColor : variables.checkboxDefaultColor,
+				borderColor: color || style.checkboxBgColor,
+				backgroundColor: checked === true ? color || style.checkboxBgColor : style.checkboxDefaultColor,
 			},
 		}
 	}
 
-	const prepareRootProps = variables => {
+	const prepareRootProps = style => {
 		const defaultProps = {
-			style: getInitialStyle(variables).checkStyle,
+			style: getInitialStyle(style).checkStyle,
 		}
 		return computeProps(props, defaultProps)
 	}
 
 	const { checked } = props
-	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
-	const platformStyle = variables.platformStyle
+	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
+	const platformStyle = style.platformStyle
 	return (
-		<TouchableOpacity {...prepareRootProps(variables)}>
+		<TouchableOpacity {...prepareRootProps(style)}>
 			<Ionicons
 				style={{
-					color: checked === true ? variables.checkboxTickColor : variables.checkboxDefaultColor,
-					fontSize: variables.CheckboxFontSize,
-					lineHeight: variables.CheckboxIconSize,
-					marginTop: variables.CheckboxIconMarginTop,
-					textShadowRadius: variables.checkboxTextShadowRadius,
+					color: checked === true ? style.checkboxTickColor : style.checkboxDefaultColor,
+					fontSize: style.CheckboxFontSize,
+					lineHeight: style.CheckboxIconSize,
+					marginTop: style.CheckboxIconMarginTop,
+					textShadowRadius: style.checkboxTextShadowRadius,
 				}}
 				name={itsIOS && platformStyle !== "material" ? "ios-checkmark" : "md-checkmark"}
 			/>

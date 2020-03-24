@@ -1,107 +1,107 @@
 /** Element Style */
 const { CENTER, COLUMN, FLEX_END, MATERIAL, ROW, SPACE_BETWEEN, TRANSPARENT } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
-const defaultTheme = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (theme = defaultTheme) => {
-	const { borderWidth, platformStyle } = theme
+module.exports = (style = defaultThemeStyle) => {
+	const { borderWidth, platformStyle } = style
 	const borderWidthX2 = borderWidth * 2
 	const darkCommon = {
-		"elements/Text": { color: theme.brandDark },
-		"elements/Icon": { color: theme.brandDark },
-		"elements/IconNB": { color: theme.brandDark },
+		"elements/Text": { color: style.brandDark },
+		"elements/Icon": { color: style.brandDark },
+		"elements/IconNB": { color: style.brandDark },
 	}
 	const lightCommon = {
-		"elements/Text": { color: theme.brandLight },
-		"elements/Icon": { color: theme.brandLight },
-		"elements/IconNB": { color: theme.brandLight },
+		"elements/Text": { color: style.brandLight },
+		"elements/Icon": { color: style.brandLight },
+		"elements/IconNB": { color: style.brandLight },
 	}
 	const primaryCommon = {
-		"elements/Text": { color: theme.buttonPrimaryBg },
-		"elements/Icon": { color: theme.buttonPrimaryBg },
-		"elements/IconNB": { color: theme.buttonPrimaryBg },
+		"elements/Text": { color: style.buttonPrimaryBg },
+		"elements/Icon": { color: style.buttonPrimaryBg },
+		"elements/IconNB": { color: style.buttonPrimaryBg },
 	}
 	const successCommon = {
-		"elements/Text": { color: theme.buttonSuccessBg },
-		"elements/Icon": { color: theme.buttonSuccessBg },
-		"elements/IconNB": { color: theme.buttonSuccessBg },
+		"elements/Text": { color: style.buttonSuccessBg },
+		"elements/Icon": { color: style.buttonSuccessBg },
+		"elements/IconNB": { color: style.buttonSuccessBg },
 	}
 	const infoCommon = {
-		"elements/Text": { color: theme.buttonInfoBg },
-		"elements/Icon": { color: theme.buttonInfoBg },
-		"elements/IconNB": { color: theme.buttonInfoBg },
+		"elements/Text": { color: style.buttonInfoBg },
+		"elements/Icon": { color: style.buttonInfoBg },
+		"elements/IconNB": { color: style.buttonInfoBg },
 	}
 	const warningCommon = {
-		"elements/Text": { color: theme.buttonWarningBg },
-		"elements/Icon": { color: theme.buttonWarningBg },
-		"elements/IconNB": { color: theme.buttonWarningBg },
+		"elements/Text": { color: style.buttonWarningBg },
+		"elements/Icon": { color: style.buttonWarningBg },
+		"elements/IconNB": { color: style.buttonWarningBg },
 	}
 	const dangerCommon = {
-		"elements/Text": { color: theme.buttonDangerBg },
-		"elements/Icon": { color: theme.buttonDangerBg },
-		"elements/IconNB": { color: theme.buttonDangerBg },
+		"elements/Text": { color: style.buttonDangerBg },
+		"elements/Icon": { color: style.buttonDangerBg },
+		"elements/IconNB": { color: style.buttonDangerBg },
 	}
-	const buttonTheme = {
+	return {
 		".disabled": {
 			".transparent": {
 				backgroundColor: TRANSPARENT,
-				"elements/Text": { color: theme.buttonDisabledBg },
-				"elements/Icon": { color: theme.buttonDisabledBg },
-				"elements/IconNB": { color: theme.buttonDisabledBg },
+				"elements/Text": { color: style.buttonDisabledBg },
+				"elements/Icon": { color: style.buttonDisabledBg },
+				"elements/IconNB": { color: style.buttonDisabledBg },
 			},
-			"elements/Icon": { color: theme.brandLight },
-			"elements/IconNB": { color: theme.brandLight },
-			backgroundColor: theme.buttonDisabledBg,
+			"elements/Icon": { color: style.brandLight },
+			"elements/IconNB": { color: style.brandLight },
+			backgroundColor: style.buttonDisabledBg,
 		},
 		".bordered": {
 			".dark": {
 				...darkCommon,
 				backgroundColor: TRANSPARENT,
-				borderColor: theme.brandDark,
+				borderColor: style.brandDark,
 				borderWidth: borderWidthX2,
 			},
 			".light": {
 				...lightCommon,
 				backgroundColor: TRANSPARENT,
-				borderColor: theme.brandLight,
+				borderColor: style.brandLight,
 				borderWidth: borderWidthX2,
 			},
 			".primary": {
 				...primaryCommon,
 				backgroundColor: TRANSPARENT,
-				borderColor: theme.buttonPrimaryBg,
+				borderColor: style.buttonPrimaryBg,
 				borderWidth: borderWidthX2,
 			},
 			".success": {
 				...successCommon,
 				backgroundColor: TRANSPARENT,
-				borderColor: theme.buttonSuccessBg,
+				borderColor: style.buttonSuccessBg,
 				borderWidth: borderWidthX2,
 			},
 			".info": {
 				...infoCommon,
 				backgroundColor: TRANSPARENT,
-				borderColor: theme.buttonInfoBg,
+				borderColor: style.buttonInfoBg,
 				borderWidth: borderWidthX2,
 			},
 			".warning": {
 				...warningCommon,
 				backgroundColor: TRANSPARENT,
-				borderColor: theme.buttonWarningBg,
+				borderColor: style.buttonWarningBg,
 				borderWidth: borderWidthX2,
 			},
 			".danger": {
 				...dangerCommon,
 				backgroundColor: TRANSPARENT,
-				borderColor: theme.buttonDangerBg,
+				borderColor: style.buttonDangerBg,
 				borderWidth: borderWidthX2,
 			},
 			".disabled": {
 				backgroundColor: TRANSPARENT,
-				borderColor: theme.buttonDisabledBg,
+				borderColor: style.buttonDisabledBg,
 				borderWidth: borderWidthX2,
 				"elements/Text": {
-					color: theme.buttonDisabledBg,
+					color: style.buttonDisabledBg,
 				},
 			},
 			...primaryCommon,
@@ -116,38 +116,38 @@ module.exports = (theme = defaultTheme) => {
 
 		".dark": {
 			".bordered": { ...darkCommon },
-			backgroundColor: theme.brandDark,
+			backgroundColor: style.brandDark,
 		},
 		".light": {
 			".transparent": { ...lightCommon, backgroundColor: TRANSPARENT },
 			".bordered": { ...lightCommon },
 			...darkCommon,
-			backgroundColor: theme.brandLight,
+			backgroundColor: style.brandLight,
 		},
 
 		".primary": {
 			".bordered": { ...primaryCommon },
-			backgroundColor: theme.buttonPrimaryBg,
+			backgroundColor: style.buttonPrimaryBg,
 		},
 
 		".success": {
 			".bordered": { ...successCommon },
-			backgroundColor: theme.buttonSuccessBg,
+			backgroundColor: style.buttonSuccessBg,
 		},
 
 		".info": {
 			".bordered": { ...infoCommon },
-			backgroundColor: theme.buttonInfoBg,
+			backgroundColor: style.buttonInfoBg,
 		},
 
 		".warning": {
 			".bordered": { ...warningCommon },
-			backgroundColor: theme.buttonWarningBg,
+			backgroundColor: style.buttonWarningBg,
 		},
 
 		".danger": {
 			".bordered": { ...dangerCommon },
-			backgroundColor: theme.buttonDangerBg,
+			backgroundColor: style.buttonDangerBg,
 		},
 
 		".block": {
@@ -162,7 +162,7 @@ module.exports = (theme = defaultTheme) => {
 		},
 
 		".rounded": {
-			borderRadius: theme.borderRadiusLarge,
+			borderRadius: style.borderRadiusLarge,
 		},
 
 		".transparent": {
@@ -182,11 +182,11 @@ module.exports = (theme = defaultTheme) => {
 			".light": { ...lightCommon },
 			".disabled": {
 				backgroundColor: TRANSPARENT,
-				borderColor: theme.buttonDisabledBg,
+				borderColor: style.buttonDisabledBg,
 				borderWidth: borderWidthX2,
-				"elements/Text": { color: theme.buttonDisabledBg },
-				"elements/Icon": { color: theme.buttonDisabledBg },
-				"elements/IconNB": { color: theme.buttonDisabledBg },
+				"elements/Text": { color: style.buttonDisabledBg },
+				"elements/Icon": { color: style.buttonDisabledBg },
+				"elements/IconNB": { color: style.buttonDisabledBg },
 			},
 		},
 
@@ -210,23 +210,23 @@ module.exports = (theme = defaultTheme) => {
 		},
 
 		"elements/Text": {
-			fontFamily: theme.buttonFontFamily,
+			fontFamily: style.buttonFontFamily,
 			marginLeft: 0,
 			marginRight: 0,
-			color: theme.inverseTextColor,
-			fontSize: theme.buttonTextSize,
+			color: style.inverseTextColor,
+			fontSize: style.buttonTextSize,
 			paddingHorizontal: 16,
 			backgroundColor: TRANSPARENT,
 		},
 
 		"elements/Icon": {
-			color: theme.inverseTextColor,
+			color: style.inverseTextColor,
 			fontSize: 24,
 			marginHorizontal: 16,
 			paddingTop: itsIOS && 2,
 		},
 		"elements/IconNB": {
-			color: theme.inverseTextColor,
+			color: style.inverseTextColor,
 			fontSize: 24,
 			marginHorizontal: 16,
 			paddingTop: itsIOS && 2,
@@ -247,20 +247,19 @@ module.exports = (theme = defaultTheme) => {
 				".note": { fontSize: 16, lineHeight: null },
 			},
 		},
-		paddingVertical: theme.buttonPadding,
-		backgroundColor: theme.buttonPrimaryBg,
-		borderRadius: theme.borderRadiusBase,
-		borderColor: theme.buttonPrimaryBg,
+		paddingVertical: style.buttonPadding,
+		backgroundColor: style.buttonPrimaryBg,
+		borderRadius: style.borderRadiusBase,
+		borderColor: style.buttonPrimaryBg,
 		borderWidth: null,
 		height: 45,
 		flexDirection: ROW,
 		elevation: 2,
-		shadowColor: platformStyle === MATERIAL && theme.brandDark,
+		shadowColor: platformStyle === MATERIAL && style.brandDark,
 		shadowOffset: platformStyle === MATERIAL && { width: 0, height: 2 },
 		shadowOpacity: platformStyle === MATERIAL && 0.2,
 		shadowRadius: platformStyle === MATERIAL && 1.2,
 		alignItems: CENTER,
 		justifyContent: SPACE_BETWEEN,
 	}
-	return buttonTheme
 }

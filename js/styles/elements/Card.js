@@ -1,14 +1,14 @@
 /** Element Style */
 const { BLACK, FLEX_START, FLEX_END, NOWRAP, SPACE_BETWEEN, TRANSPARENT } = require("/constants/style")
-const defaultTheme = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (theme = defaultTheme) => {
+module.exports = (style = defaultThemeStyle) => {
 	const {
 		borderWidth: borderWidth,
 		cardBorderRadius: borderRadius,
 		cardBorderColor: borderColor,
 		cardDefaultBg: backgroundColor,
-	} = theme
+	} = style
 
 	return {
 		".transparent": {

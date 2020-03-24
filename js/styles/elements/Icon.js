@@ -1,9 +1,9 @@
 /** Element Style */
-const defaultTheme = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (theme = defaultTheme) => {
+module.exports = (style = defaultThemeStyle) => {
 	return {
-		fontSize: theme.iconFontSize,
-		color: defaultTheme.textColor,
+		fontSize: style.iconFontSize,
+		color: defaultThemeStyle.textColor,
 	}
 }

@@ -1,14 +1,14 @@
 /** Element Style */
-const defaultTheme = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (theme = defaultTheme) => {
+module.exports = (style = defaultThemeStyle) => {
 	return {
-		fontSize: theme.DefaultFontSize,
-		fontFamily: theme.fontFamily,
-		color: theme.textColor,
+		fontSize: style.DefaultFontSize,
+		fontFamily: style.fontFamily,
+		color: style.textColor,
 		".note": {
 			color: "#a7a7a7",
-			fontSize: theme.noteFontSize,
+			fontSize: style.noteFontSize,
 		},
 	}
 }

@@ -1,10 +1,10 @@
 /** Element Style */
-const defaultTheme = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (theme = defaultTheme) => {
+module.exports = (style = defaultThemeStyle) => {
 	return {
 		".padder": {
-			padding: theme.contentPadding,
+			padding: style.contentPadding,
 		},
 	}
 }

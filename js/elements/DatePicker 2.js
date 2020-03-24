@@ -3,7 +3,7 @@ const { Modal, View, DatePickerIOS, DatePickerAndroid } = require("react-native"
 
 const { useState, useStore } = require("/hooks")
 const { itsAndroid } = require("/utils/device")
-const variable = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
 const Text = require("./Text")
 
@@ -62,7 +62,7 @@ const DatePicker = props => {
 		timeZoneOffsetInMinutes,
 	} = props
 
-	const variables = theme ? theme["@@shoutem.theme/themeStyle"].variables : variable
+	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
 
 	return (
 		<View>
@@ -70,7 +70,7 @@ const DatePicker = props => {
 				<Text
 					onPress={() => !disabled && showDatePicker()}
 					style={[
-						{ padding: variables.datePickerPadding, color: variables.datePickerTextColor },
+						{ padding: style.datePickerPadding, color: style.datePickerTextColor },
 						_chosenDate ? textStyle : placeHolderTextStyle,
 					]}>
 					{_chosenDate ? formatChosenDate(_chosenDate) : placeHolderText || "Select Date"}
@@ -85,8 +85,8 @@ const DatePicker = props => {
 						<Text
 							onPress={() => set_modalVisible(false)}
 							style={{
-								backgroundColor: variables.datePickerBg,
-								flex: variables.datePickerFlex,
+								backgroundColor: style.datePickerBg,
+								flex: style.datePickerFlex,
 							}}
 						/>
 						<DatePickerIOS

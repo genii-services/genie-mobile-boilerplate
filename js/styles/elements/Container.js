@@ -1,11 +1,11 @@
 /** Element Style */
 const { itsIOS, deviceHeight } = require("/utils/device")
-const defaultTheme = require("/styles/themes/default")
+const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (theme = defaultTheme) => {
+module.exports = (style = defaultThemeStyle) => {
 	return {
 		flex: 1,
 		height: itsIOS ? deviceHeight : deviceHeight - 20,
-		backgroundColor: theme.containerBgColor,
+		backgroundColor: style.containerBgColor,
 	}
 }

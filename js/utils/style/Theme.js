@@ -1,14 +1,23 @@
 const { PropTypes } = require("prop-types")
+const _ = require("lodash")
 
 const resolveIncludes = require("./resolveIncludes")
-const mergeComponentAndThemeStyles = require("./mergeComponentAndThemeStyles")
-const normalizeStyle = require("./StyleNormalizer/normalizeStyle")
+const normalizeStyle = require("./normalizeStyle")
+
+function mergeComponentAndThemeStyles(componentStyle, themeComponentStyle, themeStyle) {
+	const componentThemedStyle = _.merge({}, componentStyle, themeComponentStyle)
+
+	// Picking only required root theme style, used by component.
+	// We do not want to merge whole theme to component style.
+	const intersectedRootThemeStyle = _.pick(themeStyle, _.keys(componentThemedStyle))
+
+	// Merging only common style, not all theme style with component style
+	return _.merge({}, intersectedRootThemeStyle, componentThemedStyle)
+}
 
 // Privates, ideally those should be symbols
 const THEME_STYLE = "@@shoutem.theme/themeStyle"
 const THEME_STYLE_CACHE = "@@shoutem.theme/themeCachedStyle"
-
-let defaultTheme
 
 const resolveStyle = (style, baseStyle) => normalizeStyle(resolveIncludes(style, baseStyle))
 
@@ -40,22 +49,6 @@ exports = module.exports = class Theme {
 	constructor(themeStyle) {
 		this[THEME_STYLE] = resolveStyle(themeStyle)
 		this[THEME_STYLE_CACHE] = {}
-	}
-
-	/**
-	 * Sets the given style as a default theme style.
-	 */
-	static setDefaultThemeStyle(style) {
-		defaultTheme = new Theme(style)
-	}
-
-	/**
-	 * Returns the default theme that will be used as fallback
-	 * if the StyleProvider is not configured in the app.
-	 */
-	static getDefaultTheme() {
-		if (!defaultTheme) defaultTheme = new Theme({})
-		return defaultTheme
 	}
 
 	/**
