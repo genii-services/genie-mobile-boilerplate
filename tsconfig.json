@@ -10,5 +10,5 @@
 		},
 		"outDir": "./"
 	},
-	"include": ["js/**/*", "stores"]
+	"include": ["js/**/*"]
 }
