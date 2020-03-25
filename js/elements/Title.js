@@ -11,7 +11,7 @@ const Title = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
 	Title.propTypes = {
 		...Text.propTypes,
 		style: oneOfType([object, number, array]),

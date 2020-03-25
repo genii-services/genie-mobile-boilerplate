@@ -1,9 +1,8 @@
 /** Element Style */
 const { CENTER, FLEX_START } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	const badgeTheme = {
 		".primary": {
 			backgroundColor: style.buttonPrimaryBg,

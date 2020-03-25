@@ -8,7 +8,6 @@ const androidIconz = require("/data/iconz.android.json")
 const { itsIOS } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
 const { useStore } = require("/hooks")
-const defaultThemeStyle = require("/styles/themes/default")
 
 const IconNB = require("./IconNB")
 
@@ -16,7 +15,7 @@ const Icon = props => {
 	const [theme] = useStore("theme")
 
 	const getName = () => {
-		const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
+		const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
 		const { platformStyle, platform } = style
 
 		if ((props.type || style.iconFamily) === "Ionicons") {
@@ -50,7 +49,7 @@ const Icon = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
 
 	Icon.propTypes = {
 		...IconNB.propTypes,

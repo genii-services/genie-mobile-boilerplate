@@ -1,9 +1,8 @@
 /** Element Style */
 const { CENTER, FLEX_START, FLEX_END, ROW, SPACE_BETWEEN, TRANSPARENT } = require("/constants/style")
 const { itsAndroid, itsIOS } = require("/utils/device")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	return {
 		"elements/Button": {
 			".active": {

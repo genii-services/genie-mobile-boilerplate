@@ -1,5 +1,4 @@
 /** Element Style */
-
 const { TRANSPARENT } = require("/constants/style")
 
 module.exports = () => {

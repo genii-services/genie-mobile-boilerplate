@@ -1,9 +1,8 @@
 /** Segment Element Style */
 const { CENTER, ROW, TRANSPARENT } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	return {
 		height: 45,
 		borderColor: style.segmentBorderColorMain,

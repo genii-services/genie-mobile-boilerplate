@@ -6,7 +6,7 @@ const _ = require("lodash")
 const IconFA = require("react-native-vector-icons/FontAwesome")
 
 const { BOLD, CENTER, COLUMN, WHITE } = require("/constants/style")
-const { itsIOS, itsTablet, screen } = require("/utils/device")
+const { LANDSCAPE, PORTRAIT, PORTRAIT_UPSIDEDOWN, itsIOS, itsTablet, screen } = require("/utils/device")
 const { useStyle } = require("/coordinators")
 
 const Button = require("./Button")
@@ -26,11 +26,11 @@ const BorderButton = props => {
 	const style = getStyle(BorderButton)
 
 	let size, borderSize, ratio
-	if (orientation == "PORTRAIT" || (orientation == "PORTRAITUPSIDEDOWN" && itsIOS && itsTablet)) {
+	if (orientation == PORTRAIT || (orientation == PORTRAIT_UPSIDEDOWN && itsIOS && itsTablet)) {
 		size = Math.min(width, height)
 		ratio = _.findIndex(p_widths, v => size <= v) + 1 || p_widths.length + 1
 		borderSize = size / (3.45 * ratio)
-	} else if (orientation == "LANDSCAPE" || height < width) {
+	} else if (orientation == LANDSCAPE || height < width) {
 		ratio = _.findIndex(l_widths, v => width <= v) + 1 || l_widths.length + 1
 		borderSize = screen.max / (3.45 * ratio)
 	} else {
@@ -83,7 +83,7 @@ const BorderButton = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
 
 	BorderButton.propTypes = {
 		name: string,

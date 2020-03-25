@@ -2,16 +2,15 @@ const MODULE_NAME$ = "elements/Fab"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
-const { Platform, Animated, TouchableOpacity, TouchableNativeFeedback, View, StyleSheet } = require("react-native")
+const { Platform, Animated, TouchableOpacity, TouchableNativeFeedback, View } = require("react-native")
 const { remove, merge, clone } = require("lodash")
 
-const { ABSOLUTE, CENTER, COLUMN, LEFT, RIGHT, ROW } = require("/constants/style")
+const { ABSOLUTE, BLACK, CENTER, COLUMN, LEFT, RIGHT, ROW, WHITE } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 const { computeProps } = require("/utils/props")
-const { connectStyle } = require("/utils/style")
+const { connectStyle, flattenStyle } = require("/utils/style")
 
 const { createAnimatedComponent, useThis } = require("/hooks")
-const defaultThemeStyle = require("/styles/themes/default")
 
 const Button = require("./Button")
 
@@ -27,6 +26,27 @@ const POSITION = {
 	BOTTOM_RIGHT: "bottomRight",
 	TOP_LEFT: "topLeft",
 	TOP_RIGHT: "topRight",
+}
+
+const defaultThemeStyle = {
+	fabBackgroundColor: "blue",
+	fabBorderRadius: 28,
+	fabBottom: 0,
+	fabButtonBorderRadius: 20,
+	fabButtonHeight: 40,
+	fabButtonLeft: 7,
+	fabButtonMarginBottom: 10,
+	fabContainerBottom: 20,
+	fabDefaultPosition: 20,
+	fabElevation: 4,
+	fabIconColor: WHITE,
+	fabIconSize: 24,
+	fabShadowColor: BLACK,
+	fabShadowOffsetHeight: 2,
+	fabShadowOffsetWidth: 0,
+	fabShadowOpacity: 0.4,
+	fabShadowRadius: 2,
+	fabWidth: 56,
 }
 
 const AnimatedFab = createAnimatedComponent(Button)
@@ -60,7 +80,7 @@ const Fab = props => {
 			bottom: direction ? fabOtherBtns(direction, i).bottom : active === false ? (itsIOS ? 8 : 8) : i * 50 + 50,
 		}
 
-		return merge(getInitialStyle().buttonStyle, StyleSheet.flatten(child.props.style), type)
+		return merge(getInitialStyle().buttonStyle, flattenStyle(child.props.style), type)
 	}
 
 	const getContainerStyle = () => merge(getInitialStyle().container, props.containerStyle)

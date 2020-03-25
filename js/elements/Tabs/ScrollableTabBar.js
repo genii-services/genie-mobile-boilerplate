@@ -3,13 +3,12 @@ console.debug(MODULE_NAME$)
 
 const React = require("react")
 const ReactNative = require("react-native")
-const { View, Animated, StyleSheet, ScrollView, Platform, Dimensions } = ReactNative
+const { View, Animated, ScrollView, Platform, Dimensions } = ReactNative
 const { isEqual } = require("lodash")
 
 const { ABSOLUTE, BLACK, BOLD, CENTER, NORMAL, ROW } = require("/constants/style")
 const { connectStyle } = require("/utils/style")
 const { useState, useStore, useThis } = require("/hooks")
-const defaultThemeStyle = require("/styles/themes/default")
 
 const TabHeading = require("../TabHeading")
 const Text = require("../Text")
@@ -20,20 +19,6 @@ const WINDOW_WIDTH = Dimensions.get("window").width
 const ScrollableTabBar = props => {
 	const [theme] = useStore("theme")
 	const _this = useThis()
-
-	const getDefaultProps = () => {
-		return {
-			scrollOffset: 52,
-			activeTextColor: "navy",
-			inactiveTextColor: BLACK,
-			backgroundColor: defaultThemeStyle.tabDefaultBg,
-			style: {},
-			tabStyle: {},
-			tabsContainerStyle: {},
-			underlineStyle: {},
-			tabFontSize: defaultThemeStyle.tabFontSize,
-		}
-	}
 
 	const getInitialState = () => {
 		_this._tabsMeasurements = []
@@ -176,7 +161,7 @@ const ScrollableTabBar = props => {
 		updateView({ value: props.scrollValue._value })
 	}
 
-	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
+	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
 	const tabUnderlineStyle = {
 		position: ABSOLUTE,
 		height: 4,
@@ -232,7 +217,7 @@ const ScrollableTabBar = props => {
 }
 
 if (__DEV__) {
-	const { array, func, number, object, oneOfType, string } = require("prop-types")
+	const { array, func, number, object, oneOfType, string } = require("/utils/propTypes")
 	const { style } = require("react-native").ViewPropTypes
 	ScrollableTabBar.propTypes = {
 		goToPage: func,
@@ -251,7 +236,21 @@ if (__DEV__) {
 	}
 }
 
-const styles = StyleSheet.create({
+ScrollableTabBar.getDefaultProps = () => {
+	return {
+		scrollOffset: 52,
+		activeTextColor: "navy",
+		inactiveTextColor: BLACK,
+		backgroundColor: itsIOS ? "#F8F8F8" : "#3F51B5", // defaultThemeStyle.tabDefaultBg,
+		style: {},
+		tabStyle: {},
+		tabsContainerStyle: {},
+		underlineStyle: {},
+		tabFontSize: 15, // defaultThemeStyle.tabFontSize,
+	}
+}
+
+const styles = {
 	tab: {
 		height: 49,
 		alignItems: CENTER,
@@ -271,6 +270,6 @@ const styles = StyleSheet.create({
 		flexDirection: ROW,
 		justifyContent: "space-around",
 	},
-})
+}
 
 module.exports = connectStyle(ScrollableTabBar, MODULE_NAME$)

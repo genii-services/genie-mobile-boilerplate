@@ -3,7 +3,6 @@ const { Modal, View, DatePickerIOS, DatePickerAndroid } = require("react-native"
 
 const { useState, useStore } = require("/hooks")
 const { itsAndroid } = require("/utils/device")
-const defaultThemeStyle = require("/styles/themes/default")
 
 const Text = require("./Text")
 
@@ -62,7 +61,7 @@ const DatePicker = props => {
 		timeZoneOffsetInMinutes,
 	} = props
 
-	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
+	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
 
 	return (
 		<View>

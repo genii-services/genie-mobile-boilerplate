@@ -14,7 +14,7 @@ const Card = props => {
 }
 
 if (__DEV__) {
-	const { array, func, number, object, oneOfType, string } = require("prop-types")
+	const { array, func, number, object, oneOfType, string } = require("/utils/propTypes")
 	Card.propTypes = {
 		...ViewPropTypes,
 		style: oneOfType([object, number, array]),

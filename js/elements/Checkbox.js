@@ -7,7 +7,7 @@ const Ionicons = require("react-native-vector-icons/Ionicons")
 
 const { useStore } = require("/hooks")
 const { connectStyle } = require("/utils/style")
-const defaultThemeStyle = require("/styles/themes/default")
+
 const { computeProps } = require("/utils/props")
 const { itsIOS } = require("/utils/device")
 
@@ -32,7 +32,7 @@ const CheckBox = props => {
 	}
 
 	const { checked } = props
-	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
+	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
 	const platformStyle = style.platformStyle
 	return (
 		<TouchableOpacity {...prepareRootProps(style)}>
@@ -51,7 +51,7 @@ const CheckBox = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, func, number, object, oneOfType, string } = require("prop-types")
+	const { array, bool, func, number, object, oneOfType, string } = require("/utils/propTypes")
 	CheckBox.propTypes = {
 		...TouchableOpacity.propTypes,
 		style: oneOfType([object, number, array]),

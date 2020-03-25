@@ -4,16 +4,17 @@ console.debug(MODULE_NAME$)
 const React = require("react")
 const { View } = require("react-native")
 
-const defaultThemeStyle = require("/styles/themes/default")
 const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
 
 const InputGroup = props => {
+	const [theme] = useStore("theme")
+	const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
 	const getInitialStyle = () => {
 		return {
 			roundedInputGroup: {
 				borderWidth: props.rounded ? 1 : undefined,
-				borderRadius: props.rounded ? defaultThemeStyle.inputGroupRoundedBorderRadius : undefined,
+				borderRadius: props.rounded ? defaultStyle.inputGroupRoundedBorderRadius : undefined,
 			},
 		}
 	}
@@ -30,7 +31,7 @@ const InputGroup = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
 	const { ViewPropTypes } = require("react-native")
 	InputGroup.propTypes = {
 		...ViewPropTypes,

@@ -99,7 +99,7 @@ const TitleBar = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
 	TitleBar.propTypes = {
 		//...Header.defaultProps,		// 이 propType을 지정하지 않고 defaultProps만 지정해도 죽지는 않음
 		title: string,

@@ -9,7 +9,6 @@ const { Animated } = ReactNative
 const { ABSOLUTE, BOLD, FLEX_START, FLEX_END, NORMAL, SPACE_BETWEEN, TRANSPARENT } = require("/constants/style")
 const { connectStyle } = require("/utils/style")
 const { useState, useStore, useThis } = require("/hooks")
-const defaultThemeStyle = require("/styles/themes/default")
 
 const Button = require("./Button")
 const TabHeading = require("../TabHeading")
@@ -64,7 +63,7 @@ const DefaultTabBar = props => {
 		)
 	}
 
-	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
+	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
 	const containerWidth = props.containerWidth
 	const numberOfTabs = props.tabs.length
 	const tabUnderlineStyle = {
@@ -101,7 +100,7 @@ const DefaultTabBar = props => {
 }
 
 if (__DEV__) {
-	const { array, func, number, object, oneOfType, string } = require("prop-types")
+	const { array, func, number, object, oneOfType, string } = require("/utils/propTypes")
 	const { style } = require("react-native").ViewPropTypes
 	DefaultTabBar.propTypes = {
 		goToPage: func,
@@ -124,11 +123,11 @@ if (__DEV__) {
 
 DefaultTabBar.getDefaultProps = () => {
 	return {
-		activeTextColor: defaultThemeStyle.topTabBarActiveTextColor,
-		inactiveTextColor: defaultThemeStyle.topTabBarTextColor,
-		disabledTextColor: defaultThemeStyle.tabBarDisabledTextColor,
+		activeTextColor: itsIOS ? "#007aff" : WHITE,
+		inactiveTextColor: itsIOS ? "#6b6b6b" : "#b3c7f9",
+		disabledTextColor: "#BDBDBD",
 		backgroundColor: TRANSPARENT,
-		tabFontSize: defaultThemeStyle.tabFontSize,
+		tabFontSize: 15, // defaultThemeStyle.tabFontSize,
 	}
 }
 

@@ -51,7 +51,7 @@ const Gravatar = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
 	Gravatar.propTypes = {
 		...Image.propTypes,
 		email: string.isRequired,

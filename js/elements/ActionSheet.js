@@ -4,13 +4,12 @@ console.debug(MODULE_NAME$)
 /* eslint-disable no-use-before-define */
 /* eslint-disable radix */
 const React = require("react")
-const { ActionSheetIOS, Dimensions, FlatList, Modal, TouchableOpacity, StyleSheet } = require("react-native")
+const { ActionSheetIOS, Dimensions, FlatList, Modal, TouchableOpacity } = require("react-native")
 
-const { CENTER, FLEX_START, FLEX_END } = require("/constants/style")
+const { FLEX_END, TRANSPARENT, WHITE } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
 const { useThis } = require("/hooks")
-const commonColor = require("/styles/themes/common")
 
 const Text = require("./Text")
 const Icon = require("./Icon")
@@ -19,7 +18,8 @@ const Right = require("./Right")
 const Body = require("./Body")
 const ListItem = require("./ListItem")
 
-const ActionSheetContainer = props => {
+const ActionSheet = props => {
+	const { useStore } = require("use-store")
 	const _this = useThis()
 	const [_modalVisible, set_modalVisible] = useState(false)
 	const [_items, set_items] = useState([])
@@ -66,7 +66,7 @@ const ActionSheetContainer = props => {
 				<TouchableOpacity activeOpacity={1} style={styles.innerTouchable}>
 					{_title && <Text style={styles.touchableText}>{_title}</Text>}
 					<FlatList
-						style={[styles.flatList, { marginTop: _title ? commonColor.marginTop : 0 }]}
+						style={[styles.flatList, { marginTop: _title ? 15 : 0 }]}
 						data={_items}
 						keyExtractor={(item, index) => String(index)}
 						renderItem={({ index, item }) => {
@@ -85,7 +85,7 @@ const ActionSheetContainer = props => {
 										_callback(parseInt(index))
 										set_modalVisible(false)
 									}}
-									style={[styles.listItem, { height: commonColor.listItemHeight }]}
+									style={styles.listItem}
 									icon>
 									<Left>
 										<Icon name={item.icon} style={{ color: item.iconColor }} />
@@ -103,51 +103,60 @@ const ActionSheetContainer = props => {
 		</Modal>
 	)
 }
-// ActionSheetContainer.actionsheetInstance
-ActionSheetContainer.show = (config, callback) => {
-	ActionSheetContainer.actionsheetInstance._root.showActionSheet(config, callback)
+// ActionSheet.instance
+ActionSheet.show = (config, callback) => {
+	try {
+		ActionSheet.instance._root.showActionSheet(config, callback)
+	} catch (e) {
+		console.error(e)
+	}
 }
-ActionSheetContainer.hide = () => {
-	ActionSheetContainer.actionsheetInstance._root.hideActionSheet()
+ActionSheet.hide = () => {
+	try {
+		ActionSheet.instance._root.hideActionSheet()
+	} catch (e) {
+		console.error(e)
+	}
 }
 
 if (__DEV__) {
 	const { ViewPropTypes } = require("react-native")
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+	const { array, number, object, oneOfType } = require("/utils/propTypes")
 
-	ActionSheetContainer.propTypes = {
+	ActionSheet.propTypes = {
 		...ViewPropTypes,
 		style: oneOfType([object, number, array]),
 	}
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	containerTouchable: {
-		backgroundColor: commonColor.containerTouchableBackgroundColor,
+		backgroundColor: "rgba(0,0,0,0.4)",
 		flex: 1,
 		justifyContent: FLEX_END,
 	},
 	flatList: {
-		marginHorizontal: commonColor.marginHorizontal,
+		marginHorizontal: -15,
 	},
 	innerTouchable: {
-		backgroundColor: commonColor.innerTouchableBackgroundColor,
-		minHeight: commonColor.minHeight,
+		backgroundColor: WHITE,
+		minHeight: 56,
 		maxHeight: Dimensions.get("window").height / 2,
-		padding: commonColor.padding,
-		elevation: commonColor.elevation,
+		padding: 15,
+		elevation: 4,
 	},
 	listItem: {
-		borderColor: commonColor.listItemBorderColor,
-		marginLeft: commonColor.marginLeft,
+		height: 50,
+		marginLeft: 14,
+		borderColor: TRANSPARENT,
 	},
 	listItemBody: {
-		borderColor: commonColor.listItemBorderColor,
-		paddingLeft: commonColor.marginLeft / 2,
+		borderColor: TRANSPARENT,
+		paddingLeft: 7, // marginLeft: 14 / 2
 	},
 	touchableText: {
-		color: commonColor.touchableTextColor,
+		color: "#757575",
 	},
-})
+}
 
-module.exports = connectStyle(ActionSheetContainer, MODULE_NAME$)
+module.exports = connectStyle(ActionSheet, MODULE_NAME$)

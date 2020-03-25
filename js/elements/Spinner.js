@@ -6,12 +6,11 @@ const { ActivityIndicator } = require("react-native")
 
 const { connectStyle } = require("/utils/style")
 const { useState, useStore, useThis } = require("/hooks")
-const defaultThemeStyle = require("/styles/themes/default")
 
 const Spinner = ({ color, ...props }) => {
 	const [theme] = useStore("theme")
 
-	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
+	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
 	return (
 		<ActivityIndicator
 			{...props}
@@ -22,7 +21,7 @@ const Spinner = ({ color, ...props }) => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
 
 	Spinner.propTypes = {
 		...ActivityIndicator.propTypes,

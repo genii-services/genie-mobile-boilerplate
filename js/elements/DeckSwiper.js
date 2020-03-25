@@ -226,7 +226,7 @@ const DeckSwiper = props => {
 
 if (__DEV__) {
 	const { ViewPropTypes } = require("react-native")
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
 
 	DeckSwiper.propTypes = {
 		...ViewPropTypes,

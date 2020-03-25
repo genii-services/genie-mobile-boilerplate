@@ -88,6 +88,7 @@ exports = module.exports = (componentStyleName, componentStyle = {}, mapPropsToS
 			if (!_.isString(componentStyleName)) throwConnectStyleError("Component Style Name must be string", componentDisplayName)
 		}
 		console.debug("wrapWithStyledComponent", componentDisplayName)
+
 		const StyledComponent = props => {
 			const resolveStyle = () => {
 				const themeStyle = theme.createComponentStyle(componentStyleName, componentStyle)
@@ -97,15 +98,13 @@ exports = module.exports = (componentStyleName, componentStyle = {}, mapPropsToS
 				return resolveComponentStyle(componentStyleName, styleNames, themeStyle, parentStyle)
 			}
 
-			const getStyleNames = () => {
-				const styleNamesArr = _.map(props, (value, key) => (typeof value !== "object" && value === true ? "." + key : false))
-				_.remove(styleNamesArr, (value, index) => value === false)
-				return styleNamesArr
-			}
-
 			const { style, styleName, genealStyleNames } = props
-			const styleNames = getStyleNames()
 			// console.log(genealStyleNames);
+
+			const styleNames = []
+			_.forEach(props, (value, key) => {
+				if (typeof value !== "object" && value === true) styleNames.push("." + key)
+			})
 
 			const [theme] = useStore("theme") // theme: ThemeShape
 			const refs = useRefs()
@@ -181,7 +180,7 @@ exports = module.exports = (componentStyleName, componentStyle = {}, mapPropsToS
 				return resolveStyle().componentStyle
 			}
 
-			console.debug("StyledComponent", StyledComponent.displayName)
+			console.debug("StyledComponent", StyledComponent.displayName, nextGenealStyleNames)
 			return (
 				<WrappedComponent
 					{...props}
@@ -196,7 +195,7 @@ exports = module.exports = (componentStyleName, componentStyle = {}, mapPropsToS
 		}
 
 		if (__DEV__) {
-			const { array, bool, func, number, object, oneOfType, string } = require("prop-types")
+			const { array, bool, func, number, object, oneOfType, string } = require("/utils/propTypes")
 			StyledComponent.propTypes = {
 				// Element style that overrides any other style of the component
 				style: oneOfType([object, number, array]),

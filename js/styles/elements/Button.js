@@ -1,9 +1,8 @@
 /** Element Style */
 const { CENTER, COLUMN, FLEX_END, MATERIAL, ROW, SPACE_BETWEEN, TRANSPARENT } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	const { borderWidth, platformStyle } = style
 	const borderWidthX2 = borderWidth * 2
 	const darkCommon = {

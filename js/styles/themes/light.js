@@ -1,8 +1,8 @@
-/** 공통 라이브러리 */
+/** old default */
 const color = require("color")
 const { PixelRatio } = require("react-native")
 
-const { BLACK, FLEX_START, FLEX_END, TRANSPARENT, WHITE } = require("/constants/style")
+const { BLACK, TRANSPARENT, WHITE } = require("/constants/style")
 const { deviceOS, itsIOS } = require("/utils/device")
 
 const platformStyle = undefined
@@ -26,27 +26,14 @@ module.exports = {
 	platformStyle,
 	platform: deviceOS,
 
-	// Accordion
-	accordionBorderColor: "#d3d3d3",
-	accordionContentPadding: 10,
-	accordionIconFontSize: 18,
-	contentStyle: "#f5f4f5",
-	expandedIconStyle: BLACK,
-	headerStyle: "#edebed",
-	iconStyle: BLACK,
-
 	// ActionSheet
 	elevation: 4,
-	containerTouchableBackgroundColor: "rgba(0,0,0,0.4)",
-	innerTouchableBackgroundColor: WHITE,
 	listItemHeight: 50,
-	listItemBorderColor: TRANSPARENT,
 	marginHorizontal: -15,
 	marginLeft: 14,
 	marginTop: 15,
 	minHeight: 56,
 	padding: 15,
-	touchableTextColor: "#757575",
 
 	// Android
 	androidRipple: true,
@@ -63,26 +50,14 @@ module.exports = {
 	buttonFontFamily: itsIOS ? "System" : "Roboto_medium",
 	buttonDisabledBg: "#b5b5b5",
 	buttonPadding: 6,
-	buttonDefaultActiveOpacity: 0.5,
-	buttonDefaultFlex: 1,
-	buttonDefaultBorderRadius: 2,
-	buttonDefaultBorderWidth: 1,
 	buttonPrimaryBg: brandPrimary,
-	buttonPrimaryColor: inverseTextColor,
 	buttonInfoBg: brandInfo,
 	buttonInfoColor: inverseTextColor,
 	buttonSuccessBg: brandSuccess,
-	buttonSuccessColor: inverseTextColor,
 	buttonDangerBg: brandDanger,
-	buttonDangerColor: inverseTextColor,
 	buttonWarningBg: brandWarning,
-	buttonWarningColor: inverseTextColor,
 	buttonTextSize: itsIOS ? fontSizeBase * 1.1 : fontSizeBase - 1,
-	buttonTextSizeLarge: fontSizeBase * 1.5,
-	buttonTextSizeSmall: fontSizeBase * 0.8,
 	borderRadiusLarge: fontSizeBase * 3.8,
-	iconSizeLarge: iconFontSize * 1.5,
-	iconSizeSmall: iconFontSize * 0.6,
 
 	// Card
 	cardDefaultBg: WHITE,
@@ -121,26 +96,6 @@ module.exports = {
 	datePickerPadding: 10,
 	datePickerTextColor: BLACK,
 	datePickerBg: TRANSPARENT,
-
-	// FAB
-	fabBackgroundColor: "blue",
-	fabBorderRadius: 28,
-	fabBottom: 0,
-	fabButtonBorderRadius: 20,
-	fabButtonHeight: 40,
-	fabButtonLeft: 7,
-	fabButtonMarginBottom: 10,
-	fabContainerBottom: 20,
-	fabDefaultPosition: 20,
-	fabElevation: 4,
-	fabIconColor: WHITE,
-	fabIconSize: 24,
-	fabShadowColor: BLACK,
-	fabShadowOffsetHeight: 2,
-	fabShadowOffsetWidth: 0,
-	fabShadowOpacity: 0.4,
-	fabShadowRadius: 2,
-	fabWidth: 56,
 
 	// Font
 	DefaultFontSize: 16,
@@ -235,7 +190,6 @@ module.exports = {
 	inverseSpinnerColor: "#1A191B",
 
 	// Tab
-	tabBarDisabledTextColor: "#BDBDBD",
 	tabDefaultBg: itsIOS ? "#F8F8F8" : "#3F51B5",
 	topTabBarTextColor: itsIOS ? "#6b6b6b" : "#b3c7f9",
 	topTabBarActiveTextColor: itsIOS ? "#007aff" : WHITE,

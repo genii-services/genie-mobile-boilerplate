@@ -1,8 +1,7 @@
 /** TabBar Element Style */
 const { CENTER, ROW, TRANSPARENT } = require("/constants/style")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	return {
 		".tabIcon": {
 			height: undefined,

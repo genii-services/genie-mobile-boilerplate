@@ -3,9 +3,8 @@ const { StyleSheet } = require("react-native")
 
 const { CENTER, FLEX_START, ROW } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	const transparentBtnCommon = {
 		"elements/Text": {
 			fontSize: style.DefaultFontSize - 3,
@@ -94,7 +93,7 @@ module.exports = (style = defaultThemeStyle) => {
 			},
 			"elements/Icon": { alignSelf: null, fontSize: style.iconFontSize - 8, color: style.cardBorderColor },
 			"elements/IconNB": { alignSelf: null, fontSize: style.iconFontSize - 8, color: style.cardBorderColor },
-			"elements/Text": { fontSize: style.DefaultFontSize - 1, alignSelf: null },
+			"elements/Text": { fontSize: style.fontSizeBase, alignSelf: null },
 			"elements/Thumbnail": { alignSelf: null },
 			"elements/Image": { alignSelf: null },
 			"elements/Radio": { alignSelf: null },

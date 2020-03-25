@@ -1,9 +1,8 @@
 /** TabContainer Element Style */
 const { BLACK, MATERIAL, ROW } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	const { platformStyle } = style
 
 	const tabContainerTheme = {

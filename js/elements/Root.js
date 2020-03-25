@@ -6,22 +6,22 @@ const { View } = require("react-native")
 
 const { connectStyle } = require("/utils/style")
 
-const { ToastContainer: Toast } = require("./ToastContainer")
-const { ActionSheetContainer: ActionSheet } = require("./ActionSheet")
+const ToastContainer = require("./ToastContainer")
+const ActionSheet = require("./ActionSheet")
 
 const Root = ({ children, ...props }) => {
 	return (
 		<View {...props} style={{ flex: 1 }}>
 			{children}
-			<Toast ref={c => c && (Toast.toastInstance = c)} />
-			<ActionSheet ref={c => c && (ActionSheet.actionsheetInstance = c)} />
+			<ToastContainer ref={c => (Toast.instance = c)} />
+			<ActionSheet ref={c => (ActionSheet.instance = c)} />
 		</View>
 	)
 }
 
 if (__DEV__) {
 	const { ViewPropTypes } = require("react-native")
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+	const { array, number, object, oneOfType } = require("/utils/propTypes")
 
 	Root.propTypes = {
 		...ViewPropTypes,

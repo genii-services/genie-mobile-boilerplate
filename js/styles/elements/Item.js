@@ -1,9 +1,8 @@
 /** Element Style */
 const { CENTER, FLEX_START, ROW, TRANSPARENT } = require("/constants/style")
 const { itsIOS, deviceWidth } = require("/utils/device")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	return {
 		".floatingLabel": {
 			"elements/Input": {

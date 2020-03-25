@@ -1,9 +1,8 @@
 /** Element Style */
 const { CENTER, ROW, SPACE_BETWEEN, TRANSPARENT, WHITE } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	return {
 		".danger": {
 			backgroundColor: style.brandDanger,

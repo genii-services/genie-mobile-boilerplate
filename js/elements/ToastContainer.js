@@ -112,7 +112,7 @@ const ToastContainer = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType } = require("prop-types")
+	const { array, bool, number, object, oneOfType } = require("/utils/propTypes")
 	const { ViewPropTypes } = require("react-native")
 	ToastContainer.propTypes = {
 		...ViewPropTypes,
@@ -120,14 +120,14 @@ if (__DEV__) {
 	}
 }
 
-// ToastContainer.toastInstance
+// ToastContainer.instance
 ToastContainer.show = ({ ...config }) => {
-	ToastContainer.toastInstance._root.showToast({ config })
+	ToastContainer.instance._root.showToast({ config })
 }
 
 ToastContainer.hide = () => {
-	if (ToastContainer.toastInstance._root.getModalState()) {
-		ToastContainer.toastInstance._root.closeToast("functionCall")
+	if (ToastContainer.instance._root.getModalState()) {
+		ToastContainer.instance._root.closeToast("functionCall")
 	}
 }
 

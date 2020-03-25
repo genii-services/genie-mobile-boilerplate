@@ -7,7 +7,6 @@ const Ionicons = require("react-native-vector-icons/Ionicons").default
 const { useState, useStore, useThis } = require("/hooks")
 const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
-const defaultThemeStyle = require("/styles/themes/default")
 
 const Radio = props => {
 	const [theme] = useStore("theme")
@@ -19,7 +18,7 @@ const Radio = props => {
 		return computeProps(props, defaultProps)
 	}
 
-	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
+	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
 
 	return (
 		<TouchableOpacity {...prepareRootProps()}>
@@ -73,7 +72,7 @@ const Radio = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
 
 	Radio.propTypes = {
 		...TouchableOpacity.propTypes,

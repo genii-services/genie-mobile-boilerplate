@@ -3,9 +3,8 @@ const { PixelRatio, StatusBar } = require("react-native")
 
 const { BLACK, CENTER, FLEX_START, FLEX_END, MATERIAL, ROW, TRANSPARENT } = require("/constants/style")
 const { itsAndroid, itsIOS } = require("/utils/device")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	const { platformStyle } = style
 	return {
 		".span": {

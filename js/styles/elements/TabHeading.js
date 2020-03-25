@@ -1,9 +1,8 @@
 /** Element Style */
 const { CENTER, ROW } = require("/constants/style")
 const { itsAndroid, itsIOS } = require("/utils/device")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	return {
 		flexDirection: ROW,
 		backgroundColor: style.tabDefaultBg,

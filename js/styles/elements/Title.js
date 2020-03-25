@@ -1,9 +1,8 @@
 /** Element Style */
 const { CENTER } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	return {
 		fontSize: style.titleFontSize,
 		fontFamily: style.titleFontfamily,

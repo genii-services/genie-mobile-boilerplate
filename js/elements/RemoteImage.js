@@ -87,7 +87,7 @@ const RemoteImage = props => {
 }
 
 if (__DEV__) {
-	const { any, bool, func, number, object, oneOfType, string } = require("prop-types")
+	const { any, bool, func, number, object, oneOfType, string } = require("/utils/propTypes")
 	RemoteImage.propTypes = {
 		...Image.propTypes,
 		name: string,

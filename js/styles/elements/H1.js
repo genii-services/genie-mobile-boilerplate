@@ -1,7 +1,6 @@
-/** Element Style */
-const defaultThemeStyle = require("/styles/themes/default")
+/** H1 Element Style */
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	return {
 		color: style.textColor,
 		fontSize: style.fontSizeH1,

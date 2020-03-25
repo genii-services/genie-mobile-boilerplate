@@ -1,8 +1,7 @@
 /** Element Style */
 const { CENTER, HIDDEN, FLEX_END, MATERIAL, SPACE_BETWEEN, TRANSPARENT } = require("/constants/style")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	const Icon = {
 		color: TRANSPARENT,
 		lineHeight: style.CheckboxIconSize,

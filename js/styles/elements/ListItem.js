@@ -4,9 +4,8 @@ const { PixelRatio } = require("react-native")
 const { CENTER, FLEX_START, FLEX_END, ROW, TRANSPARENT, WHITE } = require("/constants/style")
 const { itsAndroid, itsIOS } = require("/utils/device")
 const pickerTheme = require("./Picker")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	const selectedStyle = {
 		"elements/Text": { color: style.listItemSelected },
 		"elements/Icon": { color: style.listItemSelected },

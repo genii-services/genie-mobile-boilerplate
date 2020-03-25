@@ -4,14 +4,14 @@ console.debug(MODULE_NAME$)
 /* eslint-disable no-plusplus */
 /* eslint-disable no-loop-func */
 const React = require("react")
-const { TouchableOpacity, Animated, Platform, View, StyleSheet } = require("react-native")
+const { TouchableOpacity, Animated, Platform, View } = require("react-native")
 const { isArray, remove } = require("lodash")
 
 const { ABSOLUTE, COLUMN, ROW } = require("/constants/style")
 const { useThis } = require("/hooks")
+const { deviceWidth } = require("/utils/device")
 const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
-const defaultThemeStyle = require("/styles/themes/default")
 
 const Input = require("./Input")
 const Label = require("./Label")
@@ -25,6 +25,9 @@ const Item = props => {
 	const [_topAnim, set_topAnim] = useState(new Animated.Value(18))
 	const [_opacAnim, set_opacAnim] = useState(new Animated.Value(1))
 
+	const [theme] = useStore("theme")
+	const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
+
 	useEffect(() => {
 		if (props.floatingLabel && _this.inputProps) {
 			_this.inputProps.value && floatUp(-16)
@@ -35,44 +38,23 @@ const Item = props => {
 	const getInitialStyle = () => {
 		return {
 			roundedInputGroup: {
-				borderWidth: props.rounded && defaultThemeStyle.borderWidth * 2,
-				borderRadius: props.rounded && defaultThemeStyle.inputGroupRoundedBorderRadius,
+				borderWidth: props.rounded && defaultStyle.borderWidth * 2,
+				borderRadius: props.rounded && defaultStyle.inputGroupRoundedBorderRadius,
 			},
 		}
 	}
 
-	const getPlacholderValue = inputProps => {
-		let placeholderValue
-
-		if (isArray(props.children) && props.children[0].props.children) {
-			placeholderValue = null
-		} else {
-			placeholderValue = inputProps.placeholder
-		}
-
-		return placeholderValue
-	}
+	const getPlacholderValue = inputProps =>
+		isArray(props.children) && props.children[0].props.children ? null : inputProps.placeholder
 
 	const floatBack = e => {
-		Animated.timing(_topAnim, {
-			toValue: e || 18,
-			duration: 150,
-		}).start()
-		Animated.timing(_opacAnim, {
-			toValue: 1,
-			duration: 150,
-		}).start()
+		Animated.timing(_topAnim, { toValue: e || 18, duration: 150 }).start()
+		Animated.timing(_opacAnim, { toValue: 1, duration: 150 }).start()
 	}
 
 	const floatUp = e => {
-		Animated.timing(_topAnim, {
-			toValue: e || -22,
-			duration: 150,
-		}).start()
-		Animated.timing(_opacAnim, {
-			toValue: 0.7,
-			duration: 150,
-		}).start()
+		Animated.timing(_topAnim, { toValue: e || -22, duration: 150 }).start()
+		Animated.timing(_opacAnim, { toValue: 0.7, duration: 150 }).start()
 	}
 
 	const prepareRootProps = () => {
@@ -136,12 +118,7 @@ const Item = props => {
 		})
 
 		let image = []
-		image = remove(childrenArray, item => {
-			if (item.type === Thumbnail) {
-				return item
-			}
-			return null
-		})
+		image = remove(childrenArray, item => (item.type === Thumbnail ? item : null))
 
 		if (props.floatingLabel && icon.length) {
 			let flag = true
@@ -298,12 +275,12 @@ const Item = props => {
 					style={{
 						flexDirection: ROW,
 						flex: 1,
-						width: defaultThemeStyle.deviceWidth - 15,
+						width: deviceWidth - 15,
 					}}>
 					<Icon key="s1" {...iconProps} />
 					<View style={{ flexDirection: COLUMN }}>
 						<Label key="s2" {...labelProps} />
-						<Input key="s3" {...inputProps} style={{ width: defaultThemeStyle.deviceWidth - 40 }} />
+						<Input key="s3" {...inputProps} style={{ width: deviceWidth - 40 }} />
 					</View>
 				</View>
 			)
@@ -350,7 +327,7 @@ const Item = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
 
 	Item.propTypes = {
 		...TouchableOpacity.propTypes,

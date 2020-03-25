@@ -2,7 +2,7 @@ const React = require("react")
 const _ = require("lodash")
 const InteractionManager = require("/utils/InteractionManager")
 const ReactNative = require("react-native")
-const { Dimensions, View, Animated, ScrollView, StyleSheet, Platform, ViewPropTypes } = ReactNative
+const { Dimensions, View, Animated, ScrollView } = ReactNative
 
 const { ABSOLUTE, BOLD, CENTER, NORMAL } = require("/constants/style")
 const { useThis } = require("/hooks")
@@ -212,7 +212,7 @@ Tabs.DefaultTabBar = DefaultTabBar
 Tabs.ScrollableTabBar = ScrollableTabBar
 
 if (__DEV__) {
-	const { any, bool, func, number, object, oneOf, string } = require("prop-types")
+	const { any, bool, func, number, object, oneOf, string } = require("/utils/propTypes")
 	const { style } = require("react-native").ViewPropTypes
 
 	Tabs.propTypes = {
@@ -244,13 +244,13 @@ Tabs.getDefaultProps = () => {
 	}
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	container: {
 		flex: 1,
 	},
 	scrollableContentAndroid: {
 		flex: 1,
 	},
-})
+}
 
 module.exports = Tabs

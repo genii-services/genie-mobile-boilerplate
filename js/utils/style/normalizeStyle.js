@@ -1,4 +1,3 @@
-const { StyleSheet } = require("react-native")
 const _ = require("lodash")
 
 const createShorthand = (name, type) => ({ name, type: _.isUndefined(type) ? name : type })

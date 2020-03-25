@@ -25,7 +25,7 @@ const HIcon = props => {
 }
 
 if (__DEV__) {
-	const { any, bool, number, object, oneOfType, string } = require("prop-types")
+	const { any, bool, number, object, oneOfType, string } = require("/utils/propTypes")
 	HIcon.propTypes = {
 		name: string,
 		title: string,

@@ -1,8 +1,7 @@
 /** Element Style */
 const { CENTER } = require("/constants/style")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	return {
 		".group": {
 			height: 50,

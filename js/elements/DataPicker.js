@@ -39,7 +39,7 @@ const DataPicker = props => {
 }
 
 if (__DEV__) {
-	const { any, bool, number, object, oneOfType, string } = require("prop-types")
+	const { any, bool, number, object, oneOfType, string } = require("/utils/propTypes")
 	DataPicker.propTypes = {
 		...Button.propTypes,
 		buttonStyle: Button.propTypes.style,

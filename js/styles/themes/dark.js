@@ -1,8 +1,8 @@
-/** 공통 라이브러리 */
+/** old common */
 const color = require("color")
 const { PixelRatio } = require("react-native")
 
-const { BLACK, FLEX_START, MATERIAL, TRANSPARENT, WHITE } = require("/constants/style")
+const { BLACK,  TRANSPARENT, WHITE } = require("/constants/style")
 const { deviceOS, itsIOS } = require("/utils/device")
 const platformStyle = undefined
 
@@ -21,29 +21,14 @@ const textColor = BLACK
 const fontSizeBase = 15
 const iconFontSize = itsIOS ? 30 : 28
 
+
 module.exports = {
 	platformStyle,
 	platform: deviceOS,
 
-	// Accordion
-	headerStyle: "#edebed",
-	iconStyle: BLACK,
-	contentStyle: "#f5f4f5",
-	expandedIconStyle: BLACK,
-	accordionBorderColor: "#d3d3d3",
-
 	// ActionSheet
 	elevation: 4,
-	containerTouchableBackgroundColor: "rgba(0,0,0,0.4)",
-	innerTouchableBackgroundColor: WHITE,
-	listItemHeight: 50,
-	listItemBorderColor: TRANSPARENT,
-	marginHorizontal: -15,
 	marginLeft: 14,
-	marginTop: 15,
-	minHeight: 56,
-	padding: 15,
-	touchableTextColor: "#757575",
 
 	// Android
 	androidRipple: true,
@@ -61,21 +46,13 @@ module.exports = {
 	buttonDisabledBg: "#b5b5b5",
 	buttonPadding: 6,
 	buttonPrimaryBg: brandPrimary,
-	buttonPrimaryColor: inverseTextColor,
 	buttonInfoBg: brandInfo,
 	buttonInfoColor: inverseTextColor,
 	buttonSuccessBg: brandSuccess,
-	buttonSuccessColor: inverseTextColor,
 	buttonDangerBg: brandDanger,
-	buttonDangerColor: inverseTextColor,
 	buttonWarningBg: brandWarning,
-	buttonWarningColor: inverseTextColor,
 	buttonTextSize: itsIOS ? fontSizeBase * 1.1 : fontSizeBase - 1,
-	buttonTextSizeLarge: fontSizeBase * 1.5,
-	buttonTextSizeSmall: fontSizeBase * 0.8,
 	borderRadiusLarge: fontSizeBase * 3.8,
-	iconSizeLarge: iconFontSize * 1.5,
-	iconSizeSmall: iconFontSize * 0.6,
 
 	// Card
 	cardDefaultBg: WHITE,
@@ -111,16 +88,21 @@ module.exports = {
 	datePickerTextColor: BLACK,
 	datePickerBg: TRANSPARENT,
 
-	// FAB
-	fabWidth: 56,
-
 	// Font
 	DefaultFontSize: 16,
 	fontFamily: itsIOS ? "System" : "Roboto",
 	fontSizeBase,
-	fontSizeH1: fontSizeBase * 1.8,
-	fontSizeH2: fontSizeBase * 1.6,
-	fontSizeH3: fontSizeBase * 1.4,
+	fontSizez: {
+		"-4":parseInt(fontSizeBase * 0.6),
+		"-3":parseInt(fontSizeBase * 0.7),
+		"-2":parseInt(fontSizeBase * 0.8),
+		"-1":parseInt(fontSizeBase * 0.9),
+		"0":fontSizeBase,
+		"+1":fontSizeBase * 1.2,
+		"+2":fontSizeBase * 1.4,
+		"+3":fontSizeBase * 1.6,
+		"+4":fontSizeBase * 1.8,
+	},
 
 	// Footer
 	footerHeight: 55,
@@ -227,8 +209,8 @@ module.exports = {
 	titleFontfamily: itsIOS ? "System" : "Roboto_medium",
 	titleFontSize: itsIOS ? 17 : 19,
 	subTitleFontSize: itsIOS ? 11 : 14,
-	subtitleColor: itsIOS ? BLACK : WHITE,
-	titleFontColor: itsIOS ? BLACK : WHITE,
+	subtitleColor: WHITE: BLACK,
+	titleFontColor: WHITE: BLACK,
 
 	// Other
 	borderRadiusBase: itsIOS ? 5 : 2,
