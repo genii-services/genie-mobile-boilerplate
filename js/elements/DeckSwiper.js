@@ -45,10 +45,6 @@ const DeckSwiper = props => {
 		}
 	})
 
-	const getInitialStyle = () => {
-		return { topCard: { position: ABSOLUTE, top: 0, right: 0, left: 0 } }
-	}
-
 	const getCardStyles = () => {
 		const [translateX, translateY] = [_pan.x, _pan.y]
 		// let [translateX, translateY] = [_pan2.x, _pan2.y];
@@ -88,7 +84,7 @@ const DeckSwiper = props => {
 
 			onPanResponderRelease: (e, { vx, vy }) => {
 				props.onSwiping && props.onSwiping(null)
-				let velocity = vx >= 0 ? clamp(vx, 4.5, 10) : vx < 0 ? clamp(vx * -1, 4.5, 10) * -1 : undefined
+				let velocity = 0 <= vx ? clamp(vx, 4.5, 10) : vx < 0 ? clamp(vx * -1, 4.5, 10) * -1 : undefined
 
 				if (Math.abs(_pan.x._value) > SWIPE_THRESHOLD) {
 					if (velocity > 0) {
@@ -167,56 +163,40 @@ const DeckSwiper = props => {
 	const findNextIndexes = currentIndex => {
 		const newIdx = currentIndex + 1
 		const newIdx2 = currentIndex + 2
-
-		if (newIdx2 > props.dataSource.length - 1 && newIdx === props.dataSource.length - 1) {
-			return [newIdx, 0]
-		} else if (newIdx > props.dataSource.length - 1) {
-			return [0, 1]
-		}
-		return [newIdx, newIdx2]
+		const dataSourceLastIdx = props.dataSource.length - 1
+		return dataSourceLastIdx < newIdx2 && dataSourceLastIdx === newIdx
+			? [newIdx, 0]
+			: dataSourceLastIdx < newIdx
+			? [0, 1]
+			: [newIdx, newIdx2]
 	}
+	const rootStyle = { position: "relative", flexDirection: COLUMN }
+	const topCardStyle = { position: ABSOLUTE, top: 0, right: 0, left: 0 }
+	const prevAnimatedViewStyle = [getCardStyles()[1], topCardStyle, { opacity: _fadeAnim }]
+	const nextAnimatedViewStyle = [getCardStyles()[0], topCardStyle]
 
 	if (_disabled) {
 		// disable swiping and renderEmpty
 		return (
-			<View style={{ position: "relative", flexDirection: COLUMN }}>
-				{<View>{props.renderEmpty && props.renderEmpty()}</View>}
-			</View>
-		)
-	} else if (_lastCard) {
-		// display renderEmpty underneath last viable card
-		return (
-			<View style={{ position: "relative", flexDirection: COLUMN }}>
-				{_selectedItem === undefined ? (
-					<View />
-				) : (
-					<View>
-						<Animated.View
-							style={[getCardStyles()[1], getInitialStyle().topCard, { opacity: _fadeAnim }]}
-							{..._this._panResponder.panHandlers}>
-							{props.renderEmpty && props.renderEmpty()}
-						</Animated.View>
-						<Animated.View style={[getCardStyles()[0], getInitialStyle().topCard]} {..._this._panResponder.panHandlers}>
-							{props.renderItem(_selectedItem)}
-						</Animated.View>
-					</View>
-				)}
+			<View style={rootStyle}>
+				<View>{props.renderEmpty && props.renderEmpty()}</View>
 			</View>
 		)
 	}
 	return (
-		<View style={{ position: "relative", flexDirection: COLUMN }}>
-			{_selectedItem === undefined ? (
-				<View />
-			) : (
+		<View style={rootStyle}>
+			{_selectedItem && (
 				<View>
-					<Animated.View
-						style={[getCardStyles()[1], getInitialStyle().topCard, { opacity: _fadeAnim }]}
-						{..._this._panResponder.panHandlers}>
-						{props.renderBottom ? props.renderBottom(_selectedItem2) : props.renderItem(_selectedItem2)}
+					<Animated.View style={prevAnimatedViewStyle} {..._this._panResponder.panHandlers}>
+						{!_lastCard
+							? props.renderBottom
+								? props.renderBottom(_selectedItem2)
+								: props.renderItem(_selectedItem2)
+							: props.renderEmpty && props.renderEmpty() // display renderEmpty underneath last viable card
+						}
 					</Animated.View>
-					<Animated.View style={[getCardStyles()[0], getInitialStyle().topCard]} {..._this._panResponder.panHandlers}>
-						{props.renderTop ? props.renderTop(_selectedItem) : props.renderItem(_selectedItem)}
+					<Animated.View style={nextAnimatedViewStyle} {..._this._panResponder.panHandlers}>
+						{!_lastCard && props.renderTop ? props.renderTop(_selectedItem) : props.renderItem(_selectedItem)}
 					</Animated.View>
 				</View>
 			)}
@@ -225,9 +205,7 @@ const DeckSwiper = props => {
 }
 
 if (__DEV__) {
-	const { ViewPropTypes } = require("react-native")
-	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
-
+	const { array, number, object, oneOfType, ViewPropTypes } = require("/utils/propTypes")
 	DeckSwiper.propTypes = {
 		...ViewPropTypes,
 		style: oneOfType([object, number, array]),

@@ -120,9 +120,7 @@ ActionSheet.hide = () => {
 }
 
 if (__DEV__) {
-	const { ViewPropTypes } = require("react-native")
-	const { array, number, object, oneOfType } = require("/utils/propTypes")
-
+	const { array, number, object, oneOfType, ViewPropTypes } = require("/utils/propTypes")
 	ActionSheet.propTypes = {
 		...ViewPropTypes,
 		style: oneOfType([object, number, array]),

@@ -111,7 +111,7 @@ const ScrollableTabBar = props => {
 		tabHeaderStyle,
 		tabFontSize
 	) => {
-		const headerContent = typeof name !== "string" ? name.props.children : undefined
+		const headerContent = typeof name !== "string" && name.props.children
 		const { activeTextColor, inactiveTextColor } = props
 		const textColor = isTabActive ? activeTextColor : inactiveTextColor
 		const fontWeight = isTabActive ? BOLD : NORMAL

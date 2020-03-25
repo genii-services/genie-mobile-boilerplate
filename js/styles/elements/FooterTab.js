@@ -62,7 +62,7 @@ module.exports = style => {
 				lineHeight: 16,
 			},
 		},
-		backgroundColor: itsAndroid ? style.footerDefaultBg : undefined,
+		backgroundColor: itsAndroid && style.footerDefaultBg,
 		flexDirection: ROW,
 		justifyContent: SPACE_BETWEEN,
 		flex: 1,

@@ -70,8 +70,8 @@ module.exports = style => {
 			marginLeft: null,
 			padding: style.listItemPadding,
 			paddingLeft: style.listItemPadding + 5,
-			paddingTop: itsIOS ? style.listItemPadding + 25 : undefined,
-			paddingBottom: itsAndroid ? style.listItemPadding + 20 : undefined,
+			paddingTop: itsIOS && style.listItemPadding + 25,
+			paddingBottom: itsAndroid && style.listItemPadding + 20,
 			flexDirection: ROW,
 			borderColor: style.listBorderColor,
 			"elements/Text": {

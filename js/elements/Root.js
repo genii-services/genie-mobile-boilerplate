@@ -20,9 +20,7 @@ const Root = ({ children, ...props }) => {
 }
 
 if (__DEV__) {
-	const { ViewPropTypes } = require("react-native")
-	const { array, number, object, oneOfType } = require("/utils/propTypes")
-
+	const { array, number, object, oneOfType, ViewPropTypes } = require("/utils/propTypes")
 	Root.propTypes = {
 		...ViewPropTypes,
 		style: oneOfType([object, number, array]),

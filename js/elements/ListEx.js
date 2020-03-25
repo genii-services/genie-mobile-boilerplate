@@ -81,7 +81,7 @@ const List = props => {
 		</View>
 	)
 	// <Icon style={style.nothingIcon} type="MaterialCommunityIcons" name="file-document-box-remove" />
-	// _loading ? <Spinner color='green'/> : undefined
+	// _loading && <Spinner color='green'/>
 }
 
 if (__DEV__) {

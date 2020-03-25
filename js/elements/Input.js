@@ -14,7 +14,7 @@ const Input = props => {
 		<TextInput
 			editable={!props.disabled}
 			underlineColorAndroid="rgba(0,0,0,0)"
-			placeholderTextColor={defaultStyle.inputColorPlaceholder}
+			placeholderTextColor={defaultStyle.placeholderTextColor}
 			{...props}
 		/>
 	)

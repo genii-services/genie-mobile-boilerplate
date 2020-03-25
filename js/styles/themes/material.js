@@ -31,6 +31,9 @@ module.exports = {
 
 	colors,
 
+	// label & placeholder
+	placeholderTextColor: "#575757",
+
 	// ActionSheet
 	elevation: 4,
 	listItemHeight: 50,
@@ -149,7 +152,6 @@ module.exports = {
 	inputErrorBorderColor: "#ed2f2f",
 	inputHeightBase: 50,
 	inputColor: textColor,
-	inputColorPlaceholder: "#575757",
 
 	// Line Height
 	buttonLineHeight: 19,

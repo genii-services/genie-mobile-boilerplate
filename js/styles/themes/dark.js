@@ -2,7 +2,7 @@
 const color = require("color")
 const { PixelRatio } = require("react-native")
 
-const { BLACK,  TRANSPARENT, WHITE } = require("/constants/style")
+const { BLACK, TRANSPARENT, WHITE } = require("/constants/style")
 const { deviceOS, itsIOS } = require("/utils/device")
 const platformStyle = undefined
 
@@ -21,10 +21,12 @@ const textColor = BLACK
 const fontSizeBase = 15
 const iconFontSize = itsIOS ? 30 : 28
 
-
 module.exports = {
 	platformStyle,
 	platform: deviceOS,
+
+	// label & placeholder
+	placeholderTextColor: "#575757",
 
 	// ActionSheet
 	elevation: 4,
@@ -93,15 +95,15 @@ module.exports = {
 	fontFamily: itsIOS ? "System" : "Roboto",
 	fontSizeBase,
 	fontSizez: {
-		"-4":parseInt(fontSizeBase * 0.6),
-		"-3":parseInt(fontSizeBase * 0.7),
-		"-2":parseInt(fontSizeBase * 0.8),
-		"-1":parseInt(fontSizeBase * 0.9),
-		"0":fontSizeBase,
-		"+1":fontSizeBase * 1.2,
-		"+2":fontSizeBase * 1.4,
-		"+3":fontSizeBase * 1.6,
-		"+4":fontSizeBase * 1.8,
+		"-4": parseInt(fontSizeBase * 0.6),
+		"-3": parseInt(fontSizeBase * 0.7),
+		"-2": parseInt(fontSizeBase * 0.8),
+		"-1": parseInt(fontSizeBase * 0.9),
+		"0": fontSizeBase,
+		"+1": fontSizeBase * 1.2,
+		"+2": fontSizeBase * 1.4,
+		"+3": fontSizeBase * 1.6,
+		"+4": fontSizeBase * 1.8,
 	},
 
 	// Footer
@@ -147,7 +149,6 @@ module.exports = {
 	inputErrorBorderColor: "#ed2f2f",
 	inputHeightBase: 50,
 	inputColor: textColor,
-	inputColorPlaceholder: "#575757",
 
 	// Line Height
 	buttonLineHeight: 19,
@@ -209,8 +210,8 @@ module.exports = {
 	titleFontfamily: itsIOS ? "System" : "Roboto_medium",
 	titleFontSize: itsIOS ? 17 : 19,
 	subTitleFontSize: itsIOS ? 11 : 14,
-	subtitleColor: WHITE: BLACK,
-	titleFontColor: WHITE: BLACK,
+	subtitleColor: itsIOS ? WHITE : BLACK,
+	titleFontColor: itsIOS ? WHITE : BLACK,
 
 	// Other
 	borderRadiusBase: itsIOS ? 5 : 2,

@@ -7,7 +7,7 @@ module.exports = style => {
 		fontSize: style.titleFontSize,
 		fontFamily: style.titleFontfamily,
 		color: style.titleFontColor,
-		fontWeight: itsIOS ? "700" : undefined,
+		fontWeight: itsIOS && "700",
 		textAlign: CENTER,
 		paddingLeft: itsIOS ? 4 : 0,
 		marginLeft: itsIOS ? undefined : -3,

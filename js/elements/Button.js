@@ -96,7 +96,6 @@ const Button = ({ style, ...props }) => {
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
-
 	Button.propTypes = {
 		...TouchableOpacity.propTypes,
 		style: oneOfType([object, number, array]),

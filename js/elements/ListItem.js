@@ -6,12 +6,13 @@ const { Platform, TouchableHighlight, TouchableNativeFeedback, View } = require(
 
 const { itsIOS, itsWeb } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
-const { useState, useStore, useThis } = require("/hooks")
+const { useStore } = require("/hooks")
 
 const ListItem = props => {
 	const [theme] = useStore("theme")
 
 	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
+	const viewStyle = { marginLeft: -17, paddingLeft: 17 }
 
 	return itsIOS || itsWeb || style.androidRipple === false || (!props.onPress && !props.onLongPress) || Platform.Version <= 21 ? (
 		<TouchableHighlight underlayColor={style.listBtnUnderlayColor} {...props} style={props.touchableHighlightStyle}>
@@ -19,7 +20,7 @@ const ListItem = props => {
 		</TouchableHighlight>
 	) : (
 		<TouchableNativeFeedback {...props}>
-			<View style={{ marginLeft: -17, paddingLeft: 17 }}>
+			<View style={viewStyle}>
 				<View {...props} testID={undefined} />
 			</View>
 		</TouchableNativeFeedback>
@@ -27,8 +28,7 @@ const ListItem = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
-
+	const { array, bool, number, object, oneOfType } = require("/utils/propTypes")
 	ListItem.propTypes = {
 		...TouchableHighlight.propTypes,
 		style: oneOfType([object, number, array]),

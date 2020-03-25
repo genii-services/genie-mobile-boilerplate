@@ -49,21 +49,21 @@ const UserDetailScreen = props => {
 					<Button
 						style={style.footerButton}
 						vertical
-						onPress={() => (!!defaultz.mail ? router.launch("mailto:" + defaultz.mail, "메일 보내기") : undefined)}>
+						onPress={() => !!defaultz.mail && router.launch("mailto:" + defaultz.mail, "메일 보내기")}>
 						<Icon style={style.footerIcon} name="ios-mail" />
 						<Text style={style.footerText}>메일</Text>
 					</Button>
 					<Button
 						style={style.footerButton}
 						vertical
-						onPress={() => (!!defaultz.tel ? router.launch("tel:" + defaultz.tel, "전화 걸기") : undefined)}>
+						onPress={() => !!defaultz.tel && router.launch("tel:" + defaultz.tel, "전화 걸기")}>
 						<Icon style={style.footerIcon} name="ios-call" />
 						<Text style={style.footerText}>전화</Text>
 					</Button>
 					<Button
 						style={[style.footerButton]}
 						vertical
-						onPress={() => (!!defaultz.sms ? router.launch("sms:" + defaultz.sms, "문자 보내기") : undefined)}>
+						onPress={() => !!defaultz.sms && router.launch("sms:" + defaultz.sms, "문자 보내기")}>
 						<Icon style={style.footerIcon} name="ios-text" />
 						<Text style={style.footerText}>문자</Text>
 					</Button>

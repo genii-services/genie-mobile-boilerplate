@@ -10,29 +10,21 @@ const { connectStyle } = require("/utils/style")
 const InputGroup = props => {
 	const [theme] = useStore("theme")
 	const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
-	const getInitialStyle = () => {
-		return {
-			roundedInputGroup: {
-				borderWidth: props.rounded ? 1 : undefined,
-				borderRadius: props.rounded ? defaultStyle.inputGroupRoundedBorderRadius : undefined,
-			},
-		}
+
+	const defaultProps = {
+		style: {
+			borderWidth: props.rounded && 1,
+			borderRadius: props.rounded && defaultStyle.inputGroupRoundedBorderRadius,
+		},
 	}
 
-	const prepareRootProps = () => {
-		const defaultProps = {
-			style: getInitialStyle().roundedInputGroup,
-		}
+	const rootProps = computeProps(props, defaultProps)
 
-		return computeProps(props, defaultProps)
-	}
-
-	return <View {...prepareRootProps()}>{props.children}</View>
+	return <View {...rootProps}>{props.children}</View>
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
-	const { ViewPropTypes } = require("react-native")
+	const { bool, ViewPropTypes } = require("/utils/propTypes")
 	InputGroup.propTypes = {
 		...ViewPropTypes,
 		regular: bool,

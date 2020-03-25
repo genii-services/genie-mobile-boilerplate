@@ -30,13 +30,13 @@ module.exports = style => {
 				},
 			},
 			".first": {
-				borderTopLeftRadius: itsIOS ? 5 : undefined,
-				borderBottomLeftRadius: itsIOS ? 5 : undefined,
+				borderTopLeftRadius: itsIOS && 5,
+				borderBottomLeftRadius: itsIOS && 5,
 				borderLeftWidth: 1,
 			},
 			".last": {
-				borderTopRightRadius: itsIOS ? 5 : undefined,
-				borderBottomRightRadius: itsIOS ? 5 : undefined,
+				borderTopRightRadius: itsIOS && 5,
+				borderBottomRightRadius: itsIOS && 5,
 			},
 			"elements/Text": {
 				color: style.segmentTextColor,

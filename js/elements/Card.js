@@ -3,18 +3,17 @@ console.debug(MODULE_NAME$)
 
 const React = require("react")
 const { FlatList, View, ViewPropTypes } = require("react-native")
-const { connectStyle } = require("/utils/style")
 
-const Card = props => {
-	return props.dataArray && props.renderRow ? (
-		<FlatList {...props} data={props.dataArray} renderItem={props.renderRow} keyExtractor={(item, index) => index.toString()} />
+const Card = ({ dataArray, renderRow, ...props }) => {
+	return dataArray && renderRow ? (
+		<FlatList {...props} data={dataArray} renderItem={renderRow} keyExtractor={(item, index) => index.toString()} />
 	) : (
 		<View {...props} />
 	)
 }
 
 if (__DEV__) {
-	const { array, func, number, object, oneOfType, string } = require("/utils/propTypes")
+	const { array, func, number, object, oneOfType } = require("/utils/propTypes")
 	Card.propTypes = {
 		...ViewPropTypes,
 		style: oneOfType([object, number, array]),
@@ -24,4 +23,5 @@ if (__DEV__) {
 	}
 }
 
+const { connectStyle } = require("/utils/style")
 module.exports = connectStyle(Card, MODULE_NAME$)

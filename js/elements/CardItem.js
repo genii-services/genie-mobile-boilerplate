@@ -10,8 +10,7 @@ const CardItem = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
-
+	const { array, bool, number, object, oneOfType } = require("/utils/propTypes")
 	CardItem.propTypes = {
 		...TouchableOpacity.propTypes,
 		style: oneOfType([object, number, array]),

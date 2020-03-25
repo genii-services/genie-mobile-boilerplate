@@ -55,8 +55,8 @@ module.exports = style => {
 				lineHeight: style.inputLineHeight - 6,
 				".secureTextEntry": { fontSize: style.inputFontSize },
 				".multiline": {
-					paddingTop: itsIOS ? 9 : undefined,
-					paddingBottom: itsIOS ? 9 : undefined,
+					paddingTop: itsIOS && 9,
+					paddingBottom: itsIOS && 9,
 				},
 			},
 			flexDirection: null,
@@ -81,7 +81,7 @@ module.exports = style => {
 		},
 		"elements/Label": {
 			fontSize: style.inputFontSize,
-			color: style.inputColorPlaceholder,
+			color: style.placeholderTextColor,
 			paddingRight: 5,
 		},
 		"elements/Icon": {
@@ -99,7 +99,7 @@ module.exports = style => {
 			height: style.inputHeightBase,
 			color: style.inputColor,
 			flex: 1,
-			top: itsIOS ? 1.5 : undefined,
+			top: itsIOS && 1.5,
 			fontSize: style.inputFontSize,
 		},
 		".underline": {

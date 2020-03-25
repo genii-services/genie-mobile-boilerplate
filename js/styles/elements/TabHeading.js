@@ -20,7 +20,7 @@ module.exports = style => {
 		},
 		"elements/Icon": {
 			color: style.topTabBarTextColor,
-			fontSize: itsIOS ? 26 : undefined,
+			fontSize: itsIOS && 26,
 		},
 		".active": {
 			"elements/Text": {

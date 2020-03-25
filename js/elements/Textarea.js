@@ -8,31 +8,24 @@ const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
 
 const Textarea = props => {
+	const { rowSpan } = props
 	const { useRefs } = require("/hooks")
 	const refs = useRefs()
 
 	const [theme] = useStore("theme")
 	const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
-
-	const getStyle = () => {
-		textarea: {
-			height: props.rowSpan ? props.rowSpan * 25 : 60
-		}
-	}
-
-	const prepareRootProps = () => {
-		const defaultProps = {
-			style: getStyle().textarea,
-		}
-		return computeProps(props, defaultProps)
-	}
+	const rootProps = computeProps(props, {
+		style: {
+			height: rowSpan ? rowSpan * 25 : 60,
+		},
+	})
 
 	return (
 		<TextInput
 			ref={c => (refs._textInput = c)}
-			{...prepareRootProps()}
+			{...rootProps}
 			multiline
-			placeholderTextColor={props.placeholderTextColor || defaultStyle.inputColorPlaceholder}
+			placeholderTextColor={props.placeholderTextColor || defaultStyle.placeholderTextColor}
 			underlineColorAndroid="rgba(0,0,0,0)"
 			editable={!props.disabled}
 		/>

@@ -20,7 +20,7 @@ const l_widths = [320, 1280] // 1280 캘릭시탭x2
 
 const BorderButton = props => {
 	const { iconName, imageName, title, borderColor, onPress } = props
-	let { orientation, width, height } = screen
+	const { orientation, width, height } = screen
 
 	const { getStyle } = useStyle()
 	const style = getStyle(BorderButton)
@@ -83,8 +83,7 @@ const BorderButton = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
-
+	const { string } = require("/utils/propTypes")
 	BorderButton.propTypes = {
 		name: string,
 		title: string,

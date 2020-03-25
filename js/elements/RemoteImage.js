@@ -49,7 +49,7 @@ const RemoteImage = props => {
 		set_erred(false)
 	}
 
-	const text = _loading ? props.loadingText : _erred ? props.erredText : undefined
+	const text = (_loading && props.loadingText) || (_erred && props.erredText)
 	const { zoomScale } = props
 	let width = _width * zoomScale
 	let height, resizeMode, marginTop

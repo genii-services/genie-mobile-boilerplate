@@ -40,26 +40,8 @@ const PickerNB = props => {
 	set_dataSource(children)
 	set_dataSource(children)
 
-	const getInitialStyle = () => {
-		return {
-			picker: {
-				// alignItems: 'flex-end'
-			},
-			pickerItem: {},
-		}
-	}
-
 	const getSelectedItem = () => {
 		return find(props.children, child => child.props.value === props.selectedValue)
-	}
-
-	const prepareRootProps = () => {
-		const defaultProps = {
-			style: getInitialStyle().picker,
-			itemStyle: getInitialStyle().pickerItem,
-		}
-
-		return computeProps(props, defaultProps)
 	}
 
 	const renderIcon = () => {
@@ -96,23 +78,22 @@ const PickerNB = props => {
 		)
 	}
 
+	const buttonStyle = {
+		shadowOffset: null,
+		shadowColor: null,
+		shadowRadius: null,
+		shadowOpacity: null,
+		marginLeft: 3,
+		...props.headerBackButtonStyle,
+	}
+
 	const renderHeader = () => {
 		return props.renderHeader ? (
 			props.renderHeader(() => set_modalVisible(false))
 		) : (
 			<Header style={props.headerStyle}>
 				<Left>
-					<Button
-						style={{
-							shadowOffset: null,
-							shadowColor: null,
-							shadowRadius: null,
-							shadowOpacity: null,
-							marginLeft: 3,
-							...props.headerBackButtonStyle,
-						}}
-						transparent
-						onPress={() => set_modalVisible(false)}>
+					<Button style={buttonStyle} transparent onPress={() => set_modalVisible(false)}>
 						<Text style={props.headerBackButtonTextStyle}>{props.headerBackButtonText || "Back"}</Text>
 					</Button>
 				</Left>
@@ -167,8 +148,7 @@ const PickerNB = props => {
 PickerNB.Item = Picker.Item
 
 if (__DEV__) {
-	const { array, bool, func, object, oneOfType, string } = require("/utils/propTypes")
-	const { ViewPropTypes } = require("react-native")
+	const { func, ViewPropTypes } = require("/utils/propTypes")
 	PickerNB.propTypes = {
 		...ViewPropTypes,
 		renderButton: func,

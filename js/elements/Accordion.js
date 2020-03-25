@@ -139,7 +139,7 @@ const Accordion = ({
 	const [theme] = useStore("theme")
 	const [_selected, set_selected] = useState(props.expanded)
 
-	const setSelected = index => set_selected(_selected != index ? index : undefined)
+	const setSelected = index => set_selected(_selected != index && index)
 
 	const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
 	return (

@@ -29,7 +29,7 @@ const Content = props => {
 				}}
 				{...props}
 				style={style}
-				contentContainerStyle={[{ padding: padder ? defaultStyle.contentPadding : undefined }, contentContainerStyle]}>
+				contentContainerStyle={[{ padding: padder && defaultStyle.contentPadding }, contentContainerStyle]}>
 				{children}
 			</KeyboardAwareScrollView>
 		</SafeAreaView>
@@ -43,7 +43,7 @@ const Content = props => {
 				_this._root = c
 			}}
 			{...props}
-			contentContainerStyle={[{ padding: padder ? defaultStyle.contentPadding : undefined }, contentContainerStyle]}>
+			contentContainerStyle={[{ padding: padder && defaultStyle.contentPadding }, contentContainerStyle]}>
 			{children}
 		</KeyboardAwareScrollView>
 	)
