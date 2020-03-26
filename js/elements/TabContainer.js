@@ -1,10 +1,10 @@
-const MODULE_NAME$ = "elements/TabContainer"
+const MODULE_NAME$ = "TabContainerElement"
 console.debug(MODULE_NAME$)
 
 const { View } = require("react-native")
 
 const { connectStyle } = require("/utils/style")
 
-const TabContainer = View
+const TabContainerElement = View
 
-module.exports = connectStyle(TabContainer, MODULE_NAME$)
+module.exports = connectStyle(TabContainerElement, MODULE_NAME$)

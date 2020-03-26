@@ -1,75 +1,45 @@
-const MODULE_NAME$ = "elements/Footer"
+const MODULE_NAME$ = "FooterElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
 const { View } = require("react-native")
 
+const { screen, itsIphoneX } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
 const { useState, useStore } = require("/hooks")
-const defaultThemeStyle = require("/styles/themes/default")
 
 const Footer = props => {
 	const [theme] = useStore("theme")
-	const [_orientation, set_orientation] = useState(
-		defaultThemeStyle.deviceHeight > defaultThemeStyle.deviceWidth ? "portrait" : "landscape"
-	)
 
-	const layoutChange = val => {
-		const maxComp = Math.max(defaultThemeStyle.deviceWidth, defaultThemeStyle.deviceHeight)
-		set_orientation(val.width >= maxComp ? "landscape" : "portrait")
-	}
-
-	const calculateHeight = (mode, inSet) => {
+	if (itsIphoneX) {
 		const { style } = props
-		let inset = inSet || defaultThemeStyle.Inset
+		const itsPortrait = screen.isPortrait()
 
-		const InsetValues = mode === "portrait" ? inset.portrait : inset.landscape
-		let oldHeight = style.height !== undefined ? style.height : style[1] ? style[1].height || style[0].height : style[0].height
+		const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
+		const inset = defaultStyle.Inset
+		const InsetValues = itsPortrait ? inset.portrait : inset.landscape
 
+		const oldHeight = style.height || style[1] ? style[1].height || style[0].height : style[0].height
 		const height = oldHeight + InsetValues.bottomInset
-		return height
-	}
 
-	const calculatePadder = (mode, inSet) => {
-		const { style } = props
-		let inset = inSet || defaultThemeStyle.Inset
-
-		const InsetValues = mode === "portrait" ? inset.portrait : inset.landscape
-		let bottomPadder = null
-		if (style[1] !== undefined) {
-			if (style[1].padding !== undefined || style[1].paddingTop !== undefined) {
-				bottomPadder = (style[1].paddingTop || style[1].padding) + InsetValues.bottomInset
+		let paddingBottom
+		if (style[1]) {
+			if (style[1].padding || style[1].paddingTop) {
+				paddingBottom = (style[1].paddingTop || style[1].padding) + InsetValues.bottomInset
 			}
-		} else if (style.padding !== undefined && style.paddingTop !== undefined) {
-			bottomPadder = (style.paddingTop || style.padding) + InsetValues.bottomInset
+		} else if (style.padding && style.paddingTop) {
+			paddingBottom = (style.paddingTop || style.padding) + InsetValues.bottomInset
 		} else {
-			bottomPadder = InsetValues.bottomInset
+			paddingBottom = InsetValues.bottomInset
 		}
-		return bottomPadder
+		const viewStyle = [style, { height, paddingBottom }]
+		return <View {...props} style={viewStyle} />
 	}
-
-	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
-	return style.isIphoneX ? (
-		<View
-			{...props}
-			onLayout={e => layoutChange(e.nativeEvent.layout)}
-			style={[
-				style,
-				{
-					height: calculateHeight(_orientation, style.Inset),
-					paddingBottom: calculatePadder(_orientation, style.Inset),
-				},
-			]}
-		/>
-	) : (
-		<View {...props} />
-	)
+	return <View {...props} />
 }
 
 if (__DEV__) {
-	const { ViewPropTypes } = require("react-native")
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
-
+	const { array, number, object, oneOfType, ViewPropTypes } = require("/utils/propTypes")
 	Footer.propTypes = {
 		...ViewPropTypes,
 		style: oneOfType([object, number, array]),

@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/IconNB"
+const MODULE_NAME$ = "IconNBElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
@@ -59,7 +59,7 @@ const IconNB = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOf, string } = require("prop-types")
+	const { array, bool, number, object, oneOf, string } = require("/utils/propTypes")
 	IconNB.propTypes = {
 		type: oneOf(_.keys(Iconz)),
 	}

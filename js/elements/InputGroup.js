@@ -1,37 +1,30 @@
-const MODULE_NAME$ = "elements/InputGroup"
+const MODULE_NAME$ = "InputGroupElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
 const { View } = require("react-native")
 
-const defaultThemeStyle = require("/styles/themes/default")
 const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
 
 const InputGroup = props => {
-	const getInitialStyle = () => {
-		return {
-			roundedInputGroup: {
-				borderWidth: props.rounded ? 1 : undefined,
-				borderRadius: props.rounded ? defaultThemeStyle.inputGroupRoundedBorderRadius : undefined,
-			},
-		}
+	const [theme] = useStore("theme")
+	const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
+
+	const defaultProps = {
+		style: {
+			borderWidth: props.rounded && 1,
+			borderRadius: props.rounded && defaultStyle.inputGroupRoundedBorderRadius,
+		},
 	}
 
-	const prepareRootProps = () => {
-		const defaultProps = {
-			style: getInitialStyle().roundedInputGroup,
-		}
+	const rootProps = computeProps(props, defaultProps)
 
-		return computeProps(props, defaultProps)
-	}
-
-	return <View {...prepareRootProps()}>{props.children}</View>
+	return <View {...rootProps}>{props.children}</View>
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
-	const { ViewPropTypes } = require("react-native")
+	const { bool, ViewPropTypes } = require("/utils/propTypes")
 	InputGroup.propTypes = {
 		...ViewPropTypes,
 		regular: bool,

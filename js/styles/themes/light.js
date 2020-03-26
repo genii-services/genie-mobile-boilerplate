@@ -1,10 +1,14 @@
-/** 공통 라이브러리 */
+/** old default */
 const color = require("color")
 const { PixelRatio } = require("react-native")
 
-const { BLACK, FLEX_START, MATERIAL, TRANSPARENT, WHITE } = require("/constants/style")
+const { BLACK, TRANSPARENT, WHITE } = require("/constants/style")
 const { deviceOS, itsIOS } = require("/utils/device")
+
 const platformStyle = undefined
+
+const textColor = BLACK
+const inverseTextColor = WHITE
 
 const brandPrimary = itsIOS ? "#007aff" : "#3F51B5"
 const brandInfo = "#62B1F6"
@@ -12,11 +16,8 @@ const brandSuccess = "#5cb85c"
 const brandDanger = "#d9534f"
 const brandWarning = "#f0ad4e"
 
-const inverseTextColor = WHITE
-
 const toolbarDefaultBg = itsIOS ? "#F8F8F8" : "#3F51B5"
 const tabBgColor = "#F8F8F8"
-const textColor = BLACK
 
 const fontSizeBase = 15
 const iconFontSize = itsIOS ? 30 : 28
@@ -25,25 +26,17 @@ module.exports = {
 	platformStyle,
 	platform: deviceOS,
 
-	// Accordion
-	headerStyle: "#edebed",
-	iconStyle: BLACK,
-	contentStyle: "#f5f4f5",
-	expandedIconStyle: BLACK,
-	accordionBorderColor: "#d3d3d3",
+	// label & placeholder
+	placeholderTextColor: "#575757",
 
 	// ActionSheet
 	elevation: 4,
-	containerTouchableBackgroundColor: "rgba(0,0,0,0.4)",
-	innerTouchableBackgroundColor: WHITE,
 	listItemHeight: 50,
-	listItemBorderColor: TRANSPARENT,
 	marginHorizontal: -15,
 	marginLeft: 14,
 	marginTop: 15,
 	minHeight: 56,
 	padding: 15,
-	touchableTextColor: "#757575",
 
 	// Android
 	androidRipple: true,
@@ -61,21 +54,13 @@ module.exports = {
 	buttonDisabledBg: "#b5b5b5",
 	buttonPadding: 6,
 	buttonPrimaryBg: brandPrimary,
-	buttonPrimaryColor: inverseTextColor,
 	buttonInfoBg: brandInfo,
 	buttonInfoColor: inverseTextColor,
 	buttonSuccessBg: brandSuccess,
-	buttonSuccessColor: inverseTextColor,
 	buttonDangerBg: brandDanger,
-	buttonDangerColor: inverseTextColor,
 	buttonWarningBg: brandWarning,
-	buttonWarningColor: inverseTextColor,
 	buttonTextSize: itsIOS ? fontSizeBase * 1.1 : fontSizeBase - 1,
-	buttonTextSizeLarge: fontSizeBase * 1.5,
-	buttonTextSizeSmall: fontSizeBase * 0.8,
 	borderRadiusLarge: fontSizeBase * 3.8,
-	iconSizeLarge: iconFontSize * 1.5,
-	iconSizeSmall: iconFontSize * 0.6,
 
 	// Card
 	cardDefaultBg: WHITE,
@@ -94,6 +79,8 @@ module.exports = {
 	checkboxBgColor: "#039BE5",
 	checkboxSize: 20,
 	checkboxTickColor: WHITE,
+	checkboxDefaultColor: TRANSPARENT,
+	checkboxTextShadowRadius: 0,
 
 	// Color
 	brandPrimary,
@@ -108,15 +95,14 @@ module.exports = {
 	containerBgColor: WHITE,
 
 	// Date Picker
+	datePickerFlex: 1,
+	datePickerPadding: 10,
 	datePickerTextColor: BLACK,
 	datePickerBg: TRANSPARENT,
 
-	// FAB
-	fabWidth: 56,
-
 	// Font
 	DefaultFontSize: 16,
-	fontFamily: itsIOS ? "System" : "Roboto",
+	fontFamily: itsIOS ? "System" : "System",
 	fontSizeBase,
 	fontSizeH1: fontSizeBase * 1.8,
 	fontSizeH2: fontSizeBase * 1.6,
@@ -128,11 +114,11 @@ module.exports = {
 	footerPaddingBottom: 0,
 
 	// FooterTab
-	tabBarTextColor: itsIOS ? "#737373" : "#bfc6ea",
+	tabBarTextColor: itsIOS ? "#6b6b6b" : "#b3c7f9",
 	tabBarTextSize: itsIOS ? 14 : 11,
 	activeTab: itsIOS ? "#007aff" : WHITE,
 	sTabBarActiveTextColor: "#007aff",
-	tabBarActiveTextColor: itsIOS ? "#2874F0" : WHITE,
+	tabBarActiveTextColor: itsIOS ? "#007aff" : WHITE,
 	tabActiveBgColor: itsIOS ? "#cde1f9" : "#3F51B5",
 
 	// Header
@@ -144,8 +130,8 @@ module.exports = {
 	searchBarHeight: itsIOS ? 30 : 40,
 	searchBarInputHeight: itsIOS ? 30 : 50,
 	toolbarBtnTextColor: itsIOS ? "#007aff" : WHITE,
-	iosStatusbar: "dark-content",
 	toolbarDefaultBorder: itsIOS ? "#a7a6ab" : "#3F51B5",
+	iosStatusbar: itsIOS ? "dark-content" : "light-content",
 	statusBarColor: color(toolbarDefaultBg)
 		.darken(0.2)
 		.hex(),
@@ -165,7 +151,6 @@ module.exports = {
 	inputErrorBorderColor: "#ed2f2f",
 	inputHeightBase: 50,
 	inputColor: textColor,
-	inputColorPlaceholder: "#575757",
 
 	// Line Height
 	buttonLineHeight: 19,
@@ -173,6 +158,7 @@ module.exports = {
 	lineHeightH2: 27,
 	lineHeightH3: 22,
 	lineHeight: itsIOS ? 20 : 24,
+	listItemSelected: itsIOS ? "#007aff" : "#3F51B5",
 
 	// List
 	listBg: TRANSPARENT,
@@ -182,7 +168,6 @@ module.exports = {
 	listItemPadding: itsIOS ? 10 : 12,
 	listNoteColor: "#808080",
 	listNoteSize: 13,
-	listItemSelected: itsIOS ? "#007aff" : "#3F51B5",
 
 	// Progress Bar
 	defaultProgressColor: "#E4202D",
@@ -227,7 +212,7 @@ module.exports = {
 	titleFontfamily: itsIOS ? "System" : "Roboto_medium",
 	titleFontSize: itsIOS ? 17 : 19,
 	subTitleFontSize: itsIOS ? 11 : 14,
-	subtitleColor: itsIOS ? BLACK : WHITE,
+	subtitleColor: itsIOS ? "#8e8e93" : WHITE,
 	titleFontColor: itsIOS ? BLACK : WHITE,
 
 	// Other
@@ -236,6 +221,7 @@ module.exports = {
 	contentPadding: 10,
 	dropdownLinkColor: "#414142",
 	inputLineHeight: 24,
+
 	inputGroupRoundedBorderRadius: 30,
 
 	// iPhoneX SafeArea

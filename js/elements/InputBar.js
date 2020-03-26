@@ -1,5 +1,5 @@
-/** 공통 라이브러리 */
-console.debug("InputBar")
+/** InputBar Element */
+console.debug("InputBarElement")
 
 const React = require("react")
 const _ = require("lodash")
@@ -13,7 +13,7 @@ const Input = require("./Input")
 const Item = require("./Item")
 const Text = require("./Text")
 
-const InputBar = props => {
+const InputBarElement = props => {
 	const [_value, set_value] = useState(props.value)
 	const [_emptied, set_emptied] = useState(() => !props.value || (props.value && props.value.length == 0))
 	const [_minLength, set_minLength] = useState(props.minLength || 1)
@@ -32,7 +32,7 @@ const InputBar = props => {
 		Keyboard.dismiss()
 	}
 
-	console.debug(InputBar, _value, styles.input, props.inputStyle)
+	console.debug(InputBarElement, _value, styles.input, props.inputStyle)
 	return (
 		<View style={styles.container} rounded={props.rounded}>
 			<Item style={props.rounded ? styles.roundedItem : styles.item}>
@@ -58,8 +58,8 @@ const InputBar = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, func, object, oneOfType, string } = require("prop-types")
-	InputBar.propTypes = {
+	const { array, bool, func, object, oneOfType, string } = require("/utils/propTypes")
+	InputBarElement.propTypes = {
 		placeholder: string,
 		value: string,
 		onChangeText: func,
@@ -67,13 +67,13 @@ if (__DEV__) {
 	}
 }
 
-InputBar.defaultProps = {
+InputBarElement.defaultProps = {
 	...Input.defaultProps,
 	placeholder: "찾을 문자열",
 	rounded: false,
 }
 
-InputBar.getDefaultStyle = ({ fontFamily }) => {
+InputBarElement.getDefaultStyle = ({ fontFamily }) => {
 	return {
 		container: {
 			flexDirection: ROW,
@@ -130,4 +130,4 @@ InputBar.getDefaultStyle = ({ fontFamily }) => {
 		},
 	}
 }
-module.exports = InputBar
+module.exports = InputBarElement

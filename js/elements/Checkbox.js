@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/Checkbox"
+const MODULE_NAME$ = "CheckboxElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
@@ -7,23 +7,24 @@ const Ionicons = require("react-native-vector-icons/Ionicons")
 
 const { useStore } = require("/hooks")
 const { connectStyle } = require("/utils/style")
-const defaultThemeStyle = require("/styles/themes/default")
+
 const { computeProps } = require("/utils/props")
 const { itsIOS } = require("/utils/device")
 
-const CheckBox = props => {
-	const { checked } = props
+const CheckBoxElement = props => {
+	const { color, checked } = props
 
 	const [theme] = useStore("theme")
-	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
-	const { color } = props
+	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
+	const { platformStyle } = style
+
 	const rootProps = computeProps(props, {
 		style: {
 			borderColor: color || style.checkboxBgColor,
-			backgroundColor: checked === true ? color || style.checkboxBgColor : style.checkboxDefaultColor,
+			backgroundColor: checked ? color || style.checkboxBgColor : style.checkboxDefaultColor,
 		},
 	})
-	const platformStyle = style.platformStyle
+
 	const iconStyle = {
 		color: checked ? style.checkboxTickColor : style.checkboxDefaultColor,
 		fontSize: style.CheckboxFontSize,
@@ -31,19 +32,18 @@ const CheckBox = props => {
 		marginTop: style.CheckboxIconMarginTop,
 		textShadowRadius: style.checkboxTextShadowRadius,
 	}
-
 	const iconName = itsIOS && platformStyle !== "material" ? "ios-checkmark" : "md-checkmark"
 
 	return (
-		<TouchableOpacity s {...props}>
+		<TouchableOpacity {...rootProps}>
 			<Ionicons style={iconStyle} name={iconName} />
 		</TouchableOpacity>
 	)
 }
 
 if (__DEV__) {
-	const { array, bool, func, number, object, oneOfType, string } = require("prop-types")
-	CheckBox.propTypes = {
+	const { array, bool, func, number, object, oneOfType } = require("/utils/propTypes")
+	CheckBoxElement.propTypes = {
 		...TouchableOpacity.propTypes,
 		style: oneOfType([object, number, array]),
 		checked: bool,
@@ -51,4 +51,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(CheckBox, MODULE_NAME$)
+module.exports = connectStyle(CheckBoxElement, MODULE_NAME$)

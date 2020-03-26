@@ -42,19 +42,16 @@ module.exports = {
 // Prepair Default Theme
 
 const { OBJECT, STRING } = require("/constants")
-const defaultThemeStyle = require("/styles/themes/default")
 
-const elementStyles = require("/styles/elements")
-
+const elementStylez = require("/styles/elements")
+const defaultStyle = require("/styles/themes/light")
 const _theme = {
-	defaultStyle: defaultThemeStyle,
-	"elements/IconNB": { ...elementStyles.Icon(defaultThemeStyle) },
-	"elements/ListItem1": { ...elementStyles.ListItem(defaultThemeStyle) },
-	"elements/PickerNB": { ...elementStyles.Picker(defaultThemeStyle), "elements/Button": { "elements/Text": {} } },
-	"elements/Tabs": { flex: 1 },
-	"elements/ViewNB": { ...elementStyles.View(defaultThemeStyle) },
+	defaultStyle,
+	IconNBElement: { ...elementStylez.Icon(defaultStyle) },
+	PickerNBElement: { ...elementStylez.Picker(defaultStyle), ButtonElement: { TextElement: {} } },
+	TabsElement: { flex: 1 },
 }
-_.forEach(elementStyles, (v, k) => (_theme["elements/" + k] = v()))
+_.forEach(elementStylez, (v, k) => (_theme[k + "Element"] = v(defaultStyle)))
 
 const cssifyTheme = (grandParent, parent, parentName) => {
 	_.forEach(parent, (style, styleName) => {
@@ -107,3 +104,23 @@ function getTheme(theme) {
 }
 
 exports.mapPropsToStyleNames = (styleNames, props) => keys(props)
+
+exports.flattenStyle = style => style.reduce((accumulator, currentValue) => accumulator.concat(currentValue), [])
+
+const {
+	StyleSheet: { flatten },
+} = require("react-native")
+
+exports.mergeStyle = function(style, defaultStyle) {
+	// Pass the merged Style Object instead
+	if (style) return
+	const newStyle = {}
+	if (Array.isArray(style)) {
+		_.forEach(style, v => _.merge(newStyle, typeof v === "number" ? flatten(v) : v))
+	} else if (typeof style === "number") {
+		newStyle = flatten(style)
+	} else {
+		newStyle = style
+	}
+	return _.merge({}, defaultStyle, newStyle)
+}

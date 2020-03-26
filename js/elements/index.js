@@ -22,7 +22,7 @@ exports.Row = Row
 exports.Grid = Grid
 
 exports.Accordion = require("./Accordion")
-exports.ActionSheetContainer = require("./ActionSheet")
+exports.ActionSheet = require("./ActionSheet")
 exports.Badge = require("./Badge")
 exports.Body = require("./Body")
 exports.Button = require("./Button")

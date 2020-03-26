@@ -1,19 +1,28 @@
 /* eslint-disable react/no-multi-comp */
 /* eslint-disable react/prefer-stateless-function */
 const React = require("react")
-const { Animated, TouchableWithoutFeedback, FlatList, StyleSheet, View } = require("react-native")
+const { Animated, TouchableWithoutFeedback, FlatList, View } = require("react-native")
 
-const { CENTER, ROW, SPACE_BETWEEN } = require("/constants/style")
+const { BLACK, CENTER, ROW, SPACE_BETWEEN } = require("/constants/style")
 const { useState, useStore } = require("/hooks")
-const defaultThemeStyle = require("/styles/themes/default")
 
 const Text = require("./Text")
 const Icon = require("./Icon")
 
+const defaultThemeStyle = {
+	accordionBorderColor: "#d3d3d3",
+	accordionContentPadding: 10,
+	accordionIconFontSize: 18,
+	contentStyle: "#f5f4f5",
+	expandedIconStyle: BLACK,
+	headerStyle: "#edebed",
+	iconStyle: BLACK,
+}
+
 const DefaultHeader = props => {
 	const [theme] = useStore("theme")
 	const { expanded, expandedIcon, expandedIconStyle, headerStyle, icon, iconStyle, title } = props
-	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
+	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
 	return (
 		<View
 			style={[
@@ -42,7 +51,7 @@ const DefaultHeader = props => {
 const DefaultContent = props => {
 	const [theme] = useStore("theme")
 	const { content, contentStyle } = props
-	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
+	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
 	return (
 		<Text style={[{ padding: defaultThemeStyle.accordionContentPadding }, contentStyle || { backgroundColor: style.contentStyle }]}>
 			{content}
@@ -111,7 +120,7 @@ const AccordionItem = props => {
 	)
 }
 
-const Accordion = ({
+const AccordionElement = ({
 	contentStyle,
 	expandedIcon,
 	expandedIconStyle,
@@ -130,9 +139,9 @@ const Accordion = ({
 	const [theme] = useStore("theme")
 	const [_selected, set_selected] = useState(props.expanded)
 
-	const setSelected = index => set_selected(_selected != index ? index : undefined)
+	const setSelected = index => set_selected(_selected != index && index)
 
-	const defaultStyle = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
+	const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
 	return (
 		<FlatList
 			data={dataArray}
@@ -169,13 +178,13 @@ const Accordion = ({
 	)
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	defaultHeader: {
 		flexDirection: ROW,
 		padding: defaultThemeStyle.accordionContentPadding,
 		justifyContent: SPACE_BETWEEN,
 		alignItems: CENTER,
 	},
-})
+}
 
-module.exports = Accordion
+module.exports = AccordionElement

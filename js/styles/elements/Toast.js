@@ -1,9 +1,8 @@
 /** Element Style */
 const { CENTER, ROW, SPACE_BETWEEN, TRANSPARENT, WHITE } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	return {
 		".danger": {
 			backgroundColor: style.brandDanger,
@@ -21,15 +20,15 @@ module.exports = (style = defaultThemeStyle) => {
 		alignItems: CENTER,
 		padding: 10,
 		minHeight: 50,
-		"elements/Text": {
+		TextElement: {
 			color: WHITE,
 			flex: 1,
 		},
-		"elements/Button": {
+		ButtonElement: {
 			backgroundColor: TRANSPARENT,
 			height: 30,
 			elevation: 0,
-			"elements/Text": {
+			TextElement: {
 				fontSize: 14,
 			},
 		},

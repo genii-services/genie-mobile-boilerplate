@@ -1,4 +1,4 @@
-/** 공통 라이브러리 */
+/** HIcon Element */
 const React = require("react")
 
 const { BOLD, CENTER, ROW } = require("/constants/style")
@@ -8,11 +8,11 @@ const Icon = require("./Icon")
 const LocalImage = require("./LocalImage")
 const Text = require("./Text")
 
-const HIcon = props => {
+const HIconElement = props => {
 	const { iconName, imageName, style, title, note, onPress } = props
-
+	const buttonStyle = [styles.button, style]
 	return (
-		<Button style={[styles.button, style]} transparent small onPress={onPress}>
+		<Button style={buttonStyle} transparent small onPress={onPress}>
 			{iconName ? (
 				<Icon style={styles.buttonIcon} name={iconName} />
 			) : (
@@ -25,15 +25,15 @@ const HIcon = props => {
 }
 
 if (__DEV__) {
-	const { any, bool, number, object, oneOfType, string } = require("prop-types")
-	HIcon.propTypes = {
+	const { any, bool, number, object, oneOfType, string } = require("/utils/propTypes")
+	HIconElement.propTypes = {
 		name: string,
 		title: string,
 		note: any,
 	}
 }
 
-HIcon.getDefaultStyle = ({ fontFamily }) => {
+HIconElement.getDefaultStyle = ({ fontFamily }) => {
 	return {
 		button: {
 			marginTop: 0,
@@ -74,4 +74,4 @@ HIcon.getDefaultStyle = ({ fontFamily }) => {
 	}
 }
 
-module.exports = HIcon
+module.exports = HIconElement

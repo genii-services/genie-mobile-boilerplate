@@ -1,16 +1,3 @@
-const { Children } = require("react")
-
-exports.childrenType = function(props, propName, component) {
-	let error
-	const prop = props[propName]
-	Children.forEach(prop, child => {
-		if (typeof child !== "string" && typeof child !== "number") {
-			error = new Error(`${component} should have only string or number`)
-		}
-	})
-	return error
-}
-
 const _ = require("lodash")
 const { StyleSheet } = require("react-native")
 

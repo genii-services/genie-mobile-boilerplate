@@ -1,7 +1,6 @@
 /** Element Style */
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	return {
 		".underline": {
 			borderBottomWidth: style.borderWidth,

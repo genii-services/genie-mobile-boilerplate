@@ -1,85 +1,75 @@
-const MODULE_NAME$ = "elements/Radio"
+const MODULE_NAME$ = "RadioElement"
 console.debug(MODULE_NAME$)
 
-const { TouchableOpacity, Platform } = require("react-native")
+const { TouchableOpacity } = require("react-native")
 const Ionicons = require("react-native-vector-icons/Ionicons").default
 
-const { useState, useStore, useThis } = require("/hooks")
 const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
-const defaultThemeStyle = require("/styles/themes/default")
+const { itsIOS } = require("/utils/device")
+const { useStore } = require("/hooks")
 
-const Radio = props => {
+const RadioElement = props => {
 	const [theme] = useStore("theme")
 
-	const prepareRootProps = () => {
-		const defaultProps = {
-			standardStyle: false,
-		}
-		return computeProps(props, defaultProps)
+	const defaultProps = {
+		standardStyle: false,
+	}
+	const rootProps = computeProps(props, defaultProps)
+
+	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
+	const iosIconStyle = {
+		color: props.selectedColor ? props.selectedColor : style.radioColor,
+		lineHeight: 25,
+		height: 20,
+		fontSize: style.radioBtnSize,
+	}
+	const iconStyle = {
+		color: itsIOS
+			? props.selected
+				? props.selectedColor
+					? props.selectedColor
+					: style.radioColor
+				: props.color
+				? props.color
+				: undefined
+			: props.selected
+			? props.selectedColor
+				? props.selectedColor
+				: style.radioSelectedColorAndroid
+			: props.color
+			? props.color
+			: undefined,
+		lineHeight: style.radioBtnLineHeight,
+		fontSize: style.radioBtnSize,
 	}
 
-	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
+	const iconName = itsIOS
+		? props.selected
+			? "ios-radio-button-on"
+			: "ios-radio-button-off"
+		: props.selected
+		? "md-radio-button-on"
+		: "md-radio-button-off"
 
 	return (
-		<TouchableOpacity {...prepareRootProps()}>
-			{Platform.OS === "ios" && !props.standardStyle ? (
-				props.selected && (
-					<Ionicons
-						style={{
-							color: props.selectedColor ? props.selectedColor : style.radioColor,
-							lineHeight: 25,
-							height: 20,
-							fontSize: style.radioBtnSize,
-						}}
-						name="ios-checkmark"
-					/>
-				)
+		<TouchableOpacity {...rootProps}>
+			{itsIOS && !props.standardStyle ? (
+				props.selected && <Ionicons style={iosIconStyle} name="ios-checkmark" />
 			) : (
-				<Ionicons
-					style={{
-						color:
-							Platform.OS === "ios"
-								? props.selected
-									? props.selectedColor
-										? props.selectedColor
-										: style.radioColor
-									: props.color
-									? props.color
-									: undefined
-								: props.selected
-								? props.selectedColor
-									? props.selectedColor
-									: style.radioSelectedColorAndroid
-								: props.color
-								? props.color
-								: undefined,
-						lineHeight: style.radioBtnLineHeight,
-						fontSize: style.radioBtnSize,
-					}}
-					name={
-						Platform.OS === "ios"
-							? props.selected
-								? "ios-radio-button-on"
-								: "ios-radio-button-off"
-							: props.selected
-							? "md-radio-button-on"
-							: "md-radio-button-off"
-					}
-				/>
+				<Ionicons style={iconStyle} name={iconName} />
 			)}
 		</TouchableOpacity>
 	)
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
-
-	Radio.propTypes = {
+	const { bool } = require("/utils/propTypes")
+	RadioElement.propTypes = {
 		...TouchableOpacity.propTypes,
 		selected: bool,
 		standardStyle: bool,
 	}
 }
 
-module.exports = connectStyle(Radio, MODULE_NAME$)
+module.exports = connectStyle(RadioElement, MODULE_NAME$)

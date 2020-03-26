@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/SwipeRow"
+const MODULE_NAME$ = "SwipeRowElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
@@ -16,7 +16,7 @@ const { ListItem } = require("./ListItem")
 const PREVIEW_OPEN_DELAY = 700
 const PREVIEW_CLOSE_DELAY = 300
 
-const SwipeRow = props => {
+const SwipeRowElement = props => {
 	const _this = useThis()
 	if (!_this.ref) {
 		_this.horizontalSwipeGestureBegan = false
@@ -222,7 +222,7 @@ const SwipeRow = props => {
 		</View>
 	)
 }
-SwipeRow.defaultProps = {
+SwipeRowElement.defaultProps = {
 	leftOpenValue: 0,
 	rightOpenValue: 0,
 	closeOnRowPress: true,
@@ -250,4 +250,4 @@ const styles = {
 	},
 }
 
-module.exports = connectStyle(SwipeRow, MODULE_NAME$)
+module.exports = connectStyle(SwipeRowElement, MODULE_NAME$)

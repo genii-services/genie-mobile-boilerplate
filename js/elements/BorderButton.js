@@ -1,12 +1,13 @@
-/** 공통 라이브러리 */
-console.debug("BorderButton")
+/** BorderButtonElement */
+const MODULE_NAME$ = "BorderButtonElement"
+console.debug(MODULE_NAME$)
 
 const React = require("react")
 const _ = require("lodash")
 const IconFA = require("react-native-vector-icons/FontAwesome")
 
 const { BOLD, CENTER, COLUMN, WHITE } = require("/constants/style")
-const { itsIOS, itsTablet, screen } = require("/utils/device")
+const { LANDSCAPE, PORTRAIT, PORTRAIT_UPSIDEDOWN, itsIOS, itsTablet, screen } = require("/utils/device")
 const { useStyle } = require("/coordinators")
 
 const Button = require("./Button")
@@ -18,19 +19,19 @@ const pui_widths = [667, 1280] // 667 아이폰6 1280 캘릭시탭x2	아이폰�
 const pua_widths = [1024, 1280] // 1024 아이패드 1280 캘릭시탭x2
 const l_widths = [320, 1280] // 1280 캘릭시탭x2
 
-const BorderButton = props => {
+const BorderButtonElement = props => {
 	const { iconName, imageName, title, borderColor, onPress } = props
-	let { orientation, width, height } = screen
+	const { orientation, width, height } = screen
 
 	const { getStyle } = useStyle()
 	const style = getStyle(BorderButton)
 
 	let size, borderSize, ratio
-	if (orientation == "PORTRAIT" || (orientation == "PORTRAITUPSIDEDOWN" && itsIOS && itsTablet)) {
+	if (orientation == PORTRAIT || (orientation == PORTRAIT_UPSIDEDOWN && itsIOS && itsTablet)) {
 		size = Math.min(width, height)
 		ratio = _.findIndex(p_widths, v => size <= v) + 1 || p_widths.length + 1
 		borderSize = size / (3.45 * ratio)
-	} else if (orientation == "LANDSCAPE" || height < width) {
+	} else if (orientation == LANDSCAPE || height < width) {
 		ratio = _.findIndex(l_widths, v => width <= v) + 1 || l_widths.length + 1
 		borderSize = screen.max / (3.45 * ratio)
 	} else {
@@ -83,16 +84,15 @@ const BorderButton = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
-
-	BorderButton.propTypes = {
+	const { string } = require("/utils/propTypes")
+	BorderButtonElement.propTypes = {
 		name: string,
 		title: string,
 		borderColor: string,
 	}
 }
 
-BorderButton.getDefaultStyle = ({ fontFamily }) => {
+BorderButtonElement.getDefaultStyle = ({ fontFamily }) => {
 	return {
 		rectButton: {
 			flexDirection: COLUMN,
@@ -127,4 +127,4 @@ BorderButton.getDefaultStyle = ({ fontFamily }) => {
 	}
 }
 
-module.exports = BorderButton
+module.exports = BorderButtonElement

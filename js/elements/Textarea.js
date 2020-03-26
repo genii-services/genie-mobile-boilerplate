@@ -1,36 +1,31 @@
-const MODULE_NAME$ = "elements/Textarea"
+const MODULE_NAME$ = "TextareaElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
 const { TextInput } = require("react-native")
 
-const defaultThemeStyle = require("/styles/themes/default")
 const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
 
-const Textarea = props => {
+const TextareaElement = props => {
+	const { rowSpan } = props
 	const { useRefs } = require("/hooks")
 	const refs = useRefs()
 
-	const getStyle = () => {
-		textarea: {
-			height: props.rowSpan ? props.rowSpan * 25 : 60
-		}
-	}
-
-	const prepareRootProps = () => {
-		const defaultProps = {
-			style: getStyle().textarea,
-		}
-		return computeProps(props, defaultProps)
-	}
+	const [theme] = useStore("theme")
+	const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
+	const rootProps = computeProps(props, {
+		style: {
+			height: rowSpan ? rowSpan * 25 : 60,
+		},
+	})
 
 	return (
 		<TextInput
 			ref={c => (refs._textInput = c)}
-			{...prepareRootProps()}
+			{...rootProps}
 			multiline
-			placeholderTextColor={props.placeholderTextColor || defaultThemeStyle.inputColorPlaceholder}
+			placeholderTextColor={props.placeholderTextColor || defaultStyle.placeholderTextColor}
 			underlineColorAndroid="rgba(0,0,0,0)"
 			editable={!props.disabled}
 		/>
@@ -38,8 +33,8 @@ const Textarea = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType } = require("prop-types")
-	Textarea.propTypes = {
+	const { array, bool, number, object, oneOfType } = require("/utils/propTypes")
+	TextareaElement.propTypes = {
 		...TextInput.propTypes,
 		style: oneOfType([object, number, array]),
 		rowSpan: number,
@@ -48,4 +43,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(Textarea, MODULE_NAME$)
+module.exports = connectStyle(TextareaElement, MODULE_NAME$)

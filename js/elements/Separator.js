@@ -1,10 +1,10 @@
-const MODULE_NAME$ = "elements/Separator"
+const MODULE_NAME$ = "SeparatorElement"
 console.debug(MODULE_NAME$)
 
 const { View } = require("react-native")
 
 const { connectStyle } = require("/utils/style")
 
-const Separator = View
+const SeparatorElement = View
 
-module.exports = connectStyle(Separator, MODULE_NAME$)
+module.exports = connectStyle(SeparatorElement, MODULE_NAME$)

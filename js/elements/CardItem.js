@@ -1,18 +1,17 @@
-const MODULE_NAME$ = "elements/CardItem"
+const MODULE_NAME$ = "CardItemElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
 const { TouchableOpacity, View } = require("react-native")
 const { connectStyle } = require("/utils/style")
 
-const CardItem = props => {
+const CardItemElement = props => {
 	return props.button ? <TouchableOpacity activeOpacity={0.2} {...props} /> : <View {...props} />
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
-
-	CardItem.propTypes = {
+	const { array, bool, number, object, oneOfType } = require("/utils/propTypes")
+	CardItemElement.propTypes = {
 		...TouchableOpacity.propTypes,
 		style: oneOfType([object, number, array]),
 		header: bool,
@@ -22,4 +21,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(CardItem, MODULE_NAME$)
+module.exports = connectStyle(CardItemElement, MODULE_NAME$)

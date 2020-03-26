@@ -1,6 +1,6 @@
 /** 공통 라이브러리 */
 console.debug("utils/device")
-
+const _ = require("lodash")
 const { Dimensions, Platform } = require("react-native")
 const DeviceInfo = require("react-native-device-info")
 const Orientation = require("react-native-orientation-locker").default
@@ -55,8 +55,14 @@ DeviceInfo.getManufacturer().then(str => {
 	itsNewIos = isNewIos(str)
 })
 
-const screen = {}
 const LANDSCAPE = "LANDSCAPE"
+const LANDSCAPE_LEFT = "LANDSCAPE-LEFT"
+const LANDSCAPE_RIGHT = "LANDSCAPE-RIGHT"
+const PORTRAIT = "PORTRAIT"
+const PORTRAIT_UPSIDEDOWN = "PORTRAITUPSIDEDOWN"
+const screen = {
+	isPortrait: () => _.startWith(screen.orientation, PORTRAIT),
+}
 const setScreenSize = orientation => {
 	screen.orientation = orientation
 	if (orientation == LANDSCAPE) {
@@ -110,6 +116,11 @@ const buildNumber = app.buildNumber || DeviceInfo.getBuildNumber() % 1048576
 
 module.exports = {
 	LANDSCAPE,
+	LANDSCAPE_LEFT,
+	LANDSCAPE_RIGHT,
+	PORTRAIT,
+	PORTRAIT_UPSIDEDOWN,
+
 	appID,
 	appVersion,
 	bundleID,

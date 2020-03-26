@@ -1,13 +1,13 @@
 const React = require("react")
-const Drawer_ = require("react-native-drawer")
+const Drawer = require("react-native-drawer")
 
 const { BLACK } = require("/constants/style")
 
-const Drawer = props => {
-	return <Drawer_ {...props} />
+const DrawerElement = props => {
+	return <Drawer {...props} />
 }
 
-Drawer.defaultProps = {
+DrawerElement.defaultProps = {
 	type: "overlay",
 	tapToClose: true,
 	openDrawerOffset: 0.2,
@@ -26,9 +26,7 @@ Drawer.defaultProps = {
 			elevation: 0,
 		},
 	},
-	tweenHandler: ratio => ({
-		mainOverlay: { opacity: ratio / 2 },
-	}),
+	tweenHandler: ratio => ({ mainOverlay: { opacity: ratio / 2 } }),
 }
 
-module.exports = Drawer
+module.exports = DrawerElement

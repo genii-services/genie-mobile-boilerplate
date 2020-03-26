@@ -1,10 +1,10 @@
-const MODULE_NAME$ = "elements/Label"
+const MODULE_NAME$ = "LabelElement"
 console.debug(MODULE_NAME$)
 
 const { Text } = require("react-native")
 
 const { connectStyle } = require("/utils/style")
 
-const Label = Text
+const LabelElement = Text
 
-module.exports = connectStyle(Label, MODULE_NAME$)
+module.exports = connectStyle(LabelElement, MODULE_NAME$)

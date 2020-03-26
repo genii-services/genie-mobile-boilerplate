@@ -323,7 +323,7 @@ PODS:
   - React-jsinspector (0.62.0-rc.5)
   - react-native-orientation-locker (1.1.8):
     - React
-  - react-native-slider (2.0.8):
+  - react-native-slider (2.0.9):
     - React
   - react-native-splash-screen (3.2.0):
     - React
@@ -396,7 +396,7 @@ PODS:
     - React
   - RNCPicker (1.3.0):
     - React
-  - RNCPushNotificationIOS (1.0.7):
+  - RNCPushNotificationIOS (1.1.0):
     - React
   - RNDeviceInfo (5.5.3):
     - React
@@ -413,15 +413,15 @@ PODS:
     - Firebase/Messaging (~> 6.13.0)
     - React
     - RNFBApp
-  - RNGestureHandler (1.6.0):
+  - RNGestureHandler (1.6.1):
     - React
   - RNPermissions (2.0.10):
     - React
-  - RNReanimated (1.7.0):
+  - RNReanimated (1.7.1):
     - React
   - RNScreens (1.0.0-alpha.23):
     - React
-  - RNShare (3.1.1):
+  - RNShare (3.1.2):
     - React
   - RNSVG (12.0.3):
     - React
@@ -495,7 +495,7 @@ DEPENDENCIES:
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - boost-for-react-native
     - CocoaAsyncSocket
     - CocoaLibEvent
@@ -627,8 +627,8 @@ SPEC CHECKSUMS:
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
   CocoaLibEvent: 2fab71b8bd46dd33ddb959f7928ec5909f838e3f
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
-  FBLazyVector: 13f4facb9b6d03b5bc86b9ac3c352d3901fa96af
-  FBReactNativeSpec: ded417757097f2324dd193dd3fb94b5d292c9342
+  FBLazyVector: a9acf3fc9058f0a06ff8ff40d876025cf89fc326
+  FBReactNativeSpec: ca7ec9c06345f5ba53118dd22db915486f27d0f7
   Firebase: 458d109512200d1aca2e1b9b6cf7d68a869a4a46
   FirebaseAnalytics: 45f36d9c429fc91d206283900ab75390cd05ee8a
   FirebaseAnalyticsInterop: 3f86269c38ae41f47afeb43ebf32a001f58fcdae
@@ -654,52 +654,52 @@ SPEC CHECKSUMS:
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   OpenSSL-Universal: 8b48cc0d10c1b2923617dfe5c178aa9ed2689355
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
-  RCTRequired: df1c7c60bbc0eeaedbfa85189e642356e7b6abe9
-  RCTRestart: 4878a373ecbec1c787024afa871eb95461ba256c
-  RCTTypeSafety: 7f84b5f063435a24f677f489e482302eb19d2612
-  React: a73940adc2a43810f94419ac9b956870f97f95fd
-  React-Core: 2619264ca513a57a500aa64557277dc657fb5d31
-  React-CoreModules: 1bc122d004bc974722e0db72b7d8b85a6591903d
-  React-cxxreact: 9701d2ee581d5df86ad268f93cb8eee3789e6fbf
-  React-jsi: 0f56e7966c770964fa56cceb78f955630f018356
-  React-jsiexecutor: 467d386f5aa8d63bef566e92938f6428ddc7d6d6
-  React-jsinspector: fe67d34a2fd798099c1dccdc894e3b22c28ba2fd
-  react-native-orientation-locker: 43c5da4c23f4ff38e7482db80083f0e682259d6a
-  react-native-slider: cb7f3bbc9a56d4abb4cd13571fff013452ec6c7e
-  react-native-splash-screen: a49be22f0f6648b8416f3bd28258645eeaa5b42b
-  react-native-webview: ad9581723f4d401c22cb3a371811d4dc9310df56
-  React-RCTActionSheet: 89f6a7e4ca1befa008ac5af7bac91d35b01d7fb7
-  React-RCTAnimation: 5266e60c7baaac2b53fda3a451c31e072d51b61d
-  React-RCTBlob: de23dc4b6f433e4c3aba2dc901756168d6115e71
-  React-RCTImage: 284f590685953a2c27e0906ce437c1e4304fb8eb
-  React-RCTLinking: feed38fc9c90820d8622044ce6a292c1604e5816
-  React-RCTNetwork: c9b1a496546e7cf9e12eefdba8fc57b652fa73aa
-  React-RCTSettings: 82e5559b02c5786ee955cd3bf6457a87fd5841ba
-  React-RCTText: 024561d130ec42a855ad20e555e494e66bab2915
-  React-RCTVibration: 1b11f06ebd2afc5291e086562e94e043b89a10ad
-  ReactCommon: 1a316ccabcc779fc728a160dc224320878882c99
-  ReactNativeExceptionHandler: 2ef25736761126fe199c412ed179e479661de794
-  rn-fetch-blob: e10cd24d6b0e116d1ecfcd0d0b4c3936f8336f97
-  RNCAsyncStorage: e99188b8a89ea0edddc82d8831cd5142f4550fdc
-  RNCPicker: 658cc02192768aea7d1a5d0f0caa634b6b92ff4b
-  RNCPushNotificationIOS: e063e649fa697b77869c05fd18e370799285db4f
-  RNDeviceInfo: 5b5b42b12587207b6bd686441ac42d19d8e07933
-  RNExitApp: be4c7d38cc1516a94d33e35cb8a446506ba8d8b6
-  RNFastImage: 3aed2a7be32ca8427afa4f05e9d0338a8ce97e17
-  RNFBApp: 30e1dc2e1619831cf42f2419ad6a4f3f275b2c75
-  RNFBMessaging: 9479c85e1c6df2b2ad43fc5daa2cb28550fdf872
-  RNGestureHandler: 123c4bb46136077e390cc308a432029a1c1f47e5
-  RNPermissions: 09451e563764b938c2bbc945ca430f758044f0dd
-  RNReanimated: e0bb8012c83f3d28794c62bf3ad6c4b2d182a915
-  RNScreens: 354046589421edc3d83d5c6212475bf1fb9a731d
-  RNShare: 4ffcd6608765cacb9885c7e814e7bfe93f254edf
-  RNSVG: 2e097b92aaa6d4e0f354fd7c49cbf3b17f8b3920
-  RNVectorIcons: 66af4d5c8ff4f584c7b7cd9c4b0780920f27fce2
+  RCTRequired: 8f1dd8582716f10ba3763029a8313146df2ae8de
+  RCTRestart: 3915cac548a37703970941ca33de79a304b8b247
+  RCTTypeSafety: 0fba7626dcbaccf374f72bc3249e8e64396ad536
+  React: 9f449f4b3748d56ec37c936e6b2f43230d5a9fe7
+  React-Core: 28a580f7e9a692c24bde0b96c3edf926f7108fe8
+  React-CoreModules: 9be7515a0b6039b3d0907910e0b5f4dca6d78dc6
+  React-cxxreact: a660513eb5a780094bb0f0e6240e38e7895fd2a1
+  React-jsi: 6eb628cbb8b427609cc7867da5c390b57284fb88
+  React-jsiexecutor: 7f96dd5e1264c67b2143e73af54f86abda99cde6
+  React-jsinspector: a3017d13fbcb7f4c42dcbcd415b97135ac3f0f41
+  react-native-orientation-locker: f0ca1a8e5031dab6b74bfb4ab33a17ed2c2fcb0d
+  react-native-slider: e51492f1264d882a8815b71c5870f8978e52887d
+  react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
+  react-native-webview: 3f2f9934ba8633a170d209cb84045b6cbc5e5f48
+  React-RCTActionSheet: f4c23f31ca9a1f85a734ce18a31de1dfd0054ddb
+  React-RCTAnimation: 8e7f07139ce580b939700ba4af8f8daa0da8884c
+  React-RCTBlob: 449577dc262e0fa7455fac8468d9b64fb9a9d919
+  React-RCTImage: a19d9fcb4986097bd58b4b0e4b9134576bb6d1c0
+  React-RCTLinking: 21825311f405295951afd10f09e276d177f8403a
+  React-RCTNetwork: 51feac57b893e94ee85fb46870b6bef7c4b58145
+  React-RCTSettings: 81676b6e50109cd96db42ac8117c32716e01ab10
+  React-RCTText: 3bd3aabfefc2317e48cc9fd5eac2023f9b9a4456
+  React-RCTVibration: 892e403408a4cd8471071d0f447db73be21e05ab
+  ReactCommon: da01dd55154d473c5c0538d64ff91ebacdd1f7ee
+  ReactNativeExceptionHandler: 8025d98049c25f186835a3af732dd7c9974d6dce
+  rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
+  RNCAsyncStorage: e0dd7c8a36543b4ef84969acd9f8aceba3a92dc2
+  RNCPicker: 7d06ee91dff65b0bcd400ca00039051d5ddcb938
+  RNCPushNotificationIOS: ec3e8c17cda6a92a0bb97a53ec5ecf5771d94d21
+  RNDeviceInfo: 310c1f43d418d950a193c7650de2f9559c906048
+  RNExitApp: c4e052df2568b43bec8a37c7cd61194d4cfee2c3
+  RNFastImage: 35ae972d6727c84ee3f5c6897e07f84d0a3445e9
+  RNFBApp: 7d4006751de8bb5cafa2e8d2e7d94ee250df81db
+  RNFBMessaging: 51cc7f6beaf4c4feac6f18ea941bba5854e3d9c6
+  RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
+  RNPermissions: 1008d3511fee0e25739cf81c4af0d1b2248f1053
+  RNReanimated: 4e102df74a9674fa943e05f97f3362b6e44d0b48
+  RNScreens: f28b48b8345f2f5f39ed6195518291515032a788
+  RNShare: c19dbe4a7224098cd3cfc4d3b92c886ca817b3f0
+  RNSVG: 7e16ddfc6e00d5aa69c9eb83e699bcce5dcb85d4
+  RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   SDWebImage: 21b19f56b4226cdfe3aefe4e6848dc43ed129a86
   SDWebImageWebPCoder: 36f8f47bd9879a8aea6044765c1351120fd8e3a8
-  Yoga: f95fa68d61fddaf61c1f4dbe85c26ac4f64c3fc3
+  Yoga: e0448a3eecac22245fae6ce1b291c557b93b06af
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
 PODFILE CHECKSUM: 72bdf2926025b6d715433eb571d26f09a4a1fa60
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4

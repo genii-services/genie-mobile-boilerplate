@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/ToastContainer"
+const MODULE_NAME$ = "ToastContainerElement"
 console.debug(MODULE_NAME$)
 
 /* eslint-disable class-methods-use-this */
@@ -19,7 +19,7 @@ const POSITION = {
 	TOP,
 }
 
-const ToastContainer = props => {
+const ToastContainerElement = props => {
 	const keyboardDidHide = () => {
 		set_keyboardHeight(0)
 		set_isKeyboardVisible(false)
@@ -112,23 +112,22 @@ const ToastContainer = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType } = require("prop-types")
-	const { ViewPropTypes } = require("react-native")
-	ToastContainer.propTypes = {
+	const { array, number, object, oneOfType, ViewPropTypes } = require("/utils/propTypes")
+	ToastContainerElement.propTypes = {
 		...ViewPropTypes,
 		style: oneOfType([object, number, array]),
 	}
 }
 
-// ToastContainer.toastInstance
-ToastContainer.show = ({ ...config }) => {
-	ToastContainer.toastInstance._root.showToast({ config })
+// ToastContainer.instance
+ToastContainerElement.show = ({ ...config }) => {
+	ToastContainerElement.instance._root.showToast({ config })
 }
 
-ToastContainer.hide = () => {
-	if (ToastContainer.toastInstance._root.getModalState()) {
-		ToastContainer.toastInstance._root.closeToast("functionCall")
+ToastContainerElement.hide = () => {
+	if (ToastContainerElement.instance._root.getModalState()) {
+		ToastContainerElement.instance._root.closeToast("functionCall")
 	}
 }
 
-module.exports = connectStyle(ToastContainer, MODULE_NAME$)
+module.exports = connectStyle(ToastContainerElement, MODULE_NAME$)

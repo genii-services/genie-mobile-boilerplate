@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/ListItem"
+const MODULE_NAME$ = "ListItemElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
@@ -6,13 +6,13 @@ const { Platform, TouchableHighlight, TouchableNativeFeedback, View } = require(
 
 const { itsIOS, itsWeb } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
-const { useState, useStore, useThis } = require("/hooks")
-const defaultThemeStyle = require("/styles/themes/default")
+const { useStore } = require("/hooks")
 
 const ListItem = props => {
 	const [theme] = useStore("theme")
 
-	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
+	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
+	const viewStyle = { marginLeft: -17, paddingLeft: 17 }
 
 	return itsIOS || itsWeb || style.androidRipple === false || (!props.onPress && !props.onLongPress) || Platform.Version <= 21 ? (
 		<TouchableHighlight underlayColor={style.listBtnUnderlayColor} {...props} style={props.touchableHighlightStyle}>
@@ -20,7 +20,7 @@ const ListItem = props => {
 		</TouchableHighlight>
 	) : (
 		<TouchableNativeFeedback {...props}>
-			<View style={{ marginLeft: -17, paddingLeft: 17 }}>
+			<View style={viewStyle}>
 				<View {...props} testID={undefined} />
 			</View>
 		</TouchableNativeFeedback>
@@ -28,8 +28,7 @@ const ListItem = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
-
+	const { array, bool, number, object, oneOfType } = require("/utils/propTypes")
 	ListItem.propTypes = {
 		...TouchableHighlight.propTypes,
 		style: oneOfType([object, number, array]),

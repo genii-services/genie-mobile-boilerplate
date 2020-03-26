@@ -19,6 +19,8 @@ function mergeComponentAndThemeStyles(componentStyle, themeComponentStyle, theme
 const THEME_STYLE = "@@shoutem.theme/themeStyle"
 const THEME_STYLE_CACHE = "@@shoutem.theme/themeCachedStyle"
 
+let defaultTheme
+
 const resolveStyle = (style, baseStyle) => normalizeStyle(resolveIncludes(style, baseStyle))
 
 /**
@@ -49,6 +51,22 @@ exports = module.exports = class Theme {
 	constructor(themeStyle) {
 		this[THEME_STYLE] = resolveStyle(themeStyle)
 		this[THEME_STYLE_CACHE] = {}
+	}
+
+	/**
+	 * Sets the given style as a default theme style.
+	 */
+	static setDefaultThemeStyle(style) {
+		defaultTheme = new Theme(style)
+	}
+
+	/**
+	 * Returns the default theme that will be used as fallback
+	 * if the StyleProvider is not configured in the app.
+	 */
+	static getDefaultTheme() {
+		if (!defaultTheme) defaultTheme = new Theme({})
+		return defaultTheme
 	}
 
 	/**

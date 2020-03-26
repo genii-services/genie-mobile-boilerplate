@@ -1,11 +1,11 @@
-/** 공통 라이브러리 */
+/** Object Util */
 const { OBJECT } = require("/constants")
 
 // const isArray = Array.isArray
 const keyList = Object.keys
 const hasProp = Object.prototype.hasOwnProperty
 
-function equal(a, b) {
+function _isEqual(a, b) {
 	// fast-deep-equal index.js 2.0.1
 	if (a === b) return true
 
@@ -19,7 +19,7 @@ function equal(a, b) {
 		if (a_Array && b_Array) {
 			length = a.length
 			if (length != b.length) return false
-			for (i = length; i-- !== 0; ) if (!equal(a[i], b[i])) return false
+			for (i = length; i-- !== 0; ) if (!_isEqual(a[i], b[i])) return false
 			return true
 		}
 
@@ -54,21 +54,18 @@ function equal(a, b) {
 				continue
 			} else {
 				// all other properties should be traversed as usual
-				if (!equal(a[key], b[key])) return false
+				if (!_isEqual(a[key], b[key])) return false
 			}
 		}
-
 		// fast-deep-equal index.js 2.0.1
 		return true
 	}
-
 	return a !== a && b !== b
 }
-// end fast-deep-equal
 
-function exportedEqual(a, b) {
+function isEqual(a, b) {
 	try {
-		return equal(a, b)
+		return _isEqual(a, b)
 	} catch (error) {
 		if ((error.message && error.message.match(/stack|recursion/i)) || error.number === -2146828260) {
 			// warn on circular references, don't crash
@@ -85,5 +82,5 @@ function exportedEqual(a, b) {
 }
 
 module.exports = {
-	exportedEqual,
+	isEqual,
 }

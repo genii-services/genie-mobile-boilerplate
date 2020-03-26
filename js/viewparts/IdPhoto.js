@@ -52,7 +52,7 @@ const IdPhoto = ({ source, id, watched, ...props }) => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
 
 	IdPhoto.propTypes = {
 		id: string,

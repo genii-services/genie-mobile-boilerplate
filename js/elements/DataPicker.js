@@ -1,5 +1,7 @@
-/** 공통 라이브러리 */
-debugger
+/** DataPicker Element */
+const MODULE_NAME$ = "DataPickerElement"
+console.debug(MODULE_NAME$)
+
 const React = require("react")
 const _ = require("lodash")
 
@@ -11,10 +13,10 @@ const ActionSheet = require("./ActionSheet")
 const Button = require("./Button")
 const Text = require("./Text")
 
-const DataPicker = props => {
+const DataPickerElement = props => {
 	const handleOnPress = () => {
 		const options = _.map(props.options, v => v[props.labelProp])
-		//console.debug(DataPicker, options)
+		//console.debug(MODULE_NAME$, options)
 		ActionSheet.show(
 			{
 				style: { fontFamily },
@@ -30,7 +32,7 @@ const DataPicker = props => {
 		)
 	}
 	const value = __find(props.options, { value: props.value }, props.labelProp)
-	//console.debug(DataPicker, value)
+	//console.debug(MODULE_NAME$, value)
 	return (
 		<Button style={props.buttonStyle} transparent small onPress={handleOnPress}>
 			{value ? <Text style={props.textStyle}>{value}</Text> : <Text style={props.placeholderStyle}>{props.placeholder}</Text>}
@@ -39,8 +41,8 @@ const DataPicker = props => {
 }
 
 if (__DEV__) {
-	const { any, bool, number, object, oneOfType, string } = require("prop-types")
-	DataPicker.propTypes = {
+	const { any, bool, number, object, oneOfType, string } = require("/utils/propTypes")
+	DataPickerElement.propTypes = {
 		...Button.propTypes,
 		buttonStyle: Button.propTypes.style,
 		textStyle: Text.propTypes.style,
@@ -50,7 +52,7 @@ if (__DEV__) {
 	}
 }
 
-DataPicker.defaultProps = {
+DataPickerElement.defaultProps = {
 	...Button.defaultProps,
 	buttonStyle: {
 		flex: 0.6,
@@ -89,4 +91,4 @@ DataPicker.defaultProps = {
 	valueProp: "value",
 }
 
-module.exports = DataPicker
+module.exports = DataPickerElement

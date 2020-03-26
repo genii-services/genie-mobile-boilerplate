@@ -1,9 +1,8 @@
 /** Element Style */
 const { CENTER, ROW } = require("/constants/style")
 const { itsAndroid, itsIOS } = require("/utils/device")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	return {
 		flexDirection: ROW,
 		backgroundColor: style.tabDefaultBg,
@@ -15,20 +14,20 @@ module.exports = (style = defaultThemeStyle) => {
 			flex: itsAndroid ? 0 : 1,
 			minWidth: itsAndroid ? undefined : 60,
 		},
-		"elements/Text": {
+		TextElement: {
 			color: style.topTabBarTextColor,
 			marginHorizontal: 7,
 		},
-		"elements/Icon": {
+		IconElement: {
 			color: style.topTabBarTextColor,
-			fontSize: itsIOS ? 26 : undefined,
+			fontSize: itsIOS && 26,
 		},
 		".active": {
-			"elements/Text": {
+			TextElement: {
 				color: style.topTabBarActiveTextColor,
 				fontWeight: "600",
 			},
-			"elements/Icon": {
+			IconElement: {
 				color: style.topTabBarActiveTextColor,
 			},
 		},

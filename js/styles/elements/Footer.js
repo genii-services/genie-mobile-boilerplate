@@ -1,23 +1,22 @@
 /** Element Style */
 const { CENTER, FLEX_START, FLEX_END, MATERIAL, ROW, TRANSPARENT } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	const { platformStyle } = style
 
 	const iconCommon = {
-		"elements/Icon": { color: style.tabBarActiveTextColor },
+		IconElement: { color: style.tabBarActiveTextColor },
 	}
 	const iconNBCommon = {
-		"elements/IconNB": { color: style.tabBarActiveTextColor },
+		IconNBElement: { color: style.tabBarActiveTextColor },
 	}
 	const textCommon = {
-		"elements/Text": { color: style.tabBarActiveTextColor },
+		TextElement: { color: style.tabBarActiveTextColor },
 	}
 	const footerTheme = {
-		"elements/Left": {
-			"elements/Button": {
+		LeftElement: {
+			ButtonElement: {
 				".transparent": {
 					backgroundColor: TRANSPARENT,
 					borderColor: null,
@@ -39,12 +38,12 @@ module.exports = (style = defaultThemeStyle) => {
 			alignSelf: CENTER,
 			alignItems: FLEX_START,
 		},
-		"elements/Body": {
+		BodyElement: {
 			flex: 1,
 			alignItems: CENTER,
 			alignSelf: CENTER,
 			flexDirection: ROW,
-			"elements/Button": {
+			ButtonElement: {
 				alignSelf: CENTER,
 				".transparent": {
 					backgroundColor: TRANSPARENT,
@@ -68,8 +67,8 @@ module.exports = (style = defaultThemeStyle) => {
 				// ...textCommon
 			},
 		},
-		"elements/Right": {
-			"elements/Button": {
+		RightElement: {
+			ButtonElement: {
 				".transparent": {
 					backgroundColor: TRANSPARENT,
 					borderColor: null,
@@ -94,8 +93,8 @@ module.exports = (style = defaultThemeStyle) => {
 		backgroundColor: style.footerDefaultBg,
 		flexDirection: ROW,
 		justifyContent: CENTER,
-		borderTopWidth: itsIOS && platformStyle !== MATERIAL ? style.borderWidth : undefined,
-		borderColor: itsIOS && platformStyle !== MATERIAL ? "#cbcbcb" : undefined,
+		borderTopWidth: itsIOS && platformStyle !== MATERIAL && style.borderWidth,
+		borderColor: itsIOS && platformStyle !== MATERIAL && "#cbcbcb",
 		height: style.footerHeight,
 		paddingBottom: style.footerPaddingBottom,
 		elevation: 3,

@@ -1,8 +1,7 @@
 /** TabBar Element Style */
 const { CENTER, ROW, TRANSPARENT } = require("/constants/style")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	return {
 		".tabIcon": {
 			height: undefined,
@@ -10,27 +9,27 @@ module.exports = (style = defaultThemeStyle) => {
 		".vertical": {
 			height: 60,
 		},
-		"elements/Button": {
+		ButtonElement: {
 			".transparent": {
-				"elements/Text": {
+				TextElement: {
 					fontSize: style.tabFontSize,
 					color: style.sTabBarActiveTextColor,
 					fontWeight: "400",
 				},
-				"elements/IconNB": {
+				IconNBElement: {
 					color: style.sTabBarActiveTextColor,
 				},
 			},
-			"elements/IconNB": {
+			IconNBElement: {
 				color: style.sTabBarActiveTextColor,
 			},
-			"elements/Text": {
+			TextElement: {
 				fontSize: style.tabFontSize,
 				color: style.sTabBarActiveTextColor,
 				fontWeight: "400",
 			},
 			".isTabActive": {
-				"elements/Text": {
+				TextElement: {
 					fontWeight: "900",
 				},
 			},

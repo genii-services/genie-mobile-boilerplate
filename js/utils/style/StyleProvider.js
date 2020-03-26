@@ -25,7 +25,7 @@ const StyleProvider = props => {
 }
 
 if (__DEV__) {
-	const { element, object } = require("prop-types")
+	const { element, object } = require("/utils/propTypes")
 	StyleProvider.propTypes = {
 		children: element.isRequired,
 		style: object,

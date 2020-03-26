@@ -43,7 +43,7 @@ const ProfileBar = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
 
 	ProfileBar.propTypes = {
 		name: string,

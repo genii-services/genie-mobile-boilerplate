@@ -1,4 +1,4 @@
-/** 공통 라이브러리
+/** List Element
  * V2 200107 appcreatier@gmail.com
  *           getDerivedStateFromProps 방식으로 변경
  */
@@ -18,7 +18,7 @@ const statusTextz = {
 	ERROR: "",
 }
 
-const List = props => {
+const ListElement = props => {
 	const _this = useThis()
 
 	let { data, status, refreshing, nothingVisible, nothingText, onRefresh } = props
@@ -81,25 +81,25 @@ const List = props => {
 		</View>
 	)
 	// <Icon style={style.nothingIcon} type="MaterialCommunityIcons" name="file-document-box-remove" />
-	// _loading ? <Spinner color='green'/> : undefined
+	// _loading && <Spinner color='green'/>
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
-
+	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
 	List.propTypes = {
 		...FlatList.propTypes,
 		// nothingVisible: bool,
 	}
-	List.defaultProps = {
-		...FlatList.defaultProps,
-		onEndReachedThreshold: 0.025,
-		nothingText: "데이터가 없습니다.",
-	}
+}
+
+List.defaultProps = {
+	...FlatList.defaultProps,
+	onEndReachedThreshold: 0.025,
+	nothingText: "데이터가 없습니다.",
 }
 
 const { CENTER } = require("/constants/style")
-List.getDefaultStyle = () => {
+ListElement.getDefaultStyle = () => {
 	return {
 		nothingArea: {
 			flex: 1,
@@ -121,6 +121,4 @@ List.getDefaultStyle = () => {
 	}
 }
 
-module.exports = List
-
-console.debug(List, "loaded")
+module.exports = ListElement

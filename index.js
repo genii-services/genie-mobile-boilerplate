@@ -10,6 +10,6 @@ const { AppRegistry, unstable_enableLogBox } = require("react-native")
 if (!global.initialized) global.initialized = true
 else debugger
 
-const App = require("/apps/CardExample")
+const App = require("/examples/Card")
 const { name: appName } = require("./app.json")
 AppRegistry.registerComponent(appName, () => App)

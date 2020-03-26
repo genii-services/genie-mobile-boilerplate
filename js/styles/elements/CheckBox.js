@@ -1,8 +1,7 @@
 /** Element Style */
 const { CENTER, HIDDEN, FLEX_END, MATERIAL, SPACE_BETWEEN, TRANSPARENT } = require("/constants/style")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	const Icon = {
 		color: TRANSPARENT,
 		lineHeight: style.CheckboxIconSize,
@@ -11,11 +10,11 @@ module.exports = (style = defaultThemeStyle) => {
 	}
 	return {
 		".checked": {
-			"elements/Icon": { color: style.checkboxTickColor },
-			"elements/IconNB": { color: style.checkboxTickColor },
+			IconElement: { color: style.checkboxTickColor },
+			IconNBElement: { color: style.checkboxTickColor },
 		},
-		"elements/Icon": Icon,
-		"elements/IconNB": Icon,
+		IconElement: Icon,
+		IconNBElement: Icon,
 		borderRadius: style.CheckboxRadius,
 		overflow: HIDDEN,
 		width: style.checkboxSize,

@@ -1,8 +1,6 @@
 /** 공통 라이브러리 */
 console.debug("styles")
 
-const { StyleSheet } = require("react-native")
-
 const { TRANSPARENT, WHITE, BLACK, CENTER } = require("/constants/style")
 const { itsIOS, screen } = require("/utils/device")
 
@@ -42,7 +40,6 @@ const textAlign = CENTER
 const W50PC = screen.min / 2
 
 module.exports = {
-	StyleSheet,
 	screen,
 	fontFamily,
 	backgroundColors,

@@ -1,19 +1,18 @@
 /** Element Style */
 const { CENTER, TRANSPARENT } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	return itsIOS
 		? {
 				".selected": {
-					"elements/IconNB": {
+					IconNBElement: {
 						color: style.radioColor,
 						lineHeight: 25,
 						height: 20,
 					},
 				},
-				"elements/IconNB": {
+				IconNBElement: {
 					color: TRANSPARENT,
 					lineHeight: undefined,
 					fontSize: undefined,
@@ -21,13 +20,13 @@ module.exports = (style = defaultThemeStyle) => {
 		  }
 		: {
 				".selected": {
-					"elements/IconNB": {
+					IconNBElement: {
 						color: style.radioSelectedColorAndroid,
 						lineHeight: style.radioBtnLineHeight,
 						height: undefined,
 					},
 				},
-				"elements/IconNB": {
+				IconNBElement: {
 					color: undefined,
 					lineHeight: style.radioBtnLineHeight,
 					fontSize: style.radioBtnSize,

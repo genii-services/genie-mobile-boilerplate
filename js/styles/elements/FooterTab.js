@@ -1,21 +1,20 @@
 /** Element Style */
 const { CENTER, FLEX_START, FLEX_END, ROW, SPACE_BETWEEN, TRANSPARENT } = require("/constants/style")
 const { itsAndroid, itsIOS } = require("/utils/device")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	return {
-		"elements/Button": {
+		ButtonElement: {
 			".active": {
-				"elements/Text": {
+				TextElement: {
 					color: style.tabBarActiveTextColor,
 					fontSize: style.tabBarTextSize,
 					lineHeight: 16,
 				},
-				"elements/Icon": {
+				IconElement: {
 					color: style.tabBarActiveTextColor,
 				},
-				"elements/IconNB": {
+				IconNBElement: {
 					color: style.tabBarActiveTextColor,
 				},
 				backgroundColor: style.tabActiveBgColor,
@@ -33,8 +32,8 @@ module.exports = (style = defaultThemeStyle) => {
 			height: style.footerHeight,
 			justifyContent: CENTER,
 			".badge": {
-				"elements/Badge": {
-					"elements/Text": {
+				BadgeElement: {
+					TextElement: {
 						fontSize: 11,
 						fontWeight: itsIOS && "600",
 						lineHeight: 14,
@@ -47,23 +46,23 @@ module.exports = (style = defaultThemeStyle) => {
 					padding: 1.7,
 					paddingHorizontal: 3,
 				},
-				"elements/Icon": {
+				IconElement: {
 					marginTop: -18,
 				},
 			},
-			"elements/Icon": {
+			IconElement: {
 				color: style.tabBarTextColor,
 			},
-			"elements/IconNB": {
+			IconNBElement: {
 				color: style.tabBarTextColor,
 			},
-			"elements/Text": {
+			TextElement: {
 				color: style.tabBarTextColor,
 				fontSize: style.tabBarTextSize,
 				lineHeight: 16,
 			},
 		},
-		backgroundColor: itsAndroid ? style.footerDefaultBg : undefined,
+		backgroundColor: itsAndroid && style.footerDefaultBg,
 		flexDirection: ROW,
 		justifyContent: SPACE_BETWEEN,
 		flex: 1,

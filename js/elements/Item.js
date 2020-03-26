@@ -1,17 +1,17 @@
-const MODULE_NAME$ = "elements/Item"
+const MODULE_NAME$ = "ItemElement"
 console.debug(MODULE_NAME$)
 
 /* eslint-disable no-plusplus */
 /* eslint-disable no-loop-func */
 const React = require("react")
-const { TouchableOpacity, Animated, Platform, View, StyleSheet } = require("react-native")
+const { TouchableOpacity, Animated, Platform, View } = require("react-native")
 const { isArray, remove } = require("lodash")
 
 const { ABSOLUTE, COLUMN, ROW } = require("/constants/style")
 const { useThis } = require("/hooks")
+const { deviceWidth } = require("/utils/device")
 const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
-const defaultThemeStyle = require("/styles/themes/default")
 
 const Input = require("./Input")
 const Label = require("./Label")
@@ -25,6 +25,9 @@ const Item = props => {
 	const [_topAnim, set_topAnim] = useState(new Animated.Value(18))
 	const [_opacAnim, set_opacAnim] = useState(new Animated.Value(1))
 
+	const [theme] = useStore("theme")
+	const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
+
 	useEffect(() => {
 		if (props.floatingLabel && _this.inputProps) {
 			_this.inputProps.value && floatUp(-16)
@@ -32,56 +35,27 @@ const Item = props => {
 		}
 	}, [])
 
-	const getInitialStyle = () => {
-		return {
-			roundedInputGroup: {
-				borderWidth: props.rounded && defaultThemeStyle.borderWidth * 2,
-				borderRadius: props.rounded && defaultThemeStyle.inputGroupRoundedBorderRadius,
-			},
-		}
-	}
-
-	const getPlacholderValue = inputProps => {
-		let placeholderValue
-
-		if (isArray(props.children) && props.children[0].props.children) {
-			placeholderValue = null
-		} else {
-			placeholderValue = inputProps.placeholder
-		}
-
-		return placeholderValue
-	}
+	const getPlacholderValue = inputProps =>
+		isArray(props.children) && props.children[0].props.children ? null : inputProps.placeholder
 
 	const floatBack = e => {
-		Animated.timing(_topAnim, {
-			toValue: e || 18,
-			duration: 150,
-		}).start()
-		Animated.timing(_opacAnim, {
-			toValue: 1,
-			duration: 150,
-		}).start()
+		Animated.timing(_topAnim, { toValue: e || 18, duration: 150 }).start()
+		Animated.timing(_opacAnim, { toValue: 1, duration: 150 }).start()
 	}
 
 	const floatUp = e => {
-		Animated.timing(_topAnim, {
-			toValue: e || -22,
-			duration: 150,
-		}).start()
-		Animated.timing(_opacAnim, {
-			toValue: 0.7,
-			duration: 150,
-		}).start()
+		Animated.timing(_topAnim, { toValue: e || -22, duration: 150 }).start()
+		Animated.timing(_opacAnim, { toValue: 0.7, duration: 150 }).start()
 	}
 
-	const prepareRootProps = () => {
-		const defaultProps = {
-			style: getInitialStyle().roundedInputGroup,
-		}
-
-		return computeProps(props, defaultProps)
+	const defaultProps = {
+		style: {
+			borderWidth: props.rounded && defaultStyle.borderWidth * 2,
+			borderRadius: props.rounded && defaultStyle.inputGroupRoundedBorderRadius,
+		},
 	}
+
+	const rootProps = computeProps(props, defaultProps)
 
 	// Temporary fix to avoid the crash.
 	// To be refactored to getDerivedStateFromProps.
@@ -136,16 +110,21 @@ const Item = props => {
 		})
 
 		let image = []
-		image = remove(childrenArray, item => {
-			if (item.type === Thumbnail) {
-				return item
-			}
-			return null
-		})
+		image = remove(childrenArray, item => (item.type === Thumbnail ? item : null))
 
 		if (props.floatingLabel && icon.length) {
 			let flag = true
 			let isIcon = false
+
+			const animatedViewStyle = {
+				position: ABSOLUTE,
+				left: props.last && isIcon ? 40 : props.last ? 15 : isIcon ? 26 : 0,
+				right: 0,
+				top: _topAnim,
+				opacity: _opacAnim,
+				paddingTop: Platform.OS === "ios" && undefined,
+				paddingBottom: Platform.OS === "ios" ? undefined : 12,
+			}
 
 			for (let i = 0; i < props.children.length; i++) {
 				if (props.children[i].props.name && props.children[i].type.displayName !== "Styled(Input)") {
@@ -157,17 +136,7 @@ const Item = props => {
 					flag = false
 
 					newChildren.push(
-						<Animated.View
-							key="float"
-							style={{
-								position: ABSOLUTE,
-								left: props.last && isIcon ? 40 : props.last ? 15 : isIcon ? 26 : 0,
-								right: 0,
-								top: _topAnim,
-								opacity: _opacAnim,
-								paddingTop: Platform.OS === "ios" ? undefined : undefined,
-								paddingBottom: Platform.OS === "ios" ? undefined : 12,
-							}}>
+						<Animated.View key="float" style={animatedViewStyle}>
 							<Label {...labelProps}>{renderLabel(label, labelProps)}</Label>
 						</Animated.View>
 					)
@@ -193,10 +162,18 @@ const Item = props => {
 			}
 		} else if (props.floatingLabel && image.length) {
 			let isImage = false
+			const animatedViewStyle = {
+				position: ABSOLUTE,
+				left: props.last && isImage ? 57 : props.last ? 15 : isImage ? 42 : 0,
+				right: 0,
+				top: _topAnim,
+				opacity: _opacAnim,
+				paddingTop: Platform.OS === "ios" && undefined,
+				paddingBottom: Platform.OS === "ios" ? undefined : 12,
+			}
 			for (let i = 0; i < props.children.length; i++) {
 				if (props.children[i].type.displayName === "Styled(Thumbnail)") {
 					isImage = true
-
 					newChildren.push(
 						<Thumbnail
 							small
@@ -212,63 +189,68 @@ const Item = props => {
 
 				if (props.children[i].props.children) {
 					newChildren.push(
-						<Animated.View
-							key="float"
-							style={{
-								position: ABSOLUTE,
-								left: props.last && isImage ? 57 : props.last ? 15 : isImage ? 42 : 0,
-								right: 0,
-								top: _topAnim,
-								opacity: _opacAnim,
-								paddingTop: Platform.OS === "ios" ? undefined : undefined,
-								paddingBottom: Platform.OS === "ios" ? undefined : 12,
-							}}>
+						<Animated.View key="float" style={animatedViewStyle}>
 							<Label {...labelProps}>{renderLabel(label, labelProps)}</Label>
 						</Animated.View>
 					)
-
+					const handleOnFocus = () => {
+						set_isFocused(true)
+						inputProps.onFocus && inputProps.onFocus()
+					}
+					const handleOnBlur = e => {
+						inputProps.value ? set_isFocused(true) : !_text.length && set_isFocused(false)
+						inputProps.onBlur && inputProps.onBlur(e)
+					}
+					const handleOnChangeText = text => {
+						set_text(text)
+						inputProps.onChangeText && inputProps.onChangeText(text)
+					}
+					const inputStyle = {
+						left: props.last && isImage ? 10 : props.last ? 4 : isImage ? 10 : 0,
+						marginRight: 12,
+					}
 					newChildren.push(
 						<Input
 							ref={c => (_this._inputRef = c)}
 							key="l2"
 							{...inputProps}
 							placeholder={getPlacholderValue(inputProps)}
-							onFocus={() => {
-								set_isFocused(true)
-								inputProps.onFocus && inputProps.onFocus()
-							}}
-							onBlur={e => {
-								inputProps.value ? set_isFocused(true) : !_text.length && set_isFocused(false)
-								inputProps.onBlur && inputProps.onBlur(e)
-							}}
-							onChangeText={text => {
-								set_text(text)
-								inputProps.onChangeText && inputProps.onChangeText(text)
-							}}
-							style={{
-								left: props.last && isImage ? 10 : props.last ? 4 : isImage ? 10 : 0,
-								marginRight: 12,
-							}}
+							onFocus={handleOnFocus}
+							onBlur={handleOnBlur}
+							onChangeText={handleOnChangeText}
+							style={inputStyle}
 						/>
 					)
 				}
 			}
 		} else if (props.floatingLabel) {
+			const animatedViewStyle = {
+				position: ABSOLUTE,
+				left: props.last ? 15 : 0,
+				right: 0,
+				top: _topAnim,
+				opacity: _opacAnim,
+				paddingTop: Platform.OS === "ios" && undefined,
+				paddingBottom: Platform.OS === "ios" ? undefined : 12,
+			}
 			newChildren.push(
-				<Animated.View
-					key="float"
-					style={{
-						position: ABSOLUTE,
-						left: props.last ? 15 : 0,
-						right: 0,
-						top: _topAnim,
-						opacity: _opacAnim,
-						paddingTop: Platform.OS === "ios" ? undefined : undefined,
-						paddingBottom: Platform.OS === "ios" ? undefined : 12,
-					}}>
+				<Animated.View key="float" style={animatedViewStyle}>
 					<Label {...labelProps}>{renderLabel(label, labelProps)}</Label>
 				</Animated.View>
 			)
+
+			const handleOnFocus = () => {
+				set_isFocused(true)
+				inputProps.onFocus && inputProps.onFocus()
+			}
+			const handleOnBlur = e => {
+				inputProps.value ? set_isFocused(true) : !_text.length && set_isFocused(false)
+				inputProps.onBlur && inputProps.onBlur(e)
+			}
+			const handleOnChangeText = text => {
+				set_text(text)
+				inputProps.onChangeText && inputProps.onChangeText(text)
+			}
 
 			newChildren.push(
 				<Input
@@ -277,33 +259,23 @@ const Item = props => {
 					key="l2"
 					{...inputProps}
 					placeholder={getPlacholderValue(inputProps)}
-					onFocus={() => {
-						set_isFocused(true)
-						inputProps.onFocus && inputProps.onFocus()
-					}}
-					onBlur={e => {
-						inputProps.value ? set_isFocused(true) : !_text.length && set_isFocused(false)
-						inputProps.onBlur && inputProps.onBlur(e)
-					}}
-					onChangeText={text => {
-						set_text(text)
-						inputProps.onChangeText && inputProps.onChangeText(text)
-					}}
+					onFocus={handleOnFocus}
+					onBlur={handleOnBlur}
+					onChangeText={handleOnChangeText}
 				/>
 			)
 		} else if (props.stackedLabel && icon.length) {
+			const viewStyle = {
+				flexDirection: ROW,
+				flex: 1,
+				width: deviceWidth - 15,
+			}
 			newChildren.push(
-				<View
-					key="s"
-					style={{
-						flexDirection: ROW,
-						flex: 1,
-						width: defaultThemeStyle.deviceWidth - 15,
-					}}>
+				<View key="s" style={viewStyle}>
 					<Icon key="s1" {...iconProps} />
 					<View style={{ flexDirection: COLUMN }}>
 						<Label key="s2" {...labelProps} />
-						<Input key="s3" {...inputProps} style={{ width: defaultThemeStyle.deviceWidth - 40 }} />
+						<Input key="s3" {...inputProps} style={{ width: deviceWidth - 40 }} />
 					</View>
 				</View>
 			)
@@ -343,15 +315,14 @@ const Item = props => {
 	}
 
 	return (
-		<TouchableOpacity {...prepareRootProps()} activeOpacity={1}>
+		<TouchableOpacity {...rootProps} activeOpacity={1}>
 			{renderChildren()}
 		</TouchableOpacity>
 	)
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
-
+	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
 	Item.propTypes = {
 		...TouchableOpacity.propTypes,
 		style: oneOfType([object, number, array]),
@@ -364,4 +335,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(Item, "elements/Item")
+module.exports = connectStyle(Item, "ItemElement")

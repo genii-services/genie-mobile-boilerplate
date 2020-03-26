@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/Input"
+const MODULE_NAME$ = "InputElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
@@ -6,23 +6,22 @@ const { TextInput } = require("react-native")
 
 const { connectStyle } = require("/utils/style")
 const { useState, useStore, useThis } = require("/hooks")
-const defaultThemeStyle = require("/styles/themes/default")
 
 const Input = props => {
 	const [theme] = useStore("theme")
-	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
+	const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
 	return (
 		<TextInput
 			editable={!props.disabled}
 			underlineColorAndroid="rgba(0,0,0,0)"
-			placeholderTextColor={style.inputColorPlaceholder}
+			placeholderTextColor={defaultStyle.placeholderTextColor}
 			{...props}
 		/>
 	)
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
 
 	Input.propTypes = {
 		...TextInput.propTypes,

@@ -2,16 +2,16 @@ const React = require("react")
 const _ = require("lodash")
 const InteractionManager = require("/utils/InteractionManager")
 const ReactNative = require("react-native")
-const { Dimensions, View, Animated, ScrollView, StyleSheet, Platform, ViewPropTypes } = ReactNative
+const { Dimensions, View, Animated, ScrollView } = ReactNative
 
-const { ABSOLUTE, BOLD, CENTER, NORMAL } = require("/constants/style")
+const { ABSOLUTE } = require("/constants/style")
 const { useThis } = require("/hooks")
 
 const DefaultTabBar = require("./DefaultTabBar")
 const SceneComponent = require("./SceneComponent")
 const ScrollableTabBar = require("./ScrollableTabBar")
 
-const Tabs = props => {
+const TabsElement = props => {
 	const _this = useThis()
 
 	const [_currentPage, set_currentPage] = useState(props.initialPage)
@@ -208,14 +208,14 @@ const Tabs = props => {
 }
 
 // mixins: [TimerMixin]
-Tabs.DefaultTabBar = DefaultTabBar
-Tabs.ScrollableTabBar = ScrollableTabBar
+TabsElement.DefaultTabBar = DefaultTabBar
+TabsElement.ScrollableTabBar = ScrollableTabBar
 
 if (__DEV__) {
-	const { any, bool, func, number, object, oneOf, string } = require("prop-types")
+	const { any, bool, func, number, object, oneOf, string } = require("/utils/propTypes")
 	const { style } = require("react-native").ViewPropTypes
 
-	Tabs.propTypes = {
+	TabsElement.propTypes = {
 		tabBarPosition: oneOf(["top", "bottom", "overlayTop", "overlayBottom"]),
 		initialPage: number,
 		page: number,
@@ -230,7 +230,7 @@ if (__DEV__) {
 	}
 }
 
-Tabs.getDefaultProps = () => {
+TabsElement.getDefaultProps = () => {
 	return {
 		tabBarPosition: "top",
 		initialPage: 0,
@@ -244,13 +244,13 @@ Tabs.getDefaultProps = () => {
 	}
 }
 
-const styles = StyleSheet.create({
+const styles = {
 	container: {
 		flex: 1,
 	},
 	scrollableContentAndroid: {
 		flex: 1,
 	},
-})
+}
 
-module.exports = Tabs
+module.exports = TabsElement

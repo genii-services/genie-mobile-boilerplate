@@ -3,17 +3,17 @@ const { CENTER } = require("/constants/style")
 
 module.exports = () => {
 	const fabTheme = {
-		"elements/Button": {
+		ButtonElement: {
 			alignItems: CENTER,
 			padding: null,
 			justifyContent: CENTER,
-			"elements/Icon": {
+			IconElement: {
 				alignSelf: CENTER,
 				fontSize: 20,
 				marginLeft: 0,
 				marginRight: 0,
 			},
-			"elements/IconNB": {
+			IconNBElement: {
 				alignSelf: CENTER,
 				fontSize: 20,
 				marginLeft: 0,

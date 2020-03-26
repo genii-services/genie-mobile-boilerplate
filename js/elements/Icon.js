@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/Icon"
+const MODULE_NAME$ = "IconElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
@@ -8,15 +8,14 @@ const androidIconz = require("/data/iconz.android.json")
 const { itsIOS } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
 const { useStore } = require("/hooks")
-const defaultThemeStyle = require("/styles/themes/default")
 
 const IconNB = require("./IconNB")
 
-const Icon = props => {
+const IconElement = props => {
 	const [theme] = useStore("theme")
 
 	const getName = () => {
-		const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
+		const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
 		const { platformStyle, platform } = style
 
 		if ((props.type || style.iconFamily) === "Ionicons") {
@@ -50,9 +49,8 @@ const Icon = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
-
-	Icon.propTypes = {
+	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
+	IconElement.propTypes = {
 		...IconNB.propTypes,
 		style: oneOfType([object, number, array]),
 		name: string,
@@ -63,4 +61,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(Icon, "elements/Icon")
+module.exports = connectStyle(IconElement, MODULE_NAME$)

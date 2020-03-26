@@ -1,8 +1,8 @@
-/** 공통 라이브러리 */
+/** VLine Element */
 const React = require("react")
 const { View } = require("react-native")
 
-const VLine = props => {
+const VLineElement = props => {
 	return (
 		<View
 			style={{
@@ -13,9 +13,11 @@ const VLine = props => {
 		/>
 	)
 }
-VLine.defaultProps = {
+
+VLineElement.defaultProps = {
 	...View.defaultProps,
 	borderColor: "#e0e0c0",
 	borderWidth: 1,
 }
-module.exports = VLine
+
+module.exports = VLineElement

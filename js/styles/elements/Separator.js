@@ -1,8 +1,7 @@
 /** Element Style */
 const { CENTER } = require("/constants/style")
-const defaultThemeStyle = require("/styles/themes/default")
 
-module.exports = (style = defaultThemeStyle) => {
+module.exports = style => {
 	return {
 		".group": {
 			height: 50,
@@ -28,7 +27,7 @@ module.exports = (style = defaultThemeStyle) => {
 			borderTopWidth: style.borderWidth,
 			borderColor: style.listBorderColor,
 		},
-		"elements/Text": {
+		TextElement: {
 			fontSize: style.tabBarTextSize - 2,
 			color: "#777",
 		},

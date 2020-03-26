@@ -3,7 +3,7 @@ const { CENTER, FLEX_END } = require("/constants/style")
 
 module.exports = () => {
 	return {
-		"elements/Button": {
+		ButtonElement: {
 			alignSelf: null,
 		},
 		flex: 1,

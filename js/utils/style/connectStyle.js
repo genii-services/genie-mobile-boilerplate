@@ -1,33 +1,59 @@
 const React = require("react")
+const PropTypes = require("prop-types")
 const hoistStatics = require("hoist-non-react-statics")
 const _ = require("lodash")
 
 const { useRefs, useState, useStore, useThis } = require("/hooks")
 const Theme = require("./Theme")
+const { ThemeShape } = Theme
 const resolveComponentStyle = require("./resolveComponentStyle")
 
+const themeCache = {}
+
 /**
- * 구성 요소 스타일 변형을 나타내는 모든 스타일 특성과 매치
- * 이러한 스타일은 styleName 속성을 사용하여 구성 요소에 적용할 수 있습니다.
- * 모든 스타일 변형 속성 이름은 단일 '.'로 시작해야 합니다. 문자 (예 : '.variant')
+ * Formats and throws an error when connecting component style with the theme.
  *
- * @param propertyName 스타일 속성 이름
- * @returns {boolean} style 속성이 변형된 구성 요소를 나타내는 경우 true이고, 그렇지 않으면 false입니다.
+ * @param errorMessage The error message.
+ * @param componentDisplayName The name of the component that is being connected.
+ */
+function throwConnectStyleError(errorMessage, componentDisplayName) {
+	throw Error(`${errorMessage} - when connecting ${componentDisplayName} component to style.`)
+}
+
+/**
+ * Returns the theme object from the provided context,
+ * or an empty theme if the context doesn't contain a theme.
+ *
+ * @param context The React component context.
+ * @returns {Theme} The Theme object.
+ */
+function getTheme(context) {
+	// Fallback to a default theme if the component isn't
+	// rendered in a StyleProvider.
+	return context.theme || Theme.getDefaultTheme()
+}
+
+/**
+ * Matches any style properties that represent component style variants.
+ * Those styles can be applied to the component by using the styleName
+ * prop. All style variant property names must start with a single '.'
+ * character, e.g., '.variant'.
+ *
+ * @param propertyName The style property name.
+ * @returns {boolean} True if the style property represents a component variant, false otherwise.
  */
 function isStyleVariant(propertyName) {
 	return /^\./.test(propertyName)
 }
 
 /**
- * 지정한 속성 이름이 하위 컴포넌트를 대상으로 하는 스타일 규칙인지 판단한다.
- * 이러한 스타일은 두 가지 형식이 있는데,
- * 컴포넌트 이름 ( 'elements.Text')와 컴포넌트 이름 및 변형 ( 'elements.Text.line-through')으로
- * 컴포넌트를 대상으로 지정할 수 있습니다.
- * 컴포넌트 이름을 지정하는 것 외에도 이러한 스타일은
- * '*'와일드 카드 ( '*'또는 '* .line-through')를 사용하여
- * 모든 구성 요소를 대상으로 할 수도 있습니다.
- * 이러한 스타일을 식별하는 규칙은 '.'을 포함해야한다는 것입니다.
- * 이름에 문자를 포함 시키거나 '*'이어야 합니다.
+ * Matches any style properties that represent style rules that target the
+ * component children. Those styles can have two formats, they can either
+ * target the components by component name ('shoutem.ui.Text'), or by component
+ * name and variant ('shoutem.ui.Text.line-through'). Beside specifying the
+ * component name, those styles can also target any component by using the
+ * '*' wildcard ('*', or '*.line-through'). The rule to identify those styles is
+ * that they have to contain a '.' character in their name or be a '*'.
  *
  * @param propertyName The style property name.
  * @returns {boolean} True if the style property represents a child style, false otherwise.
@@ -42,177 +68,192 @@ function getConcreteStyle(style) {
 	})
 }
 
-let themeCache = {}
-
 /**
- * clear theme cache
- * @export
- */
-function clearThemeCache() {
-	themeCache = {}
-}
-
-/**
- * 컴포넌트 스타일을 테마와 연결할 때 형식을 지정하여 오류를 발생시킵니다.
+ * Resolves the final component style by using the theme style, if available and
+ * merging it with the style provided directly through the style prop, and style
+ * variants applied through the styleName prop.
  *
- * @param errorMessage 오류 메시지
- * @param componentDisplayName 연결 중인 컴포넌트 이름
- */
-function throwConnectStyleError(errorMessage, componentDisplayName) {
-	throw Error(`${errorMessage} - when connecting ${componentDisplayName} component to style.`)
-}
-
-/**
- * 사용 가능한 경우 테마 스타일을 사용하고
- * 스타일 속성을 통해 직접 제공된 스타일 및 styleName 속성을 통해
- * 적용된 스타일 변형과 병합하여 최종 구성 요소 스타일을 해결
- *
- * @param componentStyleName The component name that will be used to target this component in style rules.
+ * @param componentStyleName The component name that will be used
+ * to target this component in style rules.
  * @param componentStyle The default component style.
  * @param mapPropsToStyleNames Pure function to customize styleNames depending on props.
  * @param options The additional connectStyle options
  * @param options.virtual The default value of the virtual prop
  * @param options.withRef Create component ref with addedProps; if true, ref name is wrappedInstance
- * @returns {StyledComponent} The new component that will handle the styling of the wrapped component.
+ * @returns {StyledComponent} The new component that will handle
+ * the styling of the wrapped component.
  */
-exports = module.exports = (componentStyleName, componentStyle = {}, mapPropsToStyleNames, options = {}) => {
+module.exports = (componentStyleName, componentStyle = {}, mapPropsToStyleNames, options = {}) => {
 	function getComponentDisplayName(WrappedComponent) {
 		return WrappedComponent.displayName || WrappedComponent.name || "Component"
 	}
-	console.debug("connectStyle", componentStyleName)
 
 	return function wrapWithStyledComponent(WrappedComponent) {
 		const componentDisplayName = getComponentDisplayName(WrappedComponent)
-		if (__DEV__) {
-			if (!_.isPlainObject(componentStyle)) throwConnectStyleError("Component style must be plain object", componentDisplayName)
-			if (!_.isString(componentStyleName)) throwConnectStyleError("Component Style Name must be string", componentDisplayName)
+
+		if (!_.isPlainObject(componentStyle)) {
+			throwConnectStyleError("Component style must be plain object", componentDisplayName)
 		}
-		console.debug("wrapWithStyledComponent", componentDisplayName)
-		const StyledComponent = props => {
-			const resolveStyle = () => {
-				const themeStyle = theme.createComponentStyle(componentStyleName, componentStyle)
-				const parentStyle = genealStyleNames
-					? themeCache[genealStyleNames.join(">")]
-					: resolveComponentStyle(componentStyleName, styleNames, themeStyle)
-				return resolveComponentStyle(componentStyleName, styleNames, themeStyle, parentStyle)
+
+		if (!_.isString(componentStyleName)) {
+			throwConnectStyleError("Component Style Name must be string", componentDisplayName)
+		}
+
+		class StyledComponent extends React.Component {
+			static contextTypes = {
+				theme: ThemeShape,
+				// The style inherited from the parent
+				parentPath: PropTypes.string,
+				parentStyleNames: PropTypes.array,
+				// parentStyle: PropTypes.object,
 			}
 
-			const getStyleNames = () => {
-				const styleNamesArr = _.map(props, (value, key) => (typeof value !== "object" && value === true ? "." + key : false))
-				_.remove(styleNamesArr, (value, index) => value === false)
-				return styleNamesArr
+			static childContextTypes = {
+				// Provide the parent style to child components
+				parentPath: PropTypes.string,
+				parentStyleNames: PropTypes.array,
+				// parentStyle: PropTypes.object,
+				// resolveStyle: PropTypes.func,
 			}
 
-			const { style, styleName, genealStyleNames } = props
-			const styleNames = getStyleNames()
-			// console.log(genealStyleNames);
+			static propTypes = {
+				// Element style that overrides any other style of the component
+				style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+				// The style variant names to apply to this component,
+				// multiple variants may be separated with a space character
+				styleName: PropTypes.string,
+				// Virtual elements will propagate the parent
+				// style to their children, i.e., the children
+				// will behave as they are placed directly below
+				// the parent of a virtual element.
+				virtual: PropTypes.bool,
+			}
 
-			const [theme] = useStore("theme") // theme: ThemeShape
-			const refs = useRefs()
-			const _this = useThis()
+			static defaultProps = {
+				virtual: options.virtual,
+			}
 
-			// AddedProps are additional WrappedComponent props
-			// Usually they are set trough alternative ways,
-			// such as theme style, or trough options
-			const [_addedProps] = useState(() => {
-				const addedProps = {}
-				if (options.withRef) addedProps.ref = "wrappedInstance"
-				return addedProps
-			})
+			static displayName = `Styled${componentDisplayName}`
+			static WrappedComponent = WrappedComponent
 
-			if (
-				_this.style !== props.style ||
-				_this.styleName !== styleName ||
-				_this.theme !== theme ||
-				!_.isEqual(_this.genealStyleNames, genealStyleNames) ||
-				// shoutem 속성이 여기에서 변경되었지만, 변경된 속성이 styleName에 영향을 미치는 것을 의미하지는 않음
-				(mapPropsToStyleNames && props !== nextProps && !_.isEqual(_this.styleNames, styleNames))
-			) {
-				let resolvedStyle = {}
-				if (genealStyleNames) {
-					const getOrSetStylesInCache = path => {
-						if (themeCache && themeCache[path.join(">")]) return themeCache[path.join(">")]
-						const resolvedStyle = resolveStyle()
-						if (Object.keys(themeCache).length < 10000) themeCache[path.join(">")] = resolvedStyle
-						return resolvedStyle
-					}
-					resolvedStyle = getOrSetStylesInCache([...genealStyleNames, componentStyleName, ...styleNames])
-				} else {
-					resolvedStyle = resolveStyle()
-					themeCache[componentStyleName] = resolvedStyle
+			constructor(props, context) {
+				super(props, context)
+				// console.log(context.parentStyleNames);
+				this.state = { _this: this }
+				this.style = this.getFinalStyle(props, context, props.style, styleNames)
+				// AddedProps are additional WrappedComponent props
+				// Usually they are set trough alternative ways,
+				// such as theme style, or trough options
+				this.addedProps = options.withRef ? { ref: "wrappedInstance" } : {}
+				this.styleNames = this.getStyleNames(props)
+			}
+
+			static getDerivedStateFromProps(nextProps, prevState) {
+				const { _this } = prevState
+				const { context, props, state } = this
+				const styleNames = this.getStyleNames(nextProps)
+				const { style, styleName } = nextProps
+				const { theme, parentStyleNames } = nextContext
+				if (
+					props.style !== style ||
+					props.styleName !== styleName ||
+					context.theme !== theme ||
+					!_.isEqual(parentStyleNames, context.parentStyleNames) ||
+					// shoutem 속성이 여기에서 변경되었지만, 변경된 속성이 styleName에 영향을 미치는 것을 의미하지는 않음
+					(mapPropsToStyleNames && props !== nextProps && !_.isEqual(this.state.styleNames, styleNames))
+				) {
+					const finalStyle = this.getFinalStyle(nextProps, nextContext, style, styleNames)
+					this.setState({
+						style: finalStyle,
+						// childrenStyle: resolvedStyle.childrenStyle,
+						styleNames,
+					})
 				}
+			}
 
+			getFinalStyle(props, context, style, styleNames) {
+				const path = [...context.parentStyleNames, componentStyleName, ...styleNames].join(">")
+				let resolvedStyle = themeCache[path]
+				if (!themeCache[path]) {
+					resolvedStyle = this.resolveStyle(context, styleNames)
+					if (Object.keys(themeCache).length < 10000) themeCache[path] = resolvedStyle
+				}
 				const concreteStyle = getConcreteStyle(_.merge({}, resolvedStyle))
-
-				_this.finalStyle = _.isArray(style)
+				return _.isArray(style)
 					? [concreteStyle, ...style]
 					: typeof style == "number" || typeof style == "object"
 					? [concreteStyle, style]
 					: concreteStyle
-				_this.style = props.style
-				_this.styleName = styleName
-				_this.theme = _this.styleNames = styleNames
 			}
 
-			const nextGenealStyleNames = !genealStyleNames
-				? [componentStyleName]
-				: [...genealStyleNames, componentStyleName, ...getStyleNames()]
+			getStyleNames(props) {
+				const styleNames = []
+				_.forEach(props, (v, k) => {
+					if (v !== true) return
+					styleNames.push("." + k)
+				})
+				return styleNames
+			}
 
-			const setWrappedInstance = el => {
-				refs._root = el && el._root ? el._root : el
-				_this.wrappedInstance = refs._root
+			getChildContext() {
+				const parentStyleNames = this.context.parentStyleNames
+					? [...this.context.parentStyleNames, componentStyleName, ...this.getStyleNames(this.props)]
+					: [componentStyleName]
+				console.debug(componentStyleName, parentStyleNames)
+				return {
+					// parentStyle: this.props.virtual ?
+					//   this.context.parentStyle :
+					//   this.state.childrenStyle,
+					// resolveStyle: this.resolveConnectedComponentStyle,
+					parentStyleNames,
+					parentPath,
+				}
+			}
+
+			setNativeProps(nativeProps) {
+				if (this.wrappedInstance.setNativeProps) this.wrappedInstance.setNativeProps(nativeProps)
+			}
+
+			setWrappedInstance = component => {
+				this.wrappedInstance = this._root = component && component._root ? component._root : component
+			}
+
+			resolveStyle(context, styleNames) {
+				const theme = context.theme || Theme.getDefaultTheme()
+				const themeStyle = theme.createComponentStyle(componentStyleName, componentStyle)
+				let parentStyle = context.parentStyleNames
+					? themeCache[context.parentPath]
+					: (parentStyle = resolveComponentStyle(componentStyleName, styleNames, themeStyle, parentStyle))
+				return resolveComponentStyle(componentStyleName, styleNames, themeStyle, parentStyle)
 			}
 
 			/**
-			 * 하위 구성요소에 제공되는 핼퍼함수로써 모든 속성 값 세트의 스타일을 확인할 수 있음
+			 * A helper function provided to child components that enables
+			 * them to resolve their style for any set of prop values.
 			 *
-			 * @param props 스타일 값을 해석하는 데 사용하는 컴포넌트 속성
-			 * @returns {*} 해석된 컴포넌트 스타일
+			 * @param props The component props to use to resolve the style values.
+			 * @returns {*} The resolved component style.
 			 */
-			const resolveConnectedComponentStyle = () => {
-				const resolveStyleNames = () => {
-					const styleNames = styleName ? styleName.split(/\s/g) : []
-					if (!mapPropsToStyleNames) return styleNames
-					// We only want to keep the unique style names
-					return _.uniq(mapPropsToStyleNames(styleNames, props))
-				}
-
-				const styleNames = resolveStyleNames()
-				return resolveStyle().componentStyle
+			resolveConnectedComponentStyle = props => {
+				const { styleName } = props
+				const styleNames = styleName ? styleName.split(/\s/g) : []
+				if (!mapPropsToStyleNames) return styleNames
+				// We only want to keep the unique style names
+				const styleNames = _.uniq(mapPropsToStyleNames(styleNames, props))
+				return this.resolveStyle(this.context, styleNames).componentStyle
 			}
 
-			console.debug("StyledComponent", StyledComponent.displayName)
-			return (
-				<WrappedComponent
-					{...props}
-					{..._addedProps}
-					style={_this.finalStyle}
-					ref={setWrappedInstance}
-					// parentStyle: object,	// Provide the parent style to child components
-					// resolveStyle: func,
-					genealStyleNames={nextGenealStyleNames} // array
-				/>
-			)
-		}
+			render() {
+				// console.log('themeCache', themeCache);
 
-		if (__DEV__) {
-			const { array, bool, func, number, object, oneOfType, string } = require("prop-types")
-			StyledComponent.propTypes = {
-				// Element style that overrides any other style of the component
-				style: oneOfType([object, number, array]),
-				// The style variant names to apply to this component, multiple variants may be separated with a space character
-				styleName: string,
-				// 가상요소는 부모스타일을 자녀에게 전파합니다. 즉, 자녀는 가상요소의 부모 바로 아래에 배치될 때 동작함
-				virtual: bool,
-				// The style inherited from the parent
-				// parentStyle: object,
-				genealStyleNames: array,
+				// if(componentStyleName == 'NativeBase.Text') {
+				//   console.log(this.state.style);
+				//   console.log(themeCache);
+				// }
+				const { addedProps, style } = this.state
+				return <WrappedComponent {...this.props} {...addedProps} style={style} ref={this.setWrappedInstance} />
 			}
 		}
-		StyledComponent.defaultProps = { virtual: options.virtual }
-		StyledComponent.displayName = `Styled${componentDisplayName}`
-		StyledComponent.WrappedComponent = WrappedComponent
 		return hoistStatics(StyledComponent, WrappedComponent)
 	}
 }
-exports.clearThemeCache = clearThemeCache

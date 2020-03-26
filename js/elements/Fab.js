@@ -1,17 +1,16 @@
-const MODULE_NAME$ = "elements/Fab"
+const MODULE_NAME$ = "FabElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
-const { Platform, Animated, TouchableOpacity, TouchableNativeFeedback, View, StyleSheet } = require("react-native")
+const { Platform, Animated, TouchableOpacity, TouchableNativeFeedback, View } = require("react-native")
 const { remove, merge, clone } = require("lodash")
 
-const { ABSOLUTE, CENTER, COLUMN, LEFT, RIGHT, ROW } = require("/constants/style")
+const { ABSOLUTE, BLACK, CENTER, COLUMN, LEFT, RIGHT, ROW, WHITE } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 const { computeProps } = require("/utils/props")
-const { connectStyle } = require("/utils/style")
+const { connectStyle, flattenStyle } = require("/utils/style")
 
 const { createAnimatedComponent, useThis } = require("/hooks")
-const defaultThemeStyle = require("/styles/themes/default")
 
 const Button = require("./Button")
 
@@ -29,9 +28,32 @@ const POSITION = {
 	TOP_RIGHT: "topRight",
 }
 
+const defaultThemeStyle = {
+	fabBackgroundColor: "blue",
+	fabBorderRadius: 28,
+	fabBottom: 0,
+	fabButtonBorderRadius: 20,
+	fabButtonHeight: 40,
+	fabButtonLeft: 7,
+	fabButtonMarginBottom: 10,
+	fabContainerBottom: 20,
+	fabDefaultPosition: 20,
+	fabElevation: 4,
+	fabIconColor: WHITE,
+	fabIconSize: 24,
+	fabShadowColor: BLACK,
+	fabShadowOffsetHeight: 2,
+	fabShadowOffsetWidth: 0,
+	fabShadowOpacity: 0.4,
+	fabShadowRadius: 2,
+	fabWidth: 56,
+}
+
 const AnimatedFab = createAnimatedComponent(Button)
 
 const Fab = props => {
+	const { direction, position } = props
+
 	const _this = useThis()
 	_this.containerHeight = new Animated.Value(defaultThemeStyle.fabWidth)
 	_this.containerWidth = new Animated.Value(0)
@@ -51,59 +73,35 @@ const Fab = props => {
 		return () => _this.activeTimer && clearTimeout(_this.activeTimer)
 	}, [])
 
+	const fabStyle = {
+		height: defaultThemeStyle.fabWidth,
+		width: defaultThemeStyle.fabWidth,
+		borderRadius: defaultThemeStyle.fabBorderRadius,
+		elevation: defaultThemeStyle.fabElevation,
+		shadowColor: defaultThemeStyle.fabShadowColor,
+		shadowOffset: {
+			width: defaultThemeStyle.fabShadowOffsetWidth,
+			height: defaultThemeStyle.fabShadowOffsetHeight,
+		},
+		shadowOpacity: defaultThemeStyle.fabShadowOpacity,
+		justifyContent: CENTER,
+		alignItems: CENTER,
+		shadowRadius: defaultThemeStyle.fabShadowRadius,
+		position: ABSOLUTE,
+		bottom: defaultThemeStyle.fabBottom,
+		backgroundColor: defaultThemeStyle.fabBackgroundColor,
+	}
+
 	const getOtherButtonStyle = (child, i) => {
 		const { active, direction } = props
 		const type = {
-			top: direction ? fabOtherBtns(direction, i).top : undefined,
+			top: direction && fabOtherBtns(direction, i).top,
 			left: direction ? fabOtherBtns(direction, i).left : 8,
 			right: direction ? fabOtherBtns(direction, i).right : 0,
 			bottom: direction ? fabOtherBtns(direction, i).bottom : active === false ? (itsIOS ? 8 : 8) : i * 50 + 50,
 		}
-
-		return merge(getInitialStyle().buttonStyle, StyleSheet.flatten(child.props.style), type)
-	}
-
-	const getContainerStyle = () => merge(getInitialStyle().container, props.containerStyle)
-
-	const getInitialStyle = iconStyle => {
-		const { direction, position } = props
-		return {
-			fab: {
-				height: defaultThemeStyle.fabWidth,
-				width: defaultThemeStyle.fabWidth,
-				borderRadius: defaultThemeStyle.fabBorderRadius,
-				elevation: defaultThemeStyle.fabElevation,
-				shadowColor: defaultThemeStyle.fabShadowColor,
-				shadowOffset: {
-					width: defaultThemeStyle.fabShadowOffsetWidth,
-					height: defaultThemeStyle.fabShadowOffsetHeight,
-				},
-				shadowOpacity: defaultThemeStyle.fabShadowOpacity,
-				justifyContent: CENTER,
-				alignItems: CENTER,
-				shadowRadius: defaultThemeStyle.fabShadowRadius,
-				position: ABSOLUTE,
-				bottom: defaultThemeStyle.fabBottom,
-				backgroundColor: defaultThemeStyle.fabBackgroundColor,
-			},
-			container: {
-				position: ABSOLUTE,
-				top: position ? fabTopValue(position).top : undefined,
-				bottom: position ? fabTopValue(position).bottom : defaultThemeStyle.fabContainerBottom,
-				right: position ? fabTopValue(position).right : defaultThemeStyle.fabContainerBottom,
-				left: position ? fabTopValue(position).left : undefined,
-				width: defaultThemeStyle.fabWidth,
-				height: _this.containerHeight,
-				flexDirection: direction ? (direction === DIRECTION.LEFT || direction === DIRECTION.RIGHT ? ROW : COLUMN) : COLUMN,
-				alignItems: CENTER,
-			},
-			iconStyle: {
-				color: defaultThemeStyle.fabIconColor,
-				fontSize: defaultThemeStyle.fabIconSize,
-				lineHeight: itsIOS ? 27 : undefined,
-				...iconStyle,
-			},
-			buttonStyle: {
+		return merge(
+			{
 				position: ABSOLUTE,
 				height: defaultThemeStyle.fabButtonHeight,
 				width: defaultThemeStyle.fabButtonHeight,
@@ -113,8 +111,26 @@ const Fab = props => {
 				marginBottom: defaultThemeStyle.fabButtonMarginBottom,
 				backgroundColor: defaultThemeStyle.fabBackgroundColor,
 			},
-		}
+			flattenStyle(child.props.style),
+			type
+		)
 	}
+
+	const getContainerStyle = () =>
+		merge(
+			{
+				position: ABSOLUTE,
+				top: position && fabTopValue(position).top,
+				bottom: position ? fabTopValue(position).bottom : defaultThemeStyle.fabContainerBottom,
+				right: position ? fabTopValue(position).right : defaultThemeStyle.fabContainerBottom,
+				left: position && fabTopValue(position).left,
+				width: defaultThemeStyle.fabWidth,
+				height: _this.containerHeight,
+				flexDirection: direction ? (direction === DIRECTION.LEFT || direction === DIRECTION.RIGHT ? ROW : COLUMN) : COLUMN,
+				alignItems: CENTER,
+			},
+			props.containerStyle
+		)
 
 	const prepareButtonProps = child => {
 		const inp = clone(child.props)
@@ -178,7 +194,7 @@ const Fab = props => {
 	}
 
 	const prepareFabProps = () => {
-		const defaultProps = { style: getInitialStyle().fab }
+		const defaultProps = { style: fabStyle }
 		const incomingProps = clone(props)
 		delete incomingProps.onPress
 
@@ -294,7 +310,12 @@ const Fab = props => {
 			return null
 		})
 		return React.cloneElement(childrenArray[0], {
-			style: getInitialStyle(childrenArray[0].props.style).iconStyle,
+			style: {
+				color: defaultThemeStyle.fabIconColor,
+				fontSize: defaultThemeStyle.fabIconSize,
+				lineHeight: itsIOS && 27,
+				...childrenArray[0].props.style,
+			},
 		})
 	}
 
@@ -312,7 +333,7 @@ const Fab = props => {
 					// eslint-disable-next-line new-cap
 					background={TouchableNativeFeedback.Ripple(defaultThemeStyle.androidRippleColor, false)}
 					{...prepareFabProps()}>
-					<View style={[getInitialStyle().fab, style]}>{renderFab()}</View>
+					<View style={[fabStyle, style]}>{renderFab()}</View>
 				</TouchableNativeFeedback>
 			)}
 		</Animated.View>

@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/Content"
+const MODULE_NAME$ = "ContentElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
@@ -6,26 +6,18 @@ const { SafeAreaView } = require("react-native")
 const { KeyboardAwareScrollView } = require("react-native-keyboard-aware-scroll-view")
 
 const { useState, useStore, useThis } = require("/hooks")
-const defaultThemeStyle = require("/styles/themes/default")
+const { itsIphoneX } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
 
-const Content = props => {
+const ContentElement = props => {
 	const _this = useThis()
 	const [theme] = useStore("theme")
 
-	const [_orientation, set_orientation] = useState("portrait")
-
-	const layoutChange = val => {
-		const maxComp = Math.max(defaultThemeStyle.deviceWidth, defaultThemeStyle.deviceHeight)
-
-		set_orientation(val.width >= maxComp ? "landscape" : "portrait")
-	}
-
 	const { children, contentContainerStyle, disableKBDismissScroll, keyboardShouldPersistTaps, padder, style } = props
 	const containerStyle = { flex: 1 }
-	const defaultStyle = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
+	const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
 
-	return defaultStyle.isIphoneX ? (
+	return itsIphoneX ? (
 		<SafeAreaView style={containerStyle}>
 			<KeyboardAwareScrollView
 				automaticallyAdjustContentInsets={false}
@@ -37,7 +29,7 @@ const Content = props => {
 				}}
 				{...props}
 				style={style}
-				contentContainerStyle={[{ padding: padder ? defaultStyle.contentPadding : undefined }, contentContainerStyle]}>
+				contentContainerStyle={[{ padding: padder && defaultStyle.contentPadding }, contentContainerStyle]}>
 				{children}
 			</KeyboardAwareScrollView>
 		</SafeAreaView>
@@ -51,16 +43,16 @@ const Content = props => {
 				_this._root = c
 			}}
 			{...props}
-			contentContainerStyle={[{ padding: padder ? defaultStyle.contentPadding : undefined }, contentContainerStyle]}>
+			contentContainerStyle={[{ padding: padder && defaultStyle.contentPadding }, contentContainerStyle]}>
 			{children}
 		</KeyboardAwareScrollView>
 	)
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("prop-types")
+	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
 
-	Content.propTypes = {
+	ContentElement.propTypes = {
 		disableKBDismissScroll: bool,
 		keyboardShouldPersistTaps: string,
 		padder: bool,
@@ -68,4 +60,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(Content, MODULE_NAME$)
+module.exports = connectStyle(ContentElement, MODULE_NAME$)

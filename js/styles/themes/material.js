@@ -31,25 +31,17 @@ module.exports = {
 
 	colors,
 
-	// Accordion
-	headerStyle: "#edebed",
-	iconStyle: BLACK,
-	contentStyle: "#f5f4f5",
-	expandedIconStyle: BLACK,
-	accordionBorderColor: "#d3d3d3",
+	// label & placeholder
+	placeholderTextColor: "#575757",
 
 	// ActionSheet
 	elevation: 4,
-	containerTouchableBackgroundColor: "rgba(0,0,0,0.4)",
-	innerTouchableBackgroundColor: WHITE,
 	listItemHeight: 50,
-	listItemBorderColor: TRANSPARENT,
 	marginHorizontal: -15,
 	marginLeft: 14,
 	marginTop: 15,
 	minHeight: 56,
 	padding: 15,
-	touchableTextColor: "#757575",
 
 	// Android
 	androidRipple: true,
@@ -67,21 +59,13 @@ module.exports = {
 	buttonDisabledBg: "#b5b5b5",
 	buttonPadding: 6,
 	buttonPrimaryBg: brandPrimary,
-	buttonPrimaryColor: inverseTextColor,
 	buttonInfoBg: brandInfo,
 	buttonInfoColor: inverseTextColor,
 	buttonSuccessBg: brandSuccess,
-	buttonSuccessColor: inverseTextColor,
 	buttonDangerBg: brandDanger,
-	buttonDangerColor: inverseTextColor,
 	buttonWarningBg: brandWarning,
-	buttonWarningColor: inverseTextColor,
 	buttonTextSize: fontSizeBase - 1,
-	buttonTextSizeLarge: fontSizeBase * 1.5,
-	buttonTextSizeSmall: fontSizeBase * 0.8,
 	borderRadiusLarge: fontSizeBase * 3.8,
-	iconSizeLarge: iconFontSize * 1.5,
-	iconSizeSmall: iconFontSize * 0.6,
 
 	// Card
 	cardDefaultBg: WHITE,
@@ -116,9 +100,6 @@ module.exports = {
 	// Date Picker
 	datePickerTextColor: BLACK,
 	datePickerBg: TRANSPARENT,
-
-	// FAB
-	fabWidth: 56,
 
 	// Font
 	DefaultFontSize: 16,
@@ -171,7 +152,6 @@ module.exports = {
 	inputErrorBorderColor: "#ed2f2f",
 	inputHeightBase: 50,
 	inputColor: textColor,
-	inputColorPlaceholder: "#575757",
 
 	// Line Height
 	buttonLineHeight: 19,

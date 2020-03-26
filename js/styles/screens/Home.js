@@ -3,7 +3,7 @@ const { CENTER, FLEX_START, FLEX_END, RIGHT, ROW, WHITE } = require("/constants/
 
 const HomeScreenStyle = ({ fontFamily, fontSizes, colors, grayscaleColors, backgroundColors }) => {
 	console.debug("Settings.getStyle", "fontSizes[0]", fontSizes[0])
-	return StyleSheet.create({
+	return {
 		profile: {
 			height: 94,
 			padding: 10,
@@ -117,7 +117,7 @@ const HomeScreenStyle = ({ fontFamily, fontSizes, colors, grayscaleColors, backg
 			textAlign: RIGHT,
 			//letterSpacing:-1,
 		},
-	})
+	}
 }
 
 module.exports = HomeScreenStyle
