@@ -120,7 +120,7 @@ const AccordionItem = props => {
 	)
 }
 
-const Accordion = ({
+const AccordionElement = ({
 	contentStyle,
 	expandedIcon,
 	expandedIconStyle,
@@ -187,4 +187,4 @@ const styles = {
 	},
 }
 
-module.exports = Accordion
+module.exports = AccordionElement

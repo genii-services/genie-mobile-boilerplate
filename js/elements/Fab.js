@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/Fab"
+const MODULE_NAME$ = "FabElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")

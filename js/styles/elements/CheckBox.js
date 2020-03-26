@@ -10,11 +10,11 @@ module.exports = style => {
 	}
 	return {
 		".checked": {
-			"elements/Icon": { color: style.checkboxTickColor },
-			"elements/IconNB": { color: style.checkboxTickColor },
+			IconElement: { color: style.checkboxTickColor },
+			IconNBElement: { color: style.checkboxTickColor },
 		},
-		"elements/Icon": Icon,
-		"elements/IconNB": Icon,
+		IconElement: Icon,
+		IconNBElement: Icon,
 		borderRadius: style.CheckboxRadius,
 		overflow: HIDDEN,
 		width: style.checkboxSize,

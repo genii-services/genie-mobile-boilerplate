@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/H2"
+const MODULE_NAME$ = "H2Element"
 console.debug(MODULE_NAME$)
 
 const { Text } = require("react-native")

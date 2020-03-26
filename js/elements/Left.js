@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/Left"
+const MODULE_NAME$ = "LeftElement"
 console.debug(MODULE_NAME$)
 
 const { View } = require("react-native")

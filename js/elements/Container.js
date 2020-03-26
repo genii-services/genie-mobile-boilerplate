@@ -1,10 +1,10 @@
-const MODULE_NAME$ = "elements/Container"
+const MODULE_NAME$ = "ContainerElement"
 console.debug(MODULE_NAME$)
 
 const { View } = require("react-native")
 
 const { connectStyle } = require("/utils/style")
 
-const Container = View
+const ContainerElement = View
 
-module.exports = connectStyle(Container, MODULE_NAME$)
+module.exports = connectStyle(ContainerElement, MODULE_NAME$)

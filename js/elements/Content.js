@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/Content"
+const MODULE_NAME$ = "ContentElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
@@ -9,7 +9,7 @@ const { useState, useStore, useThis } = require("/hooks")
 const { itsIphoneX } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
 
-const Content = props => {
+const ContentElement = props => {
 	const _this = useThis()
 	const [theme] = useStore("theme")
 
@@ -52,7 +52,7 @@ const Content = props => {
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
 
-	Content.propTypes = {
+	ContentElement.propTypes = {
 		disableKBDismissScroll: bool,
 		keyboardShouldPersistTaps: string,
 		padder: bool,
@@ -60,4 +60,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(Content, MODULE_NAME$)
+module.exports = connectStyle(ContentElement, MODULE_NAME$)

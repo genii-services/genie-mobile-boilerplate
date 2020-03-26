@@ -1,32 +1,31 @@
-/** 공통 라이브러리 */
+/** VLineElement */
 const React = require("react")
 const { View } = require("react-native")
 
-const { ABSOLUTE, BLACK, CENTER, PC100, TRANSPARENT, WHITE } = require("/constants/style")
+const { PC100 } = require("/constants/style")
 
-const VLine = props => {
-	return (
-		<View
-			style={{
-				margin: 0,
-				marginTop: 0,
-				marginBottom: 0,
-				padding: 0,
-				paddingTop: 0,
-				paddingBottom: 0,
-				borderRightColor: props.borderColor,
-				borderRightWidth: props.borderWidth,
-				width: props.width || 1,
-				height: PC100,
-			}}
-			{...props}
-		/>
-	)
+const VLineElement = ({ style, borderColor, borderWidth, width, ...props }) => {
+	style = [
+		{
+			margin: 0,
+			marginTop: 0,
+			marginBottom: 0,
+			padding: 0,
+			paddingTop: 0,
+			paddingBottom: 0,
+			borderRightColor: borderColor,
+			borderRightWidth: borderWidth,
+			width,
+			height: PC100,
+		},
+		style,
+	]
+	return <View style={style} {...props} />
 }
 
 // STATIC METHODS
 
-VLine.defaultProps = {
+VLineElement.defaultProps = {
 	...View.defaultProps,
 	borderColor: "#e0e0c0",
 	borderWidth: 1,
@@ -35,4 +34,4 @@ VLine.defaultProps = {
 
 // EXPORTS
 
-module.exports = VLine
+module.exports = VLineElement

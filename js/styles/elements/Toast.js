@@ -20,15 +20,15 @@ module.exports = style => {
 		alignItems: CENTER,
 		padding: 10,
 		minHeight: 50,
-		"elements/Text": {
+		TextElement: {
 			color: WHITE,
 			flex: 1,
 		},
-		"elements/Button": {
+		ButtonElement: {
 			backgroundColor: TRANSPARENT,
 			height: 30,
 			elevation: 0,
-			"elements/Text": {
+			TextElement: {
 				fontSize: 14,
 			},
 		},

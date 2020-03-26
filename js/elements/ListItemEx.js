@@ -4,32 +4,30 @@ const { View, TouchableHighlight } = require("react-native")
 
 const { FLEX_START, NOWRAP } = require("/constants/style")
 
-const ListItem = ({ onPress, onLongPress, ...props }) => {
+const ListItemElement = ({ style, borderColor, borderWidth, onPress, onLongPress, ...props }) => {
+	style = [
+		{
+			borderBottomColor: borderColor,
+			borderBottomWidth: borderWidth,
+			flex: 1,
+			flexWrap: NOWRAP,
+			padding: 10,
+			justifyContent: FLEX_START,
+			alignItems: FLEX_START,
+		},
+		style,
+	]
 	return (
 		<TouchableHighlight underlayColor="rgba(0,0,0,0)" delayLongPress={onLongPress ? 1000 : 10000} onPress={onPress}>
-			<View
-				{...props}
-				style={[
-					{
-						borderBottomColor: props.borderColor,
-						borderBottomWidth: props.borderWidth,
-						flex: 1,
-						flexWrap: NOWRAP,
-						padding: 10,
-						justifyContent: FLEX_START,
-						alignItems: FLEX_START,
-					},
-					props.style,
-				]}
-			/>
+			<View {...props} style={style} />
 		</TouchableHighlight>
 	)
 }
 
-ListItem.defaultProps = {
+ListItemElement.defaultProps = {
 	...View.defaultProps,
 	borderColor: "#e0e0e0",
 	borderBottomWidth: 1,
 }
 
-module.exports = ListItem
+module.exports = ListItemElement

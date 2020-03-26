@@ -1,4 +1,4 @@
-/** 공통 라이브러리 */
+/** RemoteImage Element */
 const React = require("react")
 const { Image, RefreshControl, TouchableHighlight, Text, View } = require("react-native")
 const FastImage = require("react-native-fast-image")
@@ -8,11 +8,11 @@ const { ABSOLUTE, CENTER, COLUMN, PC100, ROW } = require("/constants/style")
 const { useThis } = require("/hooks")
 const { useStyle } = require("/coordinators")
 
-const RemoteImage = props => {
+const RemoteImageElement = props => {
 	const _this = useThis()
 
 	const { getStyle } = useStyle()
-	const style = getStyle(RemoteImage)
+	const style = getStyle(RemoteImageElement)
 
 	const [_loading, set_loading] = useState(false)
 	const [_erred, set_erred] = useState(false)
@@ -27,17 +27,17 @@ const RemoteImage = props => {
 	const handleOnLoad = e => {
 		try {
 			let { width, height } = e.nativeEvent
-			console.debug(RemoteImage, width, height)
+			console.debug(RemoteImageElement, width, height)
 			_this.originalWidth = width
 			_this.originalHeight = height
 			set_loading(false)
 		} catch (e) {
-			console.warn(RemoteImage, e)
+			console.warn(RemoteImageElement, e)
 		}
 	}
 
 	const handleOnError = e => {
-		//console.debug(RemoteImage, e)
+		//console.debug(RemoteImageElement, e)
 		set_loading(false)
 		set_erred(true)
 	}
@@ -61,7 +61,7 @@ const RemoteImage = props => {
 		resizeMode = "contain"
 		height = _width * props.aspectRatio * zoomScale
 	}
-	// console.debug(RemoteImage, resizeMode, width, height, marginTop)
+	// console.debug(RemoteImageElement, resizeMode, width, height, marginTop)
 	return (
 		<View style={style.container}>
 			<TouchableHighlight onPress={props.onPress}>
@@ -87,8 +87,8 @@ const RemoteImage = props => {
 }
 
 if (__DEV__) {
-	const { any, bool, func, number, object, oneOfType, string } = require("/utils/propTypes")
-	RemoteImage.propTypes = {
+	const { any, bool, func, number, string } = require("/utils/propTypes")
+	RemoteImageElement.propTypes = {
 		...Image.propTypes,
 		name: string,
 		onPress: func,
@@ -100,7 +100,7 @@ if (__DEV__) {
 	}
 }
 
-RemoteImage.defaultProps = {
+RemoteImageElement.defaultProps = {
 	...Image.defaultProps,
 	onEndReachedThreshold: 0.025,
 	refreshing: false,
@@ -111,7 +111,7 @@ RemoteImage.defaultProps = {
 	aspectRatio: 2,
 }
 
-RemoteImage.getDefaultStyle = () => {
+RemoteImageElement.getDefaultStyle = () => {
 	return {
 		container: {
 			flexDirection: ROW,
@@ -141,4 +141,4 @@ RemoteImage.getDefaultStyle = () => {
 	}
 }
 
-module.exports = RemoteImage
+module.exports = RemoteImageElement

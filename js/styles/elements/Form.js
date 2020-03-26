@@ -2,71 +2,71 @@
 
 module.exports = () => {
 	return {
-		"elements/Item": {
+		ItemElement: {
 			".fixedLabel": {
-				"elements/Label": {
+				LabelElement: {
 					paddingLeft: null,
 				},
 				marginLeft: 15,
 			},
 			".inlineLabel": {
-				"elements/Label": {
+				LabelElement: {
 					paddingLeft: null,
 				},
 				marginLeft: 15,
 			},
 			".placeholderLabel": {
-				"elements/Input": {},
+				InputElement: {},
 			},
 			".stackedLabel": {
-				"elements/Label": {
+				LabelElement: {
 					top: 5,
 					paddingLeft: null,
 				},
-				"elements/Input": {
+				InputElement: {
 					paddingLeft: null,
 					marginLeft: null,
 				},
-				"elements/Icon": {
+				IconElement: {
 					marginTop: 36,
 				},
 				marginLeft: 15,
 			},
 			".floatingLabel": {
-				"elements/Input": {
-					paddingLeft: null,
+				InputElement: {
 					top: 10,
 					marginLeft: null,
+					paddingLeft: null,
 				},
-				"elements/Label": {
+				LabelElement: {
 					left: 0,
 					top: 6,
 				},
-				"elements/Icon": {
+				IconElement: {
 					top: 6,
 				},
 				marginTop: 15,
 				marginLeft: 15,
 			},
 			".regular": {
-				"elements/Label": {
+				LabelElement: {
 					left: 0,
 				},
 				marginLeft: 0,
 			},
 			".rounded": {
-				"elements/Label": {
+				LabelElement: {
 					left: 0,
 				},
 				marginLeft: 0,
 			},
 			".underline": {
-				"elements/Label": {
+				LabelElement: {
 					left: 0,
 					top: 0,
 					position: "relative",
 				},
-				"elements/Input": {
+				InputElement: {
 					left: -15,
 				},
 				marginLeft: 15,
@@ -75,7 +75,7 @@ module.exports = () => {
 				marginLeft: 0,
 				paddingLeft: 15,
 			},
-			"elements/Label": {
+			LabelElement: {
 				paddingRight: 5,
 			},
 			marginLeft: 15,

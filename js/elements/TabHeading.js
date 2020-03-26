@@ -1,10 +1,10 @@
-const MODULE_NAME$ = "elements/TabHeading"
+const MODULE_NAME$ = "TabHeadingElement"
 console.debug(MODULE_NAME$)
 
 const { View } = require("react-native")
 
 const { connectStyle } = require("/utils/style")
 
-const TabHeadingNB = View
+const TabHeadingElement = View
 
-module.exports = connectStyle(TabHeadingNB, MODULE_NAME$)
+module.exports = connectStyle(TabHeadingElement, MODULE_NAME$)

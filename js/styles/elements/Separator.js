@@ -27,7 +27,7 @@ module.exports = style => {
 			borderTopWidth: style.borderWidth,
 			borderColor: style.listBorderColor,
 		},
-		"elements/Text": {
+		TextElement: {
 			fontSize: style.tabBarTextSize - 2,
 			color: "#777",
 		},

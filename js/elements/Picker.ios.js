@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/Picker.ios"
+const MODULE_NAME$ = "Picker.iosElement"
 console.debug(MODULE_NAME$)
 
 /* eslint-disable react/sort-comp */
@@ -155,4 +155,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(PickerNB, "elements/PickerNB")
+module.exports = connectStyle(PickerNB, "PickerNBElement")

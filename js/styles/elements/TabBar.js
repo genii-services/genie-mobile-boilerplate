@@ -9,27 +9,27 @@ module.exports = style => {
 		".vertical": {
 			height: 60,
 		},
-		"elements/Button": {
+		ButtonElement: {
 			".transparent": {
-				"elements/Text": {
+				TextElement: {
 					fontSize: style.tabFontSize,
 					color: style.sTabBarActiveTextColor,
 					fontWeight: "400",
 				},
-				"elements/IconNB": {
+				IconNBElement: {
 					color: style.sTabBarActiveTextColor,
 				},
 			},
-			"elements/IconNB": {
+			IconNBElement: {
 				color: style.sTabBarActiveTextColor,
 			},
-			"elements/Text": {
+			TextElement: {
 				fontSize: style.tabFontSize,
 				color: style.sTabBarActiveTextColor,
 				fontWeight: "400",
 			},
 			".isTabActive": {
-				"elements/Text": {
+				TextElement: {
 					fontWeight: "900",
 				},
 			},

@@ -6,17 +6,17 @@ module.exports = style => {
 	const { platformStyle } = style
 
 	const iconCommon = {
-		"elements/Icon": { color: style.tabBarActiveTextColor },
+		IconElement: { color: style.tabBarActiveTextColor },
 	}
 	const iconNBCommon = {
-		"elements/IconNB": { color: style.tabBarActiveTextColor },
+		IconNBElement: { color: style.tabBarActiveTextColor },
 	}
 	const textCommon = {
-		"elements/Text": { color: style.tabBarActiveTextColor },
+		TextElement: { color: style.tabBarActiveTextColor },
 	}
 	const footerTheme = {
-		"elements/Left": {
-			"elements/Button": {
+		LeftElement: {
+			ButtonElement: {
 				".transparent": {
 					backgroundColor: TRANSPARENT,
 					borderColor: null,
@@ -38,12 +38,12 @@ module.exports = style => {
 			alignSelf: CENTER,
 			alignItems: FLEX_START,
 		},
-		"elements/Body": {
+		BodyElement: {
 			flex: 1,
 			alignItems: CENTER,
 			alignSelf: CENTER,
 			flexDirection: ROW,
-			"elements/Button": {
+			ButtonElement: {
 				alignSelf: CENTER,
 				".transparent": {
 					backgroundColor: TRANSPARENT,
@@ -67,8 +67,8 @@ module.exports = style => {
 				// ...textCommon
 			},
 		},
-		"elements/Right": {
-			"elements/Button": {
+		RightElement: {
+			ButtonElement: {
 				".transparent": {
 					backgroundColor: TRANSPARENT,
 					borderColor: null,

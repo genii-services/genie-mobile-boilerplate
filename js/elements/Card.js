@@ -1,10 +1,10 @@
-const MODULE_NAME$ = "elements/Card"
+const MODULE_NAME$ = "CardElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
 const { FlatList, View, ViewPropTypes } = require("react-native")
 
-const Card = ({ dataArray, renderRow, ...props }) => {
+const CardElement = ({ dataArray, renderRow, ...props }) => {
 	return dataArray && renderRow ? (
 		<FlatList {...props} data={dataArray} renderItem={renderRow} keyExtractor={(item, index) => index.toString()} />
 	) : (
@@ -14,7 +14,7 @@ const Card = ({ dataArray, renderRow, ...props }) => {
 
 if (__DEV__) {
 	const { array, func, number, object, oneOfType } = require("/utils/propTypes")
-	Card.propTypes = {
+	CardElement.propTypes = {
 		...ViewPropTypes,
 		style: oneOfType([object, number, array]),
 		// eslint-disable-next-line react/forbid-prop-types
@@ -24,4 +24,4 @@ if (__DEV__) {
 }
 
 const { connectStyle } = require("/utils/style")
-module.exports = connectStyle(Card, MODULE_NAME$)
+module.exports = connectStyle(CardElement, MODULE_NAME$)

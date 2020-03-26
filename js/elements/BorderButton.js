@@ -1,5 +1,6 @@
-/** 공통 라이브러리 */
-console.debug("BorderButton")
+/** BorderButtonElement */
+const MODULE_NAME$ = "BorderButtonElement"
+console.debug(MODULE_NAME$)
 
 const React = require("react")
 const _ = require("lodash")
@@ -18,7 +19,7 @@ const pui_widths = [667, 1280] // 667 아이폰6 1280 캘릭시탭x2	아이폰�
 const pua_widths = [1024, 1280] // 1024 아이패드 1280 캘릭시탭x2
 const l_widths = [320, 1280] // 1280 캘릭시탭x2
 
-const BorderButton = props => {
+const BorderButtonElement = props => {
 	const { iconName, imageName, title, borderColor, onPress } = props
 	const { orientation, width, height } = screen
 
@@ -84,14 +85,14 @@ const BorderButton = props => {
 
 if (__DEV__) {
 	const { string } = require("/utils/propTypes")
-	BorderButton.propTypes = {
+	BorderButtonElement.propTypes = {
 		name: string,
 		title: string,
 		borderColor: string,
 	}
 }
 
-BorderButton.getDefaultStyle = ({ fontFamily }) => {
+BorderButtonElement.getDefaultStyle = ({ fontFamily }) => {
 	return {
 		rectButton: {
 			flexDirection: COLUMN,
@@ -126,4 +127,4 @@ BorderButton.getDefaultStyle = ({ fontFamily }) => {
 	}
 }
 
-module.exports = BorderButton
+module.exports = BorderButtonElement

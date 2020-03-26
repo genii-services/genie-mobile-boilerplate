@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/Header"
+const MODULE_NAME$ = "HeaderElement"
 console.debug(MODULE_NAME$)
 
 /* eslint-disable no-nested-ternary */

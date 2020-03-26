@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/Item"
+const MODULE_NAME$ = "ItemElement"
 console.debug(MODULE_NAME$)
 
 /* eslint-disable no-plusplus */
@@ -335,4 +335,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(Item, "elements/Item")
+module.exports = connectStyle(Item, "ItemElement")

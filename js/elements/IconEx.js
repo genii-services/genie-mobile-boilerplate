@@ -1,41 +1,40 @@
 /** 공통 라이브러리 */
-console.debug("Icon")
+console.debug("IconElement")
 
 const React = require("react")
 const { View } = require("react-native")
 
 const { ABSOLUTE, CENTER, FLEX_START, WHITE } = require("/constants/style")
 
-const Icon_ = require("./IconNB")
+const Icon = require("./IconNB")
 
-const Icon = props => {
-	//let icon = /^fa-/.test(props.name) ? <Icon_ theme={{ iconFamily: 'FontAwesome' }} {...props} /> : <Icon_ {...props} />
+const IconElement = props => {
+	//let icon = /^fa-/.test(props.name) ? <Icon theme={{ iconFamily: 'FontAwesome' }} {...props} /> : <Icon {...props} />
 	return (
 		<View style={[{ justifyContent: FLEX_START, alignItems: CENTER }, props.style]}>
 			{/*<Image style={props.backgroundImageStyle} backgroundImage={props.backgroundImage} />*/}
-			<Icon_
+			<Icon
 				style={[props.backgroundIconStyle, { color: props.color || props.backgroundIconStyle.color }]}
 				name={props.backgroundIconName}
 			/>
-			<Icon_ style={[props.iconStyle, { backgroundColor: props.color || props.iconStyle.backgroundColor }]} name={props.name} />
+			<Icon style={[props.iconStyle, { backgroundColor: props.color || props.iconStyle.backgroundColor }]} name={props.name} />
 		</View>
 	)
 }
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
-
-	Icon.propTypes = {
+	IconElement.propTypes = {
 		...View.propTypes,
 		//style: View.propTypes.style,			// 상속 받은 propType과 동일한 이름으로 다시 지정하는 디버그모드에서는 문제없으나 릴리즈모드에서 죽음. 아마도 스타일 내 속성이 차이가 나서 생기는 문제
 		name: string,
 		//backgroundImageStyle: Image.propTypes.style,
-		backgroundIconStyle: Icon_.propTypes.style,
-		iconStyle: Icon_.propTypes.style,
+		backgroundIconStyle: Icon.propTypes.style,
+		iconStyle: Icon.propTypes.style,
 	}
 }
 
-Icon.defaultProps = {
+IconElement.defaultProps = {
 	...View.defaultProps,
 	/*
 	backgroundImage: {
@@ -68,4 +67,4 @@ Icon.defaultProps = {
 	},
 }
 
-module.exports = Icon
+module.exports = IconElement

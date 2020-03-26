@@ -9,29 +9,29 @@ module.exports = style => {
 	return {
 		".span": {
 			height: 128,
-			"elements/Left": {
+			LeftElement: {
 				alignSelf: FLEX_START,
 			},
-			"elements/Body": {
+			BodyElement: {
 				alignSelf: FLEX_END,
 				alignItems: FLEX_START,
 				justifyContent: CENTER,
 				paddingBottom: 26,
 			},
-			"elements/Right": {
+			RightElement: {
 				alignSelf: FLEX_START,
 			},
 		},
 		".hasSubtitle": {
-			"elements/Body": {
-				"elements/Title": {
+			BodyElement: {
+				TitleElement: {
 					fontSize: style.titleFontSize - 2,
 					fontFamily: style.titleFontfamily,
 					textAlign: CENTER,
 					fontWeight: "500",
 					paddingBottom: 3,
 				},
-				"elements/Subtitle": {
+				SubtitleElement: {
 					fontSize: style.subTitleFontSize,
 					fontFamily: style.titleFontfamily,
 					color: style.subtitleColor,
@@ -72,14 +72,14 @@ module.exports = style => {
 			shadowRadius: null,
 			shadowOpacity: null,
 			borderBottomWidth: null,
-			"elements/Left": { flex: 0.3 },
-			"elements/Right": { flex: 0.3 },
-			"elements/Body": {
+			LeftElement: { flex: 0.3 },
+			RightElement: { flex: 0.3 },
+			BodyElement: {
 				flex: 1,
-				"elements/Segment": {
+				SegmentElement: {
 					marginRight: 0,
 					alignSelf: CENTER,
-					"elements/Button": {
+					ButtonElement: {
 						paddingLeft: 0,
 						paddingRight: 0,
 					},
@@ -87,32 +87,32 @@ module.exports = style => {
 			},
 		},
 		".noLeft": {
-			"elements/Left": {
+			LeftElement: {
 				width: itsIOS ? undefined : 0,
 				flex: itsIOS ? 1 : 0,
 			},
-			"elements/Body": {
-				"elements/Title": {
+			BodyElement: {
+				TitleElement: {
 					paddingLeft: itsIOS ? undefined : 10,
 				},
-				"elements/Subtitle": {
+				SubtitleElement: {
 					paddingLeft: itsIOS ? undefined : 10,
 				},
 			},
 		},
-		"elements/Button": {
+		ButtonElement: {
 			justifyContent: CENTER,
 			alignSelf: CENTER,
 			alignItems: CENTER,
 			".transparent": {
-				"elements/Text": {
+				TextElement: {
 					color: style.toolbarBtnTextColor,
 					fontWeight: "600",
 				},
-				"elements/Icon": {
+				IconElement: {
 					color: style.toolbarBtnColor,
 				},
-				"elements/IconNB": {
+				IconNBElement: {
 					color: style.toolbarBtnColor,
 				},
 				paddingHorizontal: style.buttonPadding,
@@ -120,8 +120,8 @@ module.exports = style => {
 			paddingHorizontal: 15,
 		},
 		".searchBar": {
-			"elements/Item": {
-				"elements/Icon": {
+			ItemElement: {
+				IconElement: {
 					backgroundColor: TRANSPARENT,
 					color: style.dropdownLinkColor,
 					fontSize: style.toolbarSearchIconSize,
@@ -130,12 +130,12 @@ module.exports = style => {
 					paddingRight: 10,
 					paddingLeft: 10,
 				},
-				"elements/IconNB": {
+				IconNBElement: {
 					backgroundColor: TRANSPARENT,
 					color: null,
 					alignSelf: CENTER,
 				},
-				"elements/Input": {
+				InputElement: {
 					alignSelf: CENTER,
 					lineHeight: null,
 					height: style.searchBarInputHeight,
@@ -148,9 +148,9 @@ module.exports = style => {
 				borderColor: TRANSPARENT,
 				backgroundColor: style.toolbarInputColor,
 			},
-			"elements/Button": {
+			ButtonElement: {
 				".transparent": {
-					"elements/Text": { fontWeight: "500" },
+					TextElement: { fontWeight: "500" },
 					paddingHorizontal: null,
 					paddingLeft: itsIOS ? 10 : null,
 				},
@@ -160,29 +160,29 @@ module.exports = style => {
 			},
 		},
 		".rounded": {
-			"elements/Item": {
+			ItemElement: {
 				borderRadius: itsIOS && platformStyle !== MATERIAL ? 25 : 3,
 			},
 		},
-		"elements/Left": {
-			"elements/Button": {
+		LeftElement: {
+			ButtonElement: {
 				".hasText": {
 					marginLeft: -10,
 					height: 30,
-					"elements/Icon": {
+					IconElement: {
 						color: style.toolbarBtnColor,
 						fontSize: style.iconHeaderSize,
 						marginTop: 2,
 						marginRight: 5,
 						marginLeft: 2,
 					},
-					"elements/Text": {
+					TextElement: {
 						color: style.toolbarBtnTextColor,
 						fontSize: itsIOS ? 17 : 0,
 						marginLeft: 7,
 						lineHeight: 19.5,
 					},
-					"elements/IconNB": {
+					IconNBElement: {
 						color: style.toolbarBtnColor,
 						fontSize: style.iconHeaderSize,
 						marginTop: 2,
@@ -192,7 +192,7 @@ module.exports = style => {
 				},
 				".transparent": {
 					marginLeft: itsIOS && platformStyle !== MATERIAL ? -3 : 0,
-					"elements/Icon": {
+					IconElement: {
 						color: style.toolbarBtnColor,
 						fontSize: itsIOS && style.platformStyle !== MATERIAL ? style.iconHeaderSize + 1 : style.iconHeaderSize,
 						marginTop: 0,
@@ -200,7 +200,7 @@ module.exports = style => {
 						marginLeft: 1,
 						paddingTop: 1,
 					},
-					"elements/IconNB": {
+					IconNBElement: {
 						color: style.toolbarBtnColor,
 						fontSize: itsIOS && style.platformStyle !== MATERIAL ? style.iconHeaderSize + 1 : style.iconHeaderSize - 2,
 						marginTop: 0,
@@ -208,7 +208,7 @@ module.exports = style => {
 						marginLeft: 1,
 						paddingTop: 1,
 					},
-					"elements/Text": {
+					TextElement: {
 						color: style.toolbarBtnTextColor,
 						fontSize: itsIOS ? 17 : 0,
 						top: itsIOS ? 1 : -1.5,
@@ -223,10 +223,10 @@ module.exports = style => {
 					shadowRadius: null,
 					shadowOpacity: null,
 				},
-				"elements/Icon": {
+				IconElement: {
 					color: style.toolbarBtnColor,
 				},
-				"elements/IconNB": {
+				IconNBElement: {
 					color: style.toolbarBtnColor,
 				},
 				alignSelf: null,
@@ -237,49 +237,49 @@ module.exports = style => {
 			alignSelf: CENTER,
 			alignItems: FLEX_START,
 		},
-		"elements/Body": {
+		BodyElement: {
 			flex: 1,
 			alignItems: itsIOS && platformStyle !== MATERIAL ? CENTER : FLEX_START,
 			alignSelf: CENTER,
-			"elements/Segment": {
+			SegmentElement: {
 				borderWidth: 0,
 				alignSelf: FLEX_END,
 				marginRight: itsIOS ? -40 : -55,
 			},
-			"elements/Button": {
+			ButtonElement: {
 				alignSelf: CENTER,
 				".transparent": {
 					backgroundColor: TRANSPARENT,
 				},
-				"elements/Icon": {
+				IconElement: {
 					color: style.toolbarBtnColor,
 				},
-				"elements/IconNB": {
+				IconNBElement: {
 					color: style.toolbarBtnColor,
 				},
-				"elements/Text": {
+				TextElement: {
 					color: style.inverseTextColor,
 					backgroundColor: TRANSPARENT,
 				},
 			},
 		},
-		"elements/Right": {
-			"elements/Button": {
+		RightElement: {
+			ButtonElement: {
 				".hasText": {
 					height: 30,
-					"elements/Icon": {
+					IconElement: {
 						color: style.toolbarBtnColor,
 						fontSize: style.iconHeaderSize - 2,
 						marginTop: 2,
 						marginRight: 2,
 						marginLeft: 5,
 					},
-					"elements/Text": {
+					TextElement: {
 						color: style.toolbarBtnTextColor,
 						fontSize: itsIOS ? 17 : 14,
 						lineHeight: 19.5,
 					},
-					"elements/IconNB": {
+					IconNBElement: {
 						color: style.toolbarBtnColor,
 						fontSize: style.iconHeaderSize - 2,
 						marginTop: 2,
@@ -293,7 +293,7 @@ module.exports = style => {
 					paddingRight: 12,
 					paddingHorizontal: 15,
 					borderRadius: 50,
-					"elements/Icon": {
+					IconElement: {
 						color: style.toolbarBtnColor,
 						fontSize: style.iconHeaderSize - 2,
 						marginTop: 0,
@@ -301,7 +301,7 @@ module.exports = style => {
 						marginRight: 0,
 						// paddingTop: 0
 					},
-					"elements/IconNB": {
+					IconNBElement: {
 						color: style.toolbarBtnColor,
 						fontSize: style.iconHeaderSize - 2,
 						marginTop: 0,
@@ -309,7 +309,7 @@ module.exports = style => {
 						marginRight: 0,
 						// paddingTop: 0
 					},
-					"elements/Text": {
+					TextElement: {
 						color: style.toolbarBtnTextColor,
 						fontSize: itsIOS ? 17 : 14,
 						top: itsIOS ? 1 : -1.5,
@@ -323,10 +323,10 @@ module.exports = style => {
 					shadowRadius: null,
 					shadowOpacity: null,
 				},
-				"elements/Icon": {
+				IconElement: {
 					color: style.toolbarBtnColor,
 				},
-				"elements/IconNB": {
+				IconNBElement: {
 					color: style.toolbarBtnColor,
 				},
 				alignSelf: null,

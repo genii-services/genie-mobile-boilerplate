@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/Icon"
+const MODULE_NAME$ = "IconElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
@@ -11,7 +11,7 @@ const { useStore } = require("/hooks")
 
 const IconNB = require("./IconNB")
 
-const Icon = props => {
+const IconElement = props => {
 	const [theme] = useStore("theme")
 
 	const getName = () => {
@@ -50,8 +50,7 @@ const Icon = props => {
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
-
-	Icon.propTypes = {
+	IconElement.propTypes = {
 		...IconNB.propTypes,
 		style: oneOfType([object, number, array]),
 		name: string,
@@ -62,4 +61,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(Icon, "elements/Icon")
+module.exports = connectStyle(IconElement, MODULE_NAME$)

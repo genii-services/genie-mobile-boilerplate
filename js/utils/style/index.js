@@ -43,17 +43,15 @@ module.exports = {
 
 const { OBJECT, STRING } = require("/constants")
 
-const elementStyles = require("/styles/elements")
+const elementStylez = require("/styles/elements")
 const defaultStyle = require("/styles/themes/light")
 const _theme = {
 	defaultStyle,
-	"elements/IconNB": { ...elementStyles.Icon(defaultStyle) },
-	"elements/ListItem1": { ...elementStyles.ListItem(defaultStyle) },
-	"elements/PickerNB": { ...elementStyles.Picker(defaultStyle), "elements/Button": { "elements/Text": {} } },
-	"elements/Tabs": { flex: 1 },
-	"elements/ViewNB": { ...elementStyles.View(defaultStyle) },
+	IconNBElement: { ...elementStylez.Icon(defaultStyle) },
+	PickerNBElement: { ...elementStylez.Picker(defaultStyle), ButtonElement: { TextElement: {} } },
+	TabsElement: { flex: 1 },
 }
-_.forEach(elementStyles, (v, k) => (_theme["elements/" + k] = v(defaultStyle)))
+_.forEach(elementStylez, (v, k) => (_theme[k + "Element"] = v(defaultStyle)))
 
 const cssifyTheme = (grandParent, parent, parentName) => {
 	_.forEach(parent, (style, styleName) => {

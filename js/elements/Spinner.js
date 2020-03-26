@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/Spinner"
+const MODULE_NAME$ = "SpinnerElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
@@ -7,7 +7,7 @@ const { ActivityIndicator } = require("react-native")
 const { connectStyle } = require("/utils/style")
 const { useState, useStore, useThis } = require("/hooks")
 
-const Spinner = ({ color, ...props }) => {
+const SpinnerElement = ({ color, ...props }) => {
 	const [theme] = useStore("theme")
 
 	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
@@ -22,12 +22,11 @@ const Spinner = ({ color, ...props }) => {
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
-
-	Spinner.propTypes = {
+	SpinnerElement.propTypes = {
 		...ActivityIndicator.propTypes,
 		color: string,
 		inverse: bool,
 	}
 }
 
-module.exports = connectStyle(Spinner, MODULE_NAME$)
+module.exports = connectStyle(SpinnerElement, MODULE_NAME$)

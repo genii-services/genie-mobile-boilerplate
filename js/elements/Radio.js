@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/Radio"
+const MODULE_NAME$ = "RadioElement"
 console.debug(MODULE_NAME$)
 
 const { TouchableOpacity } = require("react-native")
@@ -9,7 +9,7 @@ const { connectStyle } = require("/utils/style")
 const { itsIOS } = require("/utils/device")
 const { useStore } = require("/hooks")
 
-const Radio = props => {
+const RadioElement = props => {
 	const [theme] = useStore("theme")
 
 	const defaultProps = {
@@ -65,11 +65,11 @@ const Radio = props => {
 
 if (__DEV__) {
 	const { bool } = require("/utils/propTypes")
-	Radio.propTypes = {
+	RadioElement.propTypes = {
 		...TouchableOpacity.propTypes,
 		selected: bool,
 		standardStyle: bool,
 	}
 }
 
-module.exports = connectStyle(Radio, MODULE_NAME$)
+module.exports = connectStyle(RadioElement, MODULE_NAME$)

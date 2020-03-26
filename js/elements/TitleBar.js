@@ -1,4 +1,4 @@
-/** 공통 라이브러리 */
+/** TitleBar Element */
 const React = require("react")
 const { StatusBar, View } = require("react-native")
 
@@ -17,7 +17,7 @@ const Text = require("./Text")
 
 const app = require("/../app.json")
 
-const TitleBar = props => {
+const TitleBarElement = props => {
 	const router = useRouter()
 	const { getStyle } = useStyle()
 	const style = getStyle(TitleBar)
@@ -100,7 +100,7 @@ const TitleBar = props => {
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
-	TitleBar.propTypes = {
+	TitleBarElement.propTypes = {
 		//...Header.defaultProps,		// 이 propType을 지정하지 않고 defaultProps만 지정해도 죽지는 않음
 		title: string,
 		back: bool,
@@ -110,12 +110,12 @@ if (__DEV__) {
 	}
 }
 
-TitleBar.defaultProps = {
+TitleBarElement.defaultProps = {
 	//...Header.defaultProps,
 	title: app.displayName,
 }
 
-TitleBar.getDefaultStyle = ({ fontFamily }) => {
+TitleBarElement.getDefaultStyle = ({ fontFamily }) => {
 	return {
 		header: {
 			// width: PC100,
@@ -210,4 +210,4 @@ TitleBar.getDefaultStyle = ({ fontFamily }) => {
 	}
 }
 
-module.exports = TitleBar
+module.exports = TitleBarElement

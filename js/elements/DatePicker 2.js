@@ -6,7 +6,7 @@ const { itsAndroid } = require("/utils/device")
 
 const Text = require("./Text")
 
-const DatePicker = props => {
+const DatePickerElement = props => {
 	const [theme] = useStore("theme")
 
 	const [_modalVisible, set_modalVisible] = useState(false)
@@ -104,8 +104,8 @@ const DatePicker = props => {
 	)
 }
 
-DatePicker.defaultProps = {
+DatePickerElement.defaultProps = {
 	disabled: false,
 }
 
-module.exports = DatePicker
+module.exports = DatePickerElement

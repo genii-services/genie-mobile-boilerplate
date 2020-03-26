@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/Thumbnail"
+const MODULE_NAME$ = "ThumbnailElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
@@ -6,13 +6,13 @@ const { Image } = require("react-native")
 
 const { connectStyle } = require("/utils/style")
 
-const Thumbnail = props => {
+const ThumbnailElement = props => {
 	return <Image ref={c => (_this._root = c)} {...props} />
 }
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
-	Thumbnail.propTypes = {
+	ThumbnailElement.propTypes = {
 		...Image.propTypes,
 		style: oneOfType([object, number, array]),
 		square: bool,
@@ -21,4 +21,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(Thumbnail, MODULE_NAME$)
+module.exports = connectStyle(ThumbnailElement, MODULE_NAME$)

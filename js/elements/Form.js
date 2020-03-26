@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/Form"
+const MODULE_NAME$ = "FormElement"
 console.debug(MODULE_NAME$)
 
 const { View } = require("react-native")

@@ -19,7 +19,7 @@ module.exports = style => {
 		".danger": {
 			backgroundColor: style.buttonDangerBg,
 		},
-		"elements/Text": {
+		TextElement: {
 			color: style.badgeColor,
 			fontSize: style.fontSizeBase,
 			lineHeight: style.lineHeight - 1,

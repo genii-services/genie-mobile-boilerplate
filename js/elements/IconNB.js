@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/IconNB"
+const MODULE_NAME$ = "IconNBElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")

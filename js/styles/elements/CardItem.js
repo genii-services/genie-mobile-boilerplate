@@ -6,16 +6,16 @@ const { itsIOS } = require("/utils/device")
 
 module.exports = style => {
 	const transparentBtnCommon = {
-		"elements/Text": {
+		TextElement: {
 			fontSize: style.DefaultFontSize - 3,
 			color: style.sTabBarActiveTextColor,
 		},
-		"elements/Icon": {
+		IconElement: {
 			fontSize: style.iconFontSize - 10,
 			color: style.sTabBarActiveTextColor,
 			marginHorizontal: null,
 		},
-		"elements/IconNB": {
+		IconNBElement: {
 			fontSize: style.iconFontSize - 10,
 			color: style.sTabBarActiveTextColor,
 		},
@@ -24,9 +24,9 @@ module.exports = style => {
 	}
 
 	return {
-		"elements/Left": {
-			"elements/Body": {
-				"elements/Text": {
+		LeftElement: {
+			BodyElement: {
+				TextElement: {
 					".note": {
 						color: style.listNoteColor,
 						fontWeight: "400",
@@ -37,17 +37,17 @@ module.exports = style => {
 				marginLeft: 10,
 				alignItems: null,
 			},
-			"elements/Icon": {
+			IconElement: {
 				fontSize: style.iconFontSize,
 			},
-			"elements/IconNB": {
+			IconNBElement: {
 				fontSize: style.iconFontSize,
 			},
-			"elements/Text": {
+			TextElement: {
 				marginLeft: 10,
 				alignSelf: CENTER,
 			},
-			"elements/Button": {
+			ButtonElement: {
 				".transparent": {
 					...transparentBtnCommon,
 					paddingRight: style.cardItemPadding + 5,
@@ -58,21 +58,21 @@ module.exports = style => {
 			alignItems: CENTER,
 		},
 		".content": {
-			"elements/Text": {
+			TextElement: {
 				color: itsIOS ? "#555" : "#222",
 				fontSize: style.DefaultFontSize - 2,
 			},
 		},
-		".cardBody": { padding: -5, "elements/Text": { marginTop: 5 } },
-		"elements/Body": {
-			"elements/Text": {
+		".cardBody": { padding: -5, TextElement: { marginTop: 5 } },
+		BodyElement: {
+			TextElement: {
 				".note": {
 					color: style.listNoteColor,
 					fontWeight: "200",
 					marginRight: 20,
 				},
 			},
-			"elements/Button": {
+			ButtonElement: {
 				".transparent": {
 					...transparentBtnCommon,
 					paddingRight: style.cardItemPadding + 5,
@@ -83,31 +83,31 @@ module.exports = style => {
 			alignSelf: "stretch",
 			alignItems: FLEX_START,
 		},
-		"elements/Right": {
-			"elements/Badge": {
+		RightElement: {
+			BadgeElement: {
 				alignSelf: null,
 			},
-			"elements/Button": {
+			ButtonElement: {
 				".transparent": { ...transparentBtnCommon },
 				alignSelf: null,
 			},
-			"elements/Icon": { alignSelf: null, fontSize: style.iconFontSize - 8, color: style.cardBorderColor },
-			"elements/IconNB": { alignSelf: null, fontSize: style.iconFontSize - 8, color: style.cardBorderColor },
-			"elements/Text": { fontSize: style.fontSizeBase, alignSelf: null },
-			"elements/Thumbnail": { alignSelf: null },
-			"elements/Image": { alignSelf: null },
-			"elements/Radio": { alignSelf: null },
-			"elements/Checkbox": { alignSelf: null },
-			"elements/Switch": { alignSelf: null },
+			IconElement: { alignSelf: null, fontSize: style.iconFontSize - 8, color: style.cardBorderColor },
+			IconNBElement: { alignSelf: null, fontSize: style.iconFontSize - 8, color: style.cardBorderColor },
+			TextElement: { fontSize: style.fontSizeBase, alignSelf: null },
+			ThumbnailElement: { alignSelf: null },
+			ImageElement: { alignSelf: null },
+			RadioElement: { alignSelf: null },
+			CheckboxElement: { alignSelf: null },
+			SwitchElement: { alignSelf: null },
 			flex: 0.8,
 		},
 		".header": {
-			"elements/Text": {
+			TextElement: {
 				fontSize: 16,
 				fontWeight: itsIOS ? "600" : "500",
 			},
 			".bordered": {
-				"elements/Text": {
+				TextElement: {
 					color: style.brandPrimary,
 					fontWeight: itsIOS ? "600" : "500",
 				},
@@ -117,12 +117,12 @@ module.exports = style => {
 			paddingVertical: style.cardItemPadding + 5,
 		},
 		".footer": {
-			"elements/Text": {
+			TextElement: {
 				fontSize: 16,
 				fontWeight: itsIOS ? "600" : "500",
 			},
 			".bordered": {
-				"elements/Text": {
+				TextElement: {
 					color: style.brandPrimary,
 					fontWeight: itsIOS ? "600" : "500",
 				},
@@ -130,17 +130,17 @@ module.exports = style => {
 			},
 			borderBottomWidth: null,
 		},
-		"elements/Text": {
+		TextElement: {
 			".note": {
 				color: style.listNoteColor,
 				fontWeight: "200",
 			},
 		},
-		"elements/Icon": {
+		IconElement: {
 			width: style.iconFontSize + 5,
 			fontSize: style.iconFontSize - 2,
 		},
-		"elements/IconNB": {
+		IconNBElement: {
 			width: style.iconFontSize + 5,
 			fontSize: style.iconFontSize - 2,
 		},

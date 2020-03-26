@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/ListItem"
+const MODULE_NAME$ = "ListItemElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")

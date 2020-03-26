@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/ToastContainer"
+const MODULE_NAME$ = "ToastContainerElement"
 console.debug(MODULE_NAME$)
 
 /* eslint-disable class-methods-use-this */
@@ -19,7 +19,7 @@ const POSITION = {
 	TOP,
 }
 
-const ToastContainer = props => {
+const ToastContainerElement = props => {
 	const keyboardDidHide = () => {
 		set_keyboardHeight(0)
 		set_isKeyboardVisible(false)
@@ -113,21 +113,21 @@ const ToastContainer = props => {
 
 if (__DEV__) {
 	const { array, number, object, oneOfType, ViewPropTypes } = require("/utils/propTypes")
-	ToastContainer.propTypes = {
+	ToastContainerElement.propTypes = {
 		...ViewPropTypes,
 		style: oneOfType([object, number, array]),
 	}
 }
 
 // ToastContainer.instance
-ToastContainer.show = ({ ...config }) => {
-	ToastContainer.instance._root.showToast({ config })
+ToastContainerElement.show = ({ ...config }) => {
+	ToastContainerElement.instance._root.showToast({ config })
 }
 
-ToastContainer.hide = () => {
-	if (ToastContainer.instance._root.getModalState()) {
-		ToastContainer.instance._root.closeToast("functionCall")
+ToastContainerElement.hide = () => {
+	if (ToastContainerElement.instance._root.getModalState()) {
+		ToastContainerElement.instance._root.closeToast("functionCall")
 	}
 }
 
-module.exports = connectStyle(ToastContainer, MODULE_NAME$)
+module.exports = connectStyle(ToastContainerElement, MODULE_NAME$)

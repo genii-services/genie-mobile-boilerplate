@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/Picker"
+const MODULE_NAME$ = "PickerElement"
 console.debug(MODULE_NAME$)
 
 const { Picker: Picker_ } = require("@react-native-community/picker")
@@ -11,4 +11,4 @@ Picker.propTypes = {
 	...Picker.propTypes,
 }
 
-module.exports = connectStyle(Picker, "elements/PickerNB")
+module.exports = connectStyle(Picker, "PickerNBElement")

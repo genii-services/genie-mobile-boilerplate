@@ -14,20 +14,20 @@ module.exports = style => {
 			flex: itsAndroid ? 0 : 1,
 			minWidth: itsAndroid ? undefined : 60,
 		},
-		"elements/Text": {
+		TextElement: {
 			color: style.topTabBarTextColor,
 			marginHorizontal: 7,
 		},
-		"elements/Icon": {
+		IconElement: {
 			color: style.topTabBarTextColor,
 			fontSize: itsIOS && 26,
 		},
 		".active": {
-			"elements/Text": {
+			TextElement: {
 				color: style.topTabBarActiveTextColor,
 				fontWeight: "600",
 			},
-			"elements/Icon": {
+			IconElement: {
 				color: style.topTabBarActiveTextColor,
 			},
 		},

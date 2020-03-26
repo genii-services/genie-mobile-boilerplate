@@ -1,6 +1,6 @@
 /** 공통 라이브러리 */
 const React = require("react")
-const DatePicker_ = require("react-native-datepicker")
+const DatePicker = require("react-native-datepicker")
 
 const { ABSOLUTE, FLEX_START, LEFT } = require("/constants/style")
 const { toString } = require("/utils/string")
@@ -9,13 +9,13 @@ const { fontFamily } = require("/styles")
 // const  Button = require("./Button")
 // const Text = require("./Text")
 
-const DatePicker = props => {
+const DatePickerElement = props => {
 	const { mode } = props
 	const selectedDate = toString(props.value, props.datePickerMode, "-")
 	const format = mode == "date" ? "YYYY-MM-DD" : mode == "time" ? "hh:mm:ss" : "YYYY-MM-DD hh:mm"
-	// console.debug(DatePicker, format, selectedDate)
+	// console.debug(DatePickerElement, format, selectedDate)
 	return (
-		<DatePicker_
+		<DatePicker
 			style={props.buttonStyle}
 			date={selectedDate}
 			mode={mode}
@@ -54,8 +54,8 @@ const DatePicker = props => {
 		/>
 	)
 }
-DatePicker.defaultProps = {
-	...DatePicker_.defaultProps,
+DatePickerElement.defaultProps = {
+	...DatePicker.defaultProps,
 	buttonStyle: {
 		flex: 0.6,
 		marginTop: -10,
@@ -88,15 +88,15 @@ DatePicker.defaultProps = {
 	maximumDate: "2222-12-12 23:59:59",
 }
 
-module.exports = DatePicker
+module.exports = DatePickerElement
 
 /*
 // 안드로이드 NullPointerException 발생
-const { DatePicker_ } = require("rnkit-actionsheet-picker")
+const { DatePicker } = require("rnkit-actionsheet-picker")
 
 module.exports = DatePickerEx;const DatePickerEx = (props) =>  {
 	static defaultProps = {
-		...DatePicker_.defaultProps,
+		...DatePicker.defaultProps,
 		buttonStyle: {
 			flex: 0.6,
 			marginTop: -5, marginBottom: -5, marginLeft: 0, marginRight: 0,
@@ -133,7 +133,7 @@ module.exports = DatePickerEx;const DatePickerEx = (props) =>  {
 		let selectedDate = toString(.value, .datePickerMode, '-')
 		//console.debug(this, selectedDate)
 
-		DatePicker_.show({
+		DatePicker.show({
 			selectedDate,
 			datePickerMode: .datePickerMode,
 			titleText: .title,

@@ -1,11 +1,11 @@
-/** 공통 라이브러리 */
+/** Html Element */
 const React = require("react")
 // const { View } = require("react-native")
 const { WebView } = require("react-native-webview")
 
 const { screen } = require("/utils/device")
 
-console.debug("Html")
+console.debug("HtmlElement")
 
 const styleBase = `body {
 	width:100%!important;
@@ -79,7 +79,7 @@ function makeHtml(props) {
 	}
 }
 
-const Html = props => {
+const HtmlElement = props => {
 	/* HOOKS */
 
 	const [_html, set_html] = useState()
@@ -137,8 +137,8 @@ const Html = props => {
 }
 
 if (__DEV__) {
-	const { any, bool, number, object, oneOfType, string } = require("/utils/propTypes")
-	Html.propTypes = {
+	const { any, number, string } = require("/utils/propTypes")
+	HtmlElement.propTypes = {
 		...WebView.propTypes,
 		source: any,
 		html: string,
@@ -149,7 +149,7 @@ if (__DEV__) {
 	}
 }
 
-Html.defaultProps = {
+HtmlElement.defaultProps = {
 	...WebView.defaultProps,
 	initialScale: 1,
 	maximumScale: 1,
@@ -157,4 +157,4 @@ Html.defaultProps = {
 	zoomScale: 1,
 }
 
-module.exports = Html
+module.exports = HtmlElement

@@ -5,92 +5,98 @@ const { itsIOS } = require("/utils/device")
 module.exports = style => {
 	const { borderWidth, platformStyle } = style
 	const borderWidthX2 = borderWidth * 2
-	const darkCommon = {
-		"elements/Text": { color: style.brandDark },
-		"elements/Icon": { color: style.brandDark },
-		"elements/IconNB": { color: style.brandDark },
+	const commonDark = {
+		TextElement: { color: style.brandDark },
+		IconElement: { color: style.brandDark },
+		IconNBElement: { color: style.brandDark },
 	}
-	const lightCommon = {
-		"elements/Text": { color: style.brandLight },
-		"elements/Icon": { color: style.brandLight },
-		"elements/IconNB": { color: style.brandLight },
+	const commonLight = {
+		TextElement: { color: style.brandLight },
+		IconElement: { color: style.brandLight },
+		IconNBElement: { color: style.brandLight },
 	}
-	const primaryCommon = {
-		"elements/Text": { color: style.buttonPrimaryBg },
-		"elements/Icon": { color: style.buttonPrimaryBg },
-		"elements/IconNB": { color: style.buttonPrimaryBg },
+	const commonPrimary = {
+		TextElement: { color: style.buttonPrimaryBg },
+		IconElement: { color: style.buttonPrimaryBg },
+		IconNBElement: { color: style.buttonPrimaryBg },
 	}
-	const successCommon = {
-		"elements/Text": { color: style.buttonSuccessBg },
-		"elements/Icon": { color: style.buttonSuccessBg },
-		"elements/IconNB": { color: style.buttonSuccessBg },
+	const commonSuccess = {
+		TextElement: { color: style.buttonSuccessBg },
+		IconElement: { color: style.buttonSuccessBg },
+		IconNBElement: { color: style.buttonSuccessBg },
 	}
-	const infoCommon = {
-		"elements/Text": { color: style.buttonInfoBg },
-		"elements/Icon": { color: style.buttonInfoBg },
-		"elements/IconNB": { color: style.buttonInfoBg },
+	const commonInfo = {
+		TextElement: { color: style.buttonInfoBg },
+		IconElement: { color: style.buttonInfoBg },
+		IconNBElement: { color: style.buttonInfoBg },
 	}
-	const warningCommon = {
-		"elements/Text": { color: style.buttonWarningBg },
-		"elements/Icon": { color: style.buttonWarningBg },
-		"elements/IconNB": { color: style.buttonWarningBg },
+	const commonWarning = {
+		TextElement: { color: style.buttonWarningBg },
+		IconElement: { color: style.buttonWarningBg },
+		IconNBElement: { color: style.buttonWarningBg },
 	}
-	const dangerCommon = {
-		"elements/Text": { color: style.buttonDangerBg },
-		"elements/Icon": { color: style.buttonDangerBg },
-		"elements/IconNB": { color: style.buttonDangerBg },
+	const commonDanger = {
+		TextElement: { color: style.buttonDangerBg },
+		IconElement: { color: style.buttonDangerBg },
+		IconNBElement: { color: style.buttonDangerBg },
 	}
 	return {
 		".disabled": {
 			".transparent": {
 				backgroundColor: TRANSPARENT,
-				"elements/Text": { color: style.buttonDisabledBg },
-				"elements/Icon": { color: style.buttonDisabledBg },
-				"elements/IconNB": { color: style.buttonDisabledBg },
+				TextElement: {
+					color: style.buttonDisabledBg,
+				},
+				IconElement: {
+					color: style.buttonDisabledBg,
+				},
+				IconNBElement: {
+					color: style.buttonDisabledBg,
+				},
 			},
-			"elements/Icon": { color: style.brandLight },
-			"elements/IconNB": { color: style.brandLight },
+			IconElement: { color: style.brandLight },
+			IconNBElement: { color: style.brandLight },
 			backgroundColor: style.buttonDisabledBg,
 		},
 		".bordered": {
 			".dark": {
-				...darkCommon,
+				...commonDark,
 				backgroundColor: TRANSPARENT,
 				borderColor: style.brandDark,
 				borderWidth: borderWidthX2,
 			},
 			".light": {
-				...lightCommon,
+				...commonLight,
 				backgroundColor: TRANSPARENT,
 				borderColor: style.brandLight,
 				borderWidth: borderWidthX2,
 			},
 			".primary": {
-				...primaryCommon,
+				...commonPrimary,
 				backgroundColor: TRANSPARENT,
 				borderColor: style.buttonPrimaryBg,
 				borderWidth: borderWidthX2,
 			},
 			".success": {
-				...successCommon,
+				...commonSuccess,
 				backgroundColor: TRANSPARENT,
 				borderColor: style.buttonSuccessBg,
 				borderWidth: borderWidthX2,
 			},
 			".info": {
-				...infoCommon,
+				...commonInfo,
 				backgroundColor: TRANSPARENT,
 				borderColor: style.buttonInfoBg,
 				borderWidth: borderWidthX2,
 			},
 			".warning": {
-				...warningCommon,
+				...commonWarning,
 				backgroundColor: TRANSPARENT,
 				borderColor: style.buttonWarningBg,
 				borderWidth: borderWidthX2,
 			},
 			".danger": {
-				...dangerCommon,
+				...commonDanger,
 				backgroundColor: TRANSPARENT,
 				borderColor: style.buttonDangerBg,
 				borderWidth: borderWidthX2,
@@ -99,11 +105,11 @@ module.exports = style => {
 				backgroundColor: TRANSPARENT,
 				borderColor: style.buttonDisabledBg,
 				borderWidth: borderWidthX2,
-				"elements/Text": {
+				TextElement: {
 					color: style.buttonDisabledBg,
 				},
 			},
-			...primaryCommon,
+			...commonPrimary,
 			borderWidth: borderWidthX2,
 			elevation: null,
 			shadowColor: null,
@@ -114,38 +120,55 @@ module.exports = style => {
 		},
 
 		".dark": {
-			".bordered": { ...darkCommon },
+			".bordered": {
+				...commonDark,
+			},
 			backgroundColor: style.brandDark,
 		},
 		".light": {
-			".transparent": { ...lightCommon, backgroundColor: TRANSPARENT },
-			".bordered": { ...lightCommon },
-			...darkCommon,
+			".transparent": {
+				...commonLight,
+				backgroundColor: TRANSPARENT,
+			},
+			".bordered": {
+				...commonLight,
+			},
+			...commonDark,
 			backgroundColor: style.brandLight,
 		},
 
 		".primary": {
-			".bordered": { ...primaryCommon },
+			".bordered": {
+				...commonPrimary,
+			},
 			backgroundColor: style.buttonPrimaryBg,
 		},
 
 		".success": {
-			".bordered": { ...successCommon },
+			".bordered": {
+				...commonSuccess,
+			},
 			backgroundColor: style.buttonSuccessBg,
 		},
 
 		".info": {
-			".bordered": { ...infoCommon },
+			".bordered": {
+				...commonInfo,
+			},
 			backgroundColor: style.buttonInfoBg,
 		},
 
 		".warning": {
-			".bordered": { ...warningCommon },
+			".bordered": {
+				...commonWarning,
+			},
 			backgroundColor: style.buttonWarningBg,
 		},
 
 		".danger": {
-			".bordered": { ...dangerCommon },
+			".bordered": {
+				...commonDanger,
+			},
 			backgroundColor: style.buttonDangerBg,
 		},
 
@@ -171,34 +194,64 @@ module.exports = style => {
 			shadowOffset: null,
 			shadowRadius: null,
 			shadowOpacity: null,
-			...primaryCommon,
-			".dark": { ...darkCommon },
-			".danger": { ...dangerCommon },
-			".warning": { ...warningCommon },
-			".info": { ...infoCommon },
-			".primary": { ...primaryCommon },
-			".success": { ...successCommon },
-			".light": { ...lightCommon },
+			...commonPrimary,
+			".dark": {
+				...commonDark,
+			},
+			".danger": {
+				...commonDanger,
+			},
+			".warning": {
+				...commonWarning,
+			},
+			".info": {
+				...commonInfo,
+			},
+			".primary": {
+				...commonPrimary,
+			},
+			".success": {
+				...commonSuccess,
+			},
+			".light": {
+				...commonLight,
+			},
 			".disabled": {
 				backgroundColor: TRANSPARENT,
 				borderColor: style.buttonDisabledBg,
 				borderWidth: borderWidthX2,
-				"elements/Text": { color: style.buttonDisabledBg },
-				"elements/Icon": { color: style.buttonDisabledBg },
-				"elements/IconNB": { color: style.buttonDisabledBg },
+				TextElement: {
+					color: style.buttonDisabledBg,
+				},
+				IconElement: {
+					color: style.buttonDisabledBg,
+				},
+				IconNBElement: {
+					color: style.buttonDisabledBg,
+				},
 			},
 		},
 
 		".small": {
 			height: 30,
-			"elements/Text": { fontSize: 14 },
-			"elements/Icon": { fontSize: 20, paddingTop: 0 },
-			"elements/IconNB": { fontSize: 20, paddingTop: 0 },
+			TextElement: {
+				fontSize: 14,
+			},
+			IconElement: {
+				fontSize: 20,
+				paddingTop: 0,
+			},
+			IconNBElement: {
+				fontSize: 20,
+				paddingTop: 0,
+			},
 		},
 
 		".large": {
 			height: 60,
-			"elements/Text": { fontSize: 22 },
+			TextElement: {
+				fontSize: 22,
+			},
 		},
 
 		".capitalize": {},
@@ -208,7 +261,7 @@ module.exports = style => {
 			height: null,
 		},
 
-		"elements/Text": {
+		TextElement: {
 			fontFamily: style.buttonFontFamily,
 			marginLeft: 0,
 			marginRight: 0,
@@ -218,13 +271,13 @@ module.exports = style => {
 			backgroundColor: TRANSPARENT,
 		},
 
-		"elements/Icon": {
+		IconElement: {
 			color: style.inverseTextColor,
 			fontSize: 24,
 			marginHorizontal: 16,
 			paddingTop: itsIOS && 2,
 		},
-		"elements/IconNB": {
+		IconNBElement: {
 			color: style.inverseTextColor,
 			fontSize: 24,
 			marginHorizontal: 16,
@@ -232,18 +285,37 @@ module.exports = style => {
 		},
 
 		".iconLeft": {
-			"elements/Text": { marginLeft: 0 },
-			"elements/IconNB": { marginRight: 0, marginLeft: 16 },
-			"elements/Icon": { marginRight: 0, marginLeft: 16 },
+			TextElement: {
+				marginLeft: 0,
+			},
+			IconNBElement: {
+				marginRight: 0,
+				marginLeft: 16,
+			},
+			IconElement: {
+				marginRight: 0,
+				marginLeft: 16,
+			},
 		},
 		".iconRight": {
-			"elements/Text": { marginRight: 0 },
-			"elements/IconNB": { marginLeft: 0, marginRight: 16 },
-			"elements/Icon": { marginLeft: 0, marginRight: 16 },
+			TextElement: {
+				marginRight: 0,
+			},
+			IconNBElement: {
+				marginLeft: 0,
+				marginRight: 16,
+			},
+			IconElement: {
+				marginLeft: 0,
+				marginRight: 16,
+			},
 		},
 		".picker": {
-			"elements/Text": {
-				".note": { fontSize: 16, lineHeight: null },
+			TextElement: {
+				".note": {
+					fontSize: 16,
+					lineHeight: null,
+				},
 			},
 		},
 		paddingVertical: style.buttonPadding,

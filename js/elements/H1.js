@@ -1,9 +1,10 @@
-console.log("H1", "load")
+const MODULE_NAME$ = "H1Element"
+console.debug(MODULE_NAME$)
 
 const { Text } = require("react-native")
 
 const { connectStyle } = require("/utils/style")
 
-const H1 = Text
+const H1Element = Text
 
-module.exports = connectStyle(H1, "elements/H1")
+module.exports = connectStyle(H1Element, MODULE_NAME$)

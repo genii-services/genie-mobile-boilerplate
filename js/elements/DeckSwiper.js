@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/DeckSwiper"
+const MODULE_NAME$ = "DeckSwiperElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")

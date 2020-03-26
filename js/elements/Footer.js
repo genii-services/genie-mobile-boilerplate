@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/Footer"
+const MODULE_NAME$ = "FooterElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")

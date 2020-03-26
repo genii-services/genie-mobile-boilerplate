@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/InputGroup"
+const MODULE_NAME$ = "InputGroupElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")

@@ -3,17 +3,17 @@ const { CENTER, ROW, TRANSPARENT } = require("/constants/style")
 
 module.exports = style => {
 	return {
-		"elements/Icon": {
+		IconElement: {
 			fontSize: 24,
 			color: style.sTabBarActiveTextColor,
 			paddingHorizontal: 5,
 		},
-		"elements/IconNB": {
+		IconNBElement: {
 			fontSize: 24,
 			color: style.sTabBarActiveTextColor,
 			paddingHorizontal: 5,
 		},
-		"elements/Input": {
+		InputElement: {
 			height: style.inputHeightBase,
 			color: style.inputColor,
 			paddingLeft: 5,
@@ -61,10 +61,10 @@ module.exports = style => {
 		},
 
 		".success": {
-			"elements/Icon": {
+			IconElement: {
 				color: style.inputSuccessBorderColor,
 			},
-			"elements/IconNB": {
+			IconNBElement: {
 				color: style.inputSuccessBorderColor,
 			},
 			".rounded": {
@@ -85,10 +85,10 @@ module.exports = style => {
 		},
 
 		".error": {
-			"elements/Icon": {
+			IconElement: {
 				color: style.inputErrorBorderColor,
 			},
-			"elements/IconNB": {
+			IconNBElement: {
 				color: style.inputErrorBorderColor,
 			},
 			".rounded": {
@@ -108,10 +108,10 @@ module.exports = style => {
 			borderColor: style.inputErrorBorderColor,
 		},
 		".disabled": {
-			"elements/Icon": {
+			IconElement: {
 				color: "#384850",
 			},
-			"elements/IconNB": {
+			IconNBElement: {
 				color: "#384850",
 			},
 		},

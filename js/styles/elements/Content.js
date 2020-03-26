@@ -5,7 +5,7 @@ module.exports = () => {
 	return {
 		flex: 1,
 		backgroundColor: TRANSPARENT,
-		"elements/Segment": {
+		SegmentElement: {
 			borderWidth: 0,
 			backgroundColor: TRANSPARENT,
 		},

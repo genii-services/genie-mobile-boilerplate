@@ -9,7 +9,7 @@ module.exports = style => {
 		flexDirection: ROW,
 		justifyContent: CENTER,
 		backgroundColor: style.segmentBackgroundColor,
-		"elements/Button": {
+		ButtonElement: {
 			alignSelf: CENTER,
 			borderRadius: 0,
 			paddingTop: 3,
@@ -22,10 +22,10 @@ module.exports = style => {
 			elevation: 0,
 			".active": {
 				backgroundColor: style.segmentActiveBackgroundColor,
-				"elements/Text": {
+				TextElement: {
 					color: style.segmentActiveTextColor,
 				},
-				"elements/Icon": {
+				IconElement: {
 					color: style.segmentActiveTextColor,
 				},
 			},
@@ -38,11 +38,11 @@ module.exports = style => {
 				borderTopRightRadius: itsIOS && 5,
 				borderBottomRightRadius: itsIOS && 5,
 			},
-			"elements/Text": {
+			TextElement: {
 				color: style.segmentTextColor,
 				fontSize: 14,
 			},
-			"elements/Icon": {
+			IconElement: {
 				fontSize: 22,
 				paddingTop: 0,
 				color: style.segmentTextColor,

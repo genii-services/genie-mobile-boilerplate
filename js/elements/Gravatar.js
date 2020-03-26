@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/Gravatar"
+const MODULE_NAME$ = "GravatarElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")

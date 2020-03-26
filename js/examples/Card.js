@@ -1,5 +1,6 @@
 const React = require("react")
-const { Container, Header, Content, Card, CardItem, Body, H1, H2, H3, Text } = require("/elements")
+const { View } = require("react-native")
+const { Container, Header, Content, Card, CardItem, Body, H1, H2, H3, Text } = require("/elements") // /elements	native-base
 
 const CardExample = props => {
 	return (
@@ -31,14 +32,16 @@ const CardExample = props => {
 					</CardItem>
 				</Card>
 				<Card>
-					<CardItem>
+					<CardItem header button>
 						<Body>
-							<H2 id="h3">
-								Header 3
-								<Text id="txt" style={{ color: "red" }}>
-									//Your text here
-								</Text>
-							</H2>
+							<View>
+								<H3 id="h3">
+									Header 3
+									<Text id="txt" style={{ color: "red" }}>
+										//Your text here
+									</Text>
+								</H3>
+							</View>
 						</Body>
 					</CardItem>
 				</Card>

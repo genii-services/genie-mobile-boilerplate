@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/Button"
+const MODULE_NAME$ = "ButtonElement"
 console.debug(MODULE_NAME$)
 
 /* eslint-disable new-cap */
@@ -21,7 +21,7 @@ const defaultThemeStyle = {
 	borderRadiusLarge: 15 * 3.8, // fontSizeBase * 3.8,
 }
 
-const Button = ({ style, ...props }) => {
+const ButtonElement = ({ style, ...props }) => {
 	const refs = useRefs()
 
 	const [theme] = useStore("theme")
@@ -96,7 +96,7 @@ const Button = ({ style, ...props }) => {
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
-	Button.propTypes = {
+	ButtonElement.propTypes = {
 		...TouchableOpacity.propTypes,
 		style: oneOfType([object, number, array]),
 		block: bool,
@@ -124,4 +124,4 @@ const styles = {
 	},
 }
 
-module.exports = connectStyle(Button, "elements/Button")
+module.exports = connectStyle(ButtonElement, MODULE_NAME$)

@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/ActionSheet"
+const MODULE_NAME$ = "ActionSheetElement"
 console.debug(MODULE_NAME$)
 
 /* eslint-disable no-use-before-define */
@@ -18,7 +18,7 @@ const Right = require("./Right")
 const Body = require("./Body")
 const ListItem = require("./ListItem")
 
-const ActionSheet = props => {
+const ActionSheetElement = props => {
 	const { useStore } = require("use-store")
 	const _this = useThis()
 	const [_modalVisible, set_modalVisible] = useState(false)
@@ -104,14 +104,14 @@ const ActionSheet = props => {
 	)
 }
 // ActionSheet.instance
-ActionSheet.show = (config, callback) => {
+ActionSheetElement.show = (config, callback) => {
 	try {
 		ActionSheet.instance._root.showActionSheet(config, callback)
 	} catch (e) {
 		console.error(e)
 	}
 }
-ActionSheet.hide = () => {
+ActionSheetElement.hide = () => {
 	try {
 		ActionSheet.instance._root.hideActionSheet()
 	} catch (e) {
@@ -121,7 +121,7 @@ ActionSheet.hide = () => {
 
 if (__DEV__) {
 	const { array, number, object, oneOfType, ViewPropTypes } = require("/utils/propTypes")
-	ActionSheet.propTypes = {
+	ActionSheetElement.propTypes = {
 		...ViewPropTypes,
 		style: oneOfType([object, number, array]),
 	}
@@ -157,4 +157,4 @@ const styles = {
 	},
 }
 
-module.exports = connectStyle(ActionSheet, MODULE_NAME$)
+module.exports = connectStyle(ActionSheetElement, MODULE_NAME$)

@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/Checkbox"
+const MODULE_NAME$ = "CheckboxElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
@@ -11,7 +11,7 @@ const { connectStyle } = require("/utils/style")
 const { computeProps } = require("/utils/props")
 const { itsIOS } = require("/utils/device")
 
-const CheckBox = props => {
+const CheckBoxElement = props => {
 	const { color, checked } = props
 
 	const [theme] = useStore("theme")
@@ -43,7 +43,7 @@ const CheckBox = props => {
 
 if (__DEV__) {
 	const { array, bool, func, number, object, oneOfType } = require("/utils/propTypes")
-	CheckBox.propTypes = {
+	CheckBoxElement.propTypes = {
 		...TouchableOpacity.propTypes,
 		style: oneOfType([object, number, array]),
 		checked: bool,
@@ -51,4 +51,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(CheckBox, MODULE_NAME$)
+module.exports = connectStyle(CheckBoxElement, MODULE_NAME$)

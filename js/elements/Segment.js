@@ -1,10 +1,10 @@
-const MODULE_NAME$ = "elements/Segment"
+const MODULE_NAME$ = "SegmentElement"
 console.debug(MODULE_NAME$)
 
 const { View } = require("react-native")
 
 const { connectStyle } = require("/utils/style")
 
-const Segment = View
+const SegmentElement = View
 
-module.exports = connectStyle(Segment, MODULE_NAME$)
+module.exports = connectStyle(SegmentElement, MODULE_NAME$)

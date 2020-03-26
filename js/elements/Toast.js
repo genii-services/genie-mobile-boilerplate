@@ -1,10 +1,10 @@
-const MODULE_NAME$ = "elements/Toast"
+const MODULE_NAME$ = "ToastElement"
 console.debug(MODULE_NAME$)
 
 const { View } = require("react-native")
 
 const { connectStyle } = require("utils/style")
 
-const Toast = View
+const ToastElement = View
 
-module.exports = connectStyle(Toast, MODULE_NAME$)
+module.exports = connectStyle(ToastElement, MODULE_NAME$)

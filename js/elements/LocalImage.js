@@ -1,4 +1,4 @@
-/** 공통 라이브러리 */
+/** LocalImage Element */
 const React = require("react")
 const { TouchableHighlight } = require("react-native")
 const FastImage = require("react-native-fast-image")
@@ -9,7 +9,7 @@ const Thumbnail = require("./Thumbnail")
 
 const { defaultImage } = localImagez
 
-const LocalImage = props => {
+const LocalImageElement = props => {
 	let source = localImagez[props.name] || defaultImage
 	return props.onPress ? (
 		<TouchableHighlight underlayColor="rgba(0,0,0,0)" onPress={props.onPress}>
@@ -24,15 +24,15 @@ const LocalImage = props => {
 
 if (__DEV__) {
 	const { func, string } = require("/utils/propTypes")
-	LocalImage.propTypes = {
+	LocalImageElement.propTypes = {
 		...Thumbnail.propTypes,
 		name: string,
 		onPress: func,
 	}
 }
 
-LocalImage.getImageSource = name => localImagez[name]
+LocalImageElement.getImageSource = name => localImagez[name]
 
 // EXPORTS
 
-module.exports = LocalImage
+module.exports = LocalImageElement

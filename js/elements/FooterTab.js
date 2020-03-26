@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/FooterTab"
+const MODULE_NAME$ = "FooterTabElement"
 console.debug(MODULE_NAME$)
 
 const { View } = require("react-native")

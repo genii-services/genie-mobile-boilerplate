@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "elements/Textarea"
+const MODULE_NAME$ = "TextareaElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
@@ -7,7 +7,7 @@ const { TextInput } = require("react-native")
 const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
 
-const Textarea = props => {
+const TextareaElement = props => {
 	const { rowSpan } = props
 	const { useRefs } = require("/hooks")
 	const refs = useRefs()
@@ -34,7 +34,7 @@ const Textarea = props => {
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType } = require("/utils/propTypes")
-	Textarea.propTypes = {
+	TextareaElement.propTypes = {
 		...TextInput.propTypes,
 		style: oneOfType([object, number, array]),
 		rowSpan: number,
@@ -43,4 +43,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(Textarea, MODULE_NAME$)
+module.exports = connectStyle(TextareaElement, MODULE_NAME$)
