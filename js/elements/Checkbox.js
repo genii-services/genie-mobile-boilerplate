@@ -12,40 +12,31 @@ const { computeProps } = require("/utils/props")
 const { itsIOS } = require("/utils/device")
 
 const CheckBox = props => {
-	const [theme] = useStore("theme")
-
-	const getInitialStyle = style => {
-		const { color, checked } = props
-		return {
-			checkStyle: {
-				borderColor: color || style.checkboxBgColor,
-				backgroundColor: checked === true ? color || style.checkboxBgColor : style.checkboxDefaultColor,
-			},
-		}
-	}
-
-	const prepareRootProps = style => {
-		const defaultProps = {
-			style: getInitialStyle(style).checkStyle,
-		}
-		return computeProps(props, defaultProps)
-	}
-
 	const { checked } = props
+
+	const [theme] = useStore("theme")
 	const style = theme ? theme["@@shoutem.theme/themeStyle"].defaultStyle : defaultThemeStyle
+	const { color } = props
+	const rootProps = computeProps(props, {
+		style: {
+			borderColor: color || style.checkboxBgColor,
+			backgroundColor: checked === true ? color || style.checkboxBgColor : style.checkboxDefaultColor,
+		},
+	})
 	const platformStyle = style.platformStyle
+	const iconStyle = {
+		color: checked ? style.checkboxTickColor : style.checkboxDefaultColor,
+		fontSize: style.CheckboxFontSize,
+		lineHeight: style.CheckboxIconSize,
+		marginTop: style.CheckboxIconMarginTop,
+		textShadowRadius: style.checkboxTextShadowRadius,
+	}
+
+	const iconName = itsIOS && platformStyle !== "material" ? "ios-checkmark" : "md-checkmark"
+
 	return (
-		<TouchableOpacity {...prepareRootProps(style)}>
-			<Ionicons
-				style={{
-					color: checked === true ? style.checkboxTickColor : style.checkboxDefaultColor,
-					fontSize: style.CheckboxFontSize,
-					lineHeight: style.CheckboxIconSize,
-					marginTop: style.CheckboxIconMarginTop,
-					textShadowRadius: style.checkboxTextShadowRadius,
-				}}
-				name={itsIOS && platformStyle !== "material" ? "ios-checkmark" : "md-checkmark"}
-			/>
+		<TouchableOpacity s {...props}>
+			<Ionicons style={iconStyle} name={iconName} />
 		</TouchableOpacity>
 	)
 }
