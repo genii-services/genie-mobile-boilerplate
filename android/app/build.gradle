@@ -1,4 +1,4 @@
-//*.for react-native 0.62.0.rc.5, checked at 2020-03-09
+//*.for react-native 0.62, checked at 2020-03-27 by appcreatier@gmail.com
 
 apply plugin: "com.android.application"
 
