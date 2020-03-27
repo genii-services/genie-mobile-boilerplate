@@ -1,5 +1,6 @@
 const React = require("react")
 
+exports.forwardRef = React.forwardRef
 exports.useEffect = React.useEffect
 exports.useRef = React.useRef
 exports.useState = React.useState

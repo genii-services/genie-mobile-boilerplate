@@ -3,14 +3,15 @@ console.debug(MODULE_NAME$)
 
 const React = require("react")
 const { FlatList, View, ViewPropTypes } = require("react-native")
+const { forwardRef } = require("/hooks")
 
-const CardElement = ({ dataArray, renderRow, ...props }) => {
+const CardElement = forwardRef(({ dataArray, renderRow, ...props }, ref) => {
 	return dataArray && renderRow ? (
 		<FlatList {...props} data={dataArray} renderItem={renderRow} keyExtractor={(item, index) => index.toString()} />
 	) : (
-		<View {...props} />
+		<View ref={ref} {...props} />
 	)
-}
+})
 
 if (__DEV__) {
 	const { array, func, number, object, oneOfType } = require("/utils/propTypes")

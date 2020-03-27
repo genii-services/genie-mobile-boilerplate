@@ -4,11 +4,12 @@ console.debug(MODULE_NAME$)
 const React = require("react")
 const { Image } = require("react-native")
 
+const { forwardRef } = require("/hooks")
 const { connectStyle } = require("/utils/style")
 
-const ThumbnailElement = props => {
-	return <Image ref={c => (_this._root = c)} {...props} />
-}
+const ThumbnailElement = forwardRef((props, ref) => {
+	return <Image ref={ref} {...props} />
+})
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")

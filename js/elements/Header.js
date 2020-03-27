@@ -9,9 +9,9 @@ const { View, StatusBar } = require("react-native")
 
 const { screen, itsIphoneX } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
-const { useState, useStore } = require("/hooks")
+const { forwardRef, useState, useStore } = require("/hooks")
 
-const Header = props => {
+const Header = forwardRef((props, ref) => {
 	const { androidStatusBarColor, iosBarStyle, transparent, translucent } = props
 
 	const [theme] = useStore("theme")
@@ -33,7 +33,7 @@ const Header = props => {
 	}
 
 	return (
-		<View>
+		<View ref={ref}>
 			<StatusBar
 				backgroundColor={androidStatusBarColor ? androidStatusBarColor : defaultStyle.statusBarColor}
 				barStyle={iosBarStyle || platformStyle === "material" ? "light-content" : defaultStyle.iosStatusbar}
@@ -42,7 +42,7 @@ const Header = props => {
 			{itsIphoneX ? <View {...props} style={viewStyle} /> : <View {...props} />}
 		</View>
 	)
-}
+})
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType, ViewPropTypes } = require("/utils/propTypes")

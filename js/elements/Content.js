@@ -5,11 +5,11 @@ const React = require("react")
 const { SafeAreaView } = require("react-native")
 const { KeyboardAwareScrollView } = require("react-native-keyboard-aware-scroll-view")
 
-const { useState, useStore, useThis } = require("/hooks")
+const { forwardRef, useStore, useThis } = require("/hooks")
 const { itsIphoneX } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
 
-const ContentElement = props => {
+const ContentElement = forwardRef((props, ref) => {
 	const _this = useThis()
 	const [theme] = useStore("theme")
 
@@ -25,7 +25,7 @@ const ContentElement = props => {
 				keyboardShouldPersistTaps={keyboardShouldPersistTaps || "handled"}
 				ref={c => {
 					_this._scrollview = c
-					_this._root = c
+					if (ref) ref.current = c
 				}}
 				{...props}
 				style={style}
@@ -40,14 +40,14 @@ const ContentElement = props => {
 			keyboardShouldPersistTaps={keyboardShouldPersistTaps || "handled"}
 			ref={c => {
 				_this._scrollview = c
-				_this._root = c
+				if (ref) ref.current = c
 			}}
 			{...props}
 			contentContainerStyle={[{ padding: padder && defaultStyle.contentPadding }, contentContainerStyle]}>
 			{children}
 		</KeyboardAwareScrollView>
 	)
-}
+})
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")

@@ -1,4 +1,4 @@
-const MODULE_NAME$ = "Tabs/DefaultTabBar"
+const MODULE_NAME$ = "DefaultTabBarElement"
 console.debug(MODULE_NAME$)
 
 const React = require("react")
@@ -15,7 +15,7 @@ const TabHeading = require("../TabHeading")
 const Text = require("../Text")
 const TabContainer = require("../TabContainer")
 
-const DefaultTabBar = props => {
+const DefaultTabBarElement = props => {
 	const [theme] = useStore("theme")
 
 	const renderDefaultTab = (
@@ -102,7 +102,7 @@ const DefaultTabBar = props => {
 if (__DEV__) {
 	const { array, func, number, object, oneOfType, string } = require("/utils/propTypes")
 	const { style } = require("react-native").ViewPropTypes
-	DefaultTabBar.propTypes = {
+	DefaultTabBarElement.propTypes = {
 		goToPage: func,
 		activeTab: number,
 		tabs: array,
@@ -116,12 +116,12 @@ if (__DEV__) {
 		tabContainerStyle: style,
 	}
 
-	DefaultTabBar.contextTypes = {
+	DefaultTabBarElement.contextTypes = {
 		theme: object,
 	}
 }
 
-DefaultTabBar.getDefaultProps = () => {
+DefaultTabBarElement.getDefaultProps = () => {
 	return {
 		activeTextColor: itsIOS ? "#007aff" : WHITE,
 		inactiveTextColor: itsIOS ? "#6b6b6b" : "#b3c7f9",
@@ -131,4 +131,4 @@ DefaultTabBar.getDefaultProps = () => {
 	}
 }
 
-module.exports = connectStyle(DefaultTabBar, MODULE_NAME$)
+module.exports = connectStyle(DefaultTabBarElement, MODULE_NAME$)

@@ -5,12 +5,17 @@ const React = require("react")
 const { Text } = require("react-native")
 const _ = require("lodash")
 
+const { forwardRef } = require("/hooks")
 const { connectStyle } = require("/utils/style")
 
-const TextElement = ({ uppercase, children, ...props }) => {
+const TextElement = forwardRef(({ uppercase, children, ...props }, ref) => {
 	const text = uppercase ? React.Children.map(children, child => (_.isString(child) ? _.toUpper(child) : child)) : children
-	return <Text {...props}>{text}</Text>
-}
+	return (
+		<Text ref={ref} {...props}>
+			{text}
+		</Text>
+	)
+})
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType } = require("/utils/propTypes")

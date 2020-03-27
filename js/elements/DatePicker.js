@@ -1,8 +1,8 @@
 const React = require("react")
-const { Modal, View, DatePickerIOS, DatePickerAndroid } = require("react-native")
+const { Modal, View } = require("react-native")
+const DateTimePicker = require("@react-native-community/datetimepicker")
 
 const { useState, useStore } = require("/hooks")
-const { itsAndroid } = require("/utils/device")
 
 const Text = require("./Text")
 
@@ -15,7 +15,7 @@ const DatePicker = props => {
 		minimumDate,
 		modalTransparent,
 		placeHolderText,
-		placeHolderTextStyle,
+
 		textStyle,
 		timeZoneOffsetInMinutes,
 	} = props
@@ -28,38 +28,16 @@ const DatePicker = props => {
 	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
 	const placeHolderTextStyle = [
 		{ padding: style.datePickerPadding, color: style.datePickerTextColor },
-		_chosenDate ? textStyle : placeHolderTextStyle,
+		_chosenDate ? textStyle : props.placeHolderTextStyle,
 	]
 	const modalTextStyle = {
 		backgroundColor: style.datePickerBg,
 		flex: style.datePickerFlex,
 	}
 
-	const setDate = date => set_chosenDate(new Date(date))(props.onDateChange) && props.onDateChange(date)
-
 	const showDatePicker = () => {
 		if (disabled) return
-		if (itsAndroid) openAndroidDatePicker()
-		else set_modalVisible(true)
-	}
-
-	const openAndroidDatePicker = async () => {
-		try {
-			const newDate = await DatePickerAndroid.open({
-				date: _chosenDate ? _chosenDate : _defaultDate,
-				minDate: props.minimumDate,
-				maxDate: props.maximumDate,
-				mode: props.androidMode,
-			})
-			const { action, year, month, day } = newDate
-			if (action === "dateSetAction") {
-				const selectedDate = new Date(year, month, day)
-				set_chosenDate(selectedDate)
-				props.onDateChange(selectedDate)
-			}
-		} catch ({ code, message }) {
-			console.warn("Cannot open date picker", message)
-		}
+		set_modalVisible(true)
 	}
 
 	const formatChosenDate = date => {
@@ -71,31 +49,34 @@ const DatePicker = props => {
 
 	const handleOnPress = () => set_modalVisible(false)
 
+	const handleOnDateChange = (event, date) => {
+		set_chosenDate(date)
+		props.onDateChange && props.onDateChange(date)
+	}
+
 	return (
 		<View>
 			<View>
 				<Text onPress={showDatePicker} style={placeHolderTextStyle}>
 					{_chosenDate ? formatChosenDate(_chosenDate) : placeHolderText}
 				</Text>
-				<View>
-					<Modal
-						supportedOrientations={["portrait", "landscape"]}
-						animationType={animationType}
-						transparent={modalTransparent} // from api
-						visible={_modalVisible}
-						onRequestClose={handleOnRequestClose}>
-						<Text onPress={handleOnPress} style={modalTextStyle} />
-						<DatePickerIOS
-							date={_chosenDate || _defaultDate}
-							onDateChange={date => setDate(date)}
-							minimumDate={minimumDate}
-							maximumDate={maximumDate}
-							mode="date"
-							locale={locale}
-							timeZoneOffsetInMinutes={timeZoneOffsetInMinutes}
-						/>
-					</Modal>
-				</View>
+				<Modal
+					supportedOrientations={["portrait", "landscape"]}
+					animationType={animationType}
+					transparent={modalTransparent} // from api
+					visible={_modalVisible}
+					onRequestClose={handleOnRequestClose}>
+					<Text onPress={handleOnPress} style={modalTextStyle} />
+					<DateTimePicker
+						value={_chosenDate || _defaultDate}
+						minimumDate={minimumDate}
+						maximumDate={maximumDate}
+						mode="date"
+						locale={locale}
+						timeZoneOffsetInMinutes={timeZoneOffsetInMinutes}
+						onDateChange={handleOnDateChange}
+					/>
+				</Modal>
 			</View>
 		</View>
 	)
