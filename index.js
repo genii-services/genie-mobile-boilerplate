@@ -3,8 +3,9 @@
 /**
  * @format
  */
-const { AppRegistry, unstable_enableLogBox } = require("react-native")
-// unstable_enableLogBox()
+const ReactNative = require("react-native")
+// ReactNative.unstable_enableLogBox()
+
 // require("/interactors/exceptionHandler")
 
 if (!global.initialized) global.initialized = true
@@ -12,4 +13,4 @@ else debugger
 
 const App = require("/examples/Card")
 const { name: appName } = require("./app.json")
-AppRegistry.registerComponent(appName, () => App)
+ReactNative.AppRegistry.registerComponent(appName, () => App)
