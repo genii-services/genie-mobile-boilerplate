@@ -31,6 +31,7 @@ public class IntentLauncherModule extends ReactContextBaseJavaModule implements 
     private static final String ATTR_FLAGS = "flags";
     private static final String ATTR_PACKAGE_NAME = "packageName";
     private static final String ATTR_CLASS_NAME = "className";
+	private static final String ATTR_FINISHABLE = "finishable";
     Promise promise;
     ReactApplicationContext reactContext;
 
@@ -152,7 +153,6 @@ public class IntentLauncherModule extends ReactContextBaseJavaModule implements 
 
 	@ReactMethod
 	public void finish(ReadableMap params){
-		Log.d("IntentLauncherPackage.java", "finish()");
 		Activity activity = getReactApplicationContext().getCurrentActivity();
 		Intent intent = new Intent();
 
@@ -188,7 +188,9 @@ public class IntentLauncherModule extends ReactContextBaseJavaModule implements 
         }
 
 		activity.setResult(Activity.RESULT_OK, intent);
-		activity.finish();
+		if(params.hasKey(ATTR_FINISHABLE)){
+			if(params.getBoolean(ATTR_FINISHABLE))activity.finish();
+		}
 	}
 
     @Override

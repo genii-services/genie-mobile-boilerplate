@@ -44,8 +44,9 @@ public class MainActivity extends ReactActivity {
 		@Override
         protected void onCreate(Bundle savedInstanceState) {
 			Bundle bundle = mActivity.getIntent().getExtras();
-			if( bundle != null && bundle.containsKey("appId")){
+			if( bundle != null && bundle.containsKey("packageName") && bundle.containsKey("appId")){
 				mInitialProps = new Bundle();
+				mInitialProps.putString("packageName", bundle.getString("packageName"));
 				mInitialProps.putString("appId", bundle.getString("appId"));
 			}
 			super.onCreate(savedInstanceState);
