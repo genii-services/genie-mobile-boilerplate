@@ -1,11 +1,23 @@
 /**
  */
+const _ = require("lodash")
 const { useRef } = require("react")
+
+const { isEqual } = require("/utils/object")
 
 const useThis = defaultValue => {
 	const _this = useRef(defaultValue || {})
-
-	return _this.current
+	const { current } = _this
+	if (!current.isChangedProps) {
+		current.isChangedProps = props => {
+			if (!current.prevProps || !isEqual(current.prevProps, props)) {
+				current.prevProps = props
+				return true
+			}
+			return false
+		}
+	}
+	return current
 }
 
 /*	사용법:

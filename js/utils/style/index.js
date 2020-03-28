@@ -27,7 +27,7 @@ const { createVariations, createSharedStyle } = require("./addons")
 
 const Theme = require("./Theme")
 
-module.exports = {
+exports = module.exports = {
 	getStyle,
 	connectStyle: (Component, styleName) => connectStyle(styleName || Component.name, {}, mapPropsToStyleNames)(Component),
 

@@ -5,7 +5,9 @@ const { BLACK, CENTER, FLEX_START, FLEX_END, MATERIAL, ROW, TRANSPARENT } = requ
 const { itsAndroid, itsIOS } = require("/utils/device")
 
 module.exports = style => {
-	const { platformStyle } = style
+	const { itsUnitedStyle } = style
+	const itsMaterial = style.name === MATERIAL
+	const itsIOSStyle = itsIOS && !itsUnitedStyle
 	return {
 		".span": {
 			height: 128,
@@ -161,7 +163,7 @@ module.exports = style => {
 		},
 		".rounded": {
 			ItemElement: {
-				borderRadius: itsIOS && platformStyle !== MATERIAL ? 25 : 3,
+				borderRadius: itsIOSStyle ? 25 : 3,
 			},
 		},
 		LeftElement: {
@@ -191,10 +193,10 @@ module.exports = style => {
 					},
 				},
 				".transparent": {
-					marginLeft: itsIOS && platformStyle !== MATERIAL ? -3 : 0,
+					marginLeft: itsIOSStyle ? -3 : 0,
 					IconElement: {
 						color: style.toolbarBtnColor,
-						fontSize: itsIOS && style.platformStyle !== MATERIAL ? style.iconHeaderSize + 1 : style.iconHeaderSize,
+						fontSize: itsIOSStyle ? style.iconHeaderSize + 1 : style.iconHeaderSize,
 						marginTop: 0,
 						marginRight: 2,
 						marginLeft: 1,
@@ -202,7 +204,7 @@ module.exports = style => {
 					},
 					IconNBElement: {
 						color: style.toolbarBtnColor,
-						fontSize: itsIOS && style.platformStyle !== MATERIAL ? style.iconHeaderSize + 1 : style.iconHeaderSize - 2,
+						fontSize: itsIOSStyle ? style.iconHeaderSize + 1 : style.iconHeaderSize - 2,
 						marginTop: 0,
 						marginRight: 2,
 						marginLeft: 1,
@@ -212,8 +214,8 @@ module.exports = style => {
 						color: style.toolbarBtnTextColor,
 						fontSize: itsIOS ? 17 : 0,
 						top: itsIOS ? 1 : -1.5,
-						paddingLeft: itsIOS && platformStyle !== MATERIAL ? 2 : 5,
-						paddingRight: itsIOS && platformStyle !== MATERIAL ? undefined : 10,
+						paddingLeft: itsIOSStyle ? 2 : 5,
+						paddingRight: itsIOSStyle ? undefined : 10,
 					},
 					backgroundColor: TRANSPARENT,
 					borderColor: null,
@@ -231,15 +233,15 @@ module.exports = style => {
 				},
 				alignSelf: null,
 				paddingRight: style.buttonPadding,
-				paddingLeft: itsIOS && platformStyle !== MATERIAL ? 4 : 8,
+				paddingLeft: itsIOSStyle ? 4 : 8,
 			},
-			flex: itsIOS && platformStyle !== MATERIAL ? 1 : 0.4,
+			flex: itsIOSStyle ? 1 : 0.4,
 			alignSelf: CENTER,
 			alignItems: FLEX_START,
 		},
 		BodyElement: {
 			flex: 1,
-			alignItems: itsIOS && platformStyle !== MATERIAL ? CENTER : FLEX_START,
+			alignItems: itsIOSStyle ? CENTER : FLEX_START,
 			alignSelf: CENTER,
 			SegmentElement: {
 				borderWidth: 0,
@@ -313,7 +315,7 @@ module.exports = style => {
 						color: style.toolbarBtnTextColor,
 						fontSize: itsIOS ? 17 : 14,
 						top: itsIOS ? 1 : -1.5,
-						paddingRight: itsIOS && style.platformStyle !== MATERIAL && 0,
+						paddingRight: itsIOSStyle && 0,
 					},
 					backgroundColor: TRANSPARENT,
 					borderColor: null,
@@ -341,18 +343,18 @@ module.exports = style => {
 		backgroundColor: style.toolbarDefaultBg,
 		flexDirection: ROW,
 		// paddingHorizontal: 10,
-		paddingLeft: itsIOS && style.platformStyle !== MATERIAL ? 6 : 10,
+		paddingLeft: itsIOS && !!itsUnitedStyle ? 6 : 10,
 		paddingRight: 10,
 		justifyContent: CENTER,
 		paddingTop: itsIOS ? 18 : 0,
 		borderBottomWidth: itsIOS ? 1 / PixelRatio.getPixelSizeForLayoutSize(1) : 0,
 		borderBottomColor: style.toolbarDefaultBorder,
-		height: style.itsIOS && style.platformStyle === MATERIAL ? style.toolbarHeight + 10 : style.toolbarHeight,
+		height: itsIOSStyle ? style.toolbarHeight + 10 : style.toolbarHeight,
 		elevation: 3,
-		shadowColor: platformStyle === MATERIAL && BLACK,
-		shadowOffset: platformStyle === MATERIAL && { width: 0, height: 2 },
-		shadowOpacity: platformStyle === MATERIAL && 0.2,
-		shadowRadius: platformStyle === MATERIAL && 1.2,
+		shadowColor: itsMaterial && BLACK,
+		shadowOffset: itsMaterial && { width: 0, height: 2 },
+		shadowOpacity: itsMaterial && 0.2,
+		shadowRadius: itsMaterial && 1.2,
 		top: 0,
 		left: 0,
 		right: 0,

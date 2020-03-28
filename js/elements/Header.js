@@ -16,7 +16,6 @@ const Header = forwardRef((props, ref) => {
 
 	const [theme] = useStore("theme")
 	const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
-	const { platformStyle } = defaultStyle
 
 	let viewStyle
 	if (itsIphoneX) {
@@ -36,7 +35,7 @@ const Header = forwardRef((props, ref) => {
 		<View ref={ref}>
 			<StatusBar
 				backgroundColor={androidStatusBarColor ? androidStatusBarColor : defaultStyle.statusBarColor}
-				barStyle={iosBarStyle || platformStyle === "material" ? "light-content" : defaultStyle.iosStatusbar}
+				barStyle={iosBarStyle || defaultStyle.name === "material" ? "light-content" : defaultStyle.iosStatusbar}
 				translucent={transparent ? true : translucent}
 			/>
 			{itsIphoneX ? <View {...props} style={viewStyle} /> : <View {...props} />}

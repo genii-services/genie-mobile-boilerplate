@@ -6,7 +6,6 @@ const { PixelRatio } = require("react-native")
 const { BLACK, FLEX_START, MATERIAL, TRANSPARENT, WHITE } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 
-const platformStyle = MATERIAL
 const fontFamily = "System"
 const colors = [WHITE, "#F1F9FF", "#BCB0BD", "#7F747D", "#46494B", "#26292B", BLACK]
 
@@ -23,11 +22,11 @@ const toolbarDefaultBg = brandPrimary
 const tabBgColor = "#F8F8F8"
 
 const fontSizeBase = 15
-const iconFontSize = 28
+const iconSize = 28
 
 module.exports = {
-	platformStyle,
-	platform,
+	name: MATERIAL,
+	itsUnitedStyle: true,
 
 	colors,
 
@@ -142,7 +141,7 @@ module.exports = {
 
 	// Icon
 	iconFamily: "Ionicons",
-	iconFontSize,
+	iconSize,
 	iconHeaderSize: 24,
 
 	// InputGroup

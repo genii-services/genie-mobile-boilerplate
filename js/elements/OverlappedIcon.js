@@ -1,14 +1,14 @@
 /** 공통 라이브러리 */
-console.debug("IconElement")
+console.debug("OverlappedIconElement")
 
 const React = require("react")
 const { View } = require("react-native")
 
 const { ABSOLUTE, CENTER, FLEX_START, WHITE } = require("/constants/style")
 
-const Icon = require("./IconNB")
+const Icon = require("./Icon")
 
-const IconElement = props => {
+const OverlappedIconElement = props => {
 	//let icon = /^fa-/.test(props.name) ? <Icon theme={{ iconFamily: 'FontAwesome' }} {...props} /> : <Icon {...props} />
 	return (
 		<View style={[{ justifyContent: FLEX_START, alignItems: CENTER }, props.style]}>
@@ -24,7 +24,7 @@ const IconElement = props => {
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
-	IconElement.propTypes = {
+	OverlappedIconElement.propTypes = {
 		...View.propTypes,
 		//style: View.propTypes.style,			// 상속 받은 propType과 동일한 이름으로 다시 지정하는 디버그모드에서는 문제없으나 릴리즈모드에서 죽음. 아마도 스타일 내 속성이 차이가 나서 생기는 문제
 		name: string,
@@ -34,7 +34,7 @@ if (__DEV__) {
 	}
 }
 
-IconElement.defaultProps = {
+OverlappedIconElement.defaultProps = {
 	...View.defaultProps,
 	/*
 	backgroundImage: {
@@ -67,4 +67,4 @@ IconElement.defaultProps = {
 	},
 }
 
-module.exports = IconElement
+module.exports = OverlappedIconElement

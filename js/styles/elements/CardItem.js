@@ -11,12 +11,12 @@ module.exports = style => {
 			color: style.sTabBarActiveTextColor,
 		},
 		IconElement: {
-			fontSize: style.iconFontSize - 10,
+			fontSize: style.iconSize - 10,
 			color: style.sTabBarActiveTextColor,
 			marginHorizontal: null,
 		},
 		IconNBElement: {
-			fontSize: style.iconFontSize - 10,
+			fontSize: style.iconSize - 10,
 			color: style.sTabBarActiveTextColor,
 		},
 		paddingVertical: null,
@@ -38,10 +38,10 @@ module.exports = style => {
 				alignItems: null,
 			},
 			IconElement: {
-				fontSize: style.iconFontSize,
+				fontSize: style.iconSize,
 			},
 			IconNBElement: {
-				fontSize: style.iconFontSize,
+				fontSize: style.iconSize,
 			},
 			TextElement: {
 				marginLeft: 10,
@@ -91,8 +91,8 @@ module.exports = style => {
 				".transparent": { ...transparentBtnCommon },
 				alignSelf: null,
 			},
-			IconElement: { alignSelf: null, fontSize: style.iconFontSize - 8, color: style.cardBorderColor },
-			IconNBElement: { alignSelf: null, fontSize: style.iconFontSize - 8, color: style.cardBorderColor },
+			IconElement: { alignSelf: null, fontSize: style.iconSize - 8, color: style.cardBorderColor },
+			IconNBElement: { alignSelf: null, fontSize: style.iconSize - 8, color: style.cardBorderColor },
 			TextElement: { fontSize: style.fontSizeBase, alignSelf: null },
 			ThumbnailElement: { alignSelf: null },
 			ImageElement: { alignSelf: null },
@@ -137,12 +137,12 @@ module.exports = style => {
 			},
 		},
 		IconElement: {
-			width: style.iconFontSize + 5,
-			fontSize: style.iconFontSize - 2,
+			width: style.iconSize + 5,
+			fontSize: style.iconSize - 2,
 		},
 		IconNBElement: {
-			width: style.iconFontSize + 5,
-			fontSize: style.iconFontSize - 2,
+			width: style.iconSize + 5,
+			fontSize: style.iconSize - 2,
 		},
 		".bordered": {
 			borderBottomWidth: StyleSheet.hairlineWidth,

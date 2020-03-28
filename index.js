@@ -11,6 +11,6 @@ const ReactNative = require("react-native")
 if (!global.initialized) global.initialized = true
 else debugger
 
-const App = require("/examples/Card")
+const App = require("/examples/Form")
 const { name: appName } = require("./app.json")
 ReactNative.AppRegistry.registerComponent(appName, () => App)

@@ -80,7 +80,7 @@ exports = module.exports = (componentStyleName, componentStyle = {}, mapPropsToS
 	function getComponentDisplayName(WrappedComponent) {
 		return WrappedComponent.displayName || WrappedComponent.name || "Component"
 	}
-	console.debug("connectStyle", componentStyleName)
+	// console.debug("connectStyle", componentStyleName)
 
 	return function wrapWithStyledComponent(WrappedComponent) {
 		const componentDisplayName = getComponentDisplayName(WrappedComponent)
@@ -88,7 +88,7 @@ exports = module.exports = (componentStyleName, componentStyle = {}, mapPropsToS
 			if (!_.isPlainObject(componentStyle)) throwConnectStyleError("Component style must be plain object", componentDisplayName)
 			if (!_.isString(componentStyleName)) throwConnectStyleError("Component Style Name must be string", componentDisplayName)
 		}
-		console.debug("wrapWithStyledComponent", componentDisplayName)
+		// console.debug("wrapWithStyledComponent", componentDisplayName)
 
 		const StyledComponent = props => {
 			const resolveStyle = () => {
@@ -181,7 +181,7 @@ exports = module.exports = (componentStyleName, componentStyle = {}, mapPropsToS
 				return resolveStyle().componentStyle
 			}
 
-			console.debug("StyledComponent", StyledComponent.displayName, nextGenealStyleNames)
+			// console.debug("StyledComponent", StyledComponent.displayName, nextGenealStyleNames)
 			return (
 				<WrappedComponent
 					{...props}

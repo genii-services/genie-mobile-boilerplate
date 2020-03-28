@@ -26,7 +26,7 @@ module.exports = style => {
 				IconElement: {
 					backgroundColor: TRANSPARENT,
 					color: style.dropdownLinkColor,
-					fontSize: itsIOS ? style.iconFontSize - 10 : style.iconFontSize - 5,
+					fontSize: itsIOS ? style.iconSize - 10 : style.iconSize - 5,
 					alignItems: CENTER,
 					marginTop: 2,
 					paddingRight: 8,
@@ -107,8 +107,8 @@ module.exports = style => {
 				alignItems: null,
 				alignSelf: null,
 			},
-			IconElement: { width: style.iconFontSize - 10, fontSize: style.iconFontSize - 10 },
-			IconNBElement: { width: style.iconFontSize - 10, fontSize: style.iconFontSize - 10 },
+			IconElement: { width: style.iconSize - 10, fontSize: style.iconSize - 10 },
+			IconNBElement: { width: style.iconSize - 10, fontSize: style.iconSize - 10 },
 			TextElement: { alignSelf: CENTER },
 			flexDirection: ROW,
 		},
@@ -139,12 +139,12 @@ module.exports = style => {
 			},
 			IconElement: {
 				alignSelf: null,
-				fontSize: style.iconFontSize - 8,
+				fontSize: style.iconSize - 8,
 				color: "#c9c8cd",
 			},
 			IconNBElement: {
 				alignSelf: null,
-				fontSize: style.iconFontSize - 8,
+				fontSize: style.iconSize - 8,
 				color: "#c9c8cd",
 			},
 			TextElement: {
@@ -266,11 +266,11 @@ module.exports = style => {
 				ButtonElement: {
 					IconNBElement: {
 						marginHorizontal: null,
-						fontSize: style.iconFontSize - 5,
+						fontSize: style.iconSize - 5,
 					},
 					IconElement: {
 						marginHorizontal: null,
-						fontSize: style.iconFontSize - 8,
+						fontSize: style.iconSize - 8,
 					},
 					alignSelf: CENTER,
 					height: 29,
@@ -282,12 +282,12 @@ module.exports = style => {
 					justifyContent: CENTER,
 				},
 				IconElement: {
-					width: style.iconFontSize - 5,
-					fontSize: style.iconFontSize - 2,
+					width: style.iconSize - 5,
+					fontSize: style.iconSize - 2,
 				},
 				IconNBElement: {
-					width: style.iconFontSize - 5,
-					fontSize: style.iconFontSize - 2,
+					width: style.iconSize - 5,
+					fontSize: style.iconSize - 2,
 				},
 				paddingRight: style.listItemPadding + 5,
 				flex: 0,
@@ -314,14 +314,14 @@ module.exports = style => {
 				},
 				IconNBElement: {
 					color: "#C8C7CC",
-					fontSize: style.iconFontSize - 10,
+					fontSize: style.iconSize - 10,
 					alignSelf: CENTER,
 					paddingLeft: 10,
 					paddingTop: 3,
 				},
 				IconElement: {
 					color: "#C8C7CC",
-					fontSize: style.iconFontSize - 10,
+					fontSize: style.iconSize - 10,
 					alignSelf: CENTER,
 					paddingLeft: 10,
 					paddingTop: 3,

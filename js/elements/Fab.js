@@ -64,7 +64,7 @@ const Fab = props => {
 	useEffect(() => {
 		const childrenArray = React.Children.toArray(props.children)
 		const icon = remove(childrenArray, item => {
-			if (item.type.displayName === "Styled(Button)") return true
+			if (item.type.displayName === "StyledButton") return true
 			return null
 		})
 		// eslint-disable-next-line react/no-did-mount-set-state
@@ -306,7 +306,7 @@ const Fab = props => {
 	const renderFab = () => {
 		const childrenArray = React.Children.toArray(props.children)
 		remove(childrenArray, item => {
-			if (item.type.displayName === "Styled(Button)") return true
+			if (item.type.displayName === "StyledButton") return true
 			return null
 		})
 		return React.cloneElement(childrenArray[0], {

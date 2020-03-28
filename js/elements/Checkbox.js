@@ -16,7 +16,7 @@ const CheckBoxElement = props => {
 
 	const [theme] = useStore("theme")
 	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
-	const { platformStyle } = style
+	const { itsUnitedStyle } = style
 
 	const rootProps = computeProps(props, {
 		style: {
@@ -32,7 +32,7 @@ const CheckBoxElement = props => {
 		marginTop: style.CheckboxIconMarginTop,
 		textShadowRadius: style.checkboxTextShadowRadius,
 	}
-	const iconName = itsIOS && platformStyle !== "material" ? "ios-checkmark" : "md-checkmark"
+	const iconName = itsIOS && !itsUnitedStyle ? "ios-checkmark" : "md-checkmark"
 
 	return (
 		<TouchableOpacity {...rootProps}>

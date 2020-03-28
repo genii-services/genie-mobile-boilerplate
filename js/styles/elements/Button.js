@@ -3,7 +3,8 @@ const { CENTER, COLUMN, FLEX_END, MATERIAL, ROW, SPACE_BETWEEN, TRANSPARENT } = 
 const { itsIOS } = require("/utils/device")
 
 module.exports = style => {
-	const { borderWidth, platformStyle } = style
+	const { borderWidth } = style
+	const itsMaterial = style.name === MATERIAL
 	const borderWidthX2 = borderWidth * 2
 	const commonDark = {
 		TextElement: { color: style.brandDark },
@@ -326,10 +327,10 @@ module.exports = style => {
 		height: 45,
 		flexDirection: ROW,
 		elevation: 2,
-		shadowColor: platformStyle === MATERIAL && style.brandDark,
-		shadowOffset: platformStyle === MATERIAL && { width: 0, height: 2 },
-		shadowOpacity: platformStyle === MATERIAL && 0.2,
-		shadowRadius: platformStyle === MATERIAL && 1.2,
+		shadowColor: itsMaterial && style.brandDark,
+		shadowOffset: itsMaterial && { width: 0, height: 2 },
+		shadowOpacity: itsMaterial && 0.2,
+		shadowRadius: itsMaterial && 1.2,
 		alignItems: CENTER,
 		justifyContent: SPACE_BETWEEN,
 	}

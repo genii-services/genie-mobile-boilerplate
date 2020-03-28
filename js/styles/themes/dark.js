@@ -3,8 +3,7 @@ const color = require("color")
 const { PixelRatio } = require("react-native")
 
 const { BLACK, TRANSPARENT, WHITE } = require("/constants/style")
-const { deviceOS, itsIOS } = require("/utils/device")
-const platformStyle = undefined
+const { itsIOS } = require("/utils/device")
 
 const brandPrimary = itsIOS ? "#007aff" : "#3F51B5"
 const brandInfo = "#62B1F6"
@@ -19,11 +18,10 @@ const tabBgColor = "#F8F8F8"
 const textColor = BLACK
 
 const fontSizeBase = 15
-const iconFontSize = itsIOS ? 30 : 28
+const iconSize = itsIOS ? 30 : 28
 
 module.exports = {
-	platformStyle,
-	platform: deviceOS,
+	name: "dark",
 
 	// label & placeholder
 	placeholderTextColor: "#575757",
@@ -139,7 +137,7 @@ module.exports = {
 
 	// Icon
 	iconFamily: "Ionicons",
-	iconFontSize,
+	iconSize,
 	iconHeaderSize: itsIOS ? 33 : 24,
 
 	// InputGroup

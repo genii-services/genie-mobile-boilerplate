@@ -2,7 +2,7 @@
 
 module.exports = style => {
 	return {
-		fontSize: style.iconFontSize,
+		fontSize: style.iconSize,
 		color: style.textColor,
 	}
 }

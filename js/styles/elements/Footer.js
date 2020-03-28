@@ -3,7 +3,7 @@ const { CENTER, FLEX_START, FLEX_END, MATERIAL, ROW, TRANSPARENT } = require("/c
 const { itsIOS } = require("/utils/device")
 
 module.exports = style => {
-	const { platformStyle } = style
+	const { itsUnitedStyle } = style
 
 	const iconCommon = {
 		IconElement: { color: style.tabBarActiveTextColor },
@@ -93,8 +93,8 @@ module.exports = style => {
 		backgroundColor: style.footerDefaultBg,
 		flexDirection: ROW,
 		justifyContent: CENTER,
-		borderTopWidth: itsIOS && platformStyle !== MATERIAL && style.borderWidth,
-		borderColor: itsIOS && platformStyle !== MATERIAL && "#cbcbcb",
+		borderTopWidth: itsIOS && !itsUnitedStyle && style.borderWidth,
+		borderColor: itsIOS && !itsUnitedStyle && "#cbcbcb",
 		height: style.footerHeight,
 		paddingBottom: style.footerPaddingBottom,
 		elevation: 3,
