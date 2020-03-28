@@ -112,7 +112,7 @@ const PickerInputExample = props => {
 			<Header>
 				<Left>
 					<Button transparent>
-						<Icon name="ios-arrow-back" color="white" />
+						<Icon name="arrow-back" color="white" />
 					</Button>
 				</Left>
 			</Header>

@@ -66,7 +66,7 @@ const IconElement = forwardRef(({ type, name, android, ios, active, size, color 
 					break
 				default:
 					type = a[0]
-					name = name.substr(type.length)
+					name = name.substr(type.length + 1)
 					break
 			}
 		}

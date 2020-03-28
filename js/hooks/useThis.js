@@ -9,9 +9,9 @@ const useThis = defaultValue => {
 	const _this = useRef(defaultValue || {})
 	const { current } = _this
 	if (!current.isChangedProps) {
-		current.isChangedProps = props => {
-			if (!current.prevProps || !isEqual(current.prevProps, props)) {
-				current.prevProps = props
+		current.isChangedProps = (key = "prevProps", props) => {
+			if (!current[key] || !isEqual(current[key], props)) {
+				current[key] = props
 				return true
 			}
 			return false
