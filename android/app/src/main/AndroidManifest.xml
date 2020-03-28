@@ -39,6 +39,13 @@
 				<!--/*.rn-fetch-blob용 -->
 				<action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
 			</intent-filter>
+			 
+			<intent-filter>
+                <action android:name="services.genii.geniemobileboilerplate.action.LOGIN"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="text/plain"/>
+            </intent-filter>
+
 			<!--/*.딥링크 설정 -->
 			<intent-filter android:label="filter_react_native">
 				<action android:name="android.intent.action.VIEW" />

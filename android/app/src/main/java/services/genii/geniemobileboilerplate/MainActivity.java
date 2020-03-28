@@ -2,7 +2,13 @@
 
 package services.genii.geniemobileboilerplate;
 
+import android.app.Activity;
+
+import android.os.Bundle;
+import androidx.annotation.Nullable;
+
 import com.facebook.react.ReactActivity;
+import com.facebook.react.ReactActivityDelegate;
 //*.react-native-orientation-locker
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -26,4 +32,34 @@ public class MainActivity extends ReactActivity {
 		intent.putExtra("newConfig", newConfig);
 		this.sendBroadcast(intent);
 	}
+
+	public static class AuthActivityDelegate extends ReactActivityDelegate{
+		private Bundle mInitialProps = null;
+        private final @Nullable Activity mActivity;
+		public AuthActivityDelegate(Activity activity, String mainComponentName) {
+            super(activity, mainComponentName);
+            this.mActivity = activity;
+        }
+
+		@Override
+        protected void onCreate(Bundle savedInstanceState) {
+			Bundle bundle = mActivity.getIntent().getExtras();
+			if( bundle != null && bundle.containsKey("appId")){
+				mInitialProps = new Bundle();
+				mInitialProps.putString("appId", bundle.getString("appId"));
+			}
+			super.onCreate(savedInstanceState);
+		}
+
+		@Override
+        protected Bundle getLaunchOptions() {
+            return mInitialProps;
+        }
+	};
+
+	@Override
+    protected ReactActivityDelegate createReactActivityDelegate() {
+        return new AuthActivityDelegate(this, getMainComponentName());
+    }
+
 }
