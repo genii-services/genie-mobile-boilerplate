@@ -152,7 +152,7 @@ public class IntentLauncherModule extends ReactContextBaseJavaModule implements 
     }
 
 	@ReactMethod
-	public void finish(ReadableMap params){
+	public void sendResult(ReadableMap params){
 		Activity activity = getReactApplicationContext().getCurrentActivity();
 		Intent intent = new Intent();
 

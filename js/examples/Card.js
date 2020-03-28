@@ -15,7 +15,7 @@ const CardExample = props => {
 		setTimeout(() => {
 			try{
 				popup('인증 요청이 성공했습니다.')
-				IntentLauncher.finish({
+				IntentLauncher.sendResult({
 					action: props.packageName,
 					flags: IntentConstant.FLAG_ACTIVITY_CLEAR_TOP | IntentConstant.FLAG_ACTIVITY_SINGLE_TOP,
 					extra : {accessToken:"abcdef", userId:"test"},
