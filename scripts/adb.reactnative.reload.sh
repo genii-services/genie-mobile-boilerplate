@@ -1,0 +1,1 @@
+adb shell input keyevent 82 && adb shell input tap 200 500

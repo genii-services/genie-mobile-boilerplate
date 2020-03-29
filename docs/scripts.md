@@ -95,3 +95,9 @@ cd ..
 \t{ label:'$1',\tfieldKey:'$2',\tfieldType:'$3',\tnote:'\$4' },
 
 옵션용
+
+## script 작성 후 실행 권한 부여 방법
+
+```bash
+chmod +x ./scripts/my_script.sh
+```
