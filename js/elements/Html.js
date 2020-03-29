@@ -1,9 +1,15 @@
 /** Html Element */
+const MODULE_NAME$ = "HtmlElement"
+console.debug(MODULE_NAME$)
+
 const React = require("react")
-// const { View } = require("react-native")
+// const { View } = require("react-natie")
 const { WebView } = require("react-native-webview")
 
+const { OBJECT } = require("/constants")
 const { screen } = require("/utils/device")
+const { getMarginTop, getMarginRight, getMarginBottom, getMarginLeft } = require("/utils/style")
+const { useState, useThis } = require("/hooks")
 
 console.debug("HtmlElement")
 
@@ -66,34 +72,32 @@ const injectedScript = `
 	true;
 ` //*.마지막에 true를 추가하지 않으면 자동 실패가 발생
 
-function makeHtml(props) {
-	let width = screen.width - 20
-	let viewport = `user-scalable=yes, initial-scale=${props.zoomScale}, minimum-scale=1.0, maximum-scale=4.0 width=${width}`
-	let meta = `<meta name="viewport" content="${viewport}">`
-	let css = props.css || ""
-	css += styleBase
-	// let script = injectedScript
-	return {
-		html: `${meta}<style>${css}</style><body>${props.html}</body>`,
-		baseUrl: props.baseUrl || "",
-	}
-}
-
 const HtmlElement = props => {
 	/* HOOKS */
 
-	const [_html, set_html] = useState()
-	const [_zoomScale, set_zoomScale] = useState()
-	const [_source, set_source] = useState()
+	const _this = useThis()
 	const [_webViewHeight, set_webViewHeight] = useState(screen.height)
 
 	/* props 변경에 따른 state 설정 */
+	const { html, baseUrl, css, zoomScale, style, source } = props
+	const marginTop = getMarginTop(style)
+	const marginRight = getMarginRight(style, 10)
+	const marginBottom = getMarginBottom(style)
+	const marginLeft = getMarginLeft(style, 10)
 
-	const { html, zoomScale } = props
-	if (_html !== html || _zoomScale !== zoomScale) {
-		set_html(html)
-		set_zoomScale(zoomScale)
-		set_source(makeHtml(props))
+	if (_this.isChangedProps("source", { html, baseUrl, css, zoomScale, source })) {
+		if (html) {
+			const width = screen.width - marginLeft - marginRight
+			const viewport = `user-scalable=yes, initial-scale=${zoomScale}, minimum-scale=1.0, maximum-scale=4.0 width=${width}`
+			const meta = `<meta name="viewport" content="${viewport}">`
+			// let script = injectedScript
+			_this.source = {
+				html: `${meta}<style>${css || ""}${styleBase}</style><body>${html}</body>`,
+				baseUrl: baseUrl || "",
+			}
+		} else {
+			_this.source = typeof source === OBJECT ? source : !!source ? { uri: source } : undefined
+		}
 	}
 
 	/* HANDLERS */
@@ -102,18 +106,28 @@ const HtmlElement = props => {
 
 	/* RENDERERS */
 
-	const width = zoomScale == 1 ? screen.width - 20 : (zoomScale + 1) * screen.width
-	const height = zoomScale == 1 ? _webViewHeight : _webViewHeight * zoomScale
+	const rootStyle = [
+		{
+			width: zoomScale == 1 ? screen.width - marginLeft - marginRight : (zoomScale + 1) * screen.width,
+			height: zoomScale == 1 ? _webViewHeight : _webViewHeight * zoomScale,
+			padding: 0,
+			marginTop,
+			marginLeft,
+			marginBottom,
+			marginRight,
+		},
+		style,
+	]
 	return (
 		<WebView
-			style={[{ width, height, padding: 0, margin: 10 }]}
+			style={rootStyle}
 			scrollEnabled={false}
 			scalesPageToFit={false}
 			javaScriptEnabled={true}
 			// injectedJavaScript={`(${String(injectedScript)})();`}
 			injectedJavaScript={injectedScript}
 			onMessage={handleOnMessage}
-			source={_source}
+			source={_this.source}
 		/>
 	)
 	/*
@@ -151,6 +165,7 @@ if (__DEV__) {
 
 HtmlElement.defaultProps = {
 	...WebView.defaultProps,
+	style: { margin: 10 },
 	initialScale: 1,
 	maximumScale: 1,
 	styleModified: true,

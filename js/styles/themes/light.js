@@ -23,6 +23,18 @@ const iconSize = itsIOS ? 30 : 28
 module.exports = {
 	name: "light",
 
+	fontSizez: {
+		"-4": parseInt(fontSizeBase * 0.6),
+		"-3": parseInt(fontSizeBase * 0.7),
+		"-2": parseInt(fontSizeBase * 0.8),
+		"-1": parseInt(fontSizeBase * 0.9),
+		"0": fontSizeBase,
+		"+1": fontSizeBase * 1.2,
+		"+2": fontSizeBase * 1.4,
+		"+3": fontSizeBase * 1.6,
+		"+4": fontSizeBase * 1.8,
+	},
+
 	// label & placeholder
 	placeholderTextColor: "#575757",
 

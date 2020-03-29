@@ -1,4 +1,5 @@
 const _ = require("lodash")
+const { NUMBER } = require("/constants")
 
 const getStyle = (style, prop) => {
 	if (style instanceof Array) {
@@ -123,4 +124,36 @@ exports.mergeStyle = function(style, defaultStyle) {
 		newStyle = style
 	}
 	return _.merge({}, defaultStyle, newStyle)
+}
+
+exports.getMarginTop = (style, defaultValue = 0) => {
+	if (!style) return defaultValue
+	if (typeof style.marginTop === NUMBER) return style.marginTop
+	if (typeof style.marginVertical === NUMBER) return style.marginVertical
+	if (typeof style.margin === NUMBER) return style.margin
+	return defaultValue
+}
+
+exports.getMarginRight = (style, defaultValue = 0) => {
+	if (!style) return defaultValue
+	if (typeof style.marginRight === NUMBER) return style.marginRight
+	if (typeof style.marginHorizontal === NUMBER) return style.marginHorizontal
+	if (typeof style.margin === NUMBER) return style.margin
+	return defaultValue
+}
+
+exports.getMarginBottom = (style, defaultValue = 0) => {
+	if (!style) return defaultValue
+	if (typeof style.marginBottom === NUMBER) return style.marginBottom
+	if (typeof style.marginVertical === NUMBER) return style.marginVertical
+	if (typeof style.margin === NUMBER) return style.margin
+	return defaultValue
+}
+
+exports.getMarginLeft = (style, defaultValue = 0) => {
+	if (!style) return defaultValue
+	if (typeof style.marginLeft === NUMBER) return style.marginLeft
+	if (typeof style.marginHorizontal === NUMBER) return style.marginHorizontal
+	if (typeof style.margin === NUMBER) return style.margin
+	return defaultValue
 }
