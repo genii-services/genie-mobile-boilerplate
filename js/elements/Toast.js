@@ -4,7 +4,8 @@ console.debug(MODULE_NAME$)
 const { View } = require("react-native")
 
 const { connectStyle } = require("utils/style")
+const { forwardRef } = require("/hooks")
 
 const ToastElement = View
 
-module.exports = connectStyle(ToastElement, MODULE_NAME$)
+module.exports = forwardRef(ToastElement) //connectStyle(ToastElement, MODULE_NAME$)

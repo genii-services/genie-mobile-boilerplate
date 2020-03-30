@@ -7,4 +7,4 @@ const { connectStyle } = require("/utils/style")
 
 const SwitchElement = Switch
 
-module.exports = connectStyle(SwitchElement, MODULE_NAME$)
+module.exports = SwitchElement //connectStyle(SwitchElement, MODULE_NAME$)

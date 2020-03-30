@@ -7,4 +7,4 @@ const { connectStyle } = require("/utils/style")
 
 const PickerItemElement = Picker.Item
 
-module.exports = connectStyle(PickerItemElement, MODULE_NAME$)
+module.exports = PickerItemElement //connectStyle(PickerItemElement, MODULE_NAME$)

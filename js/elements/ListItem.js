@@ -38,4 +38,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(ListItem, "NativeBase.ListItem")
+module.exports = ListItem //connectStyle(ListItem, "NativeBase.ListItem")

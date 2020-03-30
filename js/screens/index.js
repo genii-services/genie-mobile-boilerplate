@@ -1,7 +1,7 @@
 // exports.ItemDetail = require("./ItemDetail")
 // exports.ItemList = require("./ItemList")
 // exports.CommentList = require("./CommentList")
-// exports.Home = require("./Home")
+exports.Home = require("./Home")
 // exports.HtmlViewer = require("./HtmlViewer")
 // exports.ImageViewer = require("./ImageViewer")
 exports.Intro = require("./Intro")

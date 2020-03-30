@@ -18,4 +18,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(TitleElement, MODULE_NAME$)
+module.exports = forwardRef(TitleElement) //connectStyle(TitleElement, MODULE_NAME$)

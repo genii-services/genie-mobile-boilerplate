@@ -272,4 +272,4 @@ const styles = {
 	},
 }
 
-module.exports = connectStyle(ScrollableTabBar, MODULE_NAME$)
+module.exports = ScrollableTabBar //connectStyle(ScrollableTabBar, MODULE_NAME$)

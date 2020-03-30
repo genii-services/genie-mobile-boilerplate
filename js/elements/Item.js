@@ -18,7 +18,7 @@ const Label = require("./Label")
 const Icon = require("./Icon")
 const Thumbnail = require("./Thumbnail")
 
-const Item = forwardRef((props, ref) => {
+const Item = props => {
 	const _this = useThis()
 	const [_isFocussed, set_isFocussed] = useState(true)
 	const [_text, set_text] = useState("")
@@ -306,11 +306,11 @@ const Item = forwardRef((props, ref) => {
 	}
 
 	return (
-		<TouchableOpacity ref={ref} {...rootProps} activeOpacity={1}>
+		<TouchableOpacity {...rootProps} activeOpacity={1}>
 			{renderChildren()}
 		</TouchableOpacity>
 	)
-})
+}
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType } = require("/utils/propTypes")
@@ -326,4 +326,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(Item, "ItemElement")
+module.exports = Item //connectStyle(Item, "ItemElement")

@@ -5,7 +5,7 @@ console.debug(MODULE_NAME$)
 const React = require("react")
 const _ = require("lodash")
 
-const { ABSOLUTE, FLEX_START, LEFT } = require("/constants/style")
+const { LEFT } = require("/constants/style")
 const { __find } = require("/utils")
 const { fontFamily } = require("/styles")
 
@@ -41,7 +41,7 @@ const DataPickerElement = props => {
 }
 
 if (__DEV__) {
-	const { any, bool, number, object, oneOfType, string } = require("/utils/propTypes")
+	const { any, string } = require("/utils/propTypes")
 	DataPickerElement.propTypes = {
 		...Button.propTypes,
 		buttonStyle: Button.propTypes.style,

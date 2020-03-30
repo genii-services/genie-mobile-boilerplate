@@ -5,7 +5,7 @@ const React = require("react")
 const { TextInput } = require("react-native")
 
 const { connectStyle } = require("/utils/style")
-const { useState, useStore, useThis } = require("/hooks")
+const { forwardRef, useStore, useThis } = require("/hooks")
 
 const Input = props => {
 	const [theme] = useStore("theme")
@@ -29,4 +29,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(Input, MODULE_NAME$)
+module.exports = Input //connectStyle(Input, MODULE_NAME$)

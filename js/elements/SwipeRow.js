@@ -250,4 +250,4 @@ const styles = {
 	},
 }
 
-module.exports = connectStyle(SwipeRowElement, MODULE_NAME$)
+module.exports = SwipeRowElement //connectStyle(SwipeRowElement, MODULE_NAME$)

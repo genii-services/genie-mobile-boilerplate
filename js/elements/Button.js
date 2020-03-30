@@ -21,7 +21,7 @@ const defaultThemeStyle = {
 	borderRadiusLarge: 15 * 3.8, // fontSizeBase * 3.8,
 }
 
-const ButtonElement = forwardRef(({ style, ...props }, ref) => {
+const ButtonElement = ({ style, ...props }) => {
 	const refs = useRefs()
 
 	const [theme] = useStore("theme")
@@ -48,7 +48,6 @@ const ButtonElement = forwardRef(({ style, ...props }, ref) => {
 			<TouchableOpacity
 				{...props}
 				style={rootStyle}
-				ref={ref}
 				activeOpacity={0 < props.activeOpacity ? props.activeOpacity : defaultThemeStyle.buttonDefaultActiveOpacity}>
 				{children}
 			</TouchableOpacity>
@@ -71,7 +70,6 @@ const ButtonElement = forwardRef(({ style, ...props }, ref) => {
 		return (
 			<View style={outerViewStyle}>
 				<TouchableNativeFeedback
-					ref={ref}
 					background={Ripple(props.androidRippleColor || defaultStyle.androidRippleColor, true)}
 					{...props}
 					style={rootStyle}>
@@ -82,7 +80,6 @@ const ButtonElement = forwardRef(({ style, ...props }, ref) => {
 	}
 	return (
 		<TouchableNativeFeedback
-			ref={ref}
 			onPress={props.onPress}
 			background={props.transparent ? Ripple(TRANSPARENT) : Ripple(style.androidRippleColor, false)}
 			{...props}
@@ -92,7 +89,7 @@ const ButtonElement = forwardRef(({ style, ...props }, ref) => {
 			</View>
 		</TouchableNativeFeedback>
 	)
-})
+}
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
@@ -124,4 +121,4 @@ const styles = {
 	},
 }
 
-module.exports = connectStyle(ButtonElement, MODULE_NAME$)
+module.exports = ButtonElement //connectStyle(ButtonElement, MODULE_NAME$)

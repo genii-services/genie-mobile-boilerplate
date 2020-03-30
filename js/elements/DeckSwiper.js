@@ -214,4 +214,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(DeckSwiper, MODULE_NAME$)
+module.exports = DeckSwiper //connectStyle(DeckSwiper, MODULE_NAME$)

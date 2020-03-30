@@ -9,7 +9,7 @@ const host = originz.api
 const { apiz, errorMessagez, minRequestInterval } = require("/data/rest")
 const { normalizeDeeply } = require("/utils")
 const { appID, deviceID, deviceOS, osVersion, deviceType, appVersion, buildNumber } = require("/utils/device")
-const { authInfo } = require("/coordinators/Auth")
+const { authInfo } = require("/coordinators/auth")
 const rest = require("/utils/rest")
 
 rest.apiz = apiz

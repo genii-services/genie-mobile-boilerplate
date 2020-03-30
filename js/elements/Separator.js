@@ -7,4 +7,4 @@ const { connectStyle } = require("/utils/style")
 
 const SeparatorElement = View
 
-module.exports = connectStyle(SeparatorElement, MODULE_NAME$)
+module.exports = SeparatorElement //connectStyle(SeparatorElement, MODULE_NAME$)

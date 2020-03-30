@@ -155,4 +155,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(PickerNB, "PickerNBElement")
+module.exports = PickerNB //connectStyle(PickerNB, "PickerNBElement")

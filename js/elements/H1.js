@@ -7,4 +7,4 @@ const { connectStyle } = require("/utils/style")
 
 const H1Element = Text
 
-module.exports = connectStyle(H1Element, MODULE_NAME$)
+module.exports = H1Element //connectStyle(H1Element, MODULE_NAME$)

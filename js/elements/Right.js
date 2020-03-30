@@ -7,4 +7,4 @@ const { connectStyle } = require("/utils/style")
 
 const RightElement = View
 
-module.exports = connectStyle(RightElement, MODULE_NAME$)
+module.exports = RightElement //connectStyle(RightElement, MODULE_NAME$)

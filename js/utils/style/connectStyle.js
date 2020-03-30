@@ -2,7 +2,7 @@ const React = require("react")
 const hoistStatics = require("hoist-non-react-statics")
 const _ = require("lodash")
 
-const { useRefs, useState, useStore, useThis } = require("/hooks")
+const { forwardRef, useRefs, useState, useStore, useThis } = require("/hooks")
 const Theme = require("./Theme")
 const resolveComponentStyle = require("./resolveComponentStyle")
 

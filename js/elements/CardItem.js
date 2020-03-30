@@ -7,9 +7,9 @@ const { TouchableOpacity, View } = require("react-native")
 const { forwardRef } = require("/hooks")
 const { connectStyle } = require("/utils/style")
 
-const CardItemElement = forwardRef((props, ref) => {
-	return props.button ? <TouchableOpacity ref={ref} activeOpacity={0.2} {...props} /> : <View ref={ref} {...props} />
-})
+const CardItemElement = (props, ref) => {
+	return props.button ? <TouchableOpacity activeOpacity={0.2} {...props} /> : <View {...props} />
+}
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType } = require("/utils/propTypes")
@@ -23,4 +23,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(CardItemElement, MODULE_NAME$)
+module.exports = CardItemElement //connectStyle(CardItemElement, MODULE_NAME$)

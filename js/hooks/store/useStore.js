@@ -1,5 +1,6 @@
 const { useState, useEffect } = require("react")
 
+const Store = require("./Store")
 const globalStore = require("./globalStore")
 
 // the actual hook

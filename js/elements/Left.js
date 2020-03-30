@@ -4,6 +4,6 @@ console.debug(MODULE_NAME$)
 const { View } = require("react-native")
 const { connectStyle } = require("/utils/style")
 
-const Left = View
+const LeftElement = View
 
-module.exports = connectStyle(Left, MODULE_NAME$)
+module.exports = LeftElement //connectStyle(Left, MODULE_NAME$)

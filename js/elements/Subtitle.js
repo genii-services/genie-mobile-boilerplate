@@ -7,4 +7,4 @@ const { connectStyle } = require("/utils/style")
 
 const SubtitleElement = Text
 
-module.exports = connectStyle(SubtitleElement, MODULE_NAME$)
+module.exports = SubtitleElement // connectStyle(SubtitleElement, MODULE_NAME$)

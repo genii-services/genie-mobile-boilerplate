@@ -18,13 +18,11 @@ const {
 const router = require("/utils/router")
 
 const { NUMBER, STRING } = require("/constants")
-const { createCtx, useThis } = require("/hooks")
+const { useStore, useThis } = require("/hooks")
 
-const [useCtx, Provider] = createCtx(router)
-
-const RouterCoordinator = ({ children }) => {
+const useRouter = () => {
+	const [router, setRouter] = useStore("value")
 	const _this = useThis()
-	const [router, setRouter] = useState()
 
 	const prevAction = {}
 
@@ -107,11 +105,11 @@ const RouterCoordinator = ({ children }) => {
 	}
 
 	console.debug(this, "ready to render", "+".repeat(40), "end")
-	return <Provider value={value}>{children}</Provider>
+	return value
 }
 
 const Drawer = props => {
-	const { handleOnEnter } = useCtx()
+	const { handleOnEnter } = useRouter()
 	const _handleOnEnter = _props => {
 		handleOnEnter(_props)
 		typeof props.onEnter === String.FUNCTION && props.onEnter(_props)
@@ -120,13 +118,13 @@ const Drawer = props => {
 }
 
 const Router = ({ onEnterScreen, ...props }) => {
-	const { setOnEnterScreen } = useCtx()
+	const { setOnEnterScreen } = useRouter()
 	if (onEnterScreen) setOnEnterScreen(onEnterScreen)
 	return <Router_ {...props} />
 }
 
 const Screen = props => {
-	const { handleOnEnter } = useCtx()
+	const { handleOnEnter } = useRouter()
 	const _handleOnEnter = _props => {
 		handleOnEnter(_props)
 		typeof props.onEnter === String.FUNCTION && props.onEnter(_props)
@@ -144,8 +142,7 @@ const Stack = props => {
 }
 
 module.exports = {
-	RouterCoordinator,
-	useRouter: useCtx,
+	useRouter,
 
 	Actions,
 	Drawer,

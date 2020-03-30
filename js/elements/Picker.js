@@ -11,4 +11,4 @@ Picker.propTypes = {
 	...Picker.propTypes,
 }
 
-module.exports = connectStyle(Picker, "PickerNBElement")
+module.exports = Picker //connectStyle(Picker, "PickerNBElement")

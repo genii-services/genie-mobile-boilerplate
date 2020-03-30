@@ -9,30 +9,22 @@ const { forwardRef, useStore, useThis } = require("/hooks")
 const { itsIphoneX } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
 
-const ContentElement = forwardRef(
-	({ contentContainerStyle, disableKBDismissScroll, keyboardShouldPersistTaps = "handled", padder, style, ...props }, ref) => {
-		const _this = useThis()
-		const [theme] = useStore("theme")
-		const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
-		const containerStyle = { flex: 1 }
-		const resetScrollToCoords = disableKBDismissScroll ? null : { x: 0, y: 0 }
-		contentContainerStyle = [{ padding: padder && defaultStyle.contentPadding }, contentContainerStyle]
-		return itsIphoneX ? (
-			<SafeAreaView style={containerStyle}>
-				<KeyboardAwareScrollView
-					automaticallyAdjustContentInsets={false}
-					resetScrollToCoords={resetScrollToCoords}
-					keyboardShouldPersistTaps={keyboardShouldPersistTaps}
-					ref={c => {
-						_this._scrollview = c
-						if (ref) ref.current = c
-					}}
-					{...props}
-					style={style}
-					contentContainerStyle={contentContainerStyle}
-				/>
-			</SafeAreaView>
-		) : (
+const ContentElement = ({
+	contentContainerStyle,
+	disableKBDismissScroll,
+	keyboardShouldPersistTaps = "handled",
+	padder,
+	style,
+	...props
+}) => {
+	const _this = useThis()
+	const [theme] = useStore("theme")
+	const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
+	const containerStyle = { flex: 1 }
+	const resetScrollToCoords = disableKBDismissScroll ? null : { x: 0, y: 0 }
+	contentContainerStyle = [{ padding: padder && defaultStyle.contentPadding }, contentContainerStyle]
+	return itsIphoneX ? (
+		<SafeAreaView style={containerStyle}>
 			<KeyboardAwareScrollView
 				automaticallyAdjustContentInsets={false}
 				resetScrollToCoords={resetScrollToCoords}
@@ -42,11 +34,24 @@ const ContentElement = forwardRef(
 					if (ref) ref.current = c
 				}}
 				{...props}
+				style={style}
 				contentContainerStyle={contentContainerStyle}
 			/>
-		)
-	}
-)
+		</SafeAreaView>
+	) : (
+		<KeyboardAwareScrollView
+			automaticallyAdjustContentInsets={false}
+			resetScrollToCoords={resetScrollToCoords}
+			keyboardShouldPersistTaps={keyboardShouldPersistTaps}
+			ref={c => {
+				_this._scrollview = c
+				if (ref) ref.current = c
+			}}
+			{...props}
+			contentContainerStyle={contentContainerStyle}
+		/>
+	)
+}
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
@@ -69,4 +74,4 @@ ContentElement.getDefaultStyle = ({ TRANSPARENT }) => {
 	}
 }
 
-module.exports = connectStyle(ContentElement, MODULE_NAME$)
+module.exports = ContentElement //connectStyle(ContentElement, MODULE_NAME$)

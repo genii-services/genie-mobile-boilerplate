@@ -5,13 +5,13 @@ const React = require("react")
 const { FlatList, View, ViewPropTypes } = require("react-native")
 const { forwardRef } = require("/hooks")
 
-const CardElement = forwardRef(({ dataArray, renderRow, ...props }, ref) => {
+const CardElement = ({ dataArray, renderRow, ...props }) => {
 	return dataArray && renderRow ? (
 		<FlatList {...props} data={dataArray} renderItem={renderRow} keyExtractor={(item, index) => index.toString()} />
 	) : (
-		<View ref={ref} {...props} />
+		<View {...props} />
 	)
-})
+}
 
 if (__DEV__) {
 	const { array, func, number, object, oneOfType } = require("/utils/propTypes")
@@ -25,4 +25,4 @@ if (__DEV__) {
 }
 
 const { connectStyle } = require("/utils/style")
-module.exports = connectStyle(CardElement, MODULE_NAME$)
+module.exports = CardElement //connectStyle(CardElement, MODULE_NAME$)

@@ -7,4 +7,4 @@ const { connectStyle } = require("/utils/style")
 
 const TabContainerElement = View
 
-module.exports = connectStyle(TabContainerElement, MODULE_NAME$)
+module.exports = forwardRef(TabContainerElement) //connectStyle(TabContainerElement, MODULE_NAME$)

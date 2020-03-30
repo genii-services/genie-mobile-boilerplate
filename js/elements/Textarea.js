@@ -43,4 +43,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(TextareaElement, MODULE_NAME$)
+module.exports = forwardRef(TextareaElement) //connectStyle(TextareaElement, MODULE_NAME$)

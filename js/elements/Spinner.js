@@ -29,4 +29,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(SpinnerElement, MODULE_NAME$)
+module.exports = SpinnerElement // connectStyle(SpinnerElement, MODULE_NAME$)

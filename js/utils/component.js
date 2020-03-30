@@ -3,7 +3,14 @@ const _ = require("lodash")
 
 /**
  * 컴포넌트 배열을 계층화
- *
+ * 사용예:
+ * const { hierarchize } = require("/utils/component")
+ * const { AuthCoordinator, useAuth } = require("./auth")
+ * const { RouterCoordinator, useRouter } = require("./router")
+ * const { SettingsCoordinator, useSettings } = require("./settings")
+ * const { StyleCoordinator, useStyle } = require("./style")
+ * const Coordinators = hierarchize(RouterCoordinator, AuthCoordinator, SettingsCoordinator, StyleCoordinator)
+
  * @param {*} components
  * @returns
  */

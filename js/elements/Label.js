@@ -7,4 +7,4 @@ const { connectStyle } = require("/utils/style")
 
 const LabelElement = Text
 
-module.exports = connectStyle(LabelElement, MODULE_NAME$)
+module.exports = LabelElement //connectStyle(LabelElement, MODULE_NAME$)

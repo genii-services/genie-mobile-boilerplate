@@ -11,7 +11,7 @@ const { screen, itsIphoneX } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
 const { forwardRef, useState, useStore } = require("/hooks")
 
-const Header = forwardRef((props, ref) => {
+const Header = props => {
 	const { androidStatusBarColor, iosBarStyle, transparent, translucent } = props
 
 	const [theme] = useStore("theme")
@@ -32,7 +32,7 @@ const Header = forwardRef((props, ref) => {
 	}
 
 	return (
-		<View ref={ref}>
+		<View>
 			<StatusBar
 				backgroundColor={androidStatusBarColor ? androidStatusBarColor : defaultStyle.statusBarColor}
 				barStyle={iosBarStyle || defaultStyle.name === "material" ? "light-content" : defaultStyle.iosStatusbar}
@@ -41,7 +41,7 @@ const Header = forwardRef((props, ref) => {
 			{itsIphoneX ? <View {...props} style={viewStyle} /> : <View {...props} />}
 		</View>
 	)
-})
+}
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType, ViewPropTypes } = require("/utils/propTypes")
@@ -53,4 +53,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(Header, MODULE_NAME$)
+module.exports = Header //connectStyle(Header, MODULE_NAME$)

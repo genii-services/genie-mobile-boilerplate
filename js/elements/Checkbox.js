@@ -51,4 +51,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(CheckBoxElement, MODULE_NAME$)
+module.exports = CheckBoxElement //connectStyle(CheckBoxElement, MODULE_NAME$)

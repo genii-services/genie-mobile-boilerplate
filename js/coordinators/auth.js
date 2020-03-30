@@ -1,4 +1,5 @@
-console.debug("AuthCoordinator")
+const MODULE_NAME$ = "coordinators/useAuth"
+console.debug(MODULE_NAME$)
 
 const React = require("react")
 const {} = React
@@ -6,19 +7,20 @@ const {} = React
 const { assign } = require("/utils")
 const { Progress, SUCCEED, FAILED, ERROR } = require("/utils/progress")
 const { popup } = require("/utils/view")
-const { createCtx, useEffect, useRef, useState, useThis } = require("/hooks")
+const { useEffect, useRef, useState, useStore, useThis } = require("/hooks")
 const notification = require("/interactors/notification")
 const { request } = require("/interactors/rest")
 const storage = require("/interactors/storage")
-const { useRouter } = require("./Router") // const router = require("/utils/router")
+const { useRouter } = require("./router") // const router = require("/utils/router")
 
-const [useCtx, Provider] = createCtx()
-
-const $NAME = "Auth"
 const initialState = require("/data/auth")
 
-const AuthCoordinator = ({ children }) => {
+const useAuth = () => {
+	console.debug(MODULE_NAME$, "called")
+
 	const router = useRouter()
+
+	const [value, setvalue] = useStore("value")
 
 	const _this = useThis(initialState)
 	const topRef = useRef()
@@ -37,7 +39,7 @@ const AuthCoordinator = ({ children }) => {
 	}, [])
 
 	const load = () => {
-		storage.load($NAME, data => {
+		storage.load(MODULE_NAME$, data => {
 			assign(initialState, data)
 			const { loginInfo, userInfo } = initialState
 			const currentScreen = router.getCurrentScreen()
@@ -58,7 +60,7 @@ const AuthCoordinator = ({ children }) => {
 		})
 	}
 	const save = () => {
-		storage.save($NAME, { agreed, setAgreed, authToken, loginInfo, userInfo, currentScreen })
+		storage.save(MODULE_NAME$, { agreed, setAgreed, authToken, loginInfo, userInfo, currentScreen })
 	}
 
 	const login = paramz => {
@@ -117,7 +119,8 @@ const AuthCoordinator = ({ children }) => {
 		return bool
 	}
 
-	const value = {
+	console.debug(this, "ready to render", "+".repeat(40), "end")
+	return {
 		loginInfo,
 		authToken,
 		userInfo,
@@ -130,17 +133,6 @@ const AuthCoordinator = ({ children }) => {
 		setLoginInfoSavable,
 		setCurrentScreen,
 	}
-	console.debug(this, "ready to render", "+".repeat(40), "end")
-	return (
-		<Provider ref={topRef} value={value}>
-			{children}
-		</Provider>
-	)
 }
 
-// useCtx.name = "useAuth"
-
-module.exports = {
-	AuthCoordinator,
-	useAuth: useCtx,
-}
+module.exports = { useAuth }

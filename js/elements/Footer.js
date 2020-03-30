@@ -45,4 +45,4 @@ if (__DEV__) {
 		style: oneOfType([object, number, array]),
 	}
 }
-module.exports = connectStyle(Footer, MODULE_NAME$)
+module.exports = Footer //connectStyle(Footer, MODULE_NAME$)

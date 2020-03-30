@@ -7,4 +7,4 @@ const { connectStyle } = require("/utils/style")
 
 const Form = View
 
-module.exports = connectStyle(Form, MODULE_NAME$)
+module.exports = Form //connectStyle(Form, MODULE_NAME$)

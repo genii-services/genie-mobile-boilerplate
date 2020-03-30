@@ -5,8 +5,8 @@ exports.useEffect = React.useEffect
 exports.useRef = React.useRef
 exports.useState = React.useState
 
-exports.useStore = require("./useStore")
-exports.globalStore = require("./globalStore")
+exports.useStore = require("./store/useStore")
+exports.globalStore = require("./store/globalStore")
 const dataHook = require("react-data-hooks")
 exports.createRest = dataHook.createRestHook
 exports.clearRestStore = dataHook.clearStore

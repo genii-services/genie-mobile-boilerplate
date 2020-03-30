@@ -6,4 +6,4 @@ const { connectStyle } = require("/utils/style")
 
 const BadgeElement = View
 
-module.exports = connectStyle(BadgeElement, MODULE_NAME$)
+module.exports = BadgeElement //connectStyle(BadgeElement, MODULE_NAME$)

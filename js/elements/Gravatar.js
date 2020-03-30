@@ -55,4 +55,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(Gravatar, MODULE_NAME$)
+module.exports = Gravatar //connectStyle(Gravatar, MODULE_NAME$)

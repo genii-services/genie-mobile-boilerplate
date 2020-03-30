@@ -3,10 +3,10 @@ console.debug(Rnrf)
 const React = require("react")
 const { useEffect, useState } = React
 const { AppState, Linking } = require("react-native")
-const { Root } = require("/elements")
 const { PERMISSIONS } = require("react-native-permissions")
 // const Orientation = require("react-native-orientation-locker").default
 
+const { whoami, trace } = require("/utils/debug")
 const { SUCCEED } = require("/utils/progress")
 const { checkAppVersion, exitApp } = require("/utils/app")
 const { deviceOS, itsAndroid } = require("/utils/device")
@@ -16,15 +16,15 @@ const permissions = require("/interactors/permissions")
 const notification = require("/interactors/notification")
 const restSvc = require("/interactors/rest")
 // const router = require("/utils/router")
-const { coordinatorsHOC, useAuth, useRouter } = require("/coordinators")
-const { Actions, Drawer, Lightbox, Modal, Overlay, Reducer, Router, Screen, Stack } = require("/coordinators/Router")
+const { useAuth, useRouter } = require("/coordinators")
+const { Actions, Drawer, Lightbox, Modal, Overlay, Reducer, Router, Screen, Stack } = require("/coordinators/router")
 
 const { MainDrawer } = require("/drawers")
 const {
 	Permissions,
 	Intro,
 	Login,
-	// Home,
+	Home,
 	// Settings,
 	// ItemList,
 	// ItemDetail,
@@ -36,7 +36,7 @@ const {
 } = require("/screens")
 
 const config = require("/data/config")
-const { whoami, trace } = require("/utils/debug")
+const { Root } = require("/elements")
 
 const navigator = Actions.create(
 	<Overlay>
@@ -46,8 +46,8 @@ const navigator = Actions.create(
 					<Screen key="intro" component={Intro} drawer={false} gestureEnabled={false} panHandlers={null} initial />
 					<Screen key="permissions" component={Permissions} path="/permissions/" />
 					<Screen key="login" component={Login} path="/login/" drawer={false} gestureEnabled={false} panHandlers={null} />
-					{/*
 					<Screen key="home" component={Home} path="/home/" drawer={true} />
+					{/*
 
 					<Screen key="userSearch" component={UserSearch} path={"/user/"} />
 					<Screen key="userDetail" component={UserDetail} />
@@ -118,6 +118,7 @@ const Rnrf = props => {
 							}
 							setAgreed(true)
 
+							/*
 							// 앱 버전 검사
 							// if (!__DEV__) {
 							restSvc.checkAppVersion({ deviceOS }, ({ status, payload }) => {
@@ -127,6 +128,7 @@ const Rnrf = props => {
 								}
 							})
 							// }
+							*/
 							router.push(!authToken ? "login" : "home")
 						})
 					}
@@ -235,4 +237,4 @@ const Rnrf = props => {
 }
 
 const { gestureHandlerRootHOC } = require("react-native-gesture-handler") // Android에서 react-navigation-drawer의 Edge Swipe를 활성화하는 코드
-module.exports = gestureHandlerRootHOC(coordinatorsHOC(Rnrf))
+module.exports = gestureHandlerRootHOC(Rnrf)

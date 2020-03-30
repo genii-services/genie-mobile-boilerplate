@@ -7,4 +7,4 @@ const { connectStyle } = require("/utils/style")
 
 const TabHeadingElement = View
 
-module.exports = connectStyle(TabHeadingElement, MODULE_NAME$)
+module.exports = TabHeadingElement //connectStyle(TabHeadingElement, MODULE_NAME$)

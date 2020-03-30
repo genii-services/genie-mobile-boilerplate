@@ -41,7 +41,7 @@ const IconFamilez = {
 
 const defaultIconFamilyName = "Ionicons"
 
-const IconElement = forwardRef(({ type, name, android, ios, active, size, color }, ref) => {
+const IconElement = ({ type, name, android, ios, active, size, color }) => {
 	const _this = useThis()
 	const [theme] = useStore("theme")
 	const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
@@ -77,8 +77,8 @@ const IconElement = forwardRef(({ type, name, android, ios, active, size, color 
 	if (!size) size = defaultStyle.iconSize
 	if (!color) color = defaultStyle.iconColor
 
-	return <_this.Icon ref={ref} name={_this.name} size={size} color={color} />
-})
+	return <_this.Icon name={_this.name} size={size} color={color} />
+}
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOf, oneOfType, string } = require("/utils/propTypes")

@@ -36,4 +36,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(InputGroup, MODULE_NAME$)
+module.exports = InputGroup //connectStyle(InputGroup, MODULE_NAME$)

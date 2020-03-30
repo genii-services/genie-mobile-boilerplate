@@ -340,4 +340,4 @@ const Fab = props => {
 	)
 }
 
-module.exports = connectStyle(Fab, MODULE_NAME$)
+module.exports = Fab //connectStyle(Fab, MODULE_NAME$)

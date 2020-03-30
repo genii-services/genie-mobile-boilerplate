@@ -7,4 +7,4 @@ const { connectStyle } = require("/utils/style")
 
 const FooterTab = View
 
-module.exports = connectStyle(FooterTab, MODULE_NAME$)
+module.exports = FooterTab //connectStyle(FooterTab, MODULE_NAME$)

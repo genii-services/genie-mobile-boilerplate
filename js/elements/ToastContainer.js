@@ -2,12 +2,14 @@ const MODULE_NAME$ = "ToastContainerElement"
 console.debug(MODULE_NAME$)
 
 /* eslint-disable class-methods-use-this */
+const _ = require("lodash")
 const React = require("react")
 const { Keyboard, Animated } = require("react-native")
 
 const { ABSOLUTE, BOTTOM, PC100, TOP } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
+const { forwardRef, useEffect, useState, useThis } = require("/hooks")
 
 const Text = require("./Text")
 const Button = require("./Button")
@@ -19,25 +21,31 @@ const POSITION = {
 	TOP,
 }
 
-const ToastContainerElement = props => {
-	const keyboardDidHide = () => {
-		set_keyboardHeight(0)
-		set_isKeyboardVisible(false)
-	}
-
-	const keyboardDidShow = e => {
-		set_keyboardHeight(e.endCoordinates.height)
-		set_isKeyboardVisible(true)
-	}
-
+const ToastContainerElement = () => {
+	const _this = useThis()
 	const [_fadeAnim, set_fadeAnim] = useState(new Animated.Value(0))
 	const [_keyboardHeight, set_keyboardHeight] = useState(0)
 	const [_isKeyboardVisible, set_isKeyboardVisible] = useState(false)
 	const [_modalVisible, set_modalVisible] = useState(false)
+	const [_config, set_config] = useState()
 
 	useEffect(() => {
+		const keyboardDidShow = e => {
+			set_keyboardHeight(e.endCoordinates.height)
+			set_isKeyboardVisible(true)
+		}
+		const keyboardDidHide = () => {
+			set_keyboardHeight(0)
+			set_isKeyboardVisible(false)
+		}
+
 		Keyboard.addListener("keyboardDidShow", keyboardDidShow)
 		Keyboard.addListener("keyboardDidHide", keyboardDidHide)
+
+		return () => {
+			Keyboard.removeListener("keyboardDidShow", keyboardDidShow)
+			Keyboard.removeListener("keyboardDidHide", keyboardDidHide)
+		}
 	}, [])
 
 	const getToastStyle = () => {
@@ -47,40 +55,26 @@ const ToastContainerElement = props => {
 			width: PC100,
 			elevation: 9,
 			paddingHorizontal: itsIOS ? 20 : 0,
-			top: _position === POSITION.TOP && 30,
-			bottom: _position === POSITION.BOTTOM && getTop(),
+			top: _config.position === POSITION.TOP && 30,
+			bottom: _config.position !== POSITION.TOP && getTop(),
 		}
 	}
 
-	const getTop = () => {
-		if (itsIOS) return _isKeyboardVisible ? _keyboardHeight : 30
-		return 0
-	}
-
-	const getButtonText = buttonText => buttonText && 0 < buttonText.trim() && buttonText
+	const getTop = () => (itsIOS ? (_isKeyboardVisible ? _keyboardHeight : 30) : 0)
 
 	const getModalState = () => _modalVisible
 
 	const showToast = ({ config }) => {
 		set_modalVisible(true)
-		text: config.text
-		buttonText: getButtonText(config.buttonText)
-		type: config.type
-		position: config.position ? config.position : POSITION.BOTTOM
-		supportedOrientations: config.supportedOrientations
-		style: config.style
-		buttonTextStyle: config.buttonTextStyle
-		buttonStyle: config.buttonStyle
-		textStyle: config.textStyle
-		_this.onClose = config.onClose
+		set_config(config)
 
 		// If we have a toast already open, cut off its close timeout so that it won't affect *this* toast.
-		if (_this.closeTimeout) clearTimeout(_this.closeTimeout)
+		if (_this.closeTimeoutHandle) clearTimeout(_this.closeTimeoutHandle)
 
 		// Set the toast to close after the duration.
 		if (config.duration !== 0) {
 			const duration = config.duration > 0 ? config.duration : 1500
-			_this.closeTimeout = setTimeout(_this.closeToast.bind(this, "timeout"), duration)
+			_this.closeTimeoutHandle = setTimeout(() => _this.closeToast("timeout"), duration)
 		}
 		// Fade the toast in now.
 		Animated.timing(_fadeAnim, { toValue: 1, duration: 200 }).start()
@@ -94,21 +88,25 @@ const ToastContainerElement = props => {
 		Animated.timing(_fadeAnim, { toValue: 0, duration: 200 }).start(closeModal.bind(this, reason))
 	}
 
-	if (_modalVisible) {
-		return (
+	const buttonText = _config ? _.trim(_config.buttonText) : ""
+	return (
+		_modalVisible && (
 			<Animated.View style={getToastStyle()}>
-				<Toast style={_style} danger={_type === "danger"} success={_type === "success"} warning={_type === "warning"}>
-					<Text style={_textStyle}>{_text}</Text>
-					{_buttonText && (
-						<Button style={_buttonStyle} onPress={() => closeToast("user")}>
-							<Text style={_buttonTextStyle}>{_buttonText}</Text>
+				<Toast
+					style={_config.style}
+					danger={_type === "danger"}
+					success={_config.type === "success"}
+					warning={_config.type === "warning"}>
+					<Text style={_config.textStyle}>{_config.text}</Text>
+					{buttonText && (
+						<Button style={_config.buttonStyle} onPress={() => closeToast("user")}>
+							<Text style={_config.buttonTextStyle}>{buttonText}</Text>
 						</Button>
 					)}
 				</Toast>
 			</Animated.View>
 		)
-	}
-	return null
+	)
 }
 
 if (__DEV__) {
@@ -130,4 +128,4 @@ ToastContainerElement.hide = () => {
 	}
 }
 
-module.exports = connectStyle(ToastContainerElement, MODULE_NAME$)
+module.exports = forwardRef(ToastContainerElement) // connectStyle(ToastContainerElement, MODULE_NAME$)

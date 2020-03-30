@@ -1,5 +1,5 @@
-const $NAME = "StyleCoordinator"
-console.debug($NAME)
+const $MODULE_NAME = "StyleCoordinator"
+console.debug($MODULE_NAME)
 
 const React = require("react")
 const { useState } = React
@@ -7,12 +7,10 @@ const { StyleSheet } = require("react-native")
 const { setCustomText, setCustomTextInput } = require("react-native-global-props")
 
 const { FUNCTION, OBJECT, STRING } = require("/constants")
-const { createCtx } = require("/hooks")
+const { globalStore, useStore } = require("use-store")
 const { assign, getName, parseJson } = require("/utils")
 const storage = require("/interactors/storage")
 const { TRANSPARENT, fontFamily, fontSizesArray, colors, grayscaleColors, backgroundColors } = require("/styles")
-
-const [useStyle, Provider] = createCtx()
 
 // 초기값
 
@@ -46,21 +44,17 @@ const stylez = {
 // 캐싱한 스타일
 const styleCachez = {}
 
-const StyleProvider = ({ children }) => {
-	const [_fontSizesIndex, set_FontSizesIndex] = useState(fontSizesIndex)
+const useStyle = () => {
+	const [store, setStore] = useStore("style")
+	if (store) return
+
 	const value = {
 		getStyle,
-		_fontSizesIndex,
 		setFontFamily,
 		setFontSizesIndex,
 	}
-	return <Provider value={value}>{children}</Provider>
-}
 
-const StyleCoordinator = ({ children }) => {
-	const { set_FontSizesIndex } = useStyle()
-
-	storage.load($NAME, data => {
+	storage.load($MODULE_NAME, data => {
 		assign(stylez, data)
 		setFontSizesIndex(stylez.fontSizesIndex)
 	})
@@ -78,7 +72,7 @@ const StyleCoordinator = ({ children }) => {
 	}
 
 	const setFontSizesIndex = i => {
-		set_FontSizesIndex(i)
+		store.fontSizesIndex = i
 		stylez.fontSizes = fontSizesArray[i]
 		let { customText } = stylez
 		customText.style.fontSize = fontSizesfontSizes[5]
@@ -117,17 +111,14 @@ const StyleCoordinator = ({ children }) => {
 		return style
 	}
 
-	const value = {
+	return {
 		getStyle,
 		fontSizesIndex,
 		setFontFamily,
 		setFontSizesIndex,
 	}
-	return <children />
 }
 
 module.exports = {
-	StyleCoordinator,
-	StyleProvider,
 	useStyle,
 }

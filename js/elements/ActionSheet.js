@@ -9,7 +9,7 @@ const { ActionSheetIOS, Dimensions, FlatList, Modal, TouchableOpacity } = requir
 const { FLEX_END, TRANSPARENT, WHITE } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
-const { useThis } = require("/hooks")
+const { forwardRef, useEffect, useState, useThis } = require("/hooks")
 
 const Text = require("./Text")
 const Icon = require("./Icon")
@@ -64,9 +64,9 @@ const ActionSheetElement = props => {
 				}}
 				style={styles.containerTouchable}>
 				<TouchableOpacity activeOpacity={1} style={styles.innerTouchable}>
-					{_title && <Text style={styles.touchableText}>{_title}</Text>}
+					{_this.title && <Text style={styles.touchableText}>{_this.title}</Text>}
 					<FlatList
-						style={[styles.flatList, { marginTop: _title ? 15 : 0 }]}
+						style={[styles.flatList, { marginTop: _this.title ? 15 : 0 }]}
 						data={_items}
 						keyExtractor={(item, index) => String(index)}
 						renderItem={({ index, item }) => {
@@ -157,4 +157,4 @@ const styles = {
 	},
 }
 
-module.exports = connectStyle(ActionSheetElement, MODULE_NAME$)
+module.exports = forwardRef(ActionSheetElement) //connectStyle(ActionSheetElement, MODULE_NAME$)

@@ -72,4 +72,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = connectStyle(RadioElement, MODULE_NAME$)
+module.exports = RadioElement //connectStyle(RadioElement, MODULE_NAME$)

@@ -5,7 +5,8 @@ const { useRouter } = require("/coordinators") // const router = require("/utils
 const { itsAndroid, itsIOS } = require("/utils/device")
 const { popup } = require("/utils/view")
 const { upgradeApp } = require("/utils/app")
-const providers = require("/coordinators")
+const { useAuth } = require("/coordinators/auth")
+const { useBoard } = require("/coordinators/board")
 
 let tokenRefreshListener
 let messageListener
@@ -43,13 +44,15 @@ notification.receiveNotification = function(noti) {
 		{ text: "이동", onPress: () => action() },
 	])
 
+	const { auth } = useAuth()
+	const { boardz } = useBoard()
 	function action() {
-		// if (userID) providers.auth.setWorkInfo({ userID })
+		// if (userID) auth.setWorkInfo({ userID })
 
 		switch (type) {
 			case "1": {
 				// 공지사항
-				let board = providers.boardz.getBoard("Announcementsoneaday")
+				let board = boardz.getBoard("Announcementsoneaday")
 				let articleID //= uniqueid
 				if (articleID) router.push("detailArticle", { board, articleID, userID })
 				else router.push("listArticle", { board, userID })

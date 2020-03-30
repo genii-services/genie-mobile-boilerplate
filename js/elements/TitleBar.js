@@ -20,27 +20,7 @@ const app = require("/../app.json")
 const TitleBarElement = props => {
 	const router = useRouter()
 	const { getStyle } = useStyle()
-	const style = getStyle(TitleBar)
-
-	const renderButton = (text, imageName, iconName = "") => {
-		return text && imageName ? (
-			<View style={style.hview}>
-				<LocalImage style={style.image} name={imageName} />
-				<Text style={style.text}>{text}</Text>
-			</View>
-		) : text && iconName ? (
-			<View style={style.hview}>
-				<Icon style={style.icon} name={iconName} />
-				<Text style={style.text}>{text}</Text>
-			</View>
-		) : imageName ? (
-			<LocalImage style={style.image} name={imageName} />
-		) : iconName ? (
-			<Icon style={style.icon} name={iconName} />
-		) : (
-			<Text style={style.text}>{text || ""}</Text>
-		)
-	}
+	const style = getStyle(TitleBarElement)
 
 	const handleOnLeftPress = () => {
 		let { onLeftPress } = props
@@ -64,6 +44,26 @@ const TitleBarElement = props => {
 	const handleOnCenterPress = () => {
 		let { onCenterPress } = props
 		typeof onCenterPress === FUNCTION && onCenterPress()
+	}
+
+	const renderButton = (text, imageName, iconName = "") => {
+		return text && imageName ? (
+			<View style={style.hview}>
+				<LocalImage style={style.image} name={imageName} />
+				<Text style={style.text}>{text}</Text>
+			</View>
+		) : text && iconName ? (
+			<View style={style.hview}>
+				<Icon style={style.icon} name={iconName} />
+				<Text style={style.text}>{text}</Text>
+			</View>
+		) : imageName ? (
+			<LocalImage style={style.image} name={imageName} />
+		) : iconName ? (
+			<Icon style={style.icon} name={iconName} />
+		) : (
+			<Text style={style.text}>{text || ""}</Text>
+		)
 	}
 
 	let { title } = props
@@ -210,4 +210,4 @@ TitleBarElement.getDefaultStyle = ({ fontFamily }) => {
 	}
 }
 
-module.exports = TitleBarElement
+module.exports = forwardRef(TitleBarElement)

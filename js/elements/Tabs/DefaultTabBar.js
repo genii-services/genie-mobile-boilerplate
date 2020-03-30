@@ -131,4 +131,4 @@ DefaultTabBarElement.getDefaultProps = () => {
 	}
 }
 
-module.exports = connectStyle(DefaultTabBarElement, MODULE_NAME$)
+module.exports = DefaultTabBarElement //connectStyle(DefaultTabBarElement, MODULE_NAME$)

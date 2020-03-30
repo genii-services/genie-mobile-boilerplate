@@ -2,38 +2,69 @@ const React = require("react")
 const { View } = require("react-native")
 const _ = require("lodash")
 const Orientation = require("react-native-orientation-locker").default
-const { Left, Right, ListItem, Item, Icon, Text } = require("/elements")
+const {
+	Body,
+	BorderButton,
+	Container,
+	Content,
+	Item,
+	Icon,
+	HIcon,
+	Left,
+	List,
+	ListItem,
+	RefreshControl,
+	Right,
+	Text,
+	TitleBar,
+	VLine,
+} = require("/elements")
 
 const { urlz } = require("/data/config")
 const { yyyymmdd } = require("/utils/moment")
-const { useRouter } = require("/coordinators") // const router = require("/utils/router")
-const { List } = require("/elements")
-
-const { useAuth, useItems, useItem, useCounter, useMenu, useStyle } = require("/coordinators")
+const { useEffect, useState } = require("/hooks")
+const { useBoard } = require("/coordinators/board")
+const { useRouter } = require("/coordinators/router")
+const { useStyle } = require("/coordinators/style")
 
 const HomeScreen = props => {
-	const [_board1, set_board1] = useState(props.boardz.getBoard("Announcementsoneaday4"))
-	const [_board2, set_board2] = useState(props.boardz.getBoard("FamilyEvent4"))
+	const { boardz, getBoard } = useBoard()
+
+	const [_board1, set_board1] = useState(() => getBoard("Announcementsoneaday4"))
+	const [_board2, set_board2] = useState(() => getBoard("FamilyEvent4"))
 	const [_refreshing, set_refreshing] = useState(false)
+	const [_loading, set_loading] = useState(false)
 
 	const { getStyle } = useStyle()
 	const style = getStyle(HomeScreen)
 
-	if (_timestamp !== timestamp) {
-		console.debug("Home.getDerivedStateFromProps", timestamp)
-		nextProps.boardz.reload(_board1)
-		nextProps.boardz.reload(_board2)
-		nextProps.counter.loadMailCount()
-		nextProps.menu.load()
-
-		set_timestamp(timestamp)
-	}
-	// return _.size(nextState) ? nextState : null
+	// if (_this.isChangedProps("Icon,name", { type, name, android, ios, active })) {	}
 
 	useEffect(() => {
 		Orientation.addOrientationListener(handleOrientationDidChange)
 		return () => Orientation.removeOrientationListener(handleOrientationDidChange)
 	}, [])
+
+	const loadData = () => {
+		if (_refreshing) set_refreshing(false) // RefreshControl 용은 수동으로 처리
+		nextProps.boardz.reload(_board1)
+		nextProps.boardz.reload(_board2)
+		nextProps.counter.loadMailCount()
+		nextProps.menu.load()
+	}
+
+	const handleOrientationDidChange = orientation => {
+		console.debug(HomeScreen)
+		forceUpdate()
+	}
+
+	const refresh = isUpdateRefreshing => {
+		if (isUpdateRefreshing) set_refreshing(true)
+		props.boardz.reload(_board1)
+		props.boardz.reload(_board2)
+		props.counter.loadMailCount()
+		props.menu.load()
+	}
 
 	const renderBoard = board => {
 		let { title, articles } = board
@@ -41,7 +72,6 @@ const HomeScreen = props => {
 		let data = 5 < articles.length ? _.slice(articles, 0, 5) : articles
 		return (
 			<List
-				timestamp={board.timestamp}
 				style={style.boardListItem}
 				ListHeaderComponent={() => (
 					<Item
@@ -69,38 +99,14 @@ const HomeScreen = props => {
 		)
 	}
 
-	const loadData = () => {
-		console.debug(HomeScreen)
-		if (_refreshing) set_refreshing(false) // RefreshControl 용은 수동으로 처리
-	}
-
-	const handleOrientationDidChange = orientation => {
-		console.debug(HomeScreen)
-		forceUpdate()
-	}
-
-	const refresh = isUpdateRefreshing => {
-		if (isUpdateRefreshing) set_refreshing(true)
-		props.boardz.reload(_board1)
-		props.boardz.reload(_board2)
-		props.counter.loadMailCount()
-		props.menu.load()
-	}
-
-	loadData()
 	let { title } = props
 	return (
 		<Container>
 			<TitleBar drawer title={title} rightIconName="ios-refresh" onRightPress={refresh} />
-			<Content refreshControl={<RefreshControl refreshing={state.refreshing} onRefresh={() => refresh(true)} />}>
+			{/*
+			<Content refreshControl={<RefreshControl refreshing={_refreshing} onRefresh={() => refresh(true)} />}>
 				<View style={style.notiArea}>
-					<HIcon
-						iconName="envelope-o"
-						imageName="ico-main-mail"
-						title="메일"
-						note={props.counter.mailCount.unRead}
-						onPress={() => router.launch("email")}
-					/>
+					<HIcon iconName="envelope-o" imageName="ico-main-mail" title="메일" onPress={() => router.launch("email")} />
 					<VLine height={30} />
 					<HIcon iconName="list-alt" imageName="ico-main-aprv" title="결재" />
 				</View>
@@ -151,6 +157,7 @@ const HomeScreen = props => {
 				</View>
 				{renderBoard(_board1)}
 				{renderBoard(_board2)}
+
 				<Item style={style.qnaArea} onPress={() => router.push("listArticle", { boardID: "Faq", title: "자주하는 질문" })}>
 					<Body>
 						<Text style={style.qnaAreaTitle}>자주하는 질문</Text>
@@ -158,11 +165,12 @@ const HomeScreen = props => {
 					</Body>
 				</Item>
 			</Content>
-			{state.loading && <Spinner color="green" />}
+							*/}
+			{_loading && <Spinner color="green" />}
 		</Container>
 	)
 }
 
-HomeScreen.getDefaultStyle = require("/styles/screens/HomeScreen")
+HomeScreen.getDefaultStyle = require("/styles/screens/Home")
 
 module.exports = HomeScreen
