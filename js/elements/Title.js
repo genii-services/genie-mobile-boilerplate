@@ -11,11 +11,11 @@ const TitleElement = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
+	const { array, number, object, oneOfType } = require("/utils/propTypes")
 	TitleElement.propTypes = {
 		...Text.propTypes,
 		style: oneOfType([object, number, array]),
 	}
 }
 
-module.exports = forwardRef(TitleElement) //connectStyle(TitleElement, MODULE_NAME$)
+module.exports = TitleElement //connectStyle(TitleElement, MODULE_NAME$)

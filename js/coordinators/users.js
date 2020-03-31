@@ -1,6 +1,6 @@
 console.debug("UsersCoordinator")
 
-const { useStore } = require("use-store")
+const { useStore } = require("/hooks")
 
 const initialData = {}
 

@@ -52,7 +52,7 @@ class Store {
 	}, 300)
 
 	setState = (value, options = { broadcast: true }) => {
-		this.state = value
+		this.state = typeof value === "function" ? value() : value //*. lately call 지원
 		if (this.options.persist) {
 			try {
 				localStorage.setItem(GLOBALSTORAGE_PREFIX + this.namespace, JSON.stringify(value))

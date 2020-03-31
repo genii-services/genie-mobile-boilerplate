@@ -115,7 +115,7 @@ const {
 exports.mergeStyle = function(style, defaultStyle) {
 	// Pass the merged Style Object instead
 	if (style) return
-	const newStyle = {}
+	let newStyle = {}
 	if (Array.isArray(style)) {
 		_.forEach(style, v => _.merge(newStyle, typeof v === "number" ? flatten(v) : v))
 	} else if (typeof style === "number") {

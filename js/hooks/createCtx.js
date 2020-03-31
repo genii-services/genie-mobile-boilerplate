@@ -9,7 +9,6 @@ function createCtx(substitute) {
 	const useCtx = requestor => {
 		const ctx = useContext(Ctx)
 		if (!ctx) {
-			// debugger
 			// throw new Error("useCtx must be inside a Coordinator or Provider with a value")
 			console.warn(
 				getName(requestor || arguments.callee.caller),

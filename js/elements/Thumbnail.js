@@ -12,7 +12,7 @@ const ThumbnailElement = props => {
 }
 
 if (__DEV__) {
-	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
+	const { array, bool, number, object, oneOfType } = require("/utils/propTypes")
 	ThumbnailElement.propTypes = {
 		...Image.propTypes,
 		style: oneOfType([object, number, array]),
@@ -22,4 +22,4 @@ if (__DEV__) {
 	}
 }
 
-module.exports = forwardRef(ThumbnailElement) //connectStyle(ThumbnailElement, MODULE_NAME$)
+module.exports = ThumbnailElement //connectStyle(ThumbnailElement, MODULE_NAME$)

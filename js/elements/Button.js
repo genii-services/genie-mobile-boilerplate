@@ -81,7 +81,7 @@ const ButtonElement = ({ style, ...props }) => {
 	return (
 		<TouchableNativeFeedback
 			onPress={props.onPress}
-			background={props.transparent ? Ripple(TRANSPARENT) : Ripple(style.androidRippleColor, false)}
+			background={props.transparent ? Ripple(TRANSPARENT) : Ripple(defaultStyle.androidRippleColor, false)}
 			{...props}
 			style={rootStyle}>
 			<View {...props} style={rootStyle}>

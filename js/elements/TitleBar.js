@@ -66,7 +66,7 @@ const TitleBarElement = props => {
 		)
 	}
 
-	let { title } = props
+	const { title } = props
 	// console.debug(TitleBar, `+${title}+`)
 	return (
 		<Header style={[style.header, props.style]}>
@@ -210,4 +210,4 @@ TitleBarElement.getDefaultStyle = ({ fontFamily }) => {
 	}
 }
 
-module.exports = forwardRef(TitleBarElement)
+module.exports = TitleBarElement

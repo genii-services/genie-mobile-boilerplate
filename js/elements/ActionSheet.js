@@ -4,12 +4,12 @@ console.debug(MODULE_NAME$)
 /* eslint-disable no-use-before-define */
 /* eslint-disable radix */
 const React = require("react")
-const { ActionSheetIOS, Dimensions, FlatList, Modal, TouchableOpacity } = require("react-native")
+const { ActionSheetIOS, FlatList, Modal, TouchableOpacity } = require("react-native")
 
 const { FLEX_END, TRANSPARENT, WHITE } = require("/constants/style")
-const { itsIOS } = require("/utils/device")
+const { deviceHeight, itsIOS } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
-const { forwardRef, useEffect, useState, useThis } = require("/hooks")
+const { createCoordinator, forwardRef, useEffect, useState, useStore, useThis } = require("/hooks")
 
 const Text = require("./Text")
 const Icon = require("./Icon")
@@ -19,104 +19,70 @@ const Body = require("./Body")
 const ListItem = require("./ListItem")
 
 const ActionSheetElement = props => {
-	const { useStore } = require("use-store")
 	const _this = useThis()
 	const [_modalVisible, set_modalVisible] = useState(false)
 	const [_items, set_items] = useState([])
 
 	useEffect(() => !props.autoHide && props.duration && console.warn(`It's not recommended to set autoHide false with duration`), [])
 
-	const showActionSheet = (config, callback) => {
-		if (itsIOS) {
-			if (typeof config.options[0] === "object") {
-				const filteredConfig = { ...config, options: config.options.map(item => item.text) }
-				ActionSheetIOS.showActionSheetWithOptions(filteredConfig, callback)
-			} else {
+	createCoordinator("ActionSheet", () => ({
+		showActionSheet: (config, callback) => {
+			if (itsIOS) {
+				if (typeof config.options[0] === "object") {
+					config = { ...config, options: config.options.map(item => item.text) }
+				}
 				ActionSheetIOS.showActionSheetWithOptions(config, callback)
+			} else {
+				set_items(config.options)
+				_this.title = config.title
+				_this.message = config.message
+				_this.destructiveButtonIndex = config.destructiveButtonIndex
+				_this.cancelButtonIndex = config.cancelButtonIndex
+				_this.modalVisible = true
+				_this.callback = callback
 			}
-		} else {
-			set_items(config.options)
-			_this.title = config.title
-			_this.message = config.message
-			_this.destructiveButtonIndex = config.destructiveButtonIndex
-			_this.cancelButtonIndex = config.cancelButtonIndex
-			_this.modalVisible = true
-			_this.callback = callback
-		}
+		},
+		hideActionSheet: () => set_modalVisible(false),
+	}))
+
+	const close = (index = _this.cancelButtonIndex) => {
+		_this.callback && _this.callback(index)
+		set_modalVisible(false)
 	}
 
-	const hideActionSheet = () => set_modalVisible(false)
+	const renderItem = ({ index, item }) => {
+		return typeof _items[0] === "string" ? (
+			<ListItem onPress={() => close(parseInt(index))} style={styles.listItem}>
+				<Text>{item}</Text>
+			</ListItem>
+		) : (
+			<ListItem onPress={() => close(parseInt(index))} style={styles.listItem} icon>
+				<Left>
+					<Icon name={item.icon} style={{ color: item.iconColor }} />
+				</Left>
+				<Body style={styles.listItemBody}>
+					<Text>{item.text}</Text>
+				</Body>
+				<Right />
+			</ListItem>
+		)
+	}
 
 	return (
-		<Modal
-			animationType={"fade"}
-			transparent
-			visible={_modalVisible}
-			onRequestClose={() => {
-				_callback(_cancelButtonIndex)
-				set_modalVisible(false)
-			}}>
-			<TouchableOpacity
-				activeOpacity={1}
-				onPress={() => {
-					_callback(_cancelButtonIndex)
-					set_modalVisible(false)
-				}}
-				style={styles.containerTouchable}>
+		<Modal animationType={"fade"} transparent visible={_modalVisible} onRequestClose={close}>
+			<TouchableOpacity activeOpacity={1} onPress={close} style={styles.containerTouchable}>
 				<TouchableOpacity activeOpacity={1} style={styles.innerTouchable}>
 					{_this.title && <Text style={styles.touchableText}>{_this.title}</Text>}
 					<FlatList
 						style={[styles.flatList, { marginTop: _this.title ? 15 : 0 }]}
-						data={_items}
+						data={_this.items}
 						keyExtractor={(item, index) => String(index)}
-						renderItem={({ index, item }) => {
-							return typeof _items[0] === "string" ? (
-								<ListItem
-									onPress={() => {
-										_callback(parseInt(index))
-										set_modalVisible(false)
-									}}
-									style={styles.listItem}>
-									<Text>{item}</Text>
-								</ListItem>
-							) : (
-								<ListItem
-									onPress={() => {
-										_callback(parseInt(index))
-										set_modalVisible(false)
-									}}
-									style={styles.listItem}
-									icon>
-									<Left>
-										<Icon name={item.icon} style={{ color: item.iconColor }} />
-									</Left>
-									<Body style={styles.listItemBody}>
-										<Text>{item.text}</Text>
-									</Body>
-									<Right />
-								</ListItem>
-							)
-						}}
+						renderItem={renderItem}
 					/>
 				</TouchableOpacity>
 			</TouchableOpacity>
 		</Modal>
 	)
-}
-// ActionSheet.instance
-ActionSheetElement.show = (config, callback) => {
-	try {
-		ActionSheet.instance._root.showActionSheet(config, callback)
-	} catch (e) {
-		console.error(e)
-	}
-}
-ActionSheetElement.hide = () => {
-	try {
-		ActionSheet.instance._root.hideActionSheet()
-	} catch (e) {
-		console.error(e)
-	}
 }
 
 if (__DEV__) {
@@ -139,7 +105,7 @@ const styles = {
 	innerTouchable: {
 		backgroundColor: WHITE,
 		minHeight: 56,
-		maxHeight: Dimensions.get("window").height / 2,
+		maxHeight: deviceHeight / 2,
 		padding: 15,
 		elevation: 4,
 	},
@@ -157,4 +123,4 @@ const styles = {
 	},
 }
 
-module.exports = forwardRef(ActionSheetElement) //connectStyle(ActionSheetElement, MODULE_NAME$)
+module.exports = ActionSheetElement //connectStyle(ActionSheetElement, MODULE_NAME$)

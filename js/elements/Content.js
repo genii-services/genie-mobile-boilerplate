@@ -31,7 +31,7 @@ const ContentElement = ({
 				keyboardShouldPersistTaps={keyboardShouldPersistTaps}
 				ref={c => {
 					_this._scrollview = c
-					if (ref) ref.current = c
+					// if (ref) ref.current = c
 				}}
 				{...props}
 				style={style}
@@ -45,7 +45,7 @@ const ContentElement = ({
 			keyboardShouldPersistTaps={keyboardShouldPersistTaps}
 			ref={c => {
 				_this._scrollview = c
-				if (ref) ref.current = c
+				// if (ref) ref.current = c
 			}}
 			{...props}
 			contentContainerStyle={contentContainerStyle}

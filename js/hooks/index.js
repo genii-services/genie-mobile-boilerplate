@@ -16,4 +16,7 @@ exports.useInput = require("./useInput")
 exports.useRefs = require("./useRefs")
 exports.useThis = require("./useThis")
 
+exports.createCoordinator = require("./coordinator/createCoordinator")
+exports.useCoordinator = require("./coordinator/useCoordinator")
+
 exports.createAnimatedComponent = require("./createAnimatedComponent")

@@ -5,19 +5,17 @@ const globalStore = require("./globalStore")
 
 // the actual hook
 export function useStore(namespace, value, options = {}) {
-	let whichStore = undefined
-
 	if (!namespace) throw new Error("no namespace provided to useStore... try using useState() instead?")
 
-	whichStore = globalStore.hasOwnProperty(namespace)
+	const store = globalStore.hasOwnProperty(namespace)
 		? globalStore[namespace]
 		: (globalStore[namespace] = new Store({ value, options, namespace }))
 
-	const [state, set] = useState(whichStore.state)
+	const [state, set] = useState(store.state)
 
-	if (whichStore.setters.indexOf(set) === -1) whichStore.setters.push(set)
+	if (store.setters.indexOf(set) === -1) store.setters.push(set)
 
-	useEffect(() => () => (whichStore.setters = whichStore.setters.filter(setter => setter !== set)), [])
+	useEffect(() => () => (store.setters = store.setters.filter(setter => setter !== set)), [])
 
 	const magicSetter = setter => e => {
 		typeof e === "object" && (e.nativeEvent || e.constructor.name === "SyntheticEvent") && e.target
@@ -25,7 +23,7 @@ export function useStore(namespace, value, options = {}) {
 			: setter(e)
 	}
 
-	return [state, magicSetter(whichStore.setState)]
+	return [state, magicSetter(store.setState)]
 }
 
 module.exports = useStore

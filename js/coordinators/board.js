@@ -1,7 +1,7 @@
 console.debug("BoardCoordinator")
 
 const React = require("react")
-const { useStore } = require("use-store")
+const { useStore } = require("/hooks")
 
 const useBoard = () => {
 	const [boardz, setBoardz] = useStore("board")

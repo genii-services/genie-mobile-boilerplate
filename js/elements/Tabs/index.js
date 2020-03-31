@@ -2,9 +2,10 @@ const React = require("react")
 const _ = require("lodash")
 const InteractionManager = require("/utils/InteractionManager")
 const ReactNative = require("react-native")
-const { Dimensions, View, Animated, ScrollView } = ReactNative
+const { View, Animated, ScrollView } = ReactNative
 
 const { ABSOLUTE } = require("/constants/style")
+const { deviceWidth } = require("/utils/device")
 const { useThis } = require("/hooks")
 
 const DefaultTabBar = require("./DefaultTabBar")
@@ -16,15 +17,15 @@ const TabsElement = props => {
 
 	const [_currentPage, set_currentPage] = useState(props.initialPage)
 	const [_scrollValue] = useState(new Animated.Value(props.initialPage))
-	const [_containerWidth, set_containerWidth] = useState(Dimensions.get("window").width)
+	const [_containerWidth, set_containerWidth] = useState(deviceWidth)
 	const [_sceneKeys, set_sceneKeys] = useState(newSceneKeys({ currentPage: props.initialPage }))
 
 	useEffect(() => {
-		const scrollFn = () => _this.scrollView && _scrollValue.setValue(props.initialPage)
+		const scrollFn = () => _this.scrollViewRef && _scrollValue.setValue(props.initialPage)
 
 		InteractionManager.runAfterInteractions(scrollFn)
 		// because of contentOffset is not working on Android
-		setTimeout(() => _this.scrollView.scrollTo({ x: props.initialPage * _containerWidth, animated: false }))
+		setTimeout(() => _this.scrollViewRef.scrollTo({ x: props.initialPage * _containerWidth, animated: false }))
 		return () => {
 			_.map(_this.reqz, (v, k) => cancelAnimationFrame(k))
 		}
@@ -38,8 +39,8 @@ const TabsElement = props => {
 
 	const goToPage = pageNumber => {
 		const offset = pageNumber * _containerWidth
-		_this.scrollView &&
-			_this.scrollView.scrollTo({
+		_this.scrollViewRef &&
+			_this.scrollViewRef.scrollTo({
 				x: offset,
 				y: 0,
 				animated: !props.scrollWithoutAnimation,
@@ -97,7 +98,7 @@ const TabsElement = props => {
 				automaticallyAdjustContentInsets={false}
 				keyboardShouldPersistTaps="handled"
 				contentOffset={{ x: props.initialPage * _containerWidth }}
-				ref={scrollView => (_this.scrollView = scrollView)}
+				ref={el => (_this.scrollViewRef = el)}
 				onScroll={e => {
 					const offsetX = e.nativeEvent.contentOffset.x
 					_updateScrollValue(offsetX / _containerWidth)

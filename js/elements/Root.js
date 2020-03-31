@@ -13,8 +13,8 @@ const RootElement = ({ children, ...props }) => {
 	return (
 		<View {...props} style={{ flex: 1 }}>
 			{children}
-			<ToastContainer ref={c => (Toast.instance = c)} />
-			<ActionSheet ref={c => (ActionSheet.instance = c)} />
+			<ToastContainer />
+			<ActionSheet />
 		</View>
 	)
 }

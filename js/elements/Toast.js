@@ -8,4 +8,4 @@ const { forwardRef } = require("/hooks")
 
 const ToastElement = View
 
-module.exports = forwardRef(ToastElement) //connectStyle(ToastElement, MODULE_NAME$)
+module.exports = ToastElement //connectStyle(ToastElement, MODULE_NAME$)

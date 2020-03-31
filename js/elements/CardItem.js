@@ -7,7 +7,7 @@ const { TouchableOpacity, View } = require("react-native")
 const { forwardRef } = require("/hooks")
 const { connectStyle } = require("/utils/style")
 
-const CardItemElement = (props, ref) => {
+const CardItemElement = props => {
 	return props.button ? <TouchableOpacity activeOpacity={0.2} {...props} /> : <View {...props} />
 }
 

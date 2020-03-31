@@ -3,18 +3,17 @@ console.debug(MODULE_NAME$)
 
 const React = require("react")
 const ReactNative = require("react-native")
-const { View, Animated, ScrollView, Platform, Dimensions } = ReactNative
+const { View, Animated, ScrollView, Platform } = ReactNative
 const { isEqual } = require("lodash")
 
 const { ABSOLUTE, BLACK, BOLD, CENTER, NORMAL, ROW } = require("/constants/style")
+const { deviceWidth } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
 const { useState, useStore, useThis } = require("/hooks")
 
 const TabHeading = require("../TabHeading")
 const Text = require("../Text")
 const Button = require("./Button")
-
-const WINDOW_WIDTH = Dimensions.get("window").width
 
 const ScrollableTabBar = props => {
 	const [theme] = useStore("theme")
@@ -71,11 +70,11 @@ const ScrollableTabBar = props => {
 		newScrollX = newScrollX >= 0 ? newScrollX : 0
 
 		if (Platform.OS === "android") {
-			_this._scrollView.scrollTo({ x: newScrollX, y: 0, animated: false })
+			_this.scrollViewRef.scrollTo({ x: newScrollX, y: 0, animated: false })
 		} else {
 			const rightBoundScroll = _this._tabContainerMeasurements.width - _this._containerMeasurements.width
 			newScrollX = newScrollX > rightBoundScroll ? rightBoundScroll : newScrollX
-			_this._scrollView.scrollTo({ x: newScrollX, y: 0, animated: false })
+			_this.scrollViewRef.scrollTo({ x: newScrollX, y: 0, animated: false })
 		}
 	}
 
@@ -149,9 +148,8 @@ const ScrollableTabBar = props => {
 	const onTabContainerLayout = e => {
 		_this._tabContainerMeasurements = e.nativeEvent.layout
 		let width = _this._tabContainerMeasurements.width
-		if (width < WINDOW_WIDTH) {
-			width = WINDOW_WIDTH
-		}
+		if (width < deviceWidth) width = deviceWidth
+
 		set_containerWidth(width)
 		updateView({ value: props.scrollValue._value })
 	}
@@ -178,9 +176,7 @@ const ScrollableTabBar = props => {
 		<View style={[styles.container, { backgroundColor: props.backgroundColor }, props.style]} onLayout={_this.onContainerLayout}>
 			<ScrollView
 				automaticallyAdjustContentInsets={false}
-				ref={scrollView => {
-					_this._scrollView = scrollView
-				}}
+				ref={el => (_this.scrollViewRef = el)}
 				horizontal
 				showsHorizontalScrollIndicator={false}
 				showsVerticalScrollIndicator={false}
@@ -190,7 +186,7 @@ const ScrollableTabBar = props => {
 				scrollsToTop={false}>
 				<View
 					style={[styles.tabs, { width: _containerWidth }, props.tabsContainerStyle]}
-					ref={"tabContainer"}
+					ref={el => (_this.tabContainerRef = el)}
 					onLayout={onTabContainerLayout}>
 					{props.tabs.map((name, page) => {
 						const isTabActive = props.activeTab === page

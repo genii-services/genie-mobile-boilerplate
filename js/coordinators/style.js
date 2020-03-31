@@ -2,12 +2,11 @@ const $MODULE_NAME = "StyleCoordinator"
 console.debug($MODULE_NAME)
 
 const React = require("react")
-const { useState } = React
 const { StyleSheet } = require("react-native")
 const { setCustomText, setCustomTextInput } = require("react-native-global-props")
 
 const { FUNCTION, OBJECT, STRING } = require("/constants")
-const { globalStore, useStore } = require("use-store")
+const { globalStore, useState, useStore } = require("/hooks")
 const { assign, getName, parseJson } = require("/utils")
 const storage = require("/interactors/storage")
 const { TRANSPARENT, fontFamily, fontSizesArray, colors, grayscaleColors, backgroundColors } = require("/styles")

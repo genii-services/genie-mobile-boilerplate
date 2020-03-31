@@ -9,7 +9,7 @@ const { Keyboard, Animated } = require("react-native")
 const { ABSOLUTE, BOTTOM, PC100, TOP } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
-const { forwardRef, useEffect, useState, useThis } = require("/hooks")
+const { createCoordinator, forwardRef, useEffect, useState, useThis } = require("/hooks")
 
 const Text = require("./Text")
 const Button = require("./Button")
@@ -22,12 +22,39 @@ const POSITION = {
 }
 
 const ToastContainerElement = () => {
+	console.debug(MODULE_NAME$, "called")
 	const _this = useThis()
 	const [_fadeAnim, set_fadeAnim] = useState(new Animated.Value(0))
 	const [_keyboardHeight, set_keyboardHeight] = useState(0)
 	const [_isKeyboardVisible, set_isKeyboardVisible] = useState(false)
 	const [_modalVisible, set_modalVisible] = useState(false)
 	const [_config, set_config] = useState()
+
+	createCoordinator("Toast", () => ({
+		showToast: config => {
+			set_modalVisible(true)
+			set_config(config)
+
+			// If we have a toast already open, cut off its close timeout so that it won't affect *this* toast.
+			if (_this.closeTimeoutHandle) clearTimeout(_this.closeTimeoutHandle)
+
+			// Set the toast to close after the duration.
+			if (config.duration !== 0) {
+				const duration = config.duration > 0 ? config.duration : 1500
+				_this.closeTimeoutHandle = setTimeout(() => _this.closeToast("timeout"), duration)
+			}
+			// Fade the toast in now.
+			Animated.timing(_fadeAnim, { toValue: 1, duration: 200 }).start()
+		},
+		hide: reason => {
+			if (!_modalVisible) return
+			clearTimeout(_this.closeTimeout)
+			Animated.timing(_fadeAnim, { toValue: 0, duration: 200 }).start(() => {
+				set_modalVisible(false)
+				typeof _this.onClose === "function" && _this.onClose(reason)
+			})
+		},
+	}))
 
 	useEffect(() => {
 		const keyboardDidShow = e => {
@@ -62,32 +89,6 @@ const ToastContainerElement = () => {
 
 	const getTop = () => (itsIOS ? (_isKeyboardVisible ? _keyboardHeight : 30) : 0)
 
-	const getModalState = () => _modalVisible
-
-	const showToast = ({ config }) => {
-		set_modalVisible(true)
-		set_config(config)
-
-		// If we have a toast already open, cut off its close timeout so that it won't affect *this* toast.
-		if (_this.closeTimeoutHandle) clearTimeout(_this.closeTimeoutHandle)
-
-		// Set the toast to close after the duration.
-		if (config.duration !== 0) {
-			const duration = config.duration > 0 ? config.duration : 1500
-			_this.closeTimeoutHandle = setTimeout(() => _this.closeToast("timeout"), duration)
-		}
-		// Fade the toast in now.
-		Animated.timing(_fadeAnim, { toValue: 1, duration: 200 }).start()
-	}
-	const closeModal = reason => {
-		set_modalVisible(false)
-		typeof _this.onClose === "function" && _this.onClose(reason)
-	}
-	const closeToast = reason => {
-		clearTimeout(_this.closeTimeout)
-		Animated.timing(_fadeAnim, { toValue: 0, duration: 200 }).start(closeModal.bind(this, reason))
-	}
-
 	const buttonText = _config ? _.trim(_config.buttonText) : ""
 	return (
 		_modalVisible && (
@@ -117,15 +118,4 @@ if (__DEV__) {
 	}
 }
 
-// ToastContainer.instance
-ToastContainerElement.show = ({ ...config }) => {
-	ToastContainerElement.instance._root.showToast({ config })
-}
-
-ToastContainerElement.hide = () => {
-	if (ToastContainerElement.instance._root.getModalState()) {
-		ToastContainerElement.instance._root.closeToast("functionCall")
-	}
-}
-
-module.exports = forwardRef(ToastContainerElement) // connectStyle(ToastContainerElement, MODULE_NAME$)
+module.exports = ToastContainerElement // connectStyle(ToastContainerElement, MODULE_NAME$)
