@@ -6,7 +6,7 @@ const { useRef } = require("react")
 const { isEqual } = require("/utils/object")
 
 const useThis = defaultValue => {
-	const _this = useRef(defaultValue || {})
+	const _this = useRef(typeof defaultValue === FUNCTION ? defaultValue() : defaultValue || {})
 	const { current } = _this
 	if (!current.isChangedProps) {
 		current.isChangedProps = (key = "prevProps", props) => {

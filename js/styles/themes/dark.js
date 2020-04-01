@@ -17,7 +17,7 @@ const toolbarDefaultBg = itsIOS ? "#F8F8F8" : "#3F51B5"
 const tabBgColor = "#F8F8F8"
 const textColor = BLACK
 
-const fontSizeBase = 15
+const fontSize = 15
 const iconSize = itsIOS ? 30 : 28
 
 module.exports = {
@@ -51,8 +51,8 @@ module.exports = {
 	buttonSuccessBg: brandSuccess,
 	buttonDangerBg: brandDanger,
 	buttonWarningBg: brandWarning,
-	buttonTextSize: itsIOS ? fontSizeBase * 1.1 : fontSizeBase - 1,
-	borderRadiusLarge: fontSizeBase * 3.8,
+	buttonTextSize: itsIOS ? fontSize * 1.1 : fontSize - 1,
+	borderRadiusLarge: fontSize * 3.8,
 
 	// Card
 	cardDefaultBg: WHITE,
@@ -91,17 +91,17 @@ module.exports = {
 	// Font
 	DefaultFontSize: 16,
 	fontFamily: itsIOS ? "System" : "Roboto",
-	fontSizeBase,
+	fontSize,
 	fontSizez: {
-		"-4": parseInt(fontSizeBase * 0.6),
-		"-3": parseInt(fontSizeBase * 0.7),
-		"-2": parseInt(fontSizeBase * 0.8),
-		"-1": parseInt(fontSizeBase * 0.9),
-		"0": fontSizeBase,
-		"+1": fontSizeBase * 1.2,
-		"+2": fontSizeBase * 1.4,
-		"+3": fontSizeBase * 1.6,
-		"+4": fontSizeBase * 1.8,
+		"-4": parseInt(fontSize * 0.6),
+		"-3": parseInt(fontSize * 0.7),
+		"-2": parseInt(fontSize * 0.8),
+		"-1": parseInt(fontSize * 0.9),
+		"0": fontSize,
+		"+1": fontSize * 1.2,
+		"+2": fontSize * 1.4,
+		"+3": fontSize * 1.6,
+		"+4": fontSize * 1.8,
 	},
 
 	// Footer

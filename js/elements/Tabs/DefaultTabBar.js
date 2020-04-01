@@ -6,9 +6,11 @@ const _ = require("lodash")
 const ReactNative = require("react-native")
 const { Animated } = ReactNative
 
+const { FUNCTION } = require("/constants")
 const { ABSOLUTE, BOLD, FLEX_START, FLEX_END, NORMAL, SPACE_BETWEEN, TRANSPARENT } = require("/constants/style")
 const { connectStyle } = require("/utils/style")
 const { useState, useStore, useThis } = require("/hooks")
+const { useStyle } = require("/coordinators")
 
 const Button = require("./Button")
 const TabHeading = require("../TabHeading")
@@ -16,22 +18,57 @@ const Text = require("../Text")
 const TabContainer = require("../TabContainer")
 
 const DefaultTabBarElement = props => {
-	const [theme] = useStore("theme")
+	const { containerWidth, tabs } = props
+	const { stylez, defaultStyle } = useStyle(MODULE_NAME$, { containerWidth, tabs }, defaultStyle => {
+		const numberOfTabs = tabs.length
+		const tabUnderlineStyle = {
+			position: ABSOLUTE,
+			width: containerWidth / numberOfTabs,
+			height: 4,
+			backgroundColor: defaultStyle.topTabBarActiveBorderColor,
+			bottom: 0,
+		}
+		const left = props.scrollValue.interpolate({ inputRange: [0, 1], outputRange: [0, containerWidth / numberOfTabs] })
+		return {
+			tabContainer: [
+				{
+					backgroundColor: defaultStyle.tabDefaultBg,
+				},
+				props.tabContainerStyle,
+			],
+			view: [tabUnderlineStyle, { left }, props.underlineStyle],
+			button: { flex: 1 },
+		}
+	})
 
-	const renderDefaultTab = (
-		name,
-		page,
-		isTabActive,
-		onPressHandler,
-		tabStyle,
-		activeTabStyle,
-		textStyle,
-		activeTextStyle,
-		tabHeaderStyle,
-		tabFontSize,
-		disabled,
-		disabledTextColor
-	) => {
+	const renderTab = (name, page) => {
+		const isTabActive = props.activeTab === page
+		const onPressHandler = props.goToPage
+		const tabStyle = props.tabStyle[page]
+		const activeTabStyle = props.activeTabStyle[page]
+		const textStyle = props.textStyle[page]
+		const activeTextStyle = props.activeTextStyle[page]
+		const tabHeaderStyle = props.tabHeaderStyle[page]
+		const tabFontSize = defaultStyle.tabFontSize
+		const disabled = props.disabled[page]
+		const disabledTextColor = props.disabledTextColor
+
+		if (typeof props.renderTab === FUNCTION)
+			return props.renderTab(
+				name,
+				page,
+				isTabActive,
+				onPressHandler,
+				tabStyle,
+				activeTabStyle,
+				textStyle,
+				activeTextStyle,
+				tabHeaderStyle,
+				tabFontSize,
+				disabled,
+				disabledTextColor
+			)
+
 		const headerContent = typeof name !== "string" && name.props.children
 		const { activeTextColor, inactiveTextColor } = props
 		const fontWeight = isTabActive ? BOLD : NORMAL
@@ -47,7 +84,7 @@ const DefaultTabBarElement = props => {
 			: inactiveTextColor // inactiveTextColor: default color for inactive Tab
 
 		return typeof name === "string" ? (
-			<Button style={{ flex: 1 }} disabled={isDisabled} key={name} onPress={() => onPressHandler(page)}>
+			<Button style={stylez.button} disabled={isDisabled} key={name} onPress={() => onPressHandler(page)}>
 				<TabHeading style={isTabActive ? activeTabStyle : tabStyle} active={isTabActive}>
 					<Text style={[{ fontSize: tabFontSize }, isTabActive ? activeTextStyle : textStyle, { color: textColor }]}>
 						{name}
@@ -55,7 +92,7 @@ const DefaultTabBarElement = props => {
 				</TabHeading>
 			</Button>
 		) : (
-			<Button style={{ flex: 1 }} disabled={isDisabled} key={_.random(1.2, 5.2)} onPress={() => onPressHandler(page)}>
+			<Button style={stylez.button} disabled={isDisabled} key={_.random(1.2, 5.2)} onPress={() => onPressHandler(page)}>
 				<TabHeading style={tabHeaderStyle} active={isTabActive}>
 					{headerContent}
 				</TabHeading>
@@ -63,45 +100,17 @@ const DefaultTabBarElement = props => {
 		)
 	}
 
-	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
-	const containerWidth = props.containerWidth
-	const numberOfTabs = props.tabs.length
-	const tabUnderlineStyle = {
-		position: ABSOLUTE,
-		width: containerWidth / numberOfTabs,
-		height: 4,
-		backgroundColor: style.topTabBarActiveBorderColor,
-		bottom: 0,
-	}
-	const left = props.scrollValue.interpolate({ inputRange: [0, 1], outputRange: [0, containerWidth / numberOfTabs] })
 	return (
-		<TabContainer style={[{ backgroundColor: style.tabDefaultBg }, props.tabContainerStyle]}>
-			{props.tabs.map((name, page) => {
-				const isTabActive = props.activeTab === page
-				const renderTab = props.renderTab || renderDefaultTab
-				return renderTab(
-					name,
-					page,
-					isTabActive,
-					props.goToPage,
-					props.tabStyle[page],
-					props.activeTabStyle[page],
-					props.textStyle[page],
-					props.activeTextStyle[page],
-					props.tabHeaderStyle[page],
-					style.tabFontSize,
-					props.disabled[page],
-					props.disabledTextColor
-				)
-			})}
-			<Animated.View style={[tabUnderlineStyle, { left }, props.underlineStyle]} />
+		<TabContainer style={stylez.tabContainer}>
+			{tabs.map((name, page) => renderTab(name, page))}
+			<Animated.View style={stylez.view} />
 		</TabContainer>
 	)
 }
 
 if (__DEV__) {
-	const { array, func, number, object, oneOfType, string } = require("/utils/propTypes")
-	const { style } = require("react-native").ViewPropTypes
+	const { array, func, number, object, oneOfType, string, ViewPropTypes } = require("/utils/propTypes")
+	const { style } = ViewPropTypes
 	DefaultTabBarElement.propTypes = {
 		goToPage: func,
 		activeTab: number,

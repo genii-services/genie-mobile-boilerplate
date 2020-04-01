@@ -9,7 +9,7 @@ const { Keyboard, Animated } = require("react-native")
 const { ABSOLUTE, BOTTOM, PC100, TOP } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
-const { createCoordinator, forwardRef, useEffect, useState, useThis } = require("/hooks")
+const { createCoordinator, forwardRef, globalStore, useEffect, useState, useThis } = require("/hooks")
 
 const Text = require("./Text")
 const Button = require("./Button")
@@ -21,10 +21,12 @@ const POSITION = {
 	TOP,
 }
 
+globalStore.set("Toast", { type: "Toast" })
+
 const ToastContainerElement = () => {
 	console.debug(MODULE_NAME$, "called")
 	const _this = useThis()
-	const [_fadeAnim, set_fadeAnim] = useState(new Animated.Value(0))
+	const [_fadeAnim, set_fadeAnim] = useState(() => new Animated.Value(0))
 	const [_keyboardHeight, set_keyboardHeight] = useState(0)
 	const [_isKeyboardVisible, set_isKeyboardVisible] = useState(false)
 	const [_modalVisible, set_modalVisible] = useState(false)

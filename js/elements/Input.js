@@ -6,15 +6,19 @@ const { TextInput } = require("react-native")
 
 const { connectStyle } = require("/utils/style")
 const { forwardRef, useStore, useThis } = require("/hooks")
+const { useStyle } = require("/coordinators")
 
-const Input = props => {
-	const [theme] = useStore("theme")
-	const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
+const Input = ({ disabled, style, ...props }) => {
+	const { stylez } = useStyle(MODULE_NAME$, { rounded, style }, defaultStyle => ({
+		root: [style],
+	}))
+
 	return (
 		<TextInput
-			editable={!props.disabled}
+			editable={!disabled}
 			underlineColorAndroid="rgba(0,0,0,0)"
 			placeholderTextColor={defaultStyle.placeholderTextColor}
+			style={stylez.root}
 			{...props}
 		/>
 	)

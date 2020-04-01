@@ -10,7 +10,7 @@ const { forwardRef, useStore, useRefs } = require("/hooks")
 
 const { itsIOS, itsWeb } = require("/utils/device")
 const { connectStyle, mergeStyle } = require("/utils/style")
-
+const { useStyle } = require("/coordinators")
 const Text = require("./Text")
 
 const defaultThemeStyle = {
@@ -18,19 +18,16 @@ const defaultThemeStyle = {
 	buttonDefaultFlex: 1,
 	buttonDefaultBorderRadius: 2,
 	buttonDefaultBorderWidth: 1,
-	borderRadiusLarge: 15 * 3.8, // fontSizeBase * 3.8,
+	borderRadiusLarge: 15 * 3.8, // fontSize * 3.8,
 }
 
-const ButtonElement = ({ style, ...props }) => {
-	const refs = useRefs()
-
-	const [theme] = useStore("theme")
-	const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
-
-	const rootStyle = mergeStyle(style, {
-		borderWidth: props.bordered && defaultThemeStyle.buttonDefaultBorderWidth,
-		borderRadius:
-			props.rounded && props.bordered ? defaultThemeStyle.borderRadiusLarge : defaultThemeStyle.buttonDefaultBorderRadius,
+const ButtonElement = ({ style, transparent, onPress, ...props }) => {
+	const { bordered, rounded } = props
+	const { stylez, defaultStyle } = useStyle(MODULE_NAME$, { style, bordered, rounded }, defaultStyle => {
+		root: mergeStyle(style, {
+			borderWidth: bordered && defaultThemeStyle.buttonDefaultBorderWidth,
+			borderRadius: rounded && bordered ? defaultThemeStyle.borderRadiusLarge : defaultThemeStyle.buttonDefaultBorderRadius,
+		})
 	})
 
 	const children = itsIOS
@@ -47,14 +44,14 @@ const ButtonElement = ({ style, ...props }) => {
 		return (
 			<TouchableOpacity
 				{...props}
-				style={rootStyle}
+				style={stylez.root}
 				activeOpacity={0 < props.activeOpacity ? props.activeOpacity : defaultThemeStyle.buttonDefaultActiveOpacity}>
 				{children}
 			</TouchableOpacity>
 		)
 	}
 	if (props.rounded) {
-		const buttonStyle = rootStyle
+		const buttonStyle = stylez.root
 		const buttonFlex = props.full || props.block ? defaultThemeStyle.buttonDefaultFlex : buttonStyle.flex
 		const outerViewStyle = [{ maxHeight: buttonStyle.height }, buttonStyle, { paddingTop: undefined, paddingBottom: undefined }]
 		const innerViewStyle = [
@@ -72,7 +69,7 @@ const ButtonElement = ({ style, ...props }) => {
 				<TouchableNativeFeedback
 					background={Ripple(props.androidRippleColor || defaultStyle.androidRippleColor, true)}
 					{...props}
-					style={rootStyle}>
+					style={stylez.root}>
 					<View style={innerViewStyle}>{children}</View>
 				</TouchableNativeFeedback>
 			</View>
@@ -80,11 +77,11 @@ const ButtonElement = ({ style, ...props }) => {
 	}
 	return (
 		<TouchableNativeFeedback
-			onPress={props.onPress}
-			background={props.transparent ? Ripple(TRANSPARENT) : Ripple(defaultStyle.androidRippleColor, false)}
+			onPress={onPress}
+			background={transparent ? Ripple(TRANSPARENT) : Ripple(defaultStyle.androidRippleColor, false)}
 			{...props}
-			style={rootStyle}>
-			<View {...props} style={rootStyle}>
+			style={stylez.root}>
+			<View {...props} style={stylez.root}>
 				{children}
 			</View>
 		</TouchableNativeFeedback>

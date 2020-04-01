@@ -5,17 +5,16 @@ const React = require("react")
 const { View } = require("react-native")
 
 const { screen, itsIphoneX } = require("/utils/device")
-const { connectStyle } = require("/utils/style")
 const { useState, useStore } = require("/hooks")
+const { useStyle } = require("/coordinators")
 
 const Footer = props => {
-	const [theme] = useStore("theme")
+	if (!itsIphoneX) return <View {...props} />
 
-	if (itsIphoneX) {
-		const { style } = props
-		const itsPortrait = screen.isPortrait()
+	const { style } = props
+	const itsPortrait = screen.isPortrait()
 
-		const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
+	const { stylez } = useStyle(MODULE_NAME$, { style }, defaultStyle => {
 		const inset = defaultStyle.Inset
 		const InsetValues = itsPortrait ? inset.portrait : inset.landscape
 
@@ -32,10 +31,9 @@ const Footer = props => {
 		} else {
 			paddingBottom = InsetValues.bottomInset
 		}
-		const viewStyle = [style, { height, paddingBottom }]
-		return <View {...props} style={viewStyle} />
-	}
-	return <View {...props} />
+		return { view: [style, { height, paddingBottom }] }
+	})
+	return <View {...props} style={stylez.view} />
 }
 
 if (__DEV__) {
@@ -45,4 +43,6 @@ if (__DEV__) {
 		style: oneOfType([object, number, array]),
 	}
 }
+
+// const { connectStyle } = require("/utils/style")
 module.exports = Footer //connectStyle(Footer, MODULE_NAME$)

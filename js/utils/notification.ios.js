@@ -1,6 +1,6 @@
 /** 공통 라이브러리 */
 const MODULE_NAME$ = "interactors/notification.ios"
-console.debug(MODULE_NAME$, "load")
+console.debug(MODULE_NAME$)
 
 const PushNotificationIOS = require("@react-native-community/push-notification-ios")
 // const { requestNotifications } = require("react-native-permissions")

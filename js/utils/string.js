@@ -3,7 +3,7 @@
  * 200309 toSerialize 추가
  * 191206 한일 소스 정리
  */
-console.debug("utils/string", "load")
+console.debug("utils/string")
 
 const _ = require("lodash")
 const moment = require("moment")

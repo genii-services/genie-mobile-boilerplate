@@ -5,22 +5,24 @@ const React = require("react")
 const { Platform, TouchableHighlight, TouchableNativeFeedback, View } = require("react-native")
 
 const { itsIOS, itsWeb } = require("/utils/device")
-const { connectStyle } = require("/utils/style")
-const { useStore } = require("/hooks")
+const { useStyle } = require("/coordinators")
 
 const ListItem = props => {
-	const [theme] = useStore("theme")
+	const { stylez } = useStyle(MODULE_NAME$, undefined, defaultStyle => ({
+		view: { marginLeft: -17, paddingLeft: 17 },
+	}))
 
-	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
-	const viewStyle = { marginLeft: -17, paddingLeft: 17 }
-
-	return itsIOS || itsWeb || style.androidRipple === false || (!props.onPress && !props.onLongPress) || Platform.Version <= 21 ? (
-		<TouchableHighlight underlayColor={style.listBtnUnderlayColor} {...props} style={props.touchableHighlightStyle}>
+	return itsIOS ||
+		itsWeb ||
+		defaultStyle.androidRipple === false ||
+		(!props.onPress && !props.onLongPress) ||
+		Platform.Version <= 21 ? (
+		<TouchableHighlight style={props.touchableHighlightStyle} underlayColor={defaultStyle.listBtnUnderlayColor} {...props}>
 			<View {...props} testID={undefined} />
 		</TouchableHighlight>
 	) : (
 		<TouchableNativeFeedback {...props}>
-			<View style={viewStyle}>
+			<View style={stylez.view}>
 				<View {...props} testID={undefined} />
 			</View>
 		</TouchableNativeFeedback>
@@ -38,4 +40,5 @@ if (__DEV__) {
 	}
 }
 
+// const { connectStyle } = require("/utils/style")
 module.exports = ListItem //connectStyle(ListItem, "NativeBase.ListItem")

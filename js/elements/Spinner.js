@@ -4,17 +4,14 @@ console.debug(MODULE_NAME$)
 const React = require("react")
 const { ActivityIndicator } = require("react-native")
 
-const { connectStyle } = require("/utils/style")
-const { useState, useStore, useThis } = require("/hooks")
+const { useStyle } = require("/coordinators")
 
 const SpinnerElement = ({ color, ...props }) => {
-	const [theme] = useStore("theme")
-
-	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
+	const { defaultStyle } = useStyle()
 	return (
 		<ActivityIndicator
 			{...props}
-			color={color ? color : props.inverse ? style.inverseSpinnerColor : style.defaultSpinnerColor}
+			color={color ? color : props.inverse ? defaultStyle.inverseSpinnerColor : defaultStyle.defaultSpinnerColor}
 			size={props.size || "large"}
 		/>
 	)
@@ -29,4 +26,5 @@ if (__DEV__) {
 	}
 }
 
+// const { connectStyle } = require("/utils/style")
 module.exports = SpinnerElement // connectStyle(SpinnerElement, MODULE_NAME$)

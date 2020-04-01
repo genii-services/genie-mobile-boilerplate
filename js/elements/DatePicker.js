@@ -3,6 +3,7 @@ const { Modal, View } = require("react-native")
 const DateTimePicker = require("@react-native-community/datetimepicker")
 
 const { useState, useStore } = require("/hooks")
+const { useStyle } = require("/coordinators")
 
 const Text = require("./Text")
 
@@ -24,16 +25,20 @@ const DatePicker = props => {
 	const [_defaultDate] = useState(() => props.defaultDate || new Date())
 	const [_chosenDate, set_chosenDate] = useState(() => !props.placeHolderText && props.defaultDate && props.defaultDate)
 
-	const [theme] = useStore("theme")
-	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
-	const placeHolderTextStyle = [
-		{ padding: style.datePickerPadding, color: style.datePickerTextColor },
-		_chosenDate ? textStyle : props.placeHolderTextStyle,
-	]
-	const modalTextStyle = {
-		backgroundColor: style.datePickerBg,
-		flex: style.datePickerFlex,
-	}
+	const { placeHolderTextStyle } = props
+	const { stylez } = useStyle(MODULE_NAME$, { placeHolderTextStyle, textStyle }, defaultStyle => ({
+		placeHolderText: [
+			{
+				padding: defaultStyle.datePickerPadding,
+				color: defaultStyle.datePickerTextColor,
+			},
+			_chosenDate ? textStyle : placeHolderTextStyle,
+		],
+		modalText: {
+			backgroundColor: style.datePickerBg,
+			flex: style.datePickerFlex,
+		},
+	}))
 
 	const showDatePicker = () => {
 		if (disabled) return
@@ -57,7 +62,7 @@ const DatePicker = props => {
 	return (
 		<View>
 			<View>
-				<Text onPress={showDatePicker} style={placeHolderTextStyle}>
+				<Text onPress={showDatePicker} style={stylez.placeHolderText}>
 					{_chosenDate ? formatChosenDate(_chosenDate) : placeHolderText}
 				</Text>
 				<Modal
@@ -66,7 +71,7 @@ const DatePicker = props => {
 					transparent={modalTransparent} // from api
 					visible={_modalVisible}
 					onRequestClose={handleOnRequestClose}>
-					<Text onPress={handleOnPress} style={modalTextStyle} />
+					<Text onPress={handleOnPress} style={stylez.modalText} />
 					<DateTimePicker
 						value={_chosenDate || _defaultDate}
 						minimumDate={minimumDate}

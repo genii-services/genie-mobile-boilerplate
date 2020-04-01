@@ -93,7 +93,7 @@ module.exports = style => {
 			},
 			IconElement: { alignSelf: null, fontSize: style.iconSize - 8, color: style.cardBorderColor },
 			IconNBElement: { alignSelf: null, fontSize: style.iconSize - 8, color: style.cardBorderColor },
-			TextElement: { fontSize: style.fontSizeBase, alignSelf: null },
+			TextElement: { fontSize: style.fontSize, alignSelf: null },
 			ThumbnailElement: { alignSelf: null },
 			ImageElement: { alignSelf: null },
 			RadioElement: { alignSelf: null },

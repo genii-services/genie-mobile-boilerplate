@@ -4,23 +4,17 @@ console.debug(MODULE_NAME$)
 const React = require("react")
 const { View } = require("react-native")
 
-const { computeProps } = require("/utils/props")
-const { connectStyle } = require("/utils/style")
+const { useStyle } = require("/coordinators")
 
-const InputGroup = props => {
-	const [theme] = useStore("theme")
-	const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
-
-	const defaultProps = {
-		style: {
-			borderWidth: props.rounded && 1,
-			borderRadius: props.rounded && defaultStyle.inputGroupRoundedBorderRadius,
+const InputGroup = ({ rounded, style, ...props }) => {
+	const { stylez } = useStyle(MODULE_NAME$, { rounded, style }, defaultStyle => ({
+		root: {
+			borderWidth: rounded && 1,
+			borderRadius: rounded && defaultStyle.inputGroupRoundedBorderRadius,
 		},
-	}
+	}))
 
-	const rootProps = computeProps(props, defaultProps)
-
-	return <View {...rootProps}>{props.children}</View>
+	return <View {...props} style={stylez.root}></View>
 }
 
 if (__DEV__) {
@@ -36,4 +30,5 @@ if (__DEV__) {
 	}
 }
 
+// const { connectStyle } = require("/utils/style")
 module.exports = InputGroup //connectStyle(InputGroup, MODULE_NAME$)

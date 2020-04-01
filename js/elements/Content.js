@@ -6,6 +6,7 @@ const { SafeAreaView } = require("react-native")
 const { KeyboardAwareScrollView } = require("react-native-keyboard-aware-scroll-view")
 
 const { forwardRef, useStore, useThis } = require("/hooks")
+const { useStyle } = require("/coordinators")
 const { itsIphoneX } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
 
@@ -18,13 +19,19 @@ const ContentElement = ({
 	...props
 }) => {
 	const _this = useThis()
-	const [theme] = useStore("theme")
-	const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
-	const containerStyle = { flex: 1 }
+
+	const { stylez } = useStyle(MODULE_NAME$, { contentContainerStyle, padder }, defaultStyle => ({
+		container: { flex: 1 },
+		contentContainer: [
+			{
+				padding: padder && defaultStyle.contentPadding,
+			},
+			contentContainerStyle,
+		],
+	}))
 	const resetScrollToCoords = disableKBDismissScroll ? null : { x: 0, y: 0 }
-	contentContainerStyle = [{ padding: padder && defaultStyle.contentPadding }, contentContainerStyle]
 	return itsIphoneX ? (
-		<SafeAreaView style={containerStyle}>
+		<SafeAreaView style={stylez.container}>
 			<KeyboardAwareScrollView
 				automaticallyAdjustContentInsets={false}
 				resetScrollToCoords={resetScrollToCoords}
@@ -35,7 +42,7 @@ const ContentElement = ({
 				}}
 				{...props}
 				style={style}
-				contentContainerStyle={contentContainerStyle}
+				contentContainerStyle={stylez.contentContainer}
 			/>
 		</SafeAreaView>
 	) : (
@@ -48,7 +55,7 @@ const ContentElement = ({
 				// if (ref) ref.current = c
 			}}
 			{...props}
-			contentContainerStyle={contentContainerStyle}
+			contentContainerStyle={stylez.contentContainer}
 		/>
 	)
 }

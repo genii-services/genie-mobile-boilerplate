@@ -14,29 +14,25 @@ const { itsIOS } = require("/utils/device")
 const CheckBoxElement = props => {
 	const { color, checked } = props
 
-	const [theme] = useStore("theme")
-	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
-	const { itsUnitedStyle } = style
-
-	const rootProps = computeProps(props, {
-		style: {
-			borderColor: color || style.checkboxBgColor,
-			backgroundColor: checked ? color || style.checkboxBgColor : style.checkboxDefaultColor,
+	const { stylez, defaultStyle } = useStyle(MODULE_NAME$, { color, checked }, defaultStyle => ({
+		root: {
+			borderColor: color || defaultStyle.checkboxBgColor,
+			backgroundColor: checked ? color || defaultStyle.checkboxBgColor : defaultStyle.checkboxDefaultColor,
 		},
-	})
+		icon: {
+			color: checked ? defaultStyle.checkboxTickColor : defaultStyle.checkboxDefaultColor,
+			fontSize: defaultStyle.CheckboxFontSize,
+			lineHeight: defaultStyle.CheckboxIconSize,
+			marginTop: defaultStyle.CheckboxIconMarginTop,
+			textShadowRadius: defaultStyle.checkboxTextShadowRadius,
+		},
+	}))
 
-	const iconStyle = {
-		color: checked ? style.checkboxTickColor : style.checkboxDefaultColor,
-		fontSize: style.CheckboxFontSize,
-		lineHeight: style.CheckboxIconSize,
-		marginTop: style.CheckboxIconMarginTop,
-		textShadowRadius: style.checkboxTextShadowRadius,
-	}
-	const iconName = itsIOS && !itsUnitedStyle ? "ios-checkmark" : "md-checkmark"
-
+	const rootProps = computeProps(props, stylez.root)
+	const iconName = itsIOS && !defaultStyle.itsUnitedStyle ? "ios-checkmark" : "md-checkmark"
 	return (
 		<TouchableOpacity {...rootProps}>
-			<Ionicons style={iconStyle} name={iconName} />
+			<Ionicons style={stylez.icon} name={iconName} />
 		</TouchableOpacity>
 	)
 }

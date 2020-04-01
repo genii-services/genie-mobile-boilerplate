@@ -27,8 +27,7 @@ const MainDrawer = props => {
 	const [_spreadz, set_spreadz] = useState({})
 	const [_userID, set_userID] = useState()
 
-	const { getStyle } = useStyle()
-	const style = getStyle(MainDrawer)
+	const { style } = useStyle(MainDrawer)
 
 	const { authToken, userInfo } = useAuth()
 

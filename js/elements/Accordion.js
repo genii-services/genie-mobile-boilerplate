@@ -5,6 +5,7 @@ const { Animated, TouchableWithoutFeedback, FlatList, View } = require("react-na
 
 const { BLACK, CENTER, ROW, SPACE_BETWEEN } = require("/constants/style")
 const { useState, useStore } = require("/hooks")
+const { useStyle } = require("/coordinators")
 
 const Text = require("./Text")
 const Icon = require("./Icon")
@@ -19,86 +20,82 @@ const defaultThemeStyle = {
 	iconStyle: BLACK,
 }
 
-const DefaultHeader = props => {
-	const [theme] = useStore("theme")
-	const { expanded, expandedIcon, expandedIconStyle, headerStyle, icon, iconStyle, title } = props
-	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
-	return (
-		<View
-			style={[
+const DefaultHeader = ({ expanded, expandedIcon, expandedIconStyle, headerStyle, icon, iconStyle, title }) => {
+	const { stylez } = useStyle(
+		DefaultHeader,
+		{ expanded, expandedIcon, expandedIconStyle, headerStyle, icon, iconStyle },
+		defaultStyle => ({
+			view: [
 				// eslint-disable-next-line no-use-before-define
 				styles.defaultHeader,
-				headerStyle || { backgroundColor: style.headerStyle },
-			]}>
+				headerStyle || { backgroundColor: defaultStyle.headerStyle },
+			],
+			icon: [
+				{ fontSize: defaultStyle.accordionIconFontSize },
+				expanded
+					? expandedIcon && expandedIconStyle
+						? expandedIconStyle
+						: { color: defaultStyle.expandedIconStyle }
+					: icon && iconStyle
+					? iconStyle
+					: { color: defaultStyle.iconStyle },
+			],
+		})
+	)
+	return (
+		<View style={stylez.view}>
 			<Text> {title}</Text>
-			<Icon
-				style={[
-					{ fontSize: style.accordionIconFontSize },
-					expanded
-						? expandedIcon && expandedIconStyle
-							? expandedIconStyle
-							: { color: style.expandedIconStyle }
-						: icon && iconStyle
-						? iconStyle
-						: { color: style.iconStyle },
-				]}
-				name={expanded ? expandedIcon || "ios-arrow-up" : icon || "ios-arrow-down"}
-			/>
+			<Icon style={stylez.icon} name={expanded ? expandedIcon || "ios-arrow-up" : icon || "ios-arrow-down"} />
 		</View>
 	)
 }
 
-const DefaultContent = props => {
-	const [theme] = useStore("theme")
-	const { content, contentStyle } = props
-	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
-	return (
-		<Text style={[{ padding: defaultThemeStyle.accordionContentPadding }, contentStyle || { backgroundColor: style.contentStyle }]}>
-			{content}
-		</Text>
-	)
+const DefaultContent = ({ content, contentStyle }) => {
+	const { stylez } = useStyle(DefaultContent, { contentStyle }, defaultStyle => ({
+		text: [
+			{
+				padding: defaultThemeStyle.accordionContentPadding,
+			},
+			contentStyle || { backgroundColor: defaultStyle.contentStyle },
+		],
+	}))
+	return <Text style={stylez.text}>{content}</Text>
 }
 
-const AccordionSubItem = props => {
+const AccordionSubItem = ({ children, style }) => {
 	const [_fadeAnim, set_fadeAnim] = useState(() => new Animated.Value(0.3))
 	useEffect(() => {
 		Animated.timing(_fadeAnim, { toValue: 1, duration: 500, useNativeDriver: true }).start()
 	}, [])
-
-	const { children, style } = props
 	return <Animated.View style={{ ...style, opacity: _fadeAnim }}>{children}</Animated.View>
 }
 
-const AccordionItem = props => {
-	const {
-		contentStyle,
-		expanded,
-		expandedIcon,
-		expandedIconStyle,
-		headerStyle,
-		icon,
-		iconStyle,
-		index,
-		item,
-		onAccordionClose,
-		onAccordionOpen,
-		renderContent,
-		renderHeader,
-		setSelected,
-	} = props
-
+const AccordionItem = ({
+	contentStyle,
+	expanded,
+	expandedIcon,
+	expandedIconStyle,
+	headerStyle,
+	icon,
+	iconStyle,
+	index,
+	item,
+	onAccordionClose,
+	onAccordionOpen,
+	renderContent,
+	renderHeader,
+	setSelected,
+}) => {
+	const handleOnPress = () => {
+		onAccordionOpen && !expanded && onAccordionOpen(item, index)
+		onAccordionClose && expanded && onAccordionClose(item, index)
+		setSelected(index)
+	}
 	return (
 		<View>
-			<TouchableWithoutFeedback
-				onPress={() => {
-					onAccordionOpen && !expanded && onAccordionOpen(item, index)
-					onAccordionClose && expanded && onAccordionClose(item, index)
-					setSelected(index)
-				}}>
+			<TouchableWithoutFeedback onPress={handleOnPress}>
 				<View>
-					{renderHeader ? (
-						renderHeader(item, expanded)
-					) : (
+					{renderHeader(item, expanded) || (
 						<DefaultHeader
 							expanded={expanded}
 							expandedIcon={expandedIcon}
@@ -113,7 +110,7 @@ const AccordionItem = props => {
 			</TouchableWithoutFeedback>
 			{expanded && (
 				<AccordionSubItem>
-					{renderContent ? renderContent(item) : <DefaultContent content={item.content} contentStyle={contentStyle} />}
+					{renderContent(item) || <DefaultContent content={item.content} contentStyle={contentStyle} />}
 				</AccordionSubItem>
 			)}
 		</View>
@@ -136,23 +133,25 @@ const AccordionElement = ({
 	style,
 	...props
 }) => {
-	const [theme] = useStore("theme")
 	const [_selected, set_selected] = useState(props.expanded)
+
+	const { stylez } = useStyle(defaultStyle => {
+		list: [
+			{
+				borderColor: defaultStyle.accordionBorderColor,
+				borderWidth: defaultStyle.borderWidth,
+			},
+			style,
+		]
+	})
 
 	const setSelected = index => set_selected(_selected != index && index)
 
-	const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
 	return (
 		<FlatList
 			data={dataArray}
 			extraData={_selected}
-			style={[
-				{
-					borderColor: defaultStyle.accordionBorderColor,
-					borderWidth: defaultStyle.borderWidth,
-				},
-				style,
-			]}
+			style={stylez.list}
 			keyExtractor={(item, index) => String(index)}
 			renderItem={({ item, index }) => (
 				<AccordionItem

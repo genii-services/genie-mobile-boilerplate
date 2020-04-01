@@ -3,30 +3,26 @@ console.debug(MODULE_NAME$)
 
 const React = require("react")
 const ReactNative = require("react-native")
-const { View, Animated, ScrollView, Platform } = ReactNative
+const { View, Animated, ScrollView } = ReactNative
 const { isEqual } = require("lodash")
 
 const { ABSOLUTE, BLACK, BOLD, CENTER, NORMAL, ROW } = require("/constants/style")
-const { deviceWidth } = require("/utils/device")
+const { deviceWidth, itsAndroid, itsIOS } = require("/utils/device")
 const { connectStyle } = require("/utils/style")
 const { useState, useStore, useThis } = require("/hooks")
+const { useStyle } = require("/coordinators")
 
 const TabHeading = require("../TabHeading")
 const Text = require("../Text")
 const Button = require("./Button")
 
 const ScrollableTabBar = props => {
-	const [theme] = useStore("theme")
-	const _this = useThis()
-
-	const getInitialState = () => {
-		_this._tabsMeasurements = []
-		return {
-			_leftTabUnderline: new Animated.Value(0),
-			_widthTabUnderline: new Animated.Value(0),
-			_containerWidth: null,
-		}
-	}
+	const _this = useThis(() => {
+		_tabsMeasurements: []
+	})
+	const [_leftTabUnderline] = useState(() => new Animated.Value(0))
+	const [_widthTabUnderline] = useState(() => new Animated.Value(0))
+	const [_containerWidth, set_containerWidth] = useState(null)
 
 	useEffect(() => {
 		props.scrollValue.addListener(updateView)
@@ -39,7 +35,7 @@ const ScrollableTabBar = props => {
 		const tabCount = props.tabs.length
 		const lastTabPosition = tabCount - 1
 
-		if (tabCount === 0 || offset.value < 0 || offset.value > lastTabPosition) return
+		if (tabCount === 0 || offset.value < 0 || lastTabPosition < offset.value) return
 
 		if (necessarilyMeasurementsCompleted(position, position === lastTabPosition)) {
 			updateTabPanel(position, pageOffset)
@@ -67,9 +63,9 @@ const ScrollableTabBar = props => {
 
 		// center tab and smooth tab change (for when tabWidth changes a lot between two tabs)
 		newScrollX -= (containerWidth - (1 - pageOffset) * tabWidth - pageOffset * nextTabWidth) / 2
-		newScrollX = newScrollX >= 0 ? newScrollX : 0
+		newScrollX = 0 <= newScrollX ? newScrollX : 0
 
-		if (Platform.OS === "android") {
+		if (itsAndroid) {
 			_this.scrollViewRef.scrollTo({ x: newScrollX, y: 0, animated: false })
 		} else {
 			const rightBoundScroll = _this._tabContainerMeasurements.width - _this._containerMeasurements.width
@@ -97,42 +93,6 @@ const ScrollableTabBar = props => {
 		}
 	}
 
-	const renderTab = (
-		name,
-		page,
-		isTabActive,
-		onPressHandler,
-		onLayoutHandler,
-		tabStyle,
-		activeTabStyle,
-		textStyle,
-		activeTextStyle,
-		tabHeaderStyle,
-		tabFontSize
-	) => {
-		const headerContent = typeof name !== "string" && name.props.children
-		const { activeTextColor, inactiveTextColor } = props
-		const textColor = isTabActive ? activeTextColor : inactiveTextColor
-		const fontWeight = isTabActive ? BOLD : NORMAL
-
-		if (typeof name === "string") {
-			return (
-				<Button key={`${name}_${page}`} onPress={() => onPressHandler(page)} onLayout={onLayoutHandler}>
-					<TabHeading scrollable style={isTabActive ? activeTabStyle : tabStyle} active={isTabActive}>
-						<Text style={[isTabActive ? activeTextStyle : textStyle, { fontSize: tabFontSize }]}>{name}</Text>
-					</TabHeading>
-				</Button>
-			)
-		}
-		return (
-			<Button key={`${name}_${page}`} onPress={() => onPressHandler(page)} onLayout={onLayoutHandler}>
-				<TabHeading scrollable style={tabHeaderStyle} active={isTabActive}>
-					{headerContent}
-				</TabHeading>
-			</Button>
-		)
-	}
-
 	const measureTab = (page, event) => {
 		const { x, width, height } = event.nativeEvent.layout
 		_this._tabsMeasurements[page] = { left: x, right: x + width, width, height }
@@ -144,6 +104,70 @@ const ScrollableTabBar = props => {
 		_this.tabs = props.tabs
 		set_containerWidth(null)
 	}
+
+	const { stylez, defaultStyle } = useStyle(MODULE_NAME$, {}, defaultStyle => ({
+		container: [styles.container, { backgroundColor: props.backgroundColor }, props.style],
+		tabs: [styles.tabs, { width: _containerWidth }, props.tabsContainerStyle],
+		tabUnderline: {
+			position: ABSOLUTE,
+			height: 4,
+			backgroundColor: defaultStyle.topTabBarActiveBorderColor,
+			bottom: 0,
+		},
+		view: [
+			stylez.tabUnderline,
+			{
+				left: _leftTabUnderline,
+				width: _widthTabUnderline,
+			},
+			props.underlineStyle,
+		],
+	}))
+
+	// RENDERERS
+
+	const renderTab = (name, page, onPressHandler, onLayoutHandler) => {
+		const isTabActive = props.activeTab === page
+		const tabStyle = props.tabStyle[page]
+		const activeTabStyle = props.activeTabStyle[page]
+		const textStyle = props.textStyle[page]
+		const activeTextStyle = props.activeTextStyle[page]
+		const tabHeaderStyle = props.tabHeaderStyle[page]
+		const tabFontSize = defaultStyle.tabFontSize
+
+		if (typeof props.renderTab === FUNCTION)
+			return props.renderTab(
+				name,
+				page,
+				isTabActive,
+				onPressHandler,
+				onLayoutHandler,
+				tabStyle,
+				activeTabStyle,
+				textStyle,
+				activeTextStyle,
+				tabHeaderStyle,
+				tabFontSize
+			)
+		if (typeof name === "string")
+			return (
+				<Button key={`${name}_${page}`} onPress={() => onPressHandler(page)} onLayout={onLayoutHandler}>
+					<TabHeading scrollable style={isTabActive ? activeTabStyle : tabStyle} active={isTabActive}>
+						<Text style={[isTabActive ? activeTextStyle : textStyle, { fontSize: tabFontSize }]}>{name}</Text>
+					</TabHeading>
+				</Button>
+			)
+		const headerContent = typeof name !== "string" && name.props.children
+		return (
+			<Button key={`${name}_${page}`} onPress={() => onPressHandler(page)} onLayout={onLayoutHandler}>
+				<TabHeading scrollable style={tabHeaderStyle} active={isTabActive}>
+					{headerContent}
+				</TabHeading>
+			</Button>
+		)
+	}
+
+	// HANDLERS
 
 	const onTabContainerLayout = e => {
 		_this._tabContainerMeasurements = e.nativeEvent.layout
@@ -159,21 +183,8 @@ const ScrollableTabBar = props => {
 		updateView({ value: props.scrollValue._value })
 	}
 
-	const style = theme["@@shoutem.theme/themeStyle"].defaultStyle
-	const tabUnderlineStyle = {
-		position: ABSOLUTE,
-		height: 4,
-		backgroundColor: style.topTabBarActiveBorderColor,
-		bottom: 0,
-	}
-
-	const dynamicTabUnderline = {
-		left: _leftTabUnderline,
-		width: _widthTabUnderline,
-	}
-
 	return (
-		<View style={[styles.container, { backgroundColor: props.backgroundColor }, props.style]} onLayout={_this.onContainerLayout}>
+		<View style={stylez.container} onLayout={onContainerLayout}>
 			<ScrollView
 				automaticallyAdjustContentInsets={false}
 				ref={el => (_this.scrollViewRef = el)}
@@ -184,28 +195,9 @@ const ScrollableTabBar = props => {
 				onScroll={props.onScroll}
 				bounces={false}
 				scrollsToTop={false}>
-				<View
-					style={[styles.tabs, { width: _containerWidth }, props.tabsContainerStyle]}
-					ref={el => (_this.tabContainerRef = el)}
-					onLayout={onTabContainerLayout}>
-					{props.tabs.map((name, page) => {
-						const isTabActive = props.activeTab === page
-						const renderTab = props.renderTab || renderTab
-						return renderTab(
-							name,
-							page,
-							isTabActive,
-							props.goToPage,
-							measureTab.bind(this, page),
-							props.tabStyle[page],
-							props.activeTabStyle[page],
-							props.textStyle[page],
-							props.activeTextStyle[page],
-							props.tabHeaderStyle[page],
-							style.tabFontSize
-						)
-					})}
-					<Animated.View style={[tabUnderlineStyle, dynamicTabUnderline, props.underlineStyle]} />
+				<View style={stylez.tabs} ref={el => (_this.tabContainerRef = el)} onLayout={onTabContainerLayout}>
+					{props.tabs.map((name, page) => renaderTab(name, page, props.goToPage, measureTab.bind(this, page)))}
+					<Animated.View style={stylez.view} />
 				</View>
 			</ScrollView>
 		</View>
@@ -213,8 +205,8 @@ const ScrollableTabBar = props => {
 }
 
 if (__DEV__) {
-	const { array, func, number, object, oneOfType, string } = require("/utils/propTypes")
-	const { style } = require("react-native").ViewPropTypes
+	const { array, func, number, object, oneOfType, string, ViewPropTypes } = require("/utils/propTypes")
+	const { style } = ViewPropTypes
 	ScrollableTabBar.propTypes = {
 		goToPage: func,
 		activeTab: number,

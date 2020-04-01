@@ -21,7 +21,7 @@ module.exports = style => {
 		},
 		TextElement: {
 			color: style.badgeColor,
-			fontSize: style.fontSizeBase,
+			fontSize: style.fontSize,
 			lineHeight: style.lineHeight - 1,
 			textAlign: CENTER,
 			paddingHorizontal: 3,

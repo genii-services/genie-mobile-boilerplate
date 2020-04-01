@@ -20,8 +20,8 @@ const Zocial = require("react-native-vector-icons/Zocial").default
 const iosIconz = require("/data/iconz.ios.json")
 const androidIconz = require("/data/iconz.android.json")
 const { itsAndroid, itsIOS } = require("/utils/device")
-const { connectStyle } = require("/utils/style")
 const { forwardRef, useStore, useThis } = require("/hooks")
+const { useStyle } = require("/coordinators")
 
 const IconFamilez = {
 	AntDesign,
@@ -43,9 +43,7 @@ const defaultIconFamilyName = "Ionicons"
 
 const IconElement = ({ type, name, android, ios, active, size, color }) => {
 	const _this = useThis()
-	const [theme] = useStore("theme")
-	const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
-
+	const { defaultStyle } = useStyle()
 	if (_this.isChangedProps("Icon,name", { type, name, android, ios, active })) {
 		const { itsUnitedStyle } = defaultStyle
 		if (ios && itsIOS) name = ios
@@ -92,6 +90,7 @@ if (__DEV__) {
 	}
 }
 
+// const { connectStyle } = require("/utils/style")
 exports = module.exports = IconElement //connectStyle(IconElement, MODULE_NAME$)
 exports.AntDesign = AntDesign
 exports.Entypo = Entypo

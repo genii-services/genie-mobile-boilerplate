@@ -8,10 +8,11 @@ const { TouchableOpacity, Animated, Platform, View } = require("react-native")
 const { isArray, remove } = require("lodash")
 
 const { ABSOLUTE, COLUMN, ROW } = require("/constants/style")
-const { forwardRef, useEffect, useState, useStore, useThis } = require("/hooks")
 const { deviceWidth, itsIOS } = require("/utils/device")
 const { computeProps } = require("/utils/props")
 const { connectStyle } = require("/utils/style")
+const { forwardRef, useEffect, useState, useStore, useThis } = require("/hooks")
+const { useStyle } = require("/coordinators")
 
 const Input = require("./Input")
 const Label = require("./Label")
@@ -22,11 +23,16 @@ const Item = props => {
 	const _this = useThis()
 	const [_isFocussed, set_isFocussed] = useState(true)
 	const [_text, set_text] = useState("")
-	const [_topAnim, set_topAnim] = useState(new Animated.Value(18))
-	const [_opacAnim, set_opacAnim] = useState(new Animated.Value(1))
+	const [_topAnim] = useState(() => new Animated.Value(18))
+	const [_opacAnim] = useState(() => new Animated.Value(1))
 
-	const [theme] = useStore("theme")
-	const defaultStyle = theme["@@shoutem.theme/themeStyle"].defaultStyle
+	const { rounded } = props
+	const { stylez } = useStyle(MODULE_NAME$, { rounded }, defaultStyle => ({
+		root: {
+			borderWidth: rounded && defaultStyle.borderWidth * 2,
+			borderRadius: rounded && defaultStyle.inputGroupRoundedBorderRadius,
+		},
+	}))
 
 	useEffect(() => {
 		if (props.floatingLabel && _this.inputProps) {
@@ -47,15 +53,6 @@ const Item = props => {
 		Animated.timing(_topAnim, { toValue: e || -22, duration: 150 }).start()
 		Animated.timing(_opacAnim, { toValue: 0.7, duration: 150 }).start()
 	}
-
-	const defaultProps = {
-		style: {
-			borderWidth: props.rounded && defaultStyle.borderWidth * 2,
-			borderRadius: props.rounded && defaultStyle.inputGroupRoundedBorderRadius,
-		},
-	}
-
-	const rootProps = computeProps(props, defaultProps)
 
 	// Temporary fix to avoid the crash.
 	// To be refactored to getDerivedStateFromProps.
@@ -306,7 +303,7 @@ const Item = props => {
 	}
 
 	return (
-		<TouchableOpacity {...rootProps} activeOpacity={1}>
+		<TouchableOpacity {...props} style={stylez.root} activeOpacity={1}>
 			{renderChildren()}
 		</TouchableOpacity>
 	)

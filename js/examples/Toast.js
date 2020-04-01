@@ -4,6 +4,7 @@ const { useCoordinator, useState } = require("/hooks")
 const { Button, Container, Content, Form, Header, Root, Text, Toast } = require("/elements")
 
 const ToastExample = props => {
+	console.debug(ToastExample, "called")
 	const [_selected, set_selected] = useState("key1")
 
 	const onValueChange = value => {

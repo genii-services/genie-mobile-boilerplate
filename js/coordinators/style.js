@@ -43,7 +43,7 @@ const stylez = {
 // 캐싱한 스타일
 const styleCachez = {}
 
-const useStyle = () => {
+const useStyle = target => {
 	const [store, setStore] = useStore("style")
 	if (store) return
 
@@ -110,7 +110,10 @@ const useStyle = () => {
 		return style
 	}
 
+	const style = target ? getStyle(target) : stylez
+
 	return {
+		style,
 		getStyle,
 		fontSizesIndex,
 		setFontFamily,

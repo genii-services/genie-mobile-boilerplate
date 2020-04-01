@@ -21,7 +21,7 @@ const brandWarning = "#f0ad4e"
 const toolbarDefaultBg = brandPrimary
 const tabBgColor = "#F8F8F8"
 
-const fontSizeBase = 15
+const fontSize = 15
 const iconSize = 28
 
 module.exports = {
@@ -63,8 +63,8 @@ module.exports = {
 	buttonSuccessBg: brandSuccess,
 	buttonDangerBg: brandDanger,
 	buttonWarningBg: brandWarning,
-	buttonTextSize: fontSizeBase - 1,
-	borderRadiusLarge: fontSizeBase * 3.8,
+	buttonTextSize: fontSize - 1,
+	borderRadiusLarge: fontSize * 3.8,
 
 	// Card
 	cardDefaultBg: WHITE,
@@ -103,10 +103,10 @@ module.exports = {
 	// Font
 	DefaultFontSize: 16,
 	fontFamily,
-	fontSizeBase,
-	fontSizeH1: fontSizeBase * 1.8,
-	fontSizeH2: fontSizeBase * 1.6,
-	fontSizeH3: fontSizeBase * 1.4,
+	fontSize,
+	fontSizeH1: fontSize * 1.8,
+	fontSizeH2: fontSize * 1.6,
+	fontSizeH3: fontSize * 1.4,
 
 	// Footer
 	footerHeight: 55,

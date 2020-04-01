@@ -1,6 +1,6 @@
 /** 공통 라이브러리 */
 const MODULE_NAME$ = "interactors/notification.android"
-console.debug(MODULE_NAME$, "load")
+console.debug(MODULE_NAME$)
 
 const messaging = require("@react-native-firebase/messaging").default
 

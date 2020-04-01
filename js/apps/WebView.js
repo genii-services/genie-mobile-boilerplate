@@ -2,17 +2,17 @@ const React = require("react")
 // const { useState } = React
 const { Body, Card, CardItem, Container, Content, Header, Html, Icon, Right, Text } = require("/elements")
 
-const fontSizeBase = 15
+const fontSize = 15
 const fontSizez = {
-	"-4": parseInt(fontSizeBase * 0.6),
-	"-3": parseInt(fontSizeBase * 0.7),
-	"-2": parseInt(fontSizeBase * 0.8),
-	"-1": parseInt(fontSizeBase * 0.9),
-	"0": fontSizeBase,
-	"+1": fontSizeBase * 1.2,
-	"+2": fontSizeBase * 1.4,
-	"+3": fontSizeBase * 1.6,
-	"+4": fontSizeBase * 1.8,
+	"-4": parseInt(fontSize * 0.6),
+	"-3": parseInt(fontSize * 0.7),
+	"-2": parseInt(fontSize * 0.8),
+	"-1": parseInt(fontSize * 0.9),
+	"0": fontSize,
+	"+1": fontSize * 1.2,
+	"+2": fontSize * 1.4,
+	"+3": fontSize * 1.6,
+	"+4": fontSize * 1.8,
 }
 console.log(fontSizez[+1])
 
