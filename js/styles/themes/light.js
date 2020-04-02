@@ -17,7 +17,16 @@ const brandWarning = "#f0ad4e"
 const toolbarDefaultBg = itsIOS ? "#F8F8F8" : "#3F51B5"
 const tabBgColor = "#F8F8F8"
 
-const fontFamily = itsIOS ? "System" : "System"
+// FONTS
+
+const fontFamily = itsIOS ? "HelveticaNeue" : "System"
+const fontSizesArray = [
+	[6, 7, 8, 10, 12, 13, 14, 15, 16, 17, 20, 24, 25], // 작게
+	[7, 8, 10, 12, 13, 14, 15, 16, 17, 20, 24, 25, 30], // 조금 작게
+	[8, 10, 12, 13, 14, 15, 16, 17, 20, 24, 25, 30, 32], // 표준
+	[10, 12, 13, 14, 15, 16, 17, 20, 24, 25, 30, 32, 34], // 조금 크게
+	[12, 13, 14, 15, 16, 17, 20, 24, 25, 30, 32, 34, 36], // 크게
+]
 const fontSize = 15
 const iconSize = itsIOS ? 30 : 28
 

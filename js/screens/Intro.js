@@ -1,4 +1,5 @@
-console.debug("IntroScreen")
+const MODULE_NAME$ = "IntroScreen"
+console.debug(MODULE_NAME$)
 
 const React = require("react")
 const { TouchableHighlight, Text } = require("react-native")
@@ -15,13 +16,15 @@ const Logo = require("/viewparts")
 const IntroScreen = props => {
 	const router = useRouter()
 
-	const { getStyle } = useStyle()
-	const style = getStyle(IntroScreen)
+	const { stylez } = useStyle(MODULE_NAME$, { style })
+
+	const handleOnPress = () => router.push("login")
+
 	return (
-		<Container style={style.container}>
+		<Container style={stylez.container}>
 			{/*<Logo style={style.logo} onPress={() => router.push("login")} />*/}
-			<TouchableHighlight underlayColor="rgba(0,0,0,0)" onPress={() => router.push("login")}>
-				<Text style={style.copyright}>{appInfo.copyright}</Text>
+			<TouchableHighlight underlayColor="rgba(0,0,0,0)" onPress={handleOnPress}>
+				<Text style={stylez.copyright}>{appInfo.copyright}</Text>
 			</TouchableHighlight>
 		</Container>
 	)

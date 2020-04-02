@@ -1,6 +1,6 @@
 /** Permission Screen Style */
-const { W50PC } = require("/styles")
 const { CENTER, FLEX_START, NORMAL, PC100, ROW } = require("/constants/style")
+const { screen } = require("/utils/device")
 
 const PermissionScreenStyle = ({ colors, fontFamily }) => {
 	return {
@@ -46,7 +46,7 @@ const PermissionScreenStyle = ({ colors, fontFamily }) => {
 		},
 		buttonText: {
 			textAlign: CENTER,
-			width: W50PC,
+			width: screen.min / 2,
 			fontSize: 14,
 			color: colors.light,
 		},
