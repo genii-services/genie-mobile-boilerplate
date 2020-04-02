@@ -43,7 +43,7 @@ const stylez = {
 // 캐싱한 스타일
 const styleCachez = {}
 
-const useStyle = target => {
+const useStyle = (target, conditionz, initialStyle) => {
 	const [store, setStore] = useStore("style")
 	if (store) return
 
@@ -79,10 +79,14 @@ const useStyle = target => {
 		resetCache()
 	}
 
-	const getStyle = (target, initialStyle) => {
+	const getStyle = (target, conditionz, initialStyle) => {
 		const name = getName(target)
-		let style = styleCachez[name]
-		if (!style) {
+		if (!isEqual(styleConditionz[name], conditionz)) {
+			styleConditionz[name] = conditionz
+		}
+
+		let stylez = styleCachez[name]
+		if (!stylez) {
 			if (!initialStyle)
 				initialStyle =
 					target.getDefaultStyle ||
@@ -105,15 +109,15 @@ const useStyle = target => {
 				default:
 					style = {}
 			}
-			style = styleCachez[name] = StyleSheet.create(style)
+			stylez = styleCachez[name] = StyleSheet.create(style)
 		}
-		return style
+		return stylez
 	}
 
-	const style = target ? getStyle(target) : stylez
+	const stylez = target ? getStyle(target, conditionz, initialStyle) : stylez
 
 	return {
-		style,
+		stylez,
 		getStyle,
 		fontSizesIndex,
 		setFontFamily,

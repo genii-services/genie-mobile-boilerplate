@@ -5,8 +5,8 @@ const { OBJECT } = require("/constants")
 const keyList = Object.keys
 const hasProp = Object.prototype.hasOwnProperty
 
+// fast-deep-equal index.js 2.0.1
 function _isEqual(a, b) {
-	// fast-deep-equal index.js 2.0.1
 	if (a === b) return true
 
 	if (a && b && typeof a == OBJECT && typeof b == OBJECT) {
