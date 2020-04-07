@@ -12,20 +12,23 @@ const STRING = "string"
 const LIST = "list"
 const MAP = "map"
 
-const IOS = "ios"
 const ANDROID = "android"
+const IOS = "ios"
 const WEB = "web"
 
 const UTF8 = "utf8"
 
-String.UNDEFINED = UNDEFINED
-String.BOOLEAN = BOOLEAN
-String.FUNCTION = FUNCTION
-String.NUMBER = NUMBER
-String.OBJECT = OBJECT
-String.STRING = STRING
-String.IOS = IOS
-String.ANDROID = ANDROID
+// 전역 설정
+
+global.UNDEFINED = String.UNDEFINED = UNDEFINED
+global.BOOLEAN = String.BOOLEAN = BOOLEAN
+global.FUNCTION = String.FUNCTION = FUNCTION
+global.NUMBER = String.NUMBER = NUMBER
+global.OBJECT = String.OBJECT = OBJECT
+global.STRING = String.STRING = STRING
+global.ANDROID = String.ANDROID = ANDROID
+global.IOS = String.IOS = IOS
+global.WEB = String.WEB = WEB
 
 module.exports = {
 	UNDEFINED,
@@ -38,8 +41,8 @@ module.exports = {
 	LIST,
 	MAP,
 
-	IOS,
 	ANDROID,
+	IOS,
 	WEB,
 
 	UTF8,

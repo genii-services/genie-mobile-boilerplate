@@ -17,7 +17,7 @@ const {
 
 const router = require("/utils/router")
 
-const { NUMBER, STRING } = require("/constants")
+const { FUNCTION, NUMBER, STRING } = require("/constants")
 const { useStore, useThis } = require("/hooks")
 
 const useRouter = () => {
@@ -46,7 +46,7 @@ const useRouter = () => {
 
 	const jump = (key, props) => Actions.jump(key, props)
 
-	const refresh = props => Actions.refresh(props)
+	const refresh = (props) => Actions.refresh(props)
 
 	const replace = (key, props) => Actions.replace(key, props)
 
@@ -68,16 +68,16 @@ const useRouter = () => {
 
 	const launch = (appPath, appName, options) => launchApp(appPath, appName, options)
 
-	const browse = uri => {
+	const browse = (uri) => {
 		console.debug("router.browse", uri)
-		Linking.openURL(uri).catch(err => console.warn("An error occurred", err))
+		Linking.openURL(uri).catch((err) => console.warn("An error occurred", err))
 	}
 
-	const handleOnEnter = props => {
+	const handleOnEnter = (props) => {
 		typeof _this.onEnterScreen === FUNCTION && _this.onEnterScreen(props)
 	}
 
-	const setOnEnterScreen = handler => {
+	const setOnEnterScreen = (handler) => {
 		_this.onEnterScreen = handler
 	}
 
@@ -108,9 +108,9 @@ const useRouter = () => {
 	return value
 }
 
-const Drawer = props => {
+const Drawer = (props) => {
 	const { handleOnEnter } = useRouter()
-	const _handleOnEnter = _props => {
+	const _handleOnEnter = (_props) => {
 		handleOnEnter(_props)
 		typeof props.onEnter === String.FUNCTION && props.onEnter(_props)
 	}
@@ -123,9 +123,9 @@ const Router = ({ onEnterScreen, ...props }) => {
 	return <Router_ {...props} />
 }
 
-const Screen = props => {
+const Screen = (props) => {
 	const { handleOnEnter } = useRouter()
-	const _handleOnEnter = _props => {
+	const _handleOnEnter = (_props) => {
 		handleOnEnter(_props)
 		typeof props.onEnter === String.FUNCTION && props.onEnter(_props)
 	}
@@ -133,7 +133,7 @@ const Screen = props => {
 }
 
 const { StackViewStyleInterpolator } = require("react-navigation-stack")
-const Stack = props => {
+const Stack = (props) => {
 	if (!props.transitionConfig)
 		props.transitionConfig = () => {
 			screenInterpolator: StackViewStyleInterpolator.forHorizontal
