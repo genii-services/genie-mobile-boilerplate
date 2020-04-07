@@ -2,6 +2,7 @@ const React = require("react")
 const hoistStatics = require("hoist-non-react-statics")
 const _ = require("lodash")
 
+const { isEqual } = require("/utils/object")
 const { forwardRef, useRefs, useState, useStore, useThis } = require("/hooks")
 const Theme = require("./Theme")
 const resolveComponentStyle = require("./resolveComponentStyle")
@@ -90,7 +91,7 @@ exports = module.exports = (componentStyleName, componentStyle = {}, mapPropsToS
 		}
 		// console.debug("wrapWithStyledComponent", componentDisplayName)
 
-		const StyledComponent = props => {
+		const StyledComponent = (props) => {
 			const resolveStyle = () => {
 				const themeStyle = theme.createComponentStyle(componentStyleName, componentStyle)
 				const parentStyle = genealStyleNames
@@ -130,7 +131,7 @@ exports = module.exports = (componentStyleName, componentStyle = {}, mapPropsToS
 			) {
 				let resolvedStyle = {}
 				if (genealStyleNames) {
-					const getOrSetStylesInCache = path => {
+					const getOrSetStylesInCache = (path) => {
 						if (themeCache && themeCache[path.join(">")]) return themeCache[path.join(">")]
 						const resolvedStyle = resolveStyle()
 						if (Object.keys(themeCache).length < 10000) themeCache[path.join(">")] = resolvedStyle
@@ -158,7 +159,7 @@ exports = module.exports = (componentStyleName, componentStyle = {}, mapPropsToS
 				? [componentStyleName]
 				: [...genealStyleNames, componentStyleName, ...styleNames]
 
-			const setWrappedInstance = el => {
+			const setWrappedInstance = (el) => {
 				refs._root = el && el._root ? el._root : el
 				_this.wrappedInstance = refs._root
 			}

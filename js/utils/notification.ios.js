@@ -5,6 +5,7 @@ console.debug(MODULE_NAME$)
 const PushNotificationIOS = require("@react-native-community/push-notification-ios")
 // const { requestNotifications } = require("react-native-permissions")
 
+const { FUNCTION, NUMBER, STRING } = require("/constants")
 const { deviceOS } = require("/utils/device")
 
 const notification = {
@@ -44,7 +45,7 @@ function handleIOSLocalNotification(noti) {
 	console.debug(MODULE_NAME$ + ".localNotification", "You have received a new notification!", noti, noti.getMessage())
 }
 
-notification.register = function(options = ["alert", "badge", "sound"]) {
+notification.register = function (options = ["alert", "badge", "sound"]) {
 	console.debug("notification.ios.register", options.join(","))
 
 	PushNotificationIOS.requestPermissions(
@@ -58,7 +59,7 @@ notification.register = function(options = ["alert", "badge", "sound"]) {
 	PushNotificationIOS.addEventListener("localNotification", handleIOSLocalNotification)
 }
 
-notification.unregister = function() {
+notification.unregister = function () {
 	console.debug("notification.ios.unregister")
 	PushNotificationIOS.removeEventListener("register", handleIOSRegister)
 	PushNotificationIOS.removeEventListener("registrationError", handleIOSRegistrationError)

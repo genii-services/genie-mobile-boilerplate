@@ -3,9 +3,10 @@
 const _ = require("lodash")
 const { useRef } = require("react")
 
+const { FUNCTION, NUMBER, STRING } = require("/constants")
 const { isEqual } = require("/utils/object")
 
-const useThis = defaultValue => {
+const useThis = (defaultValue) => {
 	const _this = useRef(typeof defaultValue === FUNCTION ? defaultValue() : defaultValue || {})
 	const { current } = _this
 	if (!current.isChangedProps) {

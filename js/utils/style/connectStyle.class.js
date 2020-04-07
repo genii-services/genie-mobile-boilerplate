@@ -3,6 +3,7 @@ const PropTypes = require("prop-types")
 const hoistStatics = require("hoist-non-react-statics")
 const _ = require("lodash")
 
+const { isEqual } = require("/utils/object")
 const { useRefs, useState, useStore, useThis } = require("/hooks")
 const Theme = require("./Theme")
 const { ThemeShape } = Theme
@@ -202,7 +203,7 @@ module.exports = (componentStyleName, componentStyle = {}, mapPropsToStyleNames,
 				if (this.wrappedInstance.setNativeProps) this.wrappedInstance.setNativeProps(nativeProps)
 			}
 
-			setWrappedInstance = component => {
+			setWrappedInstance = (component) => {
 				this.wrappedInstance = this._root = component && component._root ? component._root : component
 			}
 
@@ -222,7 +223,7 @@ module.exports = (componentStyleName, componentStyle = {}, mapPropsToStyleNames,
 			 * @param props The component props to use to resolve the style values.
 			 * @returns {*} The resolved component style.
 			 */
-			resolveConnectedComponentStyle = props => {
+			resolveConnectedComponentStyle = (props) => {
 				const { styleName } = props
 				const styleNames = styleName ? styleName.split(/\s/g) : []
 				if (!mapPropsToStyleNames) return styleNames
