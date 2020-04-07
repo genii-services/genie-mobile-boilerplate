@@ -3,8 +3,51 @@
 const color = require("color")
 const { PixelRatio } = require("react-native")
 
-const { BLACK, FLEX_START, MATERIAL, TRANSPARENT, WHITE } = require("/constants/style")
+const styleConstantz = require("/constants/style")
+const { BLACK, CENTER, MATERIAL, TRANSPARENT, WHITE } = styleConstantz
 const { itsIOS } = require("/utils/device")
+
+// COLORS
+
+const grayscaleColors = [
+	WHITE,
+	"#cccccc",
+	"#c0c0c0",
+	"#adadad",
+	"#a3a3a3",
+	"#9b9b9b",
+	"#808080",
+	"#6f6f6f",
+	"#4a4a4a",
+	"#2f2f2f",
+	BLACK,
+]
+const backgroundColors = [TRANSPARENT, "#134a7a", "#3e83be", "#4082BF", "#eeeeee", WHITE]
+
+const grayscaleColorz = {
+	"-5": WHITE,
+	"-4": "#cccccc",
+	"-3": "#c0c0c0",
+	"-2": "#adadad",
+	"-1": "#9b9b9b",
+	"+0": "#808080",
+	"+1": "#6f6f6f",
+	"+2": "#4a4a4a",
+	"+3": "#2f2f2f",
+	"+4": BLACK,
+}
+const backgroundColorz = {
+	"-3": TRANSPARENT,
+	"-2": "#134a7a",
+	"-1": "#3e83be",
+	"+1": "#4082BF",
+	"+2": "#eeeeee",
+	"+3": WHITE,
+}
+
+// LAYOUTS
+
+const textAlign = CENTER
 
 const fontFamily = "System"
 const colors = [WHITE, "#F1F9FF", "#BCB0BD", "#7F747D", "#46494B", "#26292B", BLACK]
@@ -21,14 +64,28 @@ const brandWarning = "#f0ad4e"
 const toolbarDefaultBg = brandPrimary
 const tabBgColor = "#F8F8F8"
 
+const fontSizesArray = [
+	[6, 7, 8, 10, 12, 13, 14, 15, 16, 17, 20, 24, 25], // 작게
+	[7, 8, 10, 12, 13, 14, 15, 16, 17, 20, 24, 25, 30], // 조금 작게
+	[8, 10, 12, 13, 14, 15, 16, 17, 20, 24, 25, 30, 32], // 표준
+	[10, 12, 13, 14, 15, 16, 17, 20, 24, 25, 30, 32, 34], // 조금 크게
+	[12, 13, 14, 15, 16, 17, 20, 24, 25, 30, 32, 34, 36], // 크게
+]
 const fontSize = 15
 const iconSize = 28
 
 module.exports = {
+	...styleConstantz,
+
 	name: MATERIAL,
+
 	itsUnitedStyle: true,
 
+	fontFamily,
+	fontSizesArray,
 	colors,
+	grayscaleColors,
+	backgroundColors,
 
 	// label & placeholder
 	placeholderTextColor: "#575757",
@@ -132,12 +189,8 @@ module.exports = {
 	toolbarBtnTextColor: WHITE,
 	toolbarDefaultBorder: brandPrimary,
 	iosStatusbar: "light-content",
-	statusBarColor: color(toolbarDefaultBg)
-		.darken(0.2)
-		.hex(),
-	darkenHeader: color(tabBgColor)
-		.darken(0.03)
-		.hex(),
+	statusBarColor: color(toolbarDefaultBg).darken(0.2).hex(),
+	darkenHeader: color(tabBgColor).darken(0.03).hex(),
 
 	// Icon
 	iconFamily: "Ionicons",

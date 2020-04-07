@@ -28,7 +28,7 @@ const title = "로그인"
 
 const aboutCounter = 0
 
-const LoginScreen = props => {
+const LoginScreen = (props) => {
 	debugger
 	const _this = useThis()
 	const refs = useRefs()
@@ -41,8 +41,18 @@ const LoginScreen = props => {
 		return () => Orientation.removeOrientationListener(_handleOrientationDidChange)
 	}, [])
 
-	const { getStyle } = useStyle()
-	const style = getStyle(LoginScreen)
+	const { stylez } = useStyle(LoginScreen, {}, () => {
+		const size = screen.height
+		let margin = (size - (330 + screen.height / 3.41)) / 2
+		if (margin < 20) margin = 20
+		const logoScale = (screen.min / 360) * 0.75
+		console.debug(LoginScreen, screen.orientation, size, margin, logoScale)
+		return {
+			content: { width: screen.min * 0.8 },
+			logo: { marginTop: margin },
+			copyright: { marginTop: margin - 16 },
+		}
+	})
 
 	let { timestamp, loginInfo } = auth
 	if (typeof _emailAddress === UNDEFINED || _emailAddress !== loginInfo.emailAddress) {
@@ -58,52 +68,55 @@ const LoginScreen = props => {
 		_this.domainNames = domainNames
 	}
 
-	const handleOnPress = () => {
-		1 < domainNames?.length &&
-			ActionSheet.show({ title: "메일 도메인 선택", options: domainNames }, i => 0 <= i && set_domainName(domainNames[i]))
-	}
-
-	const renderDomainNamePicker = style => {
+	const renderDomainNamePicker = () => {
 		let { domainNames } = _this
 		console.debug(this, _domainName)
+
+		const handleOnPress = () => {
+			1 < domainNames?.length &&
+				ActionSheet.show({ title: "메일 도메인 선택", options: domainNames }, (i) => 0 <= i && set_domainName(domainNames[i]))
+		}
+
 		return (
-			<Button style={style.domainPicker} transparent onPress={handleOnPress}>
+			<Button style={stylez.domainPicker} transparent onPress={handleOnPress}>
 				<Input
-					style={style.pickerText}
+					style={stylez.pickerText}
 					value={_domainName}
 					editable={false}
-					onChangeText={domainName => set_domainName(domainName)}
+					onChangeText={(domainName) => set_domainName(domainName)}
 					onEndEditing={Keyboard.dismiss}
 				/>
-				{1 < domainNames.length && <IconFA style={style.pickerIcon} name="caret-down" />}
+				{1 < domainNames.length && <IconFA style={stylez.pickerIcon} name="caret-down" />}
 			</Button>
 		)
 	}
 
-	const handleOrientationDidChange = orientation => {
+	const handleOrientationDidChange = (orientation) => {
 		console.debug(this)
 		set_orientation(orientation)
 	}
 
-	const handleSubmit = isDevMode => {
-		if (auth.status === PROCESSING) return popup("서버에 인증 요청 중입니다.")
-		const domainName = _domainName
-		const emailName = _.trim(_emailName)
-		const password = _.trim(_password)
+	const handleOnSubmit = (isDevMode) => {
+		setTimeout(() => {
+			if (auth.status === PROCESSING) return popup("서버에 인증 요청 중입니다.")
+			const domainName = _domainName
+			const emailName = _.trim(_emailName)
+			const password = _.trim(_password)
 
-		if (isDevMode && !password) password = "qwer1234!"
+			if (isDevMode && !password) password = "qwer1234!"
 
-		// if (!companyID || companyID.length == 0) return popup("회사를 선택하세요.", title)
-		if (!emailName || emailName.length == 0) return popup("이메일 ID를 입력해야 합니다.", title)
-		if (!domainName || domainName.length == 0) return popup("이메일 도메인을 입력해야 합니다.", title)
-		if (!password || password.length == 0) return popup("암호를 입력하세요", title)
+			// if (!companyID || companyID.length == 0) return popup("회사를 선택하세요.", title)
+			if (!emailName || emailName.length == 0) return popup("이메일 ID를 입력해야 합니다.", title)
+			if (!domainName || domainName.length == 0) return popup("이메일 도메인을 입력해야 합니다.", title)
+			if (!password || password.length == 0) return popup("암호를 입력하세요", title)
 
-		const paramz = _.pick(state, ["companyID", "empID", "password", "loginInfoSavable"])
-		// payload.empID = "GW_TEST_02"
-		paramz.userID = `${paramz.companyID}.${paramz.empID}`
-		paramz.emailAddress = `${emailName}@${domainName}`
-		paramz.password = password
-		auth.login(paramz)
+			const paramz = _.pick(state, ["companyID", "empID", "password", "loginInfoSavable"])
+			// payload.empID = "GW_TEST_02"
+			paramz.userID = `${paramz.companyID}.${paramz.empID}`
+			paramz.emailAddress = `${emailName}@${domainName}`
+			paramz.password = password
+			auth.login(paramz)
+		}, 200)
 	}
 
 	const about = () => {
@@ -120,22 +133,14 @@ const LoginScreen = props => {
 		}
 	}
 
-	// if(router.getCurrentScreen() !== props.name && router.getCurrentScreen() !== "DrawerOpen") return <View />	// 이 방식으로 할 경우 router.pop한 경우 하위에 있는 컴포넌트가 빈화면으로 표시됨
-	const width = screen.min * 0.8
-	const size = screen.height
-	let margin = (size - (330 + screen.height / 3.41)) / 2
-	if (margin < 20) margin = 20
-	const logoScale = (screen.min / 360) * 0.75
-	console.debug(LoginScreen, screen.orientation, size, margin, logoScale)
 	return (
-		<Container style={_style.container}>
-			<Content style={[_style.content, { width }]}>
+		<Container style={stylez.container}>
+			<Content style={stylez.content}>
 				<KeyboardAvoidingView behavior="position">
-					<Logo style={[_style.logo, { marginTop: margin }]} scale={logoScale} />
-
-					<Item style={_style.inputContainer}>
+					<Logo style={stylez.logo} scale={logoScale} />
+					<Item style={stylez.inputContainer}>
 						<Input
-							style={[_style.input, style.emailName]}
+							style={[stylez.input, stylez.emailName]}
 							placeholder="이메일 ID"
 							placeholderTextColor={grayscaleColors[0]}
 							value={state.emailName}
@@ -143,41 +148,41 @@ const LoginScreen = props => {
 							// underlineColorAndroid=TRANSPARENT
 							// autoCorrect={false}
 							returnKeyType="next"
-							onChangeText={emailName => set_emailName(emailName)}
-							onSubmitEditing={refs.password._root.focus}
+							onChangeText={(emailName) => set_emailName(emailName)}
+							onSubmitEditing={refs.password.focus}
 						/>
 						<Text style={_style.at}>@</Text>
 						{renderDomainNamePicker(style)}
 					</Item>
-					<Item style={_style.inputContainer}>
+					<Item style={stylez.inputContainer}>
 						<Input
-							style={_style.input}
+							style={stylez.input}
 							placeholder="암호"
 							placeholderTextColor={grayscaleColors[0]}
 							secureTextEntry
-							ref={c => (refs.password = c)}
+							ref={(c) => (refs.password = c)}
 							value={state.password}
 							returnKeyType="send"
-							onChangeText={password => set_password(password)}
+							onChangeText={(password) => set_password(password)}
 							onEndEditing={Keyboard.dismiss}
-							onSubmitEditing={() => setTimeout(() => handleSubmit, 200)}
+							onSubmitEditing={handleOnSubmit}
 						/>
 					</Item>
-					<Button style={_style.button} rounded onPress={() => handleSubmit}>
-						<Text style={style.buttonLabel}>로그인</Text>
+					<Button style={stylez.button} rounded onPress={handleOnSubmit}>
+						<Text style={stylez.buttonLabel}>로그인</Text>
 					</Button>
-					<View style={_style.option}>
+					<View style={stylez.option}>
 						<CheckBox
-							style={_style.optionCheckbox}
-							checked={state.loginInfoSavable}
-							onPress={v => set_loginInfoSavable(!state.loginInfoSavable)}
+							style={stylez.optionCheckbox}
+							checked={_loginInfoSavable}
+							onPress={(v) => set_loginInfoSavable(!_loginInfoSavable)}
 						/>
-						<Text style={_style.optionText} onPress={() => __DEV__ && handleSubmit(__DEV__)}>
+						<Text style={stylez.optionText} onPress={() => __DEV__ && handleSubmit(__DEV__)}>
 							이메일 저장
 						</Text>
 					</View>
-					<Text style={[_style.copyright, { marginTop: margin - 16 }]} onPress={about}>
-						2020 AppCreatier. All rights reserved
+					<Text style={stylez.copyright} onPress={about}>
+						{appInfo.copyright}
 					</Text>
 				</KeyboardAvoidingView>
 			</Content>

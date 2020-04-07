@@ -1,17 +1,23 @@
 const $MODULE_NAME = "StyleCoordinator"
 console.debug($MODULE_NAME)
 
+const _ = require("lodash")
 const React = require("react")
 const { StyleSheet } = require("react-native")
 const { setCustomText, setCustomTextInput } = require("react-native-global-props")
 
 const { FUNCTION, OBJECT, STRING } = require("/constants")
+const { BLACK, CENTER, TRANSPARENT, WHITE } = require("/constants/style")
+const { isEqual } = require("/utils/object")
 const { globalStore, useState, useStore } = require("/hooks")
 const { assign, getName, parseJson } = require("/utils")
 const storage = require("/interactors/storage")
-const { TRANSPARENT, fontFamily, fontSizesArray, colors, grayscaleColors, backgroundColors } = require("/styles")
 
 // 초기값
+
+const themez = _.mapValues(require("/styles/themes"), (v) => (typeof v === FUNCTION ? v() : v))
+const defaultTheme = themez.light
+const { fontFamily, fontSizesArray, colors, grayscaleColors, backgroundColors } = defaultTheme
 
 const fontSizesIndex = 2
 const fontSizes = fontSizesArray[fontSizesIndex]
@@ -41,6 +47,7 @@ const stylez = {
 }
 
 // 캐싱한 스타일
+const styleConditionz = {}
 const styleCachez = {}
 
 const useStyle = (target, conditionz, initialStyle) => {
@@ -53,14 +60,14 @@ const useStyle = (target, conditionz, initialStyle) => {
 		setFontSizesIndex,
 	}
 
-	storage.load($MODULE_NAME, data => {
+	storage.load($MODULE_NAME, (data) => {
 		assign(stylez, data)
 		setFontSizesIndex(stylez.fontSizesIndex)
 	})
 
 	const resetCache = () => (styleCachez = {})
 
-	const setFontFamily = fontFamily => {
+	const setFontFamily = (fontFamily) => {
 		stylez.fontFamily = fontFamily
 		let { customText, customTextInput } = stylez
 		customText.style.fontFamily = fontFamily
@@ -70,7 +77,7 @@ const useStyle = (target, conditionz, initialStyle) => {
 		resetCache()
 	}
 
-	const setFontSizesIndex = i => {
+	const setFontSizesIndex = (i) => {
 		store.fontSizesIndex = i
 		stylez.fontSizes = fontSizesArray[i]
 		let { customText } = stylez
@@ -81,36 +88,33 @@ const useStyle = (target, conditionz, initialStyle) => {
 
 	const getStyle = (target, conditionz, initialStyle) => {
 		const name = getName(target)
-		if (!isEqual(styleConditionz[name], conditionz)) {
-			styleConditionz[name] = conditionz
+		let stylez = isEqual(styleConditionz[name], conditionz) && styleCachez[name]
+		if (stylez) return stylez
+
+		if (!initialStyle)
+			initialStyle =
+				target.getDefaultStyle ||
+				target.defaultStyle ||
+				target.getDefaultStyle ||
+				target.defaultStyles ||
+				target.style ||
+				target.styles
+
+		switch (typeof initialStyle) {
+			case OBJECT:
+				break
+			case FUNCTION:
+				initialStyle = initialStyle(defaultTheme)
+				break
+			case STRING:
+				initialStyle = parseJson(initialStyle)
+				break
+			default:
+				initialStyle = {}
 		}
 
-		let stylez = styleCachez[name]
-		if (!stylez) {
-			if (!initialStyle)
-				initialStyle =
-					target.getDefaultStyle ||
-					target.defaultStyle ||
-					target.getDefaultStyle ||
-					target.defaultStyles ||
-					target.style ||
-					target.styles
-
-			switch (typeof initialStyle) {
-				case FUNCTION:
-					style = initialStyle(stylez)
-					break
-				case OBJECT:
-					style = initialStyle
-					break
-				case STRING:
-					style = parseJson(initialStyle)
-					break
-				default:
-					style = {}
-			}
-			stylez = styleCachez[name] = StyleSheet.create(style)
-		}
+		styleConditionz[name] = conditionz
+		stylez = styleCachez[name] = StyleSheet.create(style)
 		return stylez
 	}
 

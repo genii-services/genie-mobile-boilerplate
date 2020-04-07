@@ -6,9 +6,7 @@ console.debug(MODULE_NAME$)
 const React = require("react")
 const { ActionSheetIOS, FlatList, Modal, TouchableOpacity } = require("react-native")
 
-const { FLEX_END, TRANSPARENT, WHITE } = require("/constants/style")
 const { deviceHeight, itsIOS } = require("/utils/device")
-const { connectStyle } = require("/utils/style")
 const { createCoordinator, forwardRef, useEffect, useState, useStore, useThis } = require("/hooks")
 
 const Text = require("./Text")
@@ -17,19 +15,22 @@ const Left = require("./Left")
 const Right = require("./Right")
 const Body = require("./Body")
 const ListItem = require("./ListItem")
+const { useStyle } = require("/coordinators/style")
 
-const ActionSheetElement = props => {
+const ActionSheetElement = (props) => {
 	const _this = useThis()
 	const [_modalVisible, set_modalVisible] = useState(false)
 	const [_items, set_items] = useState([])
 
 	useEffect(() => !props.autoHide && props.duration && console.warn(`It's not recommended to set autoHide false with duration`), [])
 
+	const { stylez } = useStyle(ActionSheetElement, {})
+
 	createCoordinator("ActionSheet", () => ({
 		showActionSheet: (config, callback) => {
 			if (itsIOS) {
 				if (typeof config.options[0] === "object") {
-					config = { ...config, options: config.options.map(item => item.text) }
+					config = { ...config, options: config.options.map((item) => item.text) }
 				}
 				ActionSheetIOS.showActionSheetWithOptions(config, callback)
 			} else {
@@ -93,7 +94,7 @@ if (__DEV__) {
 	}
 }
 
-const styles = {
+ActionSheetElement.getDefaultStyle = ({ FLEX_END, TRANSPARENT, WHITE }) => ({
 	containerTouchable: {
 		backgroundColor: "rgba(0,0,0,0.4)",
 		flex: 1,
@@ -121,6 +122,7 @@ const styles = {
 	touchableText: {
 		color: "#757575",
 	},
-}
+})
 
+// const { connectStyle } = require("/utils/style")
 module.exports = ActionSheetElement //connectStyle(ActionSheetElement, MODULE_NAME$)

@@ -2,8 +2,52 @@
 const color = require("color")
 const { PixelRatio } = require("react-native")
 
-const { BLACK, TRANSPARENT, WHITE } = require("/constants/style")
+const styleConstantz = require("/constants/style")
+const { BLACK, CENTER, TRANSPARENT, WHITE } = styleConstantz
 const { itsIOS } = require("/utils/device")
+
+// COLORS
+
+const colors = ["#b8cde3", "#b5cde4", "#755307", "#4082BF", "#3e83be", "#1f84da"]
+const grayscaleColors = [
+	WHITE,
+	"#cccccc",
+	"#c0c0c0",
+	"#adadad",
+	"#a3a3a3",
+	"#9b9b9b",
+	"#808080",
+	"#6f6f6f",
+	"#4a4a4a",
+	"#2f2f2f",
+	BLACK,
+]
+const backgroundColors = [TRANSPARENT, "#134a7a", "#3e83be", "#4082BF", "#eeeeee", WHITE]
+
+const grayscaleColorz = {
+	"-5": WHITE,
+	"-4": "#cccccc",
+	"-3": "#c0c0c0",
+	"-2": "#adadad",
+	"-1": "#9b9b9b",
+	"+0": "#808080",
+	"+1": "#6f6f6f",
+	"+2": "#4a4a4a",
+	"+3": "#2f2f2f",
+	"+4": BLACK,
+}
+const backgroundColorz = {
+	"-3": TRANSPARENT,
+	"-2": "#134a7a",
+	"-1": "#3e83be",
+	"+1": "#4082BF",
+	"+2": "#eeeeee",
+	"+3": WHITE,
+}
+
+// LAYOUTS
+
+const textAlign = CENTER
 
 const textColor = BLACK
 const inverseTextColor = WHITE
@@ -30,9 +74,17 @@ const fontSizesArray = [
 const fontSize = 15
 const iconSize = itsIOS ? 30 : 28
 
-module.exports = style => {
+module.exports = (style) => {
 	return {
+		...styleConstantz,
+
 		name: "light",
+
+		fontFamily,
+		fontSizesArray,
+		colors,
+		grayscaleColors,
+		backgroundColors,
 
 		fontSizez: {
 			"-4": parseInt(fontSize * 0.6),
@@ -152,12 +204,8 @@ module.exports = style => {
 		toolbarBtnTextColor: itsIOS ? "#007aff" : WHITE,
 		toolbarDefaultBorder: itsIOS ? "#a7a6ab" : "#3F51B5",
 		iosStatusbar: itsIOS ? "dark-content" : "light-content",
-		statusBarColor: color(toolbarDefaultBg)
-			.darken(0.2)
-			.hex(),
-		darkenHeader: color(tabBgColor)
-			.darken(0.03)
-			.hex(),
+		statusBarColor: color(toolbarDefaultBg).darken(0.2).hex(),
+		darkenHeader: color(tabBgColor).darken(0.03).hex(),
 
 		// Icon
 		iconFamily: "Ionicons",

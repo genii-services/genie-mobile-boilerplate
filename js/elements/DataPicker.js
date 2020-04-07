@@ -7,23 +7,22 @@ const _ = require("lodash")
 
 const { LEFT } = require("/constants/style")
 const { __find } = require("/utils")
-const { fontFamily } = require("/styles")
 
 const ActionSheet = require("./ActionSheet")
 const Button = require("./Button")
 const Text = require("./Text")
 
-const DataPickerElement = props => {
+const DataPickerElement = (props) => {
 	const handleOnPress = () => {
-		const options = _.map(props.options, v => v[props.labelProp])
+		const options = _.map(props.options, (v) => v[props.labelProp])
 		//console.debug(MODULE_NAME$, options)
 		ActionSheet.show(
 			{
-				style: { fontFamily },
+				style: stylez.actionSheet,
 				title: props.title,
 				options,
 			},
-			i => {
+			(i) => {
 				if (props.onPickerConfirm && 0 <= i && options.length > i) {
 					const value = props.options[i][props.valueProp]
 					props.onPickerConfirm(value)
@@ -52,8 +51,11 @@ if (__DEV__) {
 	}
 }
 
-DataPickerElement.defaultProps = {
+DataPickerElement.getDefaultProps = { fontFamily } = {
 	...Button.defaultProps,
+	actionSheet: {
+		// fontFamily,
+	},
 	buttonStyle: {
 		flex: 0.6,
 		marginTop: -5,
@@ -70,7 +72,7 @@ DataPickerElement.defaultProps = {
 		marginRight: 0,
 		paddingLeft: 0,
 		paddingRight: 0,
-		fontFamily,
+		// fontFamily,
 		fontSize: 15,
 		lineHeight: 16,
 		textAlign: LEFT,
@@ -81,7 +83,7 @@ DataPickerElement.defaultProps = {
 		marginRight: 0,
 		paddingLeft: 0,
 		paddingRight: 0,
-		fontFamily,
+		// fontFamily,
 		fontSize: 15,
 		lineHeight: 16,
 		textAlign: LEFT,

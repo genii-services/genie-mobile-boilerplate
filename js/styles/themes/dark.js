@@ -2,8 +2,54 @@
 const color = require("color")
 const { PixelRatio } = require("react-native")
 
-const { BLACK, TRANSPARENT, WHITE } = require("/constants/style")
+const styleConstantz = require("/constants/style")
+const { BLACK, CENTER, TRANSPARENT, WHITE } = styleConstantz
 const { itsIOS } = require("/utils/device")
+
+// COLORS
+
+const colors = ["#b8cde3", "#b5cde4", "#755307", "#4082BF", "#3e83be", "#1f84da"]
+const grayscaleColors = [
+	WHITE,
+	"#cccccc",
+	"#c0c0c0",
+	"#adadad",
+	"#a3a3a3",
+	"#9b9b9b",
+	"#808080",
+	"#6f6f6f",
+	"#4a4a4a",
+	"#2f2f2f",
+	BLACK,
+]
+const backgroundColors = [TRANSPARENT, "#134a7a", "#3e83be", "#4082BF", "#eeeeee", WHITE]
+
+const grayscaleColorz = {
+	"-5": WHITE,
+	"-4": "#cccccc",
+	"-3": "#c0c0c0",
+	"-2": "#adadad",
+	"-1": "#9b9b9b",
+	"+0": "#808080",
+	"+1": "#6f6f6f",
+	"+2": "#4a4a4a",
+	"+3": "#2f2f2f",
+	"+4": BLACK,
+}
+const backgroundColorz = {
+	"-3": TRANSPARENT,
+	"-2": "#134a7a",
+	"-1": "#3e83be",
+	"+1": "#4082BF",
+	"+2": "#eeeeee",
+	"+3": WHITE,
+}
+
+fontFamily = itsIOS ? "System" : "Roboto"
+
+// LAYOUTS
+
+const textAlign = CENTER
 
 const brandPrimary = itsIOS ? "#007aff" : "#3F51B5"
 const brandInfo = "#62B1F6"
@@ -17,11 +63,27 @@ const toolbarDefaultBg = itsIOS ? "#F8F8F8" : "#3F51B5"
 const tabBgColor = "#F8F8F8"
 const textColor = BLACK
 
+const fontSizesArray = [
+	[6, 7, 8, 10, 12, 13, 14, 15, 16, 17, 20, 24, 25], // 작게
+	[7, 8, 10, 12, 13, 14, 15, 16, 17, 20, 24, 25, 30], // 조금 작게
+	[8, 10, 12, 13, 14, 15, 16, 17, 20, 24, 25, 30, 32], // 표준
+	[10, 12, 13, 14, 15, 16, 17, 20, 24, 25, 30, 32, 34], // 조금 크게
+	[12, 13, 14, 15, 16, 17, 20, 24, 25, 30, 32, 34, 36], // 크게
+]
+
 const fontSize = 15
 const iconSize = itsIOS ? 30 : 28
 
 module.exports = {
+	...styleConstantz,
+
 	name: "dark",
+
+	fontFamily,
+	fontSizesArray,
+	colors,
+	grayscaleColors,
+	backgroundColors,
 
 	// label & placeholder
 	placeholderTextColor: "#575757",
@@ -90,7 +152,7 @@ module.exports = {
 
 	// Font
 	DefaultFontSize: 16,
-	fontFamily: itsIOS ? "System" : "Roboto",
+	fontFamily,
 	fontSize,
 	fontSizez: {
 		"-4": parseInt(fontSize * 0.6),
@@ -128,12 +190,8 @@ module.exports = {
 	toolbarBtnTextColor: itsIOS ? "#007aff" : WHITE,
 	iosStatusbar: "dark-content",
 	toolbarDefaultBorder: itsIOS ? "#a7a6ab" : "#3F51B5",
-	statusBarColor: color(toolbarDefaultBg)
-		.darken(0.2)
-		.hex(),
-	darkenHeader: color(tabBgColor)
-		.darken(0.03)
-		.hex(),
+	statusBarColor: color(toolbarDefaultBg).darken(0.2).hex(),
+	darkenHeader: color(tabBgColor).darken(0.03).hex(),
 
 	// Icon
 	iconFamily: "Ionicons",
