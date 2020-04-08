@@ -98,7 +98,7 @@ const useStyle = (target, conditionz, initialStyle) => {
 				target.getDefaultStyle ||
 				target.defaultStyles ||
 				target.style ||
-				target.styles
+				target.styles2
 
 		switch (typeof initialStyle) {
 			case OBJECT:
