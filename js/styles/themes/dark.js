@@ -1,4 +1,7 @@
 /** old common */
+const MODULE_NAME$ = "styles/themes/dark"
+console.debug(MODULE_NAME$)
+
 const color = require("color")
 const { PixelRatio } = require("react-native")
 

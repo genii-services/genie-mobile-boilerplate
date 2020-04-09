@@ -1,5 +1,9 @@
 /** UserSearch Screen Style */
+const MODULE_NAME$ = "styles/screens/UserSearch"
+console.debug(MODULE_NAME$)
+
 const UserSearchScreenStyle = ({ fontFamily, fontSizes, grayscaleColors, backgroundColors }) => {
+	console.debug(MODULE_NAME$, "getStyle")
 	return {
 		container: {
 			backgroundColor: backgroundColors[5], // white

@@ -1,8 +1,11 @@
 /** Element Style */
+const MODULE_NAME$ = "styles/elements/Footer"
+console.debug(MODULE_NAME$)
+
 const { CENTER, FLEX_START, FLEX_END, MATERIAL, ROW, TRANSPARENT } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 
-module.exports = style => {
+module.exports = (style) => {
 	const { itsUnitedStyle } = style
 
 	const iconCommon = {

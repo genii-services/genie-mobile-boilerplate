@@ -1,4 +1,6 @@
 /** 공통 라이브러리 */
+const MODULE_NAME$ = "styles/themes/material"
+console.debug(MODULE_NAME$)
 
 const color = require("color")
 const { PixelRatio } = require("react-native")

@@ -1,8 +1,11 @@
 /** Element Style */
+const MODULE_NAME$ = "styles/elements/FooterTab"
+console.debug(MODULE_NAME$)
+
 const { CENTER, FLEX_START, FLEX_END, ROW, SPACE_BETWEEN, TRANSPARENT } = require("/constants/style")
 const { itsAndroid, itsIOS } = require("/utils/device")
 
-module.exports = style => {
+module.exports = (style) => {
 	return {
 		ButtonElement: {
 			".active": {

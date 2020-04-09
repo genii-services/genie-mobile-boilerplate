@@ -1,7 +1,11 @@
 /** ItemDetail Screen Style */
+const MODULE_NAME$ = "styles/screens/ItemDetail"
+console.debug(MODULE_NAME$)
+
 const { CENTER, FLEX_START, FLEX_END, MATERIAL, ROW, WHITE } = require("/constants/style")
 
 const DetailScreenStyle = ({ fontFamily, fontSizes, grayscaleColors }) => {
+	console.debug(MODULE_NAME$, "getStyle")
 	return {
 		articleHeader: {
 			backgroundColor: "#f5f5f5",

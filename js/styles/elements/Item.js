@@ -1,8 +1,11 @@
 /** Element Style */
+const MODULE_NAME$ = "styles/elements/Item"
+console.debug(MODULE_NAME$)
+
 const { CENTER, FLEX_START, ROW, TRANSPARENT } = require("/constants/style")
 const { itsIOS, deviceWidth } = require("/utils/device")
 
-module.exports = style => {
+module.exports = (style) => {
 	return {
 		".floatingLabel": {
 			InputElement: {

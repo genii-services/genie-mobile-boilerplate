@@ -1,7 +1,10 @@
 /** Element Style */
+const MODULE_NAME$ = "styles/elements/CheckBox"
+console.debug(MODULE_NAME$)
+
 const { CENTER, HIDDEN, FLEX_END, MATERIAL, SPACE_BETWEEN, TRANSPARENT } = require("/constants/style")
 
-module.exports = style => {
+module.exports = (style) => {
 	const Icon = {
 		color: TRANSPARENT,
 		lineHeight: style.CheckboxIconSize,

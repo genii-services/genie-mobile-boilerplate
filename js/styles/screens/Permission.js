@@ -1,8 +1,12 @@
 /** Permission Screen Style */
+const MODULE_NAME$ = "styles/screens/Permission"
+console.debug(MODULE_NAME$)
+
 const { CENTER, FLEX_START, NORMAL, PC100, ROW } = require("/constants/style")
 const { screen } = require("/utils/device")
 
 const PermissionScreenStyle = ({ colors, fontFamily }) => {
+	console.debug(MODULE_NAME$, "getStyle")
 	return {
 		container: {
 			backgroundColor: colors.black,

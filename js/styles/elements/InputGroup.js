@@ -1,7 +1,10 @@
 /** Element Style */
+const MODULE_NAME$ = "styles/elements/InputGroup"
+console.debug(MODULE_NAME$)
+
 const { CENTER, ROW, TRANSPARENT } = require("/constants/style")
 
-module.exports = style => {
+module.exports = (style) => {
 	return {
 		IconElement: {
 			fontSize: 24,

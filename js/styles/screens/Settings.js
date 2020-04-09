@@ -1,7 +1,11 @@
 /** Settings Screen Style */
+const MODULE_NAME$ = "styles/screens/Settings"
+console.debug(MODULE_NAME$)
+
 const { FLEX_START, FLEX_END, RIGHT, SPACE_BETWEEN } = require("/constants/style")
 
 const SettingsScreenStyle = ({ fontSizes, grayscaleColors }) => {
+	console.debug(MODULE_NAME$, "getStyle")
 	return {
 		container: {
 			margin: 0,

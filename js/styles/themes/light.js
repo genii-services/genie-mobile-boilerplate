@@ -1,4 +1,7 @@
 /** old default */
+const MODULE_NAME$ = "styles/themes/light"
+console.debug(MODULE_NAME$)
+
 const color = require("color")
 const { PixelRatio } = require("react-native")
 
@@ -74,13 +77,15 @@ const fontSizesArray = [
 const fontSize = 15
 const iconSize = itsIOS ? 30 : 28
 
-module.exports = (style) => {
+module.exports = ({ fontSizeIndex }) => {
+	const fontSizes = fontSizesArray[fontSizeIndex]
 	return {
 		...styleConstantz,
 
 		name: "light",
 
 		fontFamily,
+		fontSizes,
 		fontSizesArray,
 		colors,
 		grayscaleColors,

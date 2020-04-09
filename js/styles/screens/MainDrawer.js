@@ -1,8 +1,12 @@
 /** MainDrawer Screen Style */
+const MODULE_NAME$ = "styles/screens/MainDrawer"
+console.debug(MODULE_NAME$)
+
 const { COLUMN, FLEX_START, FLEX_END, NOWRAP, PC100, ROW, SPACE_BETWEEN, WHITE } = require("/constants/style")
 const { itsIOS, itsIphoneX } = require("/utils/device")
 
 const MainDrawerStyle = ({ fontFamily, fontSizes, backgroundColors }) => {
+	console.debug(MODULE_NAME$, "getStyle")
 	return {
 		container: {
 			marginLeft: 0,

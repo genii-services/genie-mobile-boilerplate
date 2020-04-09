@@ -1,3 +1,8 @@
-exports.dark = require("./dark")
-exports.light = require("./light")
-exports.material = require("./material")
+/* eslint-disable no-param-reassign */
+/** Themes Styles */
+
+module.exports = {
+	dark: require("./dark"),
+	light: require("./light"),
+	material: require("./material"),
+}

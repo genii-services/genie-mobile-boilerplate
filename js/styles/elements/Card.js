@@ -1,7 +1,10 @@
 /** Element Style */
+const MODULE_NAME$ = "styles/elements/Card"
+console.debug(MODULE_NAME$)
+
 const { BLACK, FLEX_START, FLEX_END, NOWRAP, SPACE_BETWEEN, TRANSPARENT } = require("/constants/style")
 
-module.exports = style => {
+module.exports = (style) => {
 	const {
 		borderWidth: borderWidth,
 		cardBorderRadius: borderRadius,

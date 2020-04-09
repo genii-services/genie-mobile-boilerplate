@@ -1,7 +1,11 @@
 /** ItemList Screen Style */
+const MODULE_NAME$ = "styles/screens/ItemList"
+console.debug(MODULE_NAME$)
+
 const { ABSOLUTE, BLACK, CENTER, PC100, TRANSPARENT, WHITE } = require("/constants/style")
 
 const ItemListStyle = ({ fontFamily, fontSizes, grayscaleColors, backgroundColors }) => {
+	console.debug(MODULE_NAME$, "getStyle")
 	return {
 		list: {
 			height: PC100,

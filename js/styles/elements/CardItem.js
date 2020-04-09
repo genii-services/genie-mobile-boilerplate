@@ -1,10 +1,13 @@
 /** Element Style */
+const MODULE_NAME$ = "styles/elements/CardItem"
+console.debug(MODULE_NAME$)
+
 const { StyleSheet } = require("react-native")
 
 const { CENTER, FLEX_START, ROW } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 
-module.exports = style => {
+module.exports = (style) => {
 	const transparentBtnCommon = {
 		TextElement: {
 			fontSize: style.DefaultFontSize - 3,

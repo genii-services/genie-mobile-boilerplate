@@ -15,11 +15,22 @@ const storage = require("/interactors/storage")
 
 // 초기값
 
-const themez = _.mapValues(require("/styles/themes"), (v) => (typeof v === FUNCTION ? v() : v))
-const defaultTheme = themez.light
+const fontSizesIndex = 2
+const defaultStyle = { fontSizesIndex }
+// 캐싱한 스타일
+const styleCachez = {}
+const styleConditionz = {}
+
+const resetStyleCaches = () => {
+	_.forEach(require("styles/themes"), (v, k) => (styleConditionz[k + "Theme"] = typeof v === FUNCTION ? v(defaultStyle) : v))
+	const defaultTheme = (styleConditionz.defaultTheme = styleConditionz.lightTheme)
+	_.forEach(require("styles/elements"), (v, k) => (styleConditionz[k + "Element"] = typeof v === FUNCTION ? v(defaultTheme) : v))
+	_.forEach(require("styles/viewparts"), (v, k) => (styleConditionz[k + "Viewpart"] = typeof v === FUNCTION ? v(defaultTheme) : v))
+	_.forEach(require("styles/screens"), (v, k) => (styleConditionz[k + "Screen"] = typeof v === FUNCTION ? v(defaultTheme) : v))
+}
+
 const { fontFamily, fontSizesArray, colors, grayscaleColors, backgroundColors } = defaultTheme
 
-const fontSizesIndex = 2
 const fontSizes = fontSizesArray[fontSizesIndex]
 const stylez = {
 	colors,
@@ -45,10 +56,6 @@ const stylez = {
 		underlineColorAndroid: TRANSPARENT,
 	},
 }
-
-// 캐싱한 스타일
-const styleConditionz = {}
-const styleCachez = {}
 
 const useStyle = (target, conditionz, initialStyle) => {
 	const [store, setStore] = useStore("style")

@@ -1,10 +1,13 @@
 /** Element Style */
+const MODULE_NAME$ = "styles/elements/Header"
+console.debug(MODULE_NAME$)
+
 const { PixelRatio, StatusBar } = require("react-native")
 
 const { BLACK, CENTER, FLEX_START, FLEX_END, MATERIAL, ROW, TRANSPARENT } = require("/constants/style")
 const { itsAndroid, itsIOS } = require("/utils/device")
 
-module.exports = style => {
+module.exports = (style) => {
 	const { itsUnitedStyle } = style
 	const itsMaterial = style.name === MATERIAL
 	const itsIOSStyle = itsIOS && !itsUnitedStyle

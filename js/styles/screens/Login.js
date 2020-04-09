@@ -1,8 +1,12 @@
 /** Login Screen Style */
+const MODULE_NAME$ = "styles/screens/Login"
+console.debug(MODULE_NAME$)
+
 const { CENTER, LEFT, PC100, RIGHT, ROW, WHITE } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 
 const LoginScreenStyle = ({ fontFamily, fontSizes, colors, grayscaleColors, backgroundColors, textAlign }) => {
+	console.debug(MODULE_NAME$, "getStyle")
 	return {
 		container: {
 			backgroundColor: backgroundColors[3], // #4082BF

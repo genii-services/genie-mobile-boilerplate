@@ -1,8 +1,11 @@
 /** Element Style */
+const MODULE_NAME$ = "styles/elements/Button"
+console.debug(MODULE_NAME$)
+
 const { CENTER, COLUMN, FLEX_END, MATERIAL, ROW, SPACE_BETWEEN, TRANSPARENT } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 
-module.exports = style => {
+module.exports = (style) => {
 	const { borderWidth } = style
 	const itsMaterial = style.name === MATERIAL
 	const borderWidthX2 = borderWidth * 2

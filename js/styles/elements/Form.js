@@ -1,4 +1,6 @@
 /** Element Style */
+const MODULE_NAME$ = "styles/elements/Form"
+console.debug(MODULE_NAME$)
 
 module.exports = () => {
 	return {

@@ -1,7 +1,11 @@
 /** UserDetail Screen Style */
+const MODULE_NAME$ = "styles/screens/UserDetail"
+console.debug(MODULE_NAME$)
+
 const { CENTER, FLEX_START, RIGHT, WHITE } = require("/constants/style")
 
 module.exports = ({ fontFamily, fontSizes, grayscaleColors, textAlign }) => {
+	console.debug(MODULE_NAME$, "getStyle")
 	return {
 		container: {
 			backgroundColor: WHITE,

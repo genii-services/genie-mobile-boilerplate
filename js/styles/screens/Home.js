@@ -1,8 +1,11 @@
 /** Home Screen Style */
+const MODULE_NAME$ = "styles/screens/Home"
+console.debug(MODULE_NAME$)
+
 const { CENTER, FLEX_START, FLEX_END, RIGHT, ROW, WHITE } = require("/constants/style")
 
 const HomeScreenStyle = ({ fontFamily, fontSizes, colors, grayscaleColors, backgroundColors }) => {
-	console.debug("Settings.getStyle", "fontSizes[0]", fontSizes[0])
+	console.debug(MODULE_NAME$, "getStyle")
 	return {
 		profile: {
 			height: 94,
