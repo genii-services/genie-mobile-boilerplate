@@ -54,8 +54,8 @@
 			"label": "Reload ReactNative Android App",
 			"identifier": "reactnative.android.reload",
 			"type": "shell",
-			"command": "./scripts/adb.reactnative.reload.sh",
-			"~command": "adb shell input text \"RR\"",
+			// "command": "./scripts/adb.reactnative.reload.sh",
+			"command": "adb shell input text \"RR\"",
 			"problemMatcher": [],
 			"presentation": {
 				"reveal": "never",
