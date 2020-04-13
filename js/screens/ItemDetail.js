@@ -20,16 +20,15 @@ const { IdPhoto } = require("/viewparts")
 const { useThis } = require("/hooks")
 const { useItem, useAuth, useStyle } = require("/coordinators")
 
-const DetailScreen = props => {
+const DetailScreen = (props) => {
 	const router = useRouter()
 
 	const _this = useThis()
 	const [_imageZoomScale, set_imageZoomScale] = useState(1)
 
-	const { getStyle } = useStyle()
-	const style = getStyle(DetailScreen)
-	const tabStyle = getStyle(TabStyle)
-	const attachementFileStyle = getStyle(AttachementFileStyle)
+	const { stylez, getStylez } = useStyle(DetailScreen)
+	const tabStyle = getStylez(TabStyle)
+	const attachementFileStyle = getStylez(AttachementFileStyle)
 
 	const { auth } = useAuth()
 	let { boardz, board, boardID, boardUrl, article, articleID } = nextProps
@@ -47,7 +46,7 @@ const DetailScreen = props => {
 
 	// return _.size(nextState) ? nextState : null
 
-	const renderContent = article => {
+	const renderContent = (article) => {
 		let item = article?.data || { author: "", 본문: "" }
 
 		let html = item["본문"]
@@ -70,32 +69,32 @@ const DetailScreen = props => {
 					heading="본문">
 					{item.itemID ? (
 						<Content>
-							<View style={style.articleHeader}>
-								<Text style={style.articleHeaderTitle}>{item.itemTitle}</Text>
-								<Item style={style.articleHeaderSub}>
-									<IdPhoto style={style.articleHeaderIdPhoto} id={item.authorID} />
+							<View style={stylez.articleHeader}>
+								<Text style={stylez.articleHeaderTitle}>{item.itemTitle}</Text>
+								<Item style={stylez.articleHeaderSub}>
+									<IdPhoto style={stylez.articleHeaderIdPhoto} id={item.authorID} />
 									<View>
-										<Text style={style.articleHeaderText1}>
+										<Text style={stylez.articleHeaderText1}>
 											{(item.createdDatetime ? yyyymmdd(item.createdDatetime) + "   " : "") +
 												(item.viewCount ? "조회 " + item.viewCount : "")}
 										</Text>
-										<Text style={style.articleHeaderText2}>
+										<Text style={stylez.articleHeaderText2}>
 											{item.author + (item.authorDept ? " (" + item.authorDept + ")" : "")}
 										</Text>
 										{publishPeriod !== "" && (
 											<View style={{ flexDirection: ROW }}>
-												<Text style={style.articleHeaderText2}>
+												<Text style={stylez.articleHeaderText2}>
 													{publishPeriods.length < 2 ? "게시일" : "게시기간" + ": "}
 												</Text>
 												<View style={{}}>
 													{0 < publishPeriods.length && (
-														<Text style={style.articleHeaderTextRight2}>
+														<Text style={stylez.articleHeaderTextRight2}>
 															{_.trim(publishPeriods[0])}
 															{1 < publishPeriods.length && " ~"}
 														</Text>
 													)}
 													{1 < publishPeriods.length && (
-														<Text style={style.articleHeaderTextRight2}>{_.trim(publishPeriods[1])}</Text>
+														<Text style={stylez.articleHeaderTextRight2}>{_.trim(publishPeriods[1])}</Text>
 													)}
 												</View>
 											</View>
@@ -141,7 +140,7 @@ const DetailScreen = props => {
 					heading={"첨부파일" + (item.attachements ? " (" + item.attachments.length + ")" : "")}>
 					<List
 						data={item.attachments}
-						keyExtractor={item => item.fileID}
+						keyExtractor={(item) => item.fileID}
 						renderItem={({ item }) => (
 							<ListItem style={attachementFileStyle.listItem} icon onPress={() => share(item)}>
 								{item.thumbnailUrl ? (
@@ -158,14 +157,14 @@ const DetailScreen = props => {
 				</Tab>
 			</Tabs>,
 			item.availableApvActions && item.availableApvActions.length !== 0 && (
-				<Footer style={style.footer}>
+				<Footer style={stylez.footer}>
 					<FooterTab>
 						{_.map(item.availableApvActions, (v, k) => (
 							<Button
 								key={k}
-								style={[style.button, style[_.lowerFirst(v.actionID)]]}
+								style={[stylez.button, stylez[_.lowerFirst(v.actionID)]]}
 								onPress={() => submit(v.actionID, v.actionLabel)}>
-								<Text style={style.buttonText}>{v.actionLabel}</Text>
+								<Text style={stylez.buttonText}>{v.actionLabel}</Text>
 							</Button>
 						))}
 					</FooterTab>
@@ -202,7 +201,7 @@ const DetailScreen = props => {
 		props.boardz.loadArticle(_article, _board)
 	}
 
-	const setImageZoomScale = delta => {
+	const setImageZoomScale = (delta) => {
 		// console.debug( _imageZoomScale, delta )
 		let imageZoomScale = _imageZoomScale + delta
 		if (imageZoomScale < 1 || 4 < imageZoomScale) return
@@ -211,7 +210,7 @@ const DetailScreen = props => {
 	}
 
 	isSharing = false
-	const share = item => {
+	const share = (item) => {
 		if (_this.isSharing) return popup("처리중입니다.")
 		_this.isSharing = true
 		//console.debug(this, item)
@@ -228,7 +227,7 @@ const DetailScreen = props => {
 	}
 
 	let { boardz } = props
-	let { style, article } = state
+	let { article } = state
 	console.debug(DetailScreen, article.timestamp, article)
 	return (
 		<Container>

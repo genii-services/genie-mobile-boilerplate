@@ -11,11 +11,10 @@ const { List, InputBar, TitleBar } = require("/elements")
 
 const { useAuth, useList, useStyle } = require("/coordinators")
 
-const ItemListScreen = props => {
+const ItemListScreen = (props) => {
 	const router = useRouter()
 
-	const { getStyle } = useStyle()
-	const style = getStyle(DetailScreen)
+	const { stylez } = useStyle(DetailScreen)
 
 	let { boardz, auth, board, boardID, searchable, searchKeyword, title, timestamp } = nextProps
 
@@ -48,14 +47,14 @@ const ItemListScreen = props => {
 				placeholder="제목, 본문에서 찾을 문자열"
 				minLength={2}
 				value={state.searchKeyword}
-				onPress={v => search(v)}
+				onPress={(v) => search(v)}
 			/>
 		)
 	}
 
 	/*  게시물 목록을 가져온다. 호출하게 되면 페이지번호를 하나 증가시켜 G/W에 요청
 	 */
-	const load = where => {
+	const load = (where) => {
 		let { userID } = auth.userInfo
 		console.debug(this, "")
 		if (!_board.paramz.pageIndex || _board.paramz.pageIndex == 1) {
@@ -72,7 +71,7 @@ const ItemListScreen = props => {
 	}
 
 	// 검색을 하게 되면 기존 게시물 목록을 제거하고, 페이지번호를 리셋한 후 검색어를 전달
-	const search = keyword => {
+	const search = (keyword) => {
 		let { boardz, auth } = props
 		boardz.reload(_board, {
 			searchType: "",
@@ -103,25 +102,25 @@ const ItemListScreen = props => {
 	let { articles = [] } = _board
 	console.debug(ListScreen, articles, _board)
 	return (
-		<Container style={style.list} timestamp={_board.timestamp}>
+		<Container style={stylez.list} timestamp={_board.timestamp}>
 			<TitleBar back title={_board.title || "게시판"} rightIconName="ios-search" onRightPress={toggleSearchBar} />
 			{renderSearchBar()}
 			<List
-				style={style.list}
+				style={stylez.list}
 				data={articles}
-				keyExtractor={item => item.itemID}
+				keyExtractor={(item) => item.itemID}
 				renderItem={({ item }) => (
-					<ListItem style={style.listItem} onPress={() => detailArticle(item)} delayLongPress={10000}>
-						<Text style={style.listItemIcon}>{item.isRead ? "" : "●"}</Text>
-						<Body style={style.listItemBody}>
-							<Text style={style.listItemText1}>{item.itemTitle}</Text>
-							<Text style={style.listItemText2}>
+					<ListItem style={stylez.listItem} onPress={() => detailArticle(item)} delayLongPress={10000}>
+						<Text style={stylez.listItemIcon}>{item.isRead ? "" : "●"}</Text>
+						<Body style={stylez.listItemBody}>
+							<Text style={stylez.listItemText1}>{item.itemTitle}</Text>
+							<Text style={stylez.listItemText2}>
 								{item.author + " " + (item.deptName || "") + " / " + yyyymmdd(item.createdDatetime)}
 								{item.statusName ? " / " + item.statusName : ""}
 							</Text>
 						</Body>
 						{item.hasAttachments && (
-							<IconFA style={style.listItemClip} name="paperclip" onPress={() => detailArticle(item, 1)} />
+							<IconFA style={stylez.listItemClip} name="paperclip" onPress={() => detailArticle(item, 1)} />
 						)}
 					</ListItem>
 				)}

@@ -15,13 +15,13 @@ export function useStore(namespace, value, options = {}) {
 
 	if (store.setters.indexOf(set) === -1) store.setters.push(set)
 
-	useEffect(() => () => (store.setters = store.setters.filter(setter => setter !== set)), [])
+	useEffect(() => () => (store.setters = store.setters.filter((setter) => setter !== set)), [])
 
-	const magicSetter = setter => e => {
+	const magicSetter = (setter) => (e) => {
 		setter(typeof e === "object" && (e.nativeEvent || e.constructor.name === "SyntheticEvent") && e.target ? e.target.value : e)
 	}
 
-	return [state, magicSetter(store.setStore)]
+	return [state, magicSetter(store.setState)]
 }
 
 module.exports = useStore

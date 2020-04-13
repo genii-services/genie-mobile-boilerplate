@@ -15,7 +15,7 @@ const { useRefs } = require("/hooks")
 /**
  * 조직목록 & 사용자 목록 화면 컴포넌트
  */
-const UserSearchScreen = props => {
+const UserSearchScreen = (props) => {
 	const router = useRouter()
 	const { auth } = useAuth()
 	const { user } = useUser()
@@ -32,8 +32,7 @@ const UserSearchScreen = props => {
 		user.loadDept({ parentID: "" })
 	}
 
-	const { getStyle } = useStyle()
-	const style = getStyle(UserSearchScreen)
+	const { stylez } = useStyle(UserSearchScreen)
 
 	let timestamp = maxTimestamp(user.timestamp, auth.timestamp)
 	if (_timestamp !== timestamp) {
@@ -42,37 +41,35 @@ const UserSearchScreen = props => {
 	// return _.size(nextState) ? nextState : null
 
 	// 조직도 목록 출력용, 조직목록 & 사우목록
-	const renderListItem = item => {
+	const renderListItem = (item) => {
 		if (item.deptCode != null) {
 			return (
-				<ListItem style={_style.item} button onPress={() => searchDept(item)}>
-					<IconFA name="clone" style={_style.listItemsLeft} />
-					<Body style={_style.itemInfo}>
-						<Text style={_style.name}>{item.deptName}</Text>
+				<ListItem style={stylez.item} button onPress={() => searchDept(item)}>
+					<IconFA name="clone" style={stylez.listItemsLeft} />
+					<Body style={stylez.itemInfo}>
+						<Text style={stylez.name}>{item.deptName}</Text>
 					</Body>
 				</ListItem>
 			)
 		} else {
 			return (
-				<ListItem style={_style.item} button onPress={() => router.push("detailUser", { item })}>
-					<IdPhoto style={_style.itemPhoto} source={item.photoURL1} />
-					<Body style={_style.itemInfo}>
-						<Text style={_style.name}>{item.userName + " " + (item.titleName || "")}</Text>
-						<Text style={_style.font13}>{item.companyName + " | " + (item.deptName || "알수없음")}</Text>
-						<Text style={_style.font13}>
-							<Icon name="ios-mail-outline" style={_style.icon13} /> {item.emailAddress}
+				<ListItem style={stylez.item} button onPress={() => router.push("detailUser", { item })}>
+					<IdPhoto style={stylez.itemPhoto} source={item.photoURL1} />
+					<Body style={stylez.itemInfo}>
+						<Text style={stylez.name}>{item.userName + " " + (item.titleName || "")}</Text>
+						<Text style={stylez.font13}>{item.companyName + " | " + (item.deptName || "알수없음")}</Text>
+						<Text style={stylez.font13}>
+							<Icon name="ios-mail-outline" style={stylez.icon13} /> {item.emailAddress}
 						</Text>
-						<View style={_style.tels}>
+						<View style={stylez.tels}>
 							{item.mobileTel ? (
-								<Text style={_style.tel}>
-									<Icon name="ios-phone-portrait" style={_style.icon13} /> {item.mobileTel}{" "}
+								<Text style={stylez.tel}>
+									<Icon name="ios-phone-portrait" style={stylez.icon13} /> {item.mobileTel}{" "}
 								</Text>
-							) : (
-								undefined
-							)}
+							) : undefined}
 							{item.officeTel && (
-								<Text style={_style.tel}>
-									<Icon name="ios-call-outline" style={_style.icon13} /> {item.officeTel}{" "}
+								<Text style={stylez.tel}>
+									<Icon name="ios-call-outline" style={stylez.icon13} /> {item.officeTel}{" "}
 								</Text>
 							)}
 						</View>
@@ -83,25 +80,25 @@ const UserSearchScreen = props => {
 	}
 
 	//  게시물 목록을 가져온다. 호출하게 되면 페이지번호를 하나 증가시켜 G/W에 요청
-	const load = where => {
+	const load = (where) => {
 		//console.debug(this, where)
 		user.load()
 	}
 
 	// 새로 고침
-	const refresh = where => {
+	const refresh = (where) => {
 		//console.debug(this, where)
 		user.reload()
 	}
 
 	// 검색을 하게 되면 기존 게시물 목록을 제거하고, 페이지번호를 리셋한 후 검색어를 전달
-	const search = keyword => {
+	const search = (keyword) => {
 		//console.debug(this, keyword)
 		user.load({ keyword, pageIndex: 0 })
 	}
 
 	// 부서를 검색한다.
-	const searchDept = item => {
+	const searchDept = (item) => {
 		console.debug(this)
 		let { user } = props
 		user.loadDept(item)
@@ -120,7 +117,7 @@ const UserSearchScreen = props => {
 	console.debug(this, user.status, !!user.status)
 
 	return (
-		<Container style={_style.container} timestamp={user.timestamp}>
+		<Container style={stylez.container} timestamp={user.timestamp}>
 			<TitleBar
 				back
 				title="사우 검색"
@@ -136,38 +133,34 @@ const UserSearchScreen = props => {
 							placeholder="검색어를 입력하세요"
 							minLength={1}
 							value={user.paramz.keyword}
-							onPress={v => search(v)}
+							onPress={(v) => search(v)}
 						/>,
 						<List
-							style={_style.list}
+							style={stylez.list}
 							key="list"
 							nothingVisible={user.status == SUCCEED}
 							data={user.list}
-							keyExtractor={item => item.userID}
+							keyExtractor={(item) => item.userID}
 							renderItem={({ item }) => (
-								<ListItem style={_style.item} onPress={() => router.push("detailUser", { item })}>
-									<IdPhoto style={_style.itemPhoto} source={item.photoURL1} />
-									<Body style={_style.itemInfo}>
-										<Text style={_style.name}>{item.userName + " " + (item.titleName || "")}</Text>
-										<Text style={_style.font13}>{item.companyName + " | " + (item.deptName || "알수없음")}</Text>
-										<Text style={_style.font13}>
-											<Icon name="ios-mail-outline" style={_style.icon13} /> {item.emailAddress}
+								<ListItem style={stylez.item} onPress={() => router.push("detailUser", { item })}>
+									<IdPhoto style={stylez.itemPhoto} source={item.photoURL1} />
+									<Body style={stylez.itemInfo}>
+										<Text style={stylez.name}>{item.userName + " " + (item.titleName || "")}</Text>
+										<Text style={stylez.font13}>{item.companyName + " | " + (item.deptName || "알수없음")}</Text>
+										<Text style={stylez.font13}>
+											<Icon name="ios-mail-outline" style={stylez.icon13} /> {item.emailAddress}
 										</Text>
-										<View style={_style.tels}>
+										<View style={stylez.tels}>
 											{item.mobileTel ? (
-												<Text style={_style.tel}>
-													<Icon name="ios-phone-portrait" style={_style.icon13} /> {item.mobileTel}{" "}
+												<Text style={stylez.tel}>
+													<Icon name="ios-phone-portrait" style={stylez.icon13} /> {item.mobileTel}{" "}
 												</Text>
-											) : (
-												undefined
-											)}
+											) : undefined}
 											{item.officeTel ? (
-												<Text style={_style.tel}>
-													<Icon name="ios-call-outline" style={_style.icon13} /> {item.officeTel}{" "}
+												<Text style={stylez.tel}>
+													<Icon name="ios-call-outline" style={stylez.icon13} /> {item.officeTel}{" "}
 												</Text>
-											) : (
-												undefined
-											)}
+											) : undefined}
 										</View>
 									</Body>
 								</ListItem>
@@ -182,13 +175,13 @@ const UserSearchScreen = props => {
 						<UserBar key={user.org.timestamp || "org"} value={user.org} onRightPress={delOrg} />,
 
 						<List
-							style={_style.list}
+							style={stylez.list}
 							key={user.dept.timestamp || "dept"}
 							nothingVisible={user.status == SUCCEED}
 							data={user.dept}
 							ListFooterComponent={() => <View style={{ height: 180 }} />}
-							keyExtractor={item => item.userID}
-							renderItem={({ item }) => renderListItem(item, style)}
+							keyExtractor={(item) => item.userID}
+							renderItem={({ item }) => renderListItem(item)}
 						/>,
 				  ]}
 		</Container>

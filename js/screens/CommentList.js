@@ -13,7 +13,7 @@ const { IdPhoto } = require("/viewparts")
 const { useThis } = require("/hooks")
 const { useRefs } = require("/hooks")
 
-const CommentListScreen = props => {
+const CommentListScreen = (props) => {
 	let { boardz } = props
 
 	const _this = useThis()
@@ -30,9 +30,8 @@ const CommentListScreen = props => {
 	let { auth, title, timestamp } = nextProps
 	/* props 변경에 따른 state 설정 */
 
-	const { getStyle } = useStyle()
-	const style = getStyle(CommentListStyle)
-	const footerStyle = getStyle("Footer", FooterStyle)
+	const { stylez, getStylez } = useStyle(CommentListStyle)
+	const footerStyle = getStylez("Footer", FooterStyle)
 
 	timestamp = maxTimestamp(timestamp, auth.timestamp)
 	if (_timestamp < timestamp) {
@@ -42,40 +41,39 @@ const CommentListScreen = props => {
 	console.debug(this, "end getDerivedStateFromProps")
 	// return _.size(nextState) ? nextState : null
 
-	const load = where => {
+	const load = (where) => {
 		console.debug(CommentsScreen, where)
 		props.boardz.loadComments(_this.boardUrl, _this.articleID)
 	}
 
-	const refresh = where => {
+	const refresh = (where) => {
 		console.debug(CommentsScreen, where)
 		props.boardz.reloadComments(_this.boardUrl, _this.articleID)
 	}
 
-	const enterComment = text => {
+	const enterComment = (text) => {
 		console.debug(CommentsScreen)
 		props.boardz.enterComment(_this.boardUrl, _this.articleID, text)
 	}
 
-	let { style, footerStyle } = state
 	let commentable = _this.board?.commentable
 	let { comment } = props.boardz
 	console.debug(CommentsScreen, comment)
 	return (
-		<Container style={style.container}>
+		<Container style={stylez.container}>
 			<TitleBar back title="댓글보기" />
 			<List
 				timestamp={comment.timestamp}
-				style={style.list}
+				style={stylez.list}
 				data={comment.list}
-				keyExtractor={item => item.commentID}
+				keyExtractor={(item) => item.commentID}
 				renderItem={({ item }) => (
-					<ListItem style={style.item}>
-						<IdPhoto style={style.icon} id={item.authorID} />
+					<ListItem style={stylez.item}>
+						<IdPhoto style={stylez.icon} id={item.authorID} />
 						<Body>
-							<Text style={style.textAuthor}>{item.author + " " + (item.authorDept || "")}</Text>
-							<Text style={style.textDate}>{yyyymmddhhmmss(item.createdDatetime)}</Text>
-							<Text style={style.textBody}>{item.content}</Text>
+							<Text style={stylez.textAuthor}>{item.author + " " + (item.authorDept || "")}</Text>
+							<Text style={stylez.textDate}>{yyyymmddhhmmss(item.createdDatetime)}</Text>
+							<Text style={stylez.textBody}>{item.content}</Text>
 						</Body>
 					</ListItem>
 				)}
@@ -93,7 +91,7 @@ const CommentListScreen = props => {
 						placeholder="댓글을 입력해 주세요."
 						minLength={1}
 						buttonTitle="등록"
-						onPress={text => enterComment(text)}
+						onPress={(text) => enterComment(text)}
 					/>
 				</KeyboardAvoidingView>
 			)}

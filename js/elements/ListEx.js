@@ -18,13 +18,12 @@ const statusTextz = {
 	ERROR: "",
 }
 
-const ListElement = props => {
+const ListElement = (props) => {
 	const _this = useThis()
 
 	let { data, status, refreshing, nothingVisible, nothingText, onRefresh } = props
 
-	const { getStyle } = useStyle()
-	const style = getStyle(List)
+	const { stylez } = useStyle(List)
 
 	let preterite = true
 	// 비교를 위한 데이터 목록 준비
@@ -65,22 +64,22 @@ const ListElement = props => {
 			refreshing={refreshing}
 			onEndReached={handleEndReached}
 			onMomentumScrollBegin={handleMomentumScrollBegin}
-			// ListFooterComponent={() => <Spinner style={style.spinner} />}
+			// ListFooterComponent={() => <Spinner style={stylez.spinner} />}
 		/>
 	) : onRefresh ? (
-		<View style={style.nothingArea} refreshControl={<RefreshControl refreshing={true} onRefresh={onRefresh} />}>
+		<View style={stylez.nothingArea} refreshControl={<RefreshControl refreshing={true} onRefresh={onRefresh} />}>
 			<TouchableHighlight underlayColor="rgba(0,0,0,0)" onPress={onRefresh}>
-				<Icon style={style.nothingIcon} name="md-refresh" />
+				<Icon style={stylez.nothingIcon} name="md-refresh" />
 			</TouchableHighlight>
-			<Text style={style.nothingText}>{nothingText}</Text>
+			<Text style={stylez.nothingText}>{nothingText}</Text>
 		</View>
 	) : (
-		<View style={style.nothingArea}>
-			<Icon style={style.nothingIcon} name="md-refresh" />
-			<Text style={style.nothingText}>{nothingText}</Text>
+		<View style={stylez.nothingArea}>
+			<Icon style={stylez.nothingIcon} name="md-refresh" />
+			<Text style={stylez.nothingText}>{nothingText}</Text>
 		</View>
 	)
-	// <Icon style={style.nothingIcon} type="MaterialCommunityIcons" name="file-document-box-remove" />
+	// <Icon style={stylez.nothingIcon} type="MaterialCommunityIcons" name="file-document-box-remove" />
 	// _loading && <Spinner color='green'/>
 }
 

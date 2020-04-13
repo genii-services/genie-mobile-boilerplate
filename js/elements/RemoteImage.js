@@ -11,8 +11,7 @@ const { useStyle } = require("/coordinators")
 const RemoteImageElement = (props) => {
 	const _this = useThis()
 
-	const { getStyle } = useStyle()
-	const style = getStyle(RemoteImageElement)
+	const { stylez } = useStyle(RemoteImageElement)
 
 	const [_loading, set_loading] = useState(false)
 	const [_erred, set_erred] = useState(false)
@@ -63,7 +62,7 @@ const RemoteImageElement = (props) => {
 	}
 	// console.debug(RemoteImageElement, resizeMode, width, height, marginTop)
 	return (
-		<View style={style.container}>
+		<View style={stylez.container}>
 			<TouchableHighlight onPress={props.onPress}>
 				<FastImage
 					style={{ width, height }}
@@ -77,9 +76,9 @@ const RemoteImageElement = (props) => {
 			</TouchableHighlight>
 			{zoomScale == 1 && text && (
 				<View
-					style={style.loadingArea}
+					style={stylez.loadingArea}
 					refreshControl={<RefreshControl refreshing={props.refreshing} onRefresh={handleOnRefresh} />}>
-					<Text style={style.loadingText}>{text}</Text>
+					<Text style={stylez.loadingText}>{text}</Text>
 				</View>
 			)}
 		</View>

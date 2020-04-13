@@ -19,26 +19,25 @@ const pui_widths = [667, 1280] // 667 아이폰6 1280 캘릭시탭x2	아이폰�
 const pua_widths = [1024, 1280] // 1024 아이패드 1280 캘릭시탭x2
 const l_widths = [320, 1280] // 1280 캘릭시탭x2
 
-const BorderButtonElement = props => {
+const BorderButtonElement = (props) => {
 	const { iconName, imageName, title, borderColor, onPress } = props
 	const { orientation, width, height } = screen
 
-	const { getStyle } = useStyle()
-	const style = getStyle(BorderButton)
+	const { stylez } = useStyle(BorderButton)
 
 	let size, borderSize, ratio
 	if (orientation == PORTRAIT || (orientation == PORTRAIT_UPSIDEDOWN && itsIOS && itsTablet)) {
 		size = Math.min(width, height)
-		ratio = _.findIndex(p_widths, v => size <= v) + 1 || p_widths.length + 1
+		ratio = _.findIndex(p_widths, (v) => size <= v) + 1 || p_widths.length + 1
 		borderSize = size / (3.45 * ratio)
 	} else if (orientation == LANDSCAPE || height < width) {
-		ratio = _.findIndex(l_widths, v => width <= v) + 1 || l_widths.length + 1
+		ratio = _.findIndex(l_widths, (v) => width <= v) + 1 || l_widths.length + 1
 		borderSize = screen.max / (3.45 * ratio)
 	} else {
 		// PORTRAITUPSIDEDOWN
 		size = Math.min(width, height)
-		if (itsIOS) ratio = _.findIndex(pui_widths, v => v >= size) + 1 || pui_widths.length + 1
-		else ratio = _.findIndex(pua_widths, v => v >= size) + 1 || pua_widths.length + 1
+		if (itsIOS) ratio = _.findIndex(pui_widths, (v) => v >= size) + 1 || pui_widths.length + 1
+		else ratio = _.findIndex(pua_widths, (v) => v >= size) + 1 || pua_widths.length + 1
 		borderSize = size / (3.3 * ratio)
 	}
 	//borderSize = screen.width / (3.3 * ratio)
@@ -52,7 +51,7 @@ const BorderButtonElement = props => {
 	return (
 		<Button
 			style={[
-				style.rectButton,
+				stylez.rectButton,
 				{
 					borderColor,
 					width: borderSize,
@@ -64,18 +63,18 @@ const BorderButtonElement = props => {
 				<IconFA name={iconName} style={{ marginVertical: borderSize / 10, color: borderColor, fontSize: iconSize }} />
 			) : (
 				<LocalImage
-					style={[style.rectButtonThumbnail, { marginVertical: 6 * ratio, width: iconSize, height: iconSize }]}
+					style={[stylez.rectButtonThumbnail, { marginVertical: 6 * ratio, width: iconSize, height: iconSize }]}
 					square
 					name={imageName}
 				/>
 			)}
-			<Text style={[style.text, { color: borderColor }]}>{title}</Text>
+			<Text style={[stylez.text, { color: borderColor }]}>{title}</Text>
 		</Button>
 		/*
-		<Body style={style.rectButton} borderColor={borderColor}>
+		<Body style={stylez.rectButton} borderColor={borderColor}>
 			<TouchableHighlight underlayColor='rgba(0,0,0,0)' onPress={props.onPress}>
 				<View style={{justifyContent:'center', alignItems:'center'}}>
-					<LocalImage style={style.rectButtonThumbnail} square name={iconName} />
+					<LocalImage style={stylez.rectButtonThumbnail} square name={iconName} />
 					<Text>{title}</Text>
 				</View>
 			</TouchableHighlight>

@@ -27,7 +27,7 @@ const { useBoard } = require("/coordinators/board")
 const { useRouter } = require("/coordinators/router")
 const { useStyle } = require("/coordinators/style")
 
-const HomeScreen = props => {
+const HomeScreen = (props) => {
 	const { boardz, getBoard } = useBoard()
 
 	const [_board1, set_board1] = useState(() => getBoard("Announcementsoneaday4"))
@@ -35,8 +35,7 @@ const HomeScreen = props => {
 	const [_refreshing, set_refreshing] = useState(false)
 	const [_loading, set_loading] = useState(false)
 
-	const { getStyle } = useStyle()
-	const style = getStyle(HomeScreen)
+	const { stylez } = useStyle(HomeScreen)
 
 	// if (_this.isChangedProps("Icon,name", { type, name, android, ios, active })) {	}
 
@@ -53,12 +52,12 @@ const HomeScreen = props => {
 		nextProps.menu.load()
 	}
 
-	const handleOrientationDidChange = orientation => {
+	const handleOrientationDidChange = (orientation) => {
 		console.debug(HomeScreen)
 		forceUpdate()
 	}
 
-	const refresh = isUpdateRefreshing => {
+	const refresh = (isUpdateRefreshing) => {
 		if (isUpdateRefreshing) set_refreshing(true)
 		props.boardz.reload(_board1)
 		props.boardz.reload(_board2)
@@ -66,33 +65,33 @@ const HomeScreen = props => {
 		props.menu.load()
 	}
 
-	const renderBoard = board => {
+	const renderBoard = (board) => {
 		let { title, articles } = board
 		if (!articles) return <View />
 		let data = 5 < articles.length ? _.slice(articles, 0, 5) : articles
 		return (
 			<List
-				style={style.boardListItem}
+				style={stylez.boardListItem}
 				ListHeaderComponent={() => (
 					<Item
-						style={style.boardTitleBar}
+						style={stylez.boardTitleBar}
 						onPress={() => router.push("listArticle", { boardID: board.paramz.boardUrl, title })}>
 						<Left>
-							<Text style={style.boardTitleBarText}>{title}</Text>
+							<Text style={stylez.boardTitleBarText}>{title}</Text>
 						</Left>
 						<Right>
-							<Icon style={style.boardTitleBarIcon} name="ios-arrow-forward" />
+							<Icon style={stylez.boardTitleBarIcon} name="ios-arrow-forward" />
 						</Right>
 					</Item>
 				)}
 				data={data}
-				keyExtractor={item => item.itemID}
+				keyExtractor={(item) => item.itemID}
 				renderItem={({ item }) => (
-					<ListItem style={style.boardListItem} onPress={() => router.push("detailArticle", { board, item, title })}>
-						<Text style={style.boardListItemText} numberOfLines={2}>
+					<ListItem style={stylez.boardListItem} onPress={() => router.push("detailArticle", { board, item, title })}>
+						<Text style={stylez.boardListItemText} numberOfLines={2}>
 							{item.itemTitle}
 						</Text>
-						<Text style={style.boardListItemTextRight}>{yyyymmdd(item.createdDatetime)}</Text>
+						<Text style={stylez.boardListItemTextRight}>{yyyymmdd(item.createdDatetime)}</Text>
 					</ListItem>
 				)}
 			/>
@@ -105,12 +104,12 @@ const HomeScreen = props => {
 			<TitleBar drawer title={title} rightIconName="ios-refresh" onRightPress={refresh} />
 			{/*
 			<Content refreshControl={<RefreshControl refreshing={_refreshing} onRefresh={() => refresh(true)} />}>
-				<View style={style.notiArea}>
+				<View style={stylez.notiArea}>
 					<HIcon iconName="envelope-o" imageName="ico-main-mail" title="메일" onPress={() => router.launch("email")} />
 					<VLine height={30} />
 					<HIcon iconName="list-alt" imageName="ico-main-aprv" title="결재" />
 				</View>
-				<View style={style.rectButtonArea}>
+				<View style={stylez.rectButtonArea}>
 					<BorderButton
 						borderColor="#BD4941"
 						iconName="bullhorn"
@@ -158,10 +157,10 @@ const HomeScreen = props => {
 				{renderBoard(_board1)}
 				{renderBoard(_board2)}
 
-				<Item style={style.qnaArea} onPress={() => router.push("listArticle", { boardID: "Faq", title: "자주하는 질문" })}>
+				<Item style={stylez.qnaArea} onPress={() => router.push("listArticle", { boardID: "Faq", title: "자주하는 질문" })}>
 					<Body>
-						<Text style={style.qnaAreaTitle}>자주하는 질문</Text>
-						<Text style={style.qnaAreaText}>문의 전 확인하세요!</Text>
+						<Text style={stylez.qnaAreaTitle}>자주하는 질문</Text>
+						<Text style={stylez.qnaAreaText}>문의 전 확인하세요!</Text>
 					</Body>
 				</Item>
 			</Content>

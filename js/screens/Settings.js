@@ -13,15 +13,14 @@ const { TitleBar } = require("/elements")
 const fontSizeOptions = ["작게", "조금 작게", "표준", "조금 크게", "크게"]
 const { useAuth, useStyle } = require("/coordinators")
 
-const SettingsScreen = props => {
+const SettingsScreen = (props) => {
 	const router = useRouter()
 	const { auth } = useAuth()
-	const { getStyle, setFontSizes } = useStyle()
-	const style = getStyle(LoginScreen)
+	const { stylez, setFontSizes } = useStyle(LoginScreen)
 
 	const logout = () => auth.logout()
 
-	const setLoginInfoSavable = v => {
+	const setLoginInfoSavable = (v) => {
 		auth.setLoginInfoSavable(v)
 		set_loginInfoSavable(v)
 	}
@@ -34,7 +33,7 @@ const SettingsScreen = props => {
 				options,
 				cancelButtonIndex: options.length - 1,
 			},
-			i => 0 <= i && i < options.length - 1 && setFontSizes(i)
+			(i) => 0 <= i && i < options.length - 1 && setFontSizes(i)
 		)
 	}
 
@@ -42,7 +41,7 @@ const SettingsScreen = props => {
 
 	console.debug(SettingsScreen, auth.loginInfo.loginInfoSavable)
 	return (
-		<Container style={style.container}>
+		<Container style={stylez.container}>
 			<TitleBar
 				back
 				title="설정"
@@ -51,86 +50,86 @@ const SettingsScreen = props => {
 					if (_styleChanged) setTimeout(() => router.refresh({ refreshedTimestamp: Date.now() }), 0)
 				}}
 			/>
-			<List style={style.list}>
-				<ListItem itemDivider style={style.listItemDivider}>
-					<Text style={style.leftText}>로그인 정보</Text>
-					<Button style={style.rightButton} small onPress={logout}>
-						<Text style={style.rightButtonText}>로그아웃</Text>
+			<List style={stylez.list}>
+				<ListItem itemDivider style={stylez.listItemDivider}>
+					<Text style={stylez.leftText}>로그인 정보</Text>
+					<Button style={stylez.rightButton} small onPress={logout}>
+						<Text style={stylez.rightButtonText}>로그아웃</Text>
 					</Button>
 				</ListItem>
-				<ListItem style={style.listItem}>
-					<Text style={style.leftText}>로그인 계정</Text>
+				<ListItem style={stylez.listItem}>
+					<Text style={stylez.leftText}>로그인 계정</Text>
 					<Button
-						style={style.right}
+						style={stylez.right}
 						transparent
 						small
 						// onPress={() => router.push("userDetail", { item: auth.userInfo, footerVisible: false })}
 					>
-						<Text style={style.rightText}>{auth.userInfo.emailAddress}</Text>
+						<Text style={stylez.rightText}>{auth.userInfo.emailAddress}</Text>
 					</Button>
 				</ListItem>
-				<ListItem style={style.listItem}>
-					<Text style={style.leftText}>로그인ID 저장</Text>
+				<ListItem style={stylez.listItem}>
+					<Text style={stylez.leftText}>로그인ID 저장</Text>
 					<Switch
-						style={style.switch}
+						style={stylez.switch}
 						activeText=""
 						inActiveText=""
 						value={auth.loginInfo.loginInfoSavable}
-						onValueChange={v => setLoginInfoSavable(v)}
+						onValueChange={(v) => setLoginInfoSavable(v)}
 					/>
 				</ListItem>
-				<ListItem itemDivider style={style.listItemDivider}>
-					<Text style={style.leftText}>화면 설정</Text>
+				<ListItem itemDivider style={stylez.listItemDivider}>
+					<Text style={stylez.leftText}>화면 설정</Text>
 				</ListItem>
-				<ListItem style={style.listItem}>
-					<Text style={style.leftText} onLongPress={() => router.push("intro")}>
+				<ListItem style={stylez.listItem}>
+					<Text style={stylez.leftText} onLongPress={() => router.push("intro")}>
 						폰트 크기
 					</Text>
-					<Text style={style.rightText} onPress={setFontSize}>
-						{fontSizeOptions[auth.fontSizesIndex]}
+					<Text style={stylez.rightText} onPress={setFontSize}>
+						{fontSizeOptions[stylez.fontSizesIndex]}
 					</Text>
 				</ListItem>
-				{/*<ListItem style={style.listItem}>
-							<Text  style={style.leftText} onLongPress={() => router.push("intro")}>테마</Text>
-							<Text style={style.rightText} onPress={setTheme}>
+				{/*<ListItem style={stylez.listItem}>
+							<Text  style={stylez.leftText} onLongPress={() => router.push("intro")}>테마</Text>
+							<Text style={stylez.rightText} onPress={setTheme}>
 								밝은 테마
 							</Text>
 						</ListItem>*/}
-				<ListItem itemDivider style={style.listItemDivider}>
-					<Text style={style.leftText}>버전</Text>
+				<ListItem itemDivider style={stylez.listItemDivider}>
+					<Text style={stylez.leftText}>버전</Text>
 				</ListItem>
-				<ListItem style={style.listItem}>
-					<Text style={style.leftText} onLongPress={() => router.push("intro")}>
+				<ListItem style={stylez.listItem}>
+					<Text style={stylez.leftText} onLongPress={() => router.push("intro")}>
 						앱 버전
 					</Text>
-					<Text style={style.rightText} onPress={() => upgradeApp({ ver: "/next", cancelable: true })}>
+					<Text style={stylez.rightText} onPress={() => upgradeApp({ ver: "/next", cancelable: true })}>
 						{`Ver ${appVersion}.${buildNumber}`}
 					</Text>
 				</ListItem>
-				<ListItem style={style.listItem}>
-					<Text style={style.leftText} onLongPress={() => router.push("intro")}>
+				<ListItem style={stylez.listItem}>
+					<Text style={stylez.leftText} onLongPress={() => router.push("intro")}>
 						버전 히스토리
 					</Text>
 					<Icon
-						style={style.rightIcon}
+						style={stylez.rightIcon}
 						name="ios-arrow-forward"
 						onPress={() => router.push("listArticle", { boardID: "AppHistory", title: "버전 히스토리" })}
 					/>
 				</ListItem>
-				<ListItem itemDivider style={style.listItemDivider}>
-					<Text style={style.leftText}>일반</Text>
+				<ListItem itemDivider style={stylez.listItemDivider}>
+					<Text style={stylez.leftText}>일반</Text>
 				</ListItem>
-				<ListItem style={style.listItem}>
-					<Text style={style.leftText} onLongPress={() => router.push("intro")}>
+				<ListItem style={stylez.listItem}>
+					<Text style={stylez.leftText} onLongPress={() => router.push("intro")}>
 						ID
 					</Text>
-					<Text style={style.rightText}>{hex_md5(deviceID).substr(0, 5)}</Text>
+					<Text style={stylez.rightText}>{hex_md5(deviceID).substr(0, 5)}</Text>
 				</ListItem>
-				<ListItem style={style.listItem}>
-					<Text style={style.leftText} onLongPress={() => router.push("intro")}>
+				<ListItem style={stylez.listItem}>
+					<Text style={stylez.leftText} onLongPress={() => router.push("intro")}>
 						URL
 					</Text>
-					<Text style={style.rightText}>{config.originz.api}</Text>
+					<Text style={stylez.rightText}>{config.originz.api}</Text>
 				</ListItem>
 			</List>
 		</Container>

@@ -17,10 +17,9 @@ const Text = require("./Text")
 
 const app = require("/../app.json")
 
-const TitleBarElement = props => {
+const TitleBarElement = (props) => {
 	const router = useRouter()
-	const { getStyle } = useStyle()
-	const style = getStyle(TitleBarElement)
+	const { stylez } = useStyle(TitleBarElement)
 
 	const handleOnLeftPress = () => {
 		let { onLeftPress } = props
@@ -48,31 +47,31 @@ const TitleBarElement = props => {
 
 	const renderButton = (text, imageName, iconName = "") => {
 		return text && imageName ? (
-			<View style={style.hview}>
-				<LocalImage style={style.image} name={imageName} />
-				<Text style={style.text}>{text}</Text>
+			<View style={stylez.hview}>
+				<LocalImage style={stylez.image} name={imageName} />
+				<Text style={stylez.text}>{text}</Text>
 			</View>
 		) : text && iconName ? (
-			<View style={style.hview}>
-				<Icon style={style.icon} name={iconName} />
-				<Text style={style.text}>{text}</Text>
+			<View style={stylez.hview}>
+				<Icon style={stylez.icon} name={iconName} />
+				<Text style={stylez.text}>{text}</Text>
 			</View>
 		) : imageName ? (
-			<LocalImage style={style.image} name={imageName} />
+			<LocalImage style={stylez.image} name={imageName} />
 		) : iconName ? (
-			<Icon style={style.icon} name={iconName} />
+			<Icon style={stylez.icon} name={iconName} />
 		) : (
-			<Text style={style.text}>{text || ""}</Text>
+			<Text style={stylez.text}>{text || ""}</Text>
 		)
 	}
 
 	const { title } = props
 	// console.debug(TitleBar, `+${title}+`)
 	return (
-		<Header style={[style.header, props.style]}>
-			<StatusBar backgroundColor={style.header.backgroundColor} />
+		<Header style={[stylez.header, props.style]}>
+			<StatusBar backgroundColor={stylez.header.backgroundColor} />
 			<View style={{ flex: 1, flexDirection: ROW, alignItems: CENTER }}>
-				<Button style={[style.button, style.left]} transparent onPress={handleOnLeftPress} onLongPress={handleOnLeftPress}>
+				<Button style={[stylez.button, stylez.left]} transparent onPress={handleOnLeftPress} onLongPress={handleOnLeftPress}>
 					{renderButton(
 						props.leftText,
 						props.leftImageName,
@@ -81,16 +80,16 @@ const TitleBarElement = props => {
 				</Button>
 				{props.onCenterPress ? (
 					<Button
-						style={[style.button, style.center, { justifyContent: CENTER, alignItems: CENTER }]}
+						style={[stylez.button, stylez.center, { justifyContent: CENTER, alignItems: CENTER }]}
 						transparent
 						small
 						onPress={handleOnCenterPress}>
-						<Text style={style.title}>{title}</Text>
+						<Text style={stylez.title}>{title}</Text>
 					</Button>
 				) : (
-					<Text style={style.title}>{title}</Text>
+					<Text style={stylez.title}>{title}</Text>
 				)}
-				<Button style={[style.button, style.right]} transparent onPress={handleOnRightPress}>
+				<Button style={[stylez.button, stylez.right]} transparent onPress={handleOnRightPress}>
 					{renderButton(props.rightText, props.rightImageName, props.rightIconName)}
 				</Button>
 			</View>
