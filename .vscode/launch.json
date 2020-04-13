@@ -13,7 +13,8 @@
 			"type": "reactnative",
 			"request": "launch",
 			"platform": "android",
-			"sourceMaps": true
+			"sourceMaps": true,
+			"preLaunchTask": "npm: android-wakeup"
 		},
 		{
 			"name": "Debug iOS Simulator",
