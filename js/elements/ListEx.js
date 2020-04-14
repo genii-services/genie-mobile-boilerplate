@@ -2,8 +2,8 @@
  * V2 200107 appcreatier@gmail.com
  *           getDerivedStateFromProps 방식으로 변경
  */
-const React = require("react")
 const _ = require("lodash")
+const React = require("react")
 const { FlatList, RefreshControl, Text, TouchableHighlight, View } = require("react-native")
 
 const { FUNCTION, UNDEFINED } = require("/constants")

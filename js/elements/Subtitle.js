@@ -3,8 +3,7 @@ console.debug(MODULE_NAME$)
 
 const { Text } = require("react-native")
 
-const { connectStyle } = require("/utils/style")
-
 const SubtitleElement = Text
 
+// const { connectStyle } = require("/utils/style")
 module.exports = SubtitleElement // connectStyle(SubtitleElement, MODULE_NAME$)

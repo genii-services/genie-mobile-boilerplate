@@ -6,7 +6,6 @@ const { Animated, PanResponder, View } = require("react-native")
 
 const { ABSOLUTE, HIDDEN, ROW, SPACE_BETWEEN } = require("/constants/style")
 const { useThis } = require("/hooks")
-const { connectStyle } = require("/utils/style")
 
 const { Left } = require("./Left")
 const { Right } = require("./Right")
@@ -16,7 +15,7 @@ const { ListItem } = require("./ListItem")
 const PREVIEW_OPEN_DELAY = 700
 const PREVIEW_CLOSE_DELAY = 300
 
-const SwipeRowElement = props => {
+const SwipeRowElement = (props) => {
 	const _this = useThis()
 	if (!_this.ref) {
 		_this.horizontalSwipeGestureBegan = false
@@ -35,7 +34,7 @@ const SwipeRowElement = props => {
 			onPanResponderMove: (e, gs) => handlePanResponderMove(e, gs),
 			onPanResponderRelease: (e, gs) => handlePanResponderEnd(e, gs),
 			onPanResponderTerminate: (e, gs) => handlePanResponderEnd(e, gs),
-			onShouldBlockNativeResponder: _ => false,
+			onShouldBlockNativeResponder: (_) => false,
 		})
 	}, [])
 
@@ -48,7 +47,7 @@ const SwipeRowElement = props => {
 		})
 	}
 
-	const onContentLayout = e => {
+	const onContentLayout = (e) => {
 		set_dimensionsSet(!props.recalculateHiddenLayout)
 		set_hiddenHeight(e.nativeEvent.layout.height)
 		set_hiddenWidth(e.nativeEvent.layout.width)
@@ -56,7 +55,7 @@ const SwipeRowElement = props => {
 		if (props.preview && !_this.ranPreview) {
 			_this.ranPreview = true
 			const previewOpenValue = props.previewOpenValue || props.rightOpenValue * 0.5
-			getPreviewAnimation(previewOpenValue, PREVIEW_OPEN_DELAY).start(_ => {
+			getPreviewAnimation(previewOpenValue, PREVIEW_OPEN_DELAY).start((_) => {
 				getPreviewAnimation(0, PREVIEW_CLOSE_DELAY).start()
 			})
 		}
@@ -143,13 +142,13 @@ const SwipeRowElement = props => {
 
 	const openRightRow = () => manuallySwipeRow(props.rightOpenValue)
 
-	const manuallySwipeRow = toValue => {
+	const manuallySwipeRow = (toValue) => {
 		Animated.spring(_this._translateX, {
 			toValue,
 			friction: props.friction,
 			tension: props.tension,
 			useNativeDriver: true,
-		}).start(_ => {
+		}).start((_) => {
 			if (toValue === 0) props.onRowDidClose && props.onRowDidClose()
 			else props.onRowDidOpen && props.onRowDidOpen()
 		})
@@ -186,7 +185,7 @@ const SwipeRowElement = props => {
 		return (
 			<Animated.View
 				{..._this._panResponder.panHandlers}
-				onLayout={e => onContentLayout(e)}
+				onLayout={(e) => onContentLayout(e)}
 				style={{
 					transform: [{ translateX: _this._translateX }],
 					zIndex: 2,
@@ -203,7 +202,7 @@ const SwipeRowElement = props => {
 	}
 
 	return (
-		<View ref={c => (_this.ref = c)} style={props.style}>
+		<View ref={(c) => (_this.ref = c)} style={props.style}>
 			<View
 				style={[
 					styles.hidden,
@@ -250,4 +249,5 @@ const styles = {
 	},
 }
 
+// const { connectStyle } = require("/utils/style")
 module.exports = SwipeRowElement //connectStyle(SwipeRowElement, MODULE_NAME$)

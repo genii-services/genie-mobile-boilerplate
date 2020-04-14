@@ -3,8 +3,7 @@ console.debug(MODULE_NAME$)
 
 const { Picker } = require("@react-native-community/picker")
 
-const { connectStyle } = require("/utils/style")
-
 PickerAndroidElement = Picker
 
+// const { connectStyle } = require("/utils/style")
 module.exports = PickerAndroidElement //connectStyle(PickerAndroidElement, "PickerNBElement")

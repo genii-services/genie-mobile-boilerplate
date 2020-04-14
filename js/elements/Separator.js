@@ -3,8 +3,7 @@ console.debug(MODULE_NAME$)
 
 const { View } = require("react-native")
 
-const { connectStyle } = require("/utils/style")
-
 const SeparatorElement = View
 
+// const { connectStyle } = require("/utils/style")
 module.exports = SeparatorElement //connectStyle(SeparatorElement, MODULE_NAME$)

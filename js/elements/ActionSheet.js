@@ -8,6 +8,7 @@ const { ActionSheetIOS, FlatList, Modal, TouchableOpacity } = require("react-nat
 
 const { deviceHeight, itsIOS } = require("/utils/device")
 const { createCoordinator, forwardRef, useEffect, useState, useStore, useThis } = require("/hooks")
+const { useStyle } = require("/coordinators/style")
 
 const Text = require("./Text")
 const Icon = require("./Icon")
@@ -15,7 +16,6 @@ const Left = require("./Left")
 const Right = require("./Right")
 const Body = require("./Body")
 const ListItem = require("./ListItem")
-const { useStyle } = require("/coordinators/style")
 
 const ActionSheetElement = (props) => {
 	const _this = useThis()

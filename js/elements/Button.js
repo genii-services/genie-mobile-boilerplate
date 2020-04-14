@@ -9,8 +9,9 @@ const { CENTER, ROW, TRANSPARENT } = require("/constants/style")
 const { forwardRef, useStore, useRefs } = require("/hooks")
 
 const { itsIOS, itsWeb } = require("/utils/device")
-const { connectStyle, mergeStyle } = require("/utils/style")
+const { mergeStyle } = require("/utils/style")
 const { useStyle } = require("/coordinators")
+
 const Text = require("./Text")
 
 const defaultThemeStyle = {
@@ -23,54 +24,65 @@ const defaultThemeStyle = {
 
 const ButtonElement = ({ style, transparent, onPress, ...props }) => {
 	const { bordered, rounded } = props
-	const { stylez, defaultStyle } = useStyle(MODULE_NAME$, { style, bordered, rounded }, defaultStyle => {
-		root: mergeStyle(style, {
-			borderWidth: bordered && defaultThemeStyle.buttonDefaultBorderWidth,
-			borderRadius: rounded && bordered ? defaultThemeStyle.borderRadiusLarge : defaultThemeStyle.buttonDefaultBorderRadius,
-		})
+	const { stylez, defaultTheme } = useStyle(MODULE_NAME$, { style, bordered, rounded }, (defaultStyle) => {
+		const stylez = {
+			button: mergeStyle(style, {
+				borderWidth: bordered && defaultThemeStyle.buttonDefaultBorderWidth,
+				borderRadius: rounded && bordered ? defaultThemeStyle.borderRadiusLarge : defaultThemeStyle.buttonDefaultBorderRadius,
+			}),
+		}
+		if (rounded) {
+			const buttonFlex = props.full || props.block ? defaultThemeStyle.buttonDefaultFlex : buttonStyle.flex
+			stylez.outerViewStyle = [
+				{ maxHeight: buttonStyle.height },
+				buttonStyle,
+				{ paddingTop: undefined, paddingBottom: undefined },
+			]
+			stylez.innerViewStyle = {
+				flexShrink: 1,
+				flexDirection: ROW,
+				justifyContent: CENTER,
+				alignItems: CENTER,
+
+				paddingTop: buttonStyle.paddingTop,
+				paddingBottom: buttonStyle.paddingBottom,
+				height: buttonStyle.height,
+				flexGrow: buttonFlex,
+			}
+		}
+		return stylez
 	})
 
 	const children = itsIOS
 		? props.children
-		: React.Children.map(props.children, child =>
+		: React.Children.map(props.children, (child) =>
 				child && child.type === Text
 					? React.cloneElement(child, {
-							uppercase: defaultStyle.buttonUppercaseAndroidText,
+							uppercase: defaultTheme.buttonUppercaseAndroidText,
 							...child.props,
 					  })
 					: child
 		  )
-	if (itsIOS || itsWeb || defaultStyle.androidRipple === false || Platform.Version < 21) {
+	const buttonStyle = stylez.button
+	if (itsIOS || itsWeb || defaultTheme.androidRipple === false || Platform.Version < 21) {
 		return (
 			<TouchableOpacity
 				{...props}
-				style={stylez.root}
+				style={buttonStyle}
 				activeOpacity={0 < props.activeOpacity ? props.activeOpacity : defaultThemeStyle.buttonDefaultActiveOpacity}>
 				{children}
 			</TouchableOpacity>
 		)
 	}
-	if (props.rounded) {
-		const buttonStyle = stylez.root
-		const buttonFlex = props.full || props.block ? defaultThemeStyle.buttonDefaultFlex : buttonStyle.flex
-		const outerViewStyle = [{ maxHeight: buttonStyle.height }, buttonStyle, { paddingTop: undefined, paddingBottom: undefined }]
-		const innerViewStyle = [
-			// eslint-disable-next-line no-use-before-define
-			styles.childContainer,
-			{
-				paddingTop: buttonStyle.paddingTop,
-				paddingBottom: buttonStyle.paddingBottom,
-				height: buttonStyle.height,
-				flexGrow: buttonFlex,
-			},
-		]
+	if (rounded) {
 		return (
-			<View style={outerViewStyle}>
+			<View style={stylez.outerViewStyle}>
 				<TouchableNativeFeedback
-					background={Ripple(props.androidRippleColor || defaultStyle.androidRippleColor, true)}
+					onPress={onPress}
+					background={Ripple(props.androidRippleColor || defaultTheme.androidRippleColor, true)}
 					{...props}
-					style={stylez.root}>
-					<View style={innerViewStyle}>{children}</View>
+					style={buttonStyle}>
+					<View style={stylez.innerViewStyle}>{children}</View>
 				</TouchableNativeFeedback>
 			</View>
 		)
@@ -78,10 +90,10 @@ const ButtonElement = ({ style, transparent, onPress, ...props }) => {
 	return (
 		<TouchableNativeFeedback
 			onPress={onPress}
-			background={transparent ? Ripple(TRANSPARENT) : Ripple(defaultStyle.androidRippleColor, false)}
+			background={transparent ? Ripple(TRANSPARENT) : Ripple(defaultTheme.androidRippleColor, false)}
 			{...props}
-			style={stylez.root}>
-			<View {...props} style={stylez.root}>
+			style={buttonStyle}>
+			<View {...props} style={buttonStyle}>
 				{children}
 			</View>
 		</TouchableNativeFeedback>
@@ -109,13 +121,5 @@ if (__DEV__) {
 	}
 }
 
-const styles = {
-	childContainer: {
-		flexShrink: 1,
-		flexDirection: ROW,
-		justifyContent: CENTER,
-		alignItems: CENTER,
-	},
-}
-
+// const { connectStyle } = require("/utils/style")
 module.exports = ButtonElement //connectStyle(ButtonElement, MODULE_NAME$)

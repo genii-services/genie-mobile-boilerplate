@@ -6,11 +6,11 @@ const { ABSOLUTE, FLEX_START, LEFT } = require("/constants/style")
 const { toString } = require("/utils/string")
 const { fontFamily } = require("/styles")
 
-// const  Button = require("./Button")
+// const Button = require("./Button")
 // const Text = require("./Text")
 
 const DatePicker = ({ buttonStyle, value, datePickerMode, doneText, cancelText, onPickerConfirm, ...props }) => {
-	const handleOnDateChange = date => typeof onPickerConfirm === "function" && onPickerConfirm(date)
+	const handleOnDateChange = (date) => typeof onPickerConfirm === "function" && onPickerConfirm(date)
 
 	const { mode } = props
 	const selectedDate = toString(value, datePickerMode, "-")

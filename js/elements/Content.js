@@ -8,7 +8,6 @@ const { KeyboardAwareScrollView } = require("react-native-keyboard-aware-scroll-
 const { forwardRef, useStore, useThis } = require("/hooks")
 const { useStyle } = require("/coordinators")
 const { itsIphoneX } = require("/utils/device")
-const { connectStyle } = require("/utils/style")
 
 const ContentElement = ({
 	contentContainerStyle,
@@ -81,4 +80,5 @@ ContentElement.getDefaultStyle = ({ TRANSPARENT }) => {
 	}
 }
 
+const { connectStyle } = require("/utils/style")
 module.exports = ContentElement //connectStyle(ContentElement, MODULE_NAME$)

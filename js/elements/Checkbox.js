@@ -6,15 +6,14 @@ const { TouchableOpacity } = require("react-native")
 const Ionicons = require("react-native-vector-icons/Ionicons")
 
 const { useStore } = require("/hooks")
-const { connectStyle } = require("/utils/style")
 
 const { computeProps } = require("/utils/props")
 const { itsIOS } = require("/utils/device")
 
-const CheckBoxElement = props => {
+const CheckBoxElement = (props) => {
 	const { color, checked } = props
 
-	const { stylez, defaultStyle } = useStyle(MODULE_NAME$, { color, checked }, defaultStyle => ({
+	const { stylez, defaultTheme } = useStyle(MODULE_NAME$, { color, checked }, (defaultStyle) => ({
 		root: {
 			borderColor: color || defaultStyle.checkboxBgColor,
 			backgroundColor: checked ? color || defaultStyle.checkboxBgColor : defaultStyle.checkboxDefaultColor,
@@ -29,7 +28,7 @@ const CheckBoxElement = props => {
 	}))
 
 	const rootProps = computeProps(props, stylez.root)
-	const iconName = itsIOS && !defaultStyle.itsUnitedStyle ? "ios-checkmark" : "md-checkmark"
+	const iconName = itsIOS && !defaultTheme.itsUnitedStyle ? "ios-checkmark" : "md-checkmark"
 	return (
 		<TouchableOpacity {...rootProps}>
 			<Ionicons style={stylez.icon} name={iconName} />
@@ -47,4 +46,5 @@ if (__DEV__) {
 	}
 }
 
+const { connectStyle } = require("/utils/style")
 module.exports = CheckBoxElement //connectStyle(CheckBoxElement, MODULE_NAME$)

@@ -7,7 +7,7 @@ const { View } = require("react-native")
 const { useStyle } = require("/coordinators")
 
 const InputGroup = ({ rounded, style, ...props }) => {
-	const { stylez } = useStyle(MODULE_NAME$, { rounded, style }, defaultStyle => ({
+	const { stylez } = useStyle(InputGroup, { rounded, style }, (defaultStyle) => ({
 		root: {
 			borderWidth: rounded && 1,
 			borderRadius: rounded && defaultStyle.inputGroupRoundedBorderRadius,

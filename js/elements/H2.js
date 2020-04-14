@@ -3,8 +3,7 @@ console.debug(MODULE_NAME$)
 
 const { Text } = require("react-native")
 
-const { connectStyle } = require("/utils/style")
-
 const H2 = Text
 
+// const { connectStyle } = require("/utils/style")
 module.exports = H2 //connectStyle(H2, MODULE_NAME$)

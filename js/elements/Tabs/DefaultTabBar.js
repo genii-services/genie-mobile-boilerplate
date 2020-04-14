@@ -17,9 +17,9 @@ const TabHeading = require("../TabHeading")
 const Text = require("../Text")
 const TabContainer = require("../TabContainer")
 
-const DefaultTabBarElement = props => {
+const DefaultTabBarElement = (props) => {
 	const { containerWidth, tabs } = props
-	const { stylez, defaultStyle } = useStyle(MODULE_NAME$, { containerWidth, tabs }, defaultStyle => {
+	const { stylez, defaultTheme } = useStyle(MODULE_NAME$, { containerWidth, tabs }, (defaultStyle) => {
 		const numberOfTabs = tabs.length
 		const tabUnderlineStyle = {
 			position: ABSOLUTE,
@@ -32,7 +32,7 @@ const DefaultTabBarElement = props => {
 		return {
 			tabContainer: [
 				{
-					backgroundColor: defaultStyle.tabDefaultBg,
+					backgroundColor: defaultTheme.tabDefaultBg,
 				},
 				props.tabContainerStyle,
 			],
@@ -49,7 +49,7 @@ const DefaultTabBarElement = props => {
 		const textStyle = props.textStyle[page]
 		const activeTextStyle = props.activeTextStyle[page]
 		const tabHeaderStyle = props.tabHeaderStyle[page]
-		const tabFontSize = defaultStyle.tabFontSize
+		const tabFontSize = defaultTheme.tabFontSize
 		const disabled = props.disabled[page]
 		const disabledTextColor = props.disabledTextColor
 

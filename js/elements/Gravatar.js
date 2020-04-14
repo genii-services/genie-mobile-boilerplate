@@ -1,17 +1,16 @@
 const MODULE_NAME$ = "GravatarElement"
 console.debug(MODULE_NAME$)
 
-const React = require("react")
-const { Image } = require("react-native")
 const _ = require("lodash")
 const md5 = require("blueimp-md5")
+const React = require("react")
+const { Image } = require("react-native")
 
 const { computeProps } = require("/utils/props")
-const { connectStyle } = require("/utils/style")
 
 const GRAVATAR_URI = "https://www.gravatar.com/avatar/"
 
-const Gravatar = props => {
+const Gravatar = (props) => {
 	const { size = 30 } = props
 
 	const gravatarStyle = {}
@@ -55,4 +54,5 @@ if (__DEV__) {
 	}
 }
 
+const { connectStyle } = require("/utils/style")
 module.exports = Gravatar //connectStyle(Gravatar, MODULE_NAME$)

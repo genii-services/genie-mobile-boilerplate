@@ -6,11 +6,10 @@ const { View, Animated, PanResponder } = require("react-native")
 const clamp = require("clamp")
 
 const { ABSOLUTE, COLUMN, LEFT, RIGHT } = require("/constants/style")
-const { connectStyle } = require("/utils/style")
 
 const SWIPE_THRESHOLD = 120
 
-const DeckSwiper = props => {
+const DeckSwiper = (props) => {
 	const [_pan, set_pan] = useState(new Animated.ValueXY())
 	// const [_pan2, set_pan2] = useState(new Animated.ValueXY())
 	const [_enter, set_enter] = useState(new Animated.Value(0.8))
@@ -160,7 +159,7 @@ const DeckSwiper = props => {
 		return null
 	}
 
-	const findNextIndexes = currentIndex => {
+	const findNextIndexes = (currentIndex) => {
 		const newIdx = currentIndex + 1
 		const newIdx2 = currentIndex + 2
 		const dataSourceLastIdx = props.dataSource.length - 1
@@ -214,4 +213,5 @@ if (__DEV__) {
 	}
 }
 
+const { connectStyle } = require("/utils/style")
 module.exports = DeckSwiper //connectStyle(DeckSwiper, MODULE_NAME$)

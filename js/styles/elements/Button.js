@@ -9,57 +9,61 @@ module.exports = (style) => {
 	const { borderWidth } = style
 	const itsMaterial = style.name === MATERIAL
 	const borderWidthX2 = borderWidth * 2
+
+	const brandDark = { color: style.brandDark }
+	const brandLight = { color: style.brandLight }
+	const buttonPrimaryBg = { color: style.buttonPrimaryBg }
+	const buttonSuccessBg = { color: style.buttonSuccessBg }
+	const buttonInfoBg = { color: style.buttonInfoBg }
+	const buttonWarningBg = { color: style.buttonWarningBg }
+	const buttonDangerBg = { color: style.buttonDangerBg }
+	const buttonDisabledBg = { color: style.buttonDisabledBg }
+
 	const commonDark = {
-		TextElement: { color: style.brandDark },
-		IconElement: { color: style.brandDark },
-		IconNBElement: { color: style.brandDark },
+		TextElement: brandDark,
+		IconElement: brandDark,
+		IconNBElement: brandDark,
 	}
 	const commonLight = {
-		TextElement: { color: style.brandLight },
-		IconElement: { color: style.brandLight },
-		IconNBElement: { color: style.brandLight },
+		TextElement: brandLight,
+		IconElement: brandLight,
+		IconNBElement: brandLight,
 	}
 	const commonPrimary = {
-		TextElement: { color: style.buttonPrimaryBg },
-		IconElement: { color: style.buttonPrimaryBg },
-		IconNBElement: { color: style.buttonPrimaryBg },
+		TextElement: buttonPrimaryBg,
+		IconElement: buttonPrimaryBg,
+		IconNBElement: buttonPrimaryBg,
 	}
 	const commonSuccess = {
-		TextElement: { color: style.buttonSuccessBg },
-		IconElement: { color: style.buttonSuccessBg },
-		IconNBElement: { color: style.buttonSuccessBg },
+		TextElement: buttonSuccessBg,
+		IconElement: buttonSuccessBg,
+		IconNBElement: buttonSuccessBg,
 	}
 	const commonInfo = {
-		TextElement: { color: style.buttonInfoBg },
-		IconElement: { color: style.buttonInfoBg },
-		IconNBElement: { color: style.buttonInfoBg },
+		TextElement: buttonInfoBg,
+		IconElement: buttonInfoBg,
+		IconNBElement: buttonInfoBg,
 	}
 	const commonWarning = {
-		TextElement: { color: style.buttonWarningBg },
-		IconElement: { color: style.buttonWarningBg },
-		IconNBElement: { color: style.buttonWarningBg },
+		TextElement: buttonWarningBg,
+		IconElement: buttonWarningBg,
+		IconNBElement: buttonWarningBg,
 	}
 	const commonDanger = {
-		TextElement: { color: style.buttonDangerBg },
-		IconElement: { color: style.buttonDangerBg },
-		IconNBElement: { color: style.buttonDangerBg },
+		TextElement: buttonDangerBg,
+		IconElement: buttonDangerBg,
+		IconNBElement: buttonDangerBg,
 	}
 	return {
 		".disabled": {
 			".transparent": {
 				backgroundColor: TRANSPARENT,
-				TextElement: {
-					color: style.buttonDisabledBg,
-				},
-				IconElement: {
-					color: style.buttonDisabledBg,
-				},
-				IconNBElement: {
-					color: style.buttonDisabledBg,
-				},
+				TextElement: buttonDisabledBg,
+				IconElement: buttonDisabledBg,
+				IconNBElement: buttonDisabledBg,
 			},
-			IconElement: { color: style.brandLight },
-			IconNBElement: { color: style.brandLight },
+			IconElement: brandLight,
+			IconNBElement: brandLight,
 			backgroundColor: style.buttonDisabledBg,
 		},
 		".bordered": {
@@ -109,9 +113,7 @@ module.exports = (style) => {
 				backgroundColor: TRANSPARENT,
 				borderColor: style.buttonDisabledBg,
 				borderWidth: borderWidthX2,
-				TextElement: {
-					color: style.buttonDisabledBg,
-				},
+				TextElement: buttonDisabledBg,
 			},
 			...commonPrimary,
 			borderWidth: borderWidthX2,
@@ -124,9 +126,7 @@ module.exports = (style) => {
 		},
 
 		".dark": {
-			".bordered": {
-				...commonDark,
-			},
+			".bordered": commonDark,
 			backgroundColor: style.brandDark,
 		},
 		".light": {
@@ -134,45 +134,33 @@ module.exports = (style) => {
 				...commonLight,
 				backgroundColor: TRANSPARENT,
 			},
-			".bordered": {
-				...commonLight,
-			},
+			".bordered": commonLight,
 			...commonDark,
 			backgroundColor: style.brandLight,
 		},
 
 		".primary": {
-			".bordered": {
-				...commonPrimary,
-			},
+			".bordered": commonPrimary,
 			backgroundColor: style.buttonPrimaryBg,
 		},
 
 		".success": {
-			".bordered": {
-				...commonSuccess,
-			},
+			".bordered": commonSuccess,
 			backgroundColor: style.buttonSuccessBg,
 		},
 
 		".info": {
-			".bordered": {
-				...commonInfo,
-			},
+			".bordered": commonInfo,
 			backgroundColor: style.buttonInfoBg,
 		},
 
 		".warning": {
-			".bordered": {
-				...commonWarning,
-			},
+			".bordered": commonWarning,
 			backgroundColor: style.buttonWarningBg,
 		},
 
 		".danger": {
-			".bordered": {
-				...commonDanger,
-			},
+			".bordered": commonDanger,
 			backgroundColor: style.buttonDangerBg,
 		},
 
@@ -199,40 +187,20 @@ module.exports = (style) => {
 			shadowRadius: null,
 			shadowOpacity: null,
 			...commonPrimary,
-			".dark": {
-				...commonDark,
-			},
-			".danger": {
-				...commonDanger,
-			},
-			".warning": {
-				...commonWarning,
-			},
-			".info": {
-				...commonInfo,
-			},
-			".primary": {
-				...commonPrimary,
-			},
-			".success": {
-				...commonSuccess,
-			},
-			".light": {
-				...commonLight,
-			},
+			".dark": commonDark,
+			".danger": commonDanger,
+			".warning": commonWarning,
+			".info": commonInfo,
+			".primary": commonPrimary,
+			".success": commonSuccess,
+			".light": commonLight,
 			".disabled": {
 				backgroundColor: TRANSPARENT,
 				borderColor: style.buttonDisabledBg,
 				borderWidth: borderWidthX2,
-				TextElement: {
-					color: style.buttonDisabledBg,
-				},
-				IconElement: {
-					color: style.buttonDisabledBg,
-				},
-				IconNBElement: {
-					color: style.buttonDisabledBg,
-				},
+				TextElement: buttonDisabledBg,
+				IconElement: buttonDisabledBg,
+				IconNBElement: buttonDisabledBg,
 			},
 		},
 

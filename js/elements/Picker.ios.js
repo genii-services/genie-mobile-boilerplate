@@ -8,25 +8,24 @@ const { Picker } = require("@react-native-community/picker")
 const { find, get } = require("lodash")
 
 const { computeProps } = require("/utils/props")
-const { connectStyle } = require("/utils/style")
 
 const Text = require("./Text")
-const { Radio } = require("./Radio")
-const { Container } = require("./Container")
-const { ListItem } = require("./ListItem")
+const Radio = require("./Radio")
+const Container = require("./Container")
+const ListItem = require("./ListItem")
 const Button = require("./Button")
-const { Header } = require("./Header")
-const { Title } = require("./Title")
-const { Left } = require("./Left")
-const { Right } = require("./Right")
-const { Body } = require("./Body")
+const Header = require("./Header")
+const Title = require("./Title")
+const Left = require("./Left")
+const Right = require("./Right")
+const Body = require("./Body")
 
-const PickerNB = props => {
-	const getChildren = children => (children && !Array.isArray(children) ? [].concat(children) : [].concat.apply([], children)) // eslint-disable-line prefer-spread
+const PickerNB = (props) => {
+	const getChildren = (children) => (children && !Array.isArray(children) ? [].concat(children) : [].concat.apply([], children)) // eslint-disable-line prefer-spread
 	const children = getChildren(props.children)
 
 	const getLabel = () => {
-		const item = find(children, child => child.props.value === props.selectedValue)
+		const item = find(children, (child) => child.props.value === props.selectedValue)
 		return get(item, "props.label")
 	}
 
@@ -41,7 +40,7 @@ const PickerNB = props => {
 	set_dataSource(children)
 
 	const getSelectedItem = () => {
-		return find(props.children, child => child.props.value === props.selectedValue)
+		return find(props.children, (child) => child.props.value === props.selectedValue)
 	}
 
 	const renderIcon = () => {
@@ -155,4 +154,5 @@ if (__DEV__) {
 	}
 }
 
+const { connectStyle } = require("/utils/style")
 module.exports = PickerNB //connectStyle(PickerNB, "PickerNBElement")

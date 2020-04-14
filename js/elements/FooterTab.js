@@ -3,8 +3,7 @@ console.debug(MODULE_NAME$)
 
 const { View } = require("react-native")
 
-const { connectStyle } = require("/utils/style")
-
 const FooterTab = View
 
+const { connectStyle } = require("/utils/style")
 module.exports = FooterTab //connectStyle(FooterTab, MODULE_NAME$)

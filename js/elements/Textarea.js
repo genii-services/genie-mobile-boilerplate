@@ -10,7 +10,7 @@ const { useStyle } = require("/coordinators")
 const TextareaElement = ({ placeholderTextColor, rowSpan, style, ...props }) => {
 	const refs = useRefs()
 
-	const { stylez, defaultStyle } = useStyle(MODULE_NAME$, { rowSpan, style }, defaultStyle => ({
+	const { stylez, defaultTheme } = useStyle(MODULE_NAME$, { rowSpan, style }, (defaultStyle) => ({
 		root: [
 			{
 				height: rowSpan ? rowSpan * 25 : 60,
@@ -23,9 +23,9 @@ const TextareaElement = ({ placeholderTextColor, rowSpan, style, ...props }) => 
 		<TextInput
 			{...rootProps}
 			style={stylez.root}
-			ref={c => (refs._textInput = c)}
+			ref={(c) => (refs._textInput = c)}
 			multiline
-			placeholderTextColor={placeholderTextColor || defaultStyle.placeholderTextColor}
+			placeholderTextColor={placeholderTextColor || defaultTheme.placeholderTextColor}
 			underlineColorAndroid="rgba(0,0,0,0)"
 			editable={!props.disabled}
 		/>

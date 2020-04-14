@@ -7,11 +7,11 @@ const { ActivityIndicator } = require("react-native")
 const { useStyle } = require("/coordinators")
 
 const SpinnerElement = ({ color, ...props }) => {
-	const { defaultStyle } = useStyle()
+	const { defaultTheme } = useStyle()
 	return (
 		<ActivityIndicator
 			{...props}
-			color={color ? color : props.inverse ? defaultStyle.inverseSpinnerColor : defaultStyle.defaultSpinnerColor}
+			color={color ? color : props.inverse ? defaultTheme.inverseSpinnerColor : defaultTheme.defaultSpinnerColor}
 			size={props.size || "large"}
 		/>
 	)

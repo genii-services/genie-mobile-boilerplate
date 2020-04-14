@@ -4,7 +4,6 @@ console.debug(MODULE_NAME$)
 const React = require("react")
 const { View } = require("react-native")
 
-const { connectStyle } = require("/utils/style")
 const { forwardRef } = require("/hooks")
 const ToastContainer = require("./ToastContainer")
 const ActionSheet = require("./ActionSheet")
@@ -27,4 +26,5 @@ if (__DEV__) {
 	}
 }
 
+// const { connectStyle } = require("/utils/style")
 module.exports = RootElement //connectStyle(RootElement, MODULE_NAME$)

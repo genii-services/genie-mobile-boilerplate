@@ -24,7 +24,7 @@ const DefaultHeader = ({ expanded, expandedIcon, expandedIconStyle, headerStyle,
 	const { stylez } = useStyle(
 		DefaultHeader,
 		{ expanded, expandedIcon, expandedIconStyle, headerStyle, icon, iconStyle },
-		defaultStyle => ({
+		(defaultStyle) => ({
 			view: [
 				// eslint-disable-next-line no-use-before-define
 				styles.defaultHeader,
@@ -51,13 +51,8 @@ const DefaultHeader = ({ expanded, expandedIcon, expandedIconStyle, headerStyle,
 }
 
 const DefaultContent = ({ content, contentStyle }) => {
-	const { stylez } = useStyle(DefaultContent, { contentStyle }, defaultStyle => ({
-		text: [
-			{
-				padding: defaultThemeStyle.accordionContentPadding,
-			},
-			contentStyle || { backgroundColor: defaultStyle.contentStyle },
-		],
+	const { stylez } = useStyle(DefaultContent, { contentStyle }, (defaultStyle) => ({
+		text: [{ padding: defaultThemeStyle.accordionContentPadding }, contentStyle || { backgroundColor: defaultStyle.contentStyle }],
 	}))
 	return <Text style={stylez.text}>{content}</Text>
 }
@@ -135,7 +130,7 @@ const AccordionElement = ({
 }) => {
 	const [_selected, set_selected] = useState(props.expanded)
 
-	const { stylez } = useStyle(defaultStyle => {
+	const { stylez } = useStyle((defaultStyle) => {
 		list: [
 			{
 				borderColor: defaultStyle.accordionBorderColor,
@@ -145,7 +140,7 @@ const AccordionElement = ({
 		]
 	})
 
-	const setSelected = index => set_selected(_selected != index && index)
+	const setSelected = (index) => set_selected(_selected != index && index)
 
 	return (
 		<FlatList

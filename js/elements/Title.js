@@ -4,9 +4,7 @@ console.debug(MODULE_NAME$)
 const React = require("react")
 const { Text } = require("react-native")
 
-const { connectStyle } = require("/utils/style")
-
-const TitleElement = props => {
+const TitleElement = (props) => {
 	return <Text numberOfLines={1} {...props} />
 }
 
@@ -18,4 +16,5 @@ if (__DEV__) {
 	}
 }
 
+// const { connectStyle } = require("/utils/style")
 module.exports = TitleElement //connectStyle(TitleElement, MODULE_NAME$)

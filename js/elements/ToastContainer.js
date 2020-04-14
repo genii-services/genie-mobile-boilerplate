@@ -8,12 +8,11 @@ const { Keyboard, Animated } = require("react-native")
 
 const { ABSOLUTE, BOTTOM, PC100, TOP } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
-const { connectStyle } = require("/utils/style")
 const { createCoordinator, forwardRef, globalStore, useEffect, useState, useThis } = require("/hooks")
 
 const Text = require("./Text")
 const Button = require("./Button")
-const { Toast } = require("./Toast")
+const Toast = require("./Toast")
 
 const POSITION = {
 	ABSOLUTE,
@@ -33,7 +32,7 @@ const ToastContainerElement = () => {
 	const [_config, set_config] = useState()
 
 	createCoordinator("Toast", () => ({
-		showToast: config => {
+		showToast: (config) => {
 			set_modalVisible(true)
 			set_config(config)
 
@@ -48,7 +47,7 @@ const ToastContainerElement = () => {
 			// Fade the toast in now.
 			Animated.timing(_fadeAnim, { toValue: 1, duration: 200 }).start()
 		},
-		hide: reason => {
+		hide: (reason) => {
 			if (!_modalVisible) return
 			clearTimeout(_this.closeTimeout)
 			Animated.timing(_fadeAnim, { toValue: 0, duration: 200 }).start(() => {
@@ -59,7 +58,7 @@ const ToastContainerElement = () => {
 	}))
 
 	useEffect(() => {
-		const keyboardDidShow = e => {
+		const keyboardDidShow = (e) => {
 			set_keyboardHeight(e.endCoordinates.height)
 			set_isKeyboardVisible(true)
 		}
@@ -120,4 +119,5 @@ if (__DEV__) {
 	}
 }
 
+const { connectStyle } = require("/utils/style")
 module.exports = ToastContainerElement // connectStyle(ToastContainerElement, MODULE_NAME$)

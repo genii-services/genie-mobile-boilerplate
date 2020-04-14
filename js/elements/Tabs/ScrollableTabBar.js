@@ -16,7 +16,7 @@ const TabHeading = require("../TabHeading")
 const Text = require("../Text")
 const Button = require("./Button")
 
-const ScrollableTabBar = props => {
+const ScrollableTabBar = (props) => {
 	const _this = useThis(() => {
 		_tabsMeasurements: []
 	})
@@ -29,7 +29,7 @@ const ScrollableTabBar = props => {
 		return () => props.scrollValue.removeListener(updateView)
 	}, [])
 
-	const updateView = offset => {
+	const updateView = (offset) => {
 		const position = Math.floor(offset.value)
 		const pageOffset = offset.value % 1
 		const tabCount = props.tabs.length
@@ -105,7 +105,7 @@ const ScrollableTabBar = props => {
 		set_containerWidth(null)
 	}
 
-	const { stylez, defaultStyle } = useStyle(MODULE_NAME$, {}, defaultStyle => ({
+	const { stylez, defaultTheme } = useStyle(MODULE_NAME$, {}, (defaultStyle) => ({
 		container: [styles.container, { backgroundColor: props.backgroundColor }, props.style],
 		tabs: [styles.tabs, { width: _containerWidth }, props.tabsContainerStyle],
 		tabUnderline: {
@@ -133,7 +133,7 @@ const ScrollableTabBar = props => {
 		const textStyle = props.textStyle[page]
 		const activeTextStyle = props.activeTextStyle[page]
 		const tabHeaderStyle = props.tabHeaderStyle[page]
-		const tabFontSize = defaultStyle.tabFontSize
+		const tabFontSize = defaultTheme.tabFontSize
 
 		if (typeof props.renderTab === FUNCTION)
 			return props.renderTab(
@@ -169,7 +169,7 @@ const ScrollableTabBar = props => {
 
 	// HANDLERS
 
-	const onTabContainerLayout = e => {
+	const onTabContainerLayout = (e) => {
 		_this._tabContainerMeasurements = e.nativeEvent.layout
 		let width = _this._tabContainerMeasurements.width
 		if (width < deviceWidth) width = deviceWidth
@@ -178,7 +178,7 @@ const ScrollableTabBar = props => {
 		updateView({ value: props.scrollValue._value })
 	}
 
-	const onContainerLayout = e => {
+	const onContainerLayout = (e) => {
 		_this._containerMeasurements = e.nativeEvent.layout
 		updateView({ value: props.scrollValue._value })
 	}
@@ -187,7 +187,7 @@ const ScrollableTabBar = props => {
 		<View style={stylez.container} onLayout={onContainerLayout}>
 			<ScrollView
 				automaticallyAdjustContentInsets={false}
-				ref={el => (_this.scrollViewRef = el)}
+				ref={(el) => (_this.scrollViewRef = el)}
 				horizontal
 				showsHorizontalScrollIndicator={false}
 				showsVerticalScrollIndicator={false}
@@ -195,7 +195,7 @@ const ScrollableTabBar = props => {
 				onScroll={props.onScroll}
 				bounces={false}
 				scrollsToTop={false}>
-				<View style={stylez.tabs} ref={el => (_this.tabContainerRef = el)} onLayout={onTabContainerLayout}>
+				<View style={stylez.tabs} ref={(el) => (_this.tabContainerRef = el)} onLayout={onTabContainerLayout}>
 					{props.tabs.map((name, page) => renaderTab(name, page, props.goToPage, measureTab.bind(this, page)))}
 					<Animated.View style={stylez.view} />
 				</View>

@@ -5,7 +5,6 @@ const React = require("react")
 const { FlatList, View } = require("react-native")
 
 const { forwardRef, useRefs } = require("/hooks")
-const { connectStyle } = require("/utils/style")
 
 const ListElement = ({ dataArray, renderItem, renderRow, props }) => {
 	const refs = useRefs()
@@ -20,4 +19,5 @@ const ListElement = ({ dataArray, renderItem, renderRow, props }) => {
 	)
 }
 
+// const { connectStyle } = require("/utils/style")
 module.exports = ListElement //connectStyle(List, MODULE_NAME$)

@@ -6,10 +6,9 @@ const { Text } = require("react-native")
 const _ = require("lodash")
 
 const { forwardRef } = require("/hooks")
-const { connectStyle } = require("/utils/style")
 
 const TextElement = ({ uppercase, children, ...props }) => {
-	const text = uppercase ? React.Children.map(children, child => (_.isString(child) ? _.toUpper(child) : child)) : children
+	const text = uppercase ? React.Children.map(children, (child) => (_.isString(child) ? _.toUpper(child) : child)) : children
 	return <Text {...props}>{text}</Text>
 }
 
@@ -26,4 +25,5 @@ TextElement.defaultProps = {
 	uppercase: false,
 }
 
+// const { connectStyle } = require("/utils/style")
 module.exports = TextElement // connectStyle(TextElement, MODULE_NAME$)

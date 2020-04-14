@@ -5,9 +5,8 @@ const React = require("react")
 const { Image } = require("react-native")
 
 const { forwardRef } = require("/hooks")
-const { connectStyle } = require("/utils/style")
 
-const ThumbnailElement = props => {
+const ThumbnailElement = (props) => {
 	return <Image {...props} />
 }
 
@@ -22,4 +21,5 @@ if (__DEV__) {
 	}
 }
 
+// const { connectStyle } = require("/utils/style")
 module.exports = ThumbnailElement //connectStyle(ThumbnailElement, MODULE_NAME$)

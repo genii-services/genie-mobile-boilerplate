@@ -8,14 +8,13 @@ const React = require("react")
 const { View, StatusBar } = require("react-native")
 
 const { screen, itsIphoneX } = require("/utils/device")
-const { connectStyle } = require("/utils/style")
 const { forwardRef, useState, useStore } = require("/hooks")
 const { useStyle } = require("/coordinators")
 
-const Header = (props) => {
+const HeaderElement = (props) => {
 	const { androidStatusBarColor, iosBarStyle, style, transparent, translucent } = props
 
-	const { stylez } = useStyle(MODULE_NAME$, { iosBarStyle, style }, (defaultStyle) => {
+	const { stylez, defaultTheme } = useStyle(MODULE_NAME$, { iosBarStyle, style }, (defaultStyle) => {
 		let iphoneXStyle
 		if (itsIphoneX) {
 			const style = StyleSheet.flatten(props.style)
@@ -38,7 +37,7 @@ const Header = (props) => {
 	return (
 		<View>
 			<StatusBar
-				backgroundColor={androidStatusBarColor || stylez.statusBarColor}
+				backgroundColor={androidStatusBarColor || defaultTheme.statusBarColor}
 				barStyle={stylez.bar}
 				translucent={transparent ? true : translucent}
 			/>
@@ -49,7 +48,7 @@ const Header = (props) => {
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType, ViewPropTypes } = require("/utils/propTypes")
-	Header.propTypes = {
+	HeaderElement.propTypes = {
 		...ViewPropTypes,
 		style: oneOfType([object, number, array]),
 		searchBar: bool,
@@ -57,4 +56,5 @@ if (__DEV__) {
 	}
 }
 
-module.exports = Header //connectStyle(Header, MODULE_NAME$)
+// const { connectStyle } = require("/utils/style")
+module.exports = HeaderElement //connectStyle(HeaderElement, MODULE_NAME$)

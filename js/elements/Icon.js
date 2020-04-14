@@ -1,8 +1,8 @@
 const MODULE_NAME$ = "IconElement"
 console.debug(MODULE_NAME$)
 
-const React = require("react")
 const _ = require("lodash")
+const React = require("react")
 const AntDesign = require("react-native-vector-icons/AntDesign").default
 const Entypo = require("react-native-vector-icons/Entypo").default
 const EvilIcons = require("react-native-vector-icons/EvilIcons").default
@@ -43,9 +43,9 @@ const defaultIconFamilyName = "Ionicons"
 
 const IconElement = ({ type, name, android, ios, active, size, color }) => {
 	const _this = useThis()
-	const { defaultStyle } = useStyle()
+	const { defaultTheme } = useStyle()
 	if (_this.isChangedProps("Icon,name", { type, name, android, ios, active })) {
-		const { itsUnitedStyle } = defaultStyle
+		const { itsUnitedStyle } = defaultTheme
 		if (ios && itsIOS) name = ios
 		if (android && itsAndroid) name = android
 		if (!name) name = defaultIconName
@@ -54,7 +54,7 @@ const IconElement = ({ type, name, android, ios, active, size, color }) => {
 			switch (a.length) {
 				case 0:
 				case 1:
-					type = defaultStyle.iconFamily || defaultIconFamilyName
+					type = defaultTheme.iconFamily || defaultIconFamilyName
 					const o = itsIOS && !itsUnitedStyle ? iosIconz[name] : androidIconz[name]
 					if (o) name = typeof o === "object" ? (active ? o.active : o.default) : o
 					break
@@ -72,8 +72,8 @@ const IconElement = ({ type, name, android, ios, active, size, color }) => {
 		_this.name = name
 		// console.debug(MODULE_NAME$, _this.prevProps?.type, _this.prevProps?.name, type, name)
 	}
-	if (!size) size = defaultStyle.iconSize
-	if (!color) color = defaultStyle.iconColor
+	if (!size) size = defaultTheme.iconSize
+	if (!color) color = defaultTheme.iconColor
 
 	return <_this.Icon name={_this.name} size={size} color={color} />
 }

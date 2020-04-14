@@ -4,12 +4,11 @@ console.debug(MODULE_NAME$)
 const React = require("react")
 const { TextInput } = require("react-native")
 
-const { connectStyle } = require("/utils/style")
 const { forwardRef, useStore, useThis } = require("/hooks")
 const { useStyle } = require("/coordinators")
 
 const Input = ({ disabled, style, ...props }) => {
-	const { stylez } = useStyle(MODULE_NAME$, { rounded, style }, defaultStyle => ({
+	const { stylez } = useStyle(MODULE_NAME$, { rounded, style }, (defaultStyle) => ({
 		root: [style],
 	}))
 
@@ -33,4 +32,5 @@ if (__DEV__) {
 	}
 }
 
+// const { connectStyle } = require("/utils/style")
 module.exports = Input //connectStyle(Input, MODULE_NAME$)

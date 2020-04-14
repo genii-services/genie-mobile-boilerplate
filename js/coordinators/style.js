@@ -13,7 +13,7 @@ const { assign, getName, parseJson } = require("/utils")
 // const storage = require("/interactors/storage")
 
 // 초기값
-globalStore.set("globalStyle", { defaultTheme: "lightTheme", fontSizesIndex: 2 }, { persist: true })
+globalStore.set("globalStyle", { defaultThemeName: "lightTheme", fontSizesIndex: 2 }, { persist: true })
 
 // 캐싱한 스타일
 let cachedStylez
@@ -26,13 +26,13 @@ const useStyle = (target, conditionz, initialStyle) => {
 		console.debug(this, "resetStylez", target)
 
 		_.assign(style, globalStyle)
-		const { defaultTheme, fontFamily, fontSizes } = style
+		const { defaultThemeName, fontFamily, fontSizes } = style
 		setGlobalStyle(style)
 
 		cachedStylez = {}
 		cachedStylez.defaultStyle = style
 		_.forEach(require("styles/themes"), (v, k) => (cachedStylez[k + "Theme"] = typeof v === FUNCTION ? v(style) : v))
-		const theme = (cachedStylez.defaultTheme = cachedStylez[defaultTheme])
+		const theme = (cachedStylez.defaultTheme = cachedStylez[defaultThemeName])
 		_.forEach(require("styles/elements"), (v, k) => (cachedStylez[k + "Element"] = typeof v === FUNCTION ? v(theme) : v))
 		_.forEach(require("styles/viewparts"), (v, k) => (cachedStylez[k + "Viewpart"] = typeof v === FUNCTION ? v(theme) : v))
 		_.forEach(require("styles/screens"), (v, k) => (cachedStylez[k + "Screen"] = typeof v === FUNCTION ? v(theme) : v))
@@ -75,7 +75,7 @@ const useStyle = (target, conditionz, initialStyle) => {
 			case OBJECT:
 				break
 			case FUNCTION:
-				initialStyle = initialStyle(cachedStylez.defaultTheme)
+				initialStyle = initialStyle(defaultTheme)
 				break
 			case STRING:
 				initialStyle = parseJson(initialStyle)
@@ -84,7 +84,7 @@ const useStyle = (target, conditionz, initialStyle) => {
 				initialStyle = {}
 		}
 		stylez = _.assign({}, cachedStylez[name], initialStyle)
-		cachedStylez[name] = StyleSheet.create(stylez)
+		cachedStylez[name] = stylez // StyleSheet.create(stylez)
 		return stylez
 	}
 
@@ -97,7 +97,8 @@ const useStyle = (target, conditionz, initialStyle) => {
 	}
 
 	if (!cachedStylez) resetStylez()
-	const stylez = target ? getStylez(target, conditionz, initialStyle) : cachedStylez.defaultTheme
+	const defaultTheme = cachedStylez.defaultTheme
+	const stylez = target ? getStylez(target, conditionz, initialStyle) : defaultTheme
 
 	return {
 		getStylez,
@@ -105,6 +106,7 @@ const useStyle = (target, conditionz, initialStyle) => {
 		setFontFamily,
 		setFontSizesIndex,
 		stylez,
+		defaultTheme,
 	}
 }
 

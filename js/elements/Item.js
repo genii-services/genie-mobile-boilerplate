@@ -10,16 +10,15 @@ const { isArray, remove } = require("lodash")
 const { ABSOLUTE, COLUMN, ROW } = require("/constants/style")
 const { deviceWidth, itsIOS } = require("/utils/device")
 const { computeProps } = require("/utils/props")
-const { connectStyle } = require("/utils/style")
 const { forwardRef, useEffect, useState, useStore, useThis } = require("/hooks")
 const { useStyle } = require("/coordinators")
 
+const Icon = require("./Icon")
 const Input = require("./Input")
 const Label = require("./Label")
-const Icon = require("./Icon")
 const Thumbnail = require("./Thumbnail")
 
-const Item = props => {
+const ItemElement = (props) => {
 	const _this = useThis()
 	const [_isFocussed, set_isFocussed] = useState(true)
 	const [_text, set_text] = useState("")
@@ -27,7 +26,7 @@ const Item = props => {
 	const [_opacAnim] = useState(() => new Animated.Value(1))
 
 	const { rounded } = props
-	const { stylez } = useStyle(MODULE_NAME$, { rounded }, defaultStyle => ({
+	const { stylez } = useStyle(MODULE_NAME$, { rounded }, (defaultStyle) => ({
 		root: {
 			borderWidth: rounded && defaultStyle.borderWidth * 2,
 			borderRadius: rounded && defaultStyle.inputGroupRoundedBorderRadius,
@@ -41,15 +40,15 @@ const Item = props => {
 		}
 	}, [])
 
-	const getPlacholderValue = inputProps =>
+	const getPlacholderValue = (inputProps) =>
 		isArray(props.children) && props.children[0].props.children ? null : inputProps.placeholder
 
-	const floatBack = e => {
+	const floatBack = (e) => {
 		Animated.timing(_topAnim, { toValue: e || 18, duration: 150 }).start()
 		Animated.timing(_opacAnim, { toValue: 1, duration: 150 }).start()
 	}
 
-	const floatUp = e => {
+	const floatUp = (e) => {
 		Animated.timing(_topAnim, { toValue: e || -22, duration: 150 }).start()
 		Animated.timing(_opacAnim, { toValue: 0.7, duration: 150 }).start()
 	}
@@ -59,7 +58,7 @@ const Item = props => {
 
 	const childrenArray = React.Children.toArray(props.children)
 
-	remove(childrenArray, item => {
+	remove(childrenArray, (item) => {
 		if (item.type.displayName !== "StyledInput") return null
 		_this.inputProps = item.props
 		return item
@@ -78,7 +77,7 @@ const Item = props => {
 
 		let label = []
 		let labelProps = {}
-		label = remove(childrenArray, item => {
+		label = remove(childrenArray, (item) => {
 			if (item.type === Label) {
 				labelProps = item.props
 				return item
@@ -87,7 +86,7 @@ const Item = props => {
 		})
 
 		let inputProps = {}
-		remove(childrenArray, item => {
+		remove(childrenArray, (item) => {
 			if (item.type === Input) {
 				inputProps = item.props
 				_this.inputProps = item.props
@@ -98,7 +97,7 @@ const Item = props => {
 
 		let icon = []
 		let iconProps = {}
-		icon = remove(childrenArray, item => {
+		icon = remove(childrenArray, (item) => {
 			if (item.type === Icon) {
 				iconProps = item.props
 				return item
@@ -107,7 +106,7 @@ const Item = props => {
 		})
 
 		let image = []
-		image = remove(childrenArray, item => (item.type === Thumbnail ? item : null))
+		image = remove(childrenArray, (item) => (item.type === Thumbnail ? item : null))
 
 		if (props.floatingLabel && icon.length) {
 			let flag = true
@@ -140,7 +139,7 @@ const Item = props => {
 
 					newChildren.push(
 						<Input
-							ref={c => (_this._inputRef = c)}
+							ref={(c) => (_this._inputRef = c)}
 							key="l2"
 							{...inputProps}
 							placeholder={getPlacholderValue(inputProps)}
@@ -148,11 +147,11 @@ const Item = props => {
 								set_isFocused(true)
 								inputProps.onFocus && inputProps.onFocus()
 							}}
-							onBlur={e => {
+							onBlur={(e) => {
 								set_isFocused(!!inputProps.value)
 								inputProps.onBlur && inputProps.onBlur(e)
 							}}
-							onChangeText={text => {
+							onChangeText={(text) => {
 								set_text(text)
 								inputProps.onChangeText && inputProps.onChangeText(text)
 							}}
@@ -197,11 +196,11 @@ const Item = props => {
 						set_isFocused(true)
 						inputProps.onFocus && inputProps.onFocus()
 					}
-					const handleOnBlur = e => {
+					const handleOnBlur = (e) => {
 						inputProps.value ? set_isFocused(true) : !_text.length && set_isFocused(false)
 						inputProps.onBlur && inputProps.onBlur(e)
 					}
-					const handleOnChangeText = text => {
+					const handleOnChangeText = (text) => {
 						set_text(text)
 						inputProps.onChangeText && inputProps.onChangeText(text)
 					}
@@ -211,7 +210,7 @@ const Item = props => {
 					}
 					newChildren.push(
 						<Input
-							ref={c => (_this._inputRef = c)}
+							ref={(c) => (_this._inputRef = c)}
 							key="l2"
 							{...inputProps}
 							placeholder={getPlacholderValue(inputProps)}
@@ -243,18 +242,18 @@ const Item = props => {
 				set_isFocused(true)
 				inputProps.onFocus && inputProps.onFocus()
 			}
-			const handleOnBlur = e => {
+			const handleOnBlur = (e) => {
 				inputProps.value ? set_isFocused(true) : !_text.length && set_isFocused(false)
 				inputProps.onBlur && inputProps.onBlur(e)
 			}
-			const handleOnChangeText = text => {
+			const handleOnChangeText = (text) => {
 				set_text(text)
 				inputProps.onChangeText && inputProps.onChangeText(text)
 			}
 
 			newChildren.push(
 				<Input
-					ref={c => (_this._inputRef = c)}
+					ref={(c) => (_this._inputRef = c)}
 					value={_text}
 					key="l2"
 					{...inputProps}
@@ -311,7 +310,7 @@ const Item = props => {
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType } = require("/utils/propTypes")
-	Item.propTypes = {
+	ItemElement.propTypes = {
 		...TouchableOpacity.propTypes,
 		style: oneOfType([object, number, array]),
 		inlineLabel: bool,
@@ -323,4 +322,5 @@ if (__DEV__) {
 	}
 }
 
-module.exports = Item //connectStyle(Item, "ItemElement")
+// const { connectStyle } = require("/utils/style")
+module.exports = ItemElement //connectStyle(ItemElement, "ItemElement")
