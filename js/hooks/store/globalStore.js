@@ -1,6 +1,5 @@
-const Store = require("./Store")
-
 const localStorage = require("/utils/localStorage")
+const Store = require("./Store")
 
 // namespaced index of requested Stores
 class GlobalStore {
@@ -8,11 +7,11 @@ class GlobalStore {
 		if (this.hasOwnProperty(namespace)) {
 			this[namespace].setState(value)
 		} else {
-			this[namespace] = new Store({ value, options, namespace })
+			this[namespace] = new Store({ namespace, value, options })
 		}
 	}
 
-	clear = namespace => {
+	clear = (namespace) => {
 		localStorage.removeItem(GLOBALSTORAGE_PREFIX + namespace)
 	}
 

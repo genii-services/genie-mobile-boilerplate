@@ -12,7 +12,7 @@
 		"clean-android": "cd android && ./gradlew clean && cd ..",
 		"clear": "./scripts/clear.sh",
 		"create": "./scripts/create.sh",
-		"android-screen": "adb shell input keyevent KEYCODE_POWER",
+		"android-power": "adb shell input keyevent KEYCODE_POWER",
 		"android-wakeup": "adb shell input keyevent KEYCODE_WAKEUP",
 		"android-log-clear": "adb logcat -c",
 		"android-log-error": "adb logcat '*:E'",

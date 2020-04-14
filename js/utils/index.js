@@ -6,15 +6,15 @@ const { BOOLEAN, DATE, FUNCTION, NUMBER, STRING, UNDEFINED } = require("/constan
 const { toMoment } = require("./moment")
 
 const deeply = _.mixin({
-	deeply: function(map) {
+	deeply: function (map) {
 		console.debug(this)
-		return function(obj, fn) {
+		return function (obj, fn) {
 			let map2 = map ? map : _.isPlainObject(obj) ? _.mapValues : _.map
-			let mv = map2(obj, function(v) {
+			let mv = map2(obj, function (v) {
 				return _.isPlainObject(v)
 					? _.deeply(_.mapValues)(v, fn)
 					: v instanceof Array
-					? v.map(function(x) {
+					? v.map(function (x) {
 							return _.deeply(map)(x, fn)
 					  })
 					: v
@@ -25,7 +25,7 @@ const deeply = _.mixin({
 })
 
 const normalizeDeeply = (v, k) => {
-	if (v instanceof Array) return _.map(v, v => normalizeDeeply(v))
+	if (v instanceof Array) return _.map(v, (v) => normalizeDeeply(v))
 	if (_.isPlainObject(v))
 		return _(v)
 			.mapKeys((v, k) => _.lowerFirst(k))
@@ -40,29 +40,29 @@ function __find(collection, predicate, prop) {
 	return item && prop ? item[prop] : item
 }
 
-const delay = time => new Promise(resolve => setTimeout(resolve, time))
+const delay = (time) => new Promise((resolve) => setTimeout(resolve, time))
 
-const createAction = type => payload => ({ type, payload })
+const createAction = (type) => (payload) => ({ type, payload })
 
 const payload = {}
 
 function assign(object, ...sources) {
 	if (!object) object = {}
-	_.forEach(sources, v => {
+	_.forEach(sources, (v) => {
 		_.forEach(v, (vv, kk) => (object[kk] = vv))
 	})
 	return object
 }
 
-Boolean.prototype.isFalse = function(bool) {
+Boolean.prototype.isFalse = function (bool) {
 	return typeof bool === BOOLEAN && !bool
 }
 
-Boolean.prototype.isTrue = function(bool) {
+Boolean.prototype.isTrue = function (bool) {
 	return typeof bool === BOOLEAN && bool
 }
 
-Function.prototype.callSafely = function(func) {
+Function.prototype.callSafely = function (func) {
 	if (typeof func !== FUNCTION) return console.warn(this, arguments.callee.caller.name, "는 함수가 아닙니다.")
 	return func && func.apply(func, arguments)
 }
@@ -96,6 +96,25 @@ function parseJson(str) {
 	return json
 }
 
+const debounce = (func, delay = 100) => {
+	let timer
+	return function () {
+		const context = this
+		const args = arguments
+		clearTimeout(timer)
+		timer = setTimeout(() => func.apply(context, args), delay)
+	}
+}
+
+function createUuid() {
+	// https://stackoverflow.com/a/2117523/11599918
+	return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+		const r = (Math.random() * 16) | 0,
+			v = c == "x" ? r : (r & 0x3) | 0x8
+		return v.toString(16)
+	})
+}
+
 module.exports = {
 	deeply,
 	normalizeDeeply,
@@ -107,4 +126,6 @@ module.exports = {
 
 	getName,
 	parseJson,
+	debounce,
+	createUuid,
 }

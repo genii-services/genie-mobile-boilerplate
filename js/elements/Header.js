@@ -12,10 +12,10 @@ const { connectStyle } = require("/utils/style")
 const { forwardRef, useState, useStore } = require("/hooks")
 const { useStyle } = require("/coordinators")
 
-const Header = props => {
+const Header = (props) => {
 	const { androidStatusBarColor, iosBarStyle, style, transparent, translucent } = props
 
-	const { defaultStyle } = useStyle(MODULE_NAME$, { iosBarStyle, style }, defaultStyle => {
+	const { stylez } = useStyle(MODULE_NAME$, { iosBarStyle, style }, (defaultStyle) => {
 		let iphoneXStyle
 		if (itsIphoneX) {
 			const style = StyleSheet.flatten(props.style)
@@ -38,7 +38,7 @@ const Header = props => {
 	return (
 		<View>
 			<StatusBar
-				backgroundColor={androidStatusBarColor || defaultStyle.statusBarColor}
+				backgroundColor={androidStatusBarColor || stylez.statusBarColor}
 				barStyle={stylez.bar}
 				translucent={transparent ? true : translucent}
 			/>

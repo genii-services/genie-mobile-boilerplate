@@ -8,39 +8,34 @@ const { setCustomText, setCustomTextInput } = require("react-native-global-props
 const { FUNCTION, OBJECT, STRING } = require("/constants")
 const { TRANSPARENT } = require("/constants/style")
 const { isEqual } = require("/utils/object")
-const { globalStore, useState, useStore, useThis } = require("/hooks")
+const { globalStore, useState, useStore } = require("/hooks")
 const { assign, getName, parseJson } = require("/utils")
 // const storage = require("/interactors/storage")
 
 // 초기값
-
 globalStore.set("globalStyle", { defaultTheme: "lightTheme", fontSizesIndex: 2 }, { persist: true })
 
 // 캐싱한 스타일
-let styleCachez = {}
+let cachedStylez
 let styleConditionz = {}
 
 const useStyle = (target, conditionz, initialStyle) => {
 	const [globalStyle, setGlobalStyle] = useStore("globalStyle")
 
-	const _this = useThis(() => {
-		resetStyle()
-	})
-
-	function resetStyle(style = {}) {
-		console.debug(this, "resetStyle")
+	const resetStylez = (style = {}) => {
+		console.debug(this, "resetStylez", target)
 
 		_.assign(style, globalStyle)
 		const { defaultTheme, fontFamily, fontSizes } = style
 		setGlobalStyle(style)
 
-		styleCachez = {}
-		styleCachez.defaultStyle = style
-		_.forEach(require("styles/themes"), (v, k) => (styleCachez[k + "Theme"] = typeof v === FUNCTION ? v(style) : v))
-		const theme = (styleCachez.defaultTheme = styleCachez[defaultTheme])
-		_.forEach(require("styles/elements"), (v, k) => (styleCachez[k + "Element"] = typeof v === FUNCTION ? v(theme) : v))
-		_.forEach(require("styles/viewparts"), (v, k) => (styleCachez[k + "Viewpart"] = typeof v === FUNCTION ? v(theme) : v))
-		_.forEach(require("styles/screens"), (v, k) => (styleCachez[k + "Screen"] = typeof v === FUNCTION ? v(theme) : v))
+		cachedStylez = {}
+		cachedStylez.defaultStyle = style
+		_.forEach(require("styles/themes"), (v, k) => (cachedStylez[k + "Theme"] = typeof v === FUNCTION ? v(style) : v))
+		const theme = (cachedStylez.defaultTheme = cachedStylez[defaultTheme])
+		_.forEach(require("styles/elements"), (v, k) => (cachedStylez[k + "Element"] = typeof v === FUNCTION ? v(theme) : v))
+		_.forEach(require("styles/viewparts"), (v, k) => (cachedStylez[k + "Viewpart"] = typeof v === FUNCTION ? v(theme) : v))
+		_.forEach(require("styles/screens"), (v, k) => (cachedStylez[k + "Screen"] = typeof v === FUNCTION ? v(theme) : v))
 
 		setCustomText({
 			style: {
@@ -62,8 +57,10 @@ const useStyle = (target, conditionz, initialStyle) => {
 
 	const getStylez = (target, conditionz, initialStyle) => {
 		const name = getName(target)
-		let stylez = isEqual(styleConditionz[name], conditionz) && styleCachez[name]
+		let stylez = isEqual(styleConditionz[name], conditionz) && cachedStylez[name]
 		if (stylez) return stylez
+
+		styleConditionz[name] = conditionz
 
 		if (!initialStyle)
 			initialStyle =
@@ -78,7 +75,7 @@ const useStyle = (target, conditionz, initialStyle) => {
 			case OBJECT:
 				break
 			case FUNCTION:
-				initialStyle = initialStyle(styleCachez.defaultTheme)
+				initialStyle = initialStyle(cachedStylez.defaultTheme)
 				break
 			case STRING:
 				initialStyle = parseJson(initialStyle)
@@ -86,25 +83,25 @@ const useStyle = (target, conditionz, initialStyle) => {
 			default:
 				initialStyle = {}
 		}
-
-		styleConditionz[name] = conditionz
-		stylez = styleCachez[name] = StyleSheet.create(style)
+		stylez = _.assign({}, cachedStylez[name], initialStyle)
+		cachedStylez[name] = StyleSheet.create(stylez)
 		return stylez
 	}
 
 	const setFontFamily = (fontFamily) => {
-		resetStyle({ fontFamily })
+		resetStylez({ fontFamily })
 	}
 
 	const setFontSizesIndex = (i) => {
-		resetStyle({ fontSizesIndex: i })
+		resetStylez({ fontSizesIndex: i })
 	}
 
-	const stylez = target ? getStylez(target, conditionz, initialStyle) : styleCachez.defaultTheme
+	if (!cachedStylez) resetStylez()
+	const stylez = target ? getStylez(target, conditionz, initialStyle) : cachedStylez.defaultTheme
 
 	return {
 		getStylez,
-		resetStyle,
+		resetStylez,
 		setFontFamily,
 		setFontSizesIndex,
 		stylez,

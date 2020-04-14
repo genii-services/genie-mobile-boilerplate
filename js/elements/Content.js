@@ -20,7 +20,7 @@ const ContentElement = ({
 }) => {
 	const _this = useThis()
 
-	const { stylez } = useStyle(MODULE_NAME$, { contentContainerStyle, padder }, defaultStyle => ({
+	const { stylez } = useStyle(ContentElement, { contentContainerStyle, padder }, (defaultStyle) => ({
 		container: { flex: 1 },
 		contentContainer: [
 			{
@@ -36,7 +36,7 @@ const ContentElement = ({
 				automaticallyAdjustContentInsets={false}
 				resetScrollToCoords={resetScrollToCoords}
 				keyboardShouldPersistTaps={keyboardShouldPersistTaps}
-				ref={c => {
+				ref={(c) => {
 					_this._scrollview = c
 					// if (ref) ref.current = c
 				}}
@@ -50,7 +50,7 @@ const ContentElement = ({
 			automaticallyAdjustContentInsets={false}
 			resetScrollToCoords={resetScrollToCoords}
 			keyboardShouldPersistTaps={keyboardShouldPersistTaps}
-			ref={c => {
+			ref={(c) => {
 				_this._scrollview = c
 				// if (ref) ref.current = c
 			}}

@@ -1,31 +1,14 @@
-// prefix for localStorage
-const GLOBALSTORAGE_PREFIX = "!ush::"
+const { debounce, createUuid } = require("/utils")
 const localStorage = require("/utils/localStorage")
 
-const debounce = (func, delay = 100) => {
-	let timer
-	return function() {
-		const context = this
-		const args = arguments
-		clearTimeout(timer)
-		timer = setTimeout(() => func.apply(context, args), delay)
-	}
-}
-
-// https://stackoverflow.com/a/2117523/11599918
-const uuid = () => {
-	return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, c => {
-		const r = (Math.random() * 16) | 0,
-			v = c == "x" ? r : (r & 0x3) | 0x8
-		return v.toString(16)
-	})
-}
+// prefix for localStorage
+const GLOBALSTORAGE_PREFIX = "!ush::"
 
 // individual Store implementation for tracking values/setters
 class Store {
 	constructor({ value, namespace, options }) {
 		this.state = value
-		this.id = uuid()
+		this.id = createUuid()
 
 		if (options.persist) {
 			try {
@@ -46,7 +29,7 @@ class Store {
 		this.setters = []
 	}
 
-	handleMessage = debounce(e => {
+	handleMessage = debounce((e) => {
 		if (!e.data || e.data.id === this.id) return
 		this.setState(e.data.message, { broadcast: false })
 	}, 300)
@@ -60,7 +43,7 @@ class Store {
 				console.warn(`[use-store-hook]: failed to persist`, { value, err })
 			}
 		}
-		this.setters.forEach(setter => setter(this.state))
+		this.setters.forEach((setter) => setter(this.state))
 		if (options.broadcast && this.options.broadcast) {
 			this.channel.postMessage({ id: this.id, message: value })
 		}
