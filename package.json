@@ -23,7 +23,9 @@
 		"i": "./scripts/install.sh",
 		"u": "./scripts/uninstall.sh",
 		"pod": "cd ios && pod install && cd ..",
-		"gen-release-key": "cd android/app && keytool -genkey -v -keystore release.keystore -alias release-key-alias -keyalg RSA -keysize 2048 -validity 10000 && cd ../.."
+		"gen-release-key": "cd android/app && keytool -genkey -v -keystore release.keystore -alias release-key-alias -keyalg RSA -keysize 2048 -validity 10000 && cd ../..",
+		"hi": "./scripts/hi.sh",
+		"bye": "./scripts/bye.sh"
 	},
 	"dependencies": {
 		"@react-native-community/async-storage": "^1.9.0",
