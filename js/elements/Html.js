@@ -10,6 +10,7 @@ const { OBJECT } = require("/constants")
 const { screen } = require("/utils/device")
 const { getMarginTop, getMarginRight, getMarginBottom, getMarginLeft } = require("/utils/style")
 const { useState, useThis } = require("/hooks")
+const { useStyle } = require("/coordinators")
 
 console.debug("HtmlElement")
 
@@ -72,18 +73,11 @@ const injectedScript = `
 	true;
 ` //*.마지막에 true를 추가하지 않으면 자동 실패가 발생
 
-const HtmlElement = props => {
+const HtmlElement = ({ html, baseUrl, css, zoomScale, style, source }) => {
 	/* HOOKS */
 
 	const _this = useThis()
 	const [_webViewHeight, set_webViewHeight] = useState(screen.height)
-
-	/* props 변경에 따른 state 설정 */
-	const { html, baseUrl, css, zoomScale, style, source } = props
-	const marginTop = getMarginTop(style)
-	const marginRight = getMarginRight(style, 10)
-	const marginBottom = getMarginBottom(style)
-	const marginLeft = getMarginLeft(style, 10)
 
 	if (_this.isChangedProps("source", { html, baseUrl, css, zoomScale, source })) {
 		if (html) {
@@ -102,25 +96,34 @@ const HtmlElement = props => {
 
 	/* HANDLERS */
 
-	const handleOnMessage = e => set_webViewHeight(parseInt(e.nativeEvent.data))
+	const handleOnMessage = (e) => set_webViewHeight(parseInt(e.nativeEvent.data))
 
 	/* RENDERERS */
 
-	const rootStyle = [
-		{
-			width: zoomScale == 1 ? screen.width - marginLeft - marginRight : (zoomScale + 1) * screen.width,
-			height: zoomScale == 1 ? _webViewHeight : _webViewHeight * zoomScale,
-			padding: 0,
-			marginTop,
-			marginLeft,
-			marginBottom,
-			marginRight,
-		},
-		style,
-	]
+	const { stylez } = useStyle(HtmlElement, { style, zoomScale, _webViewHeight }, () => {
+		/* props 변경에 따른 state 설정 */
+		const marginTop = getMarginTop(style)
+		const marginRight = getMarginRight(style, 10)
+		const marginBottom = getMarginBottom(style)
+		const marginLeft = getMarginLeft(style, 10)
+		return {
+			webView: [
+				{
+					width: zoomScale == 1 ? screen.width - marginLeft - marginRight : (zoomScale + 1) * screen.width,
+					height: zoomScale == 1 ? _webViewHeight : _webViewHeight * zoomScale,
+					marginTop,
+					marginLeft,
+					marginBottom,
+					marginRight,
+					padding: 0,
+				},
+				style,
+			],
+		}
+	})
 	return (
 		<WebView
-			style={rootStyle}
+			style={stylez.webView}
 			scrollEnabled={false}
 			scalesPageToFit={false}
 			javaScriptEnabled={true}

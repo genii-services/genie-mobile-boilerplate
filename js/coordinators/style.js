@@ -26,26 +26,25 @@ const useStyle = (target, conditionz, initialStyle) => {
 		console.debug(this, "resetStylez", target)
 
 		_.assign(style, globalStyle)
-		const { defaultThemeName, fontFamily, fontSizes } = style
 		setGlobalStyle(style)
 
 		cachedStylez = {}
 		cachedStylez.defaultStyle = style
 		_.forEach(require("styles/themes"), (v, k) => (cachedStylez[k + "Theme"] = typeof v === FUNCTION ? v(style) : v))
-		const theme = (cachedStylez.defaultTheme = cachedStylez[defaultThemeName])
+		const theme = (cachedStylez.defaultTheme = cachedStylez[style.defaultThemeName])
 		_.forEach(require("styles/elements"), (v, k) => (cachedStylez[k + "Element"] = typeof v === FUNCTION ? v(theme) : v))
 		_.forEach(require("styles/viewparts"), (v, k) => (cachedStylez[k + "Viewpart"] = typeof v === FUNCTION ? v(theme) : v))
 		_.forEach(require("styles/screens"), (v, k) => (cachedStylez[k + "Screen"] = typeof v === FUNCTION ? v(theme) : v))
 
 		setCustomText({
 			style: {
-				fontFamily,
-				fontSize: fontSizes[5],
+				fontFamily: theme.fontFamily,
+				fontSize: theme.fontSizes[5],
 			},
 		})
 		setCustomTextInput({
 			style: {
-				fontFamily,
+				fontFamily: theme.fontFamily,
 				paddingTop: 0,
 				paddingBottom: 0,
 				paddingLeft: 0,
