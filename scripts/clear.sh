@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 ##############################################################################
 ##
-##  Clear script for UN*X V1.5
+##  Clear script for UN*X V1.6
 ##
 ##  작성자: YoonHo Kang appcreatier@gmail.com
-##  수정일: 2019-07-29
+##  V1.5	2019-07-29
+##	V1.6	기본 클리닝 작업에 yarn cache까지 포함
 ##
 ##	사용법:
 ##	yarn clear			기본적인 정리
-##	yarn clear cache	기본적인 정리에 더하여 yarn cache까지 정리
 ##
 ##############################################################################
 
@@ -25,8 +25,6 @@ rm -rf $TMPDIR/react-*
 rm -rf $TMPDIR/metro-*
 rm -rf $TMPDIR/haste-map-react-native-*
 rm -rf node_modules
-if [ "$1" = "cache" ] ; then
-	yarn cache clean
-fi
+yarn cache clean
 
 yarn
