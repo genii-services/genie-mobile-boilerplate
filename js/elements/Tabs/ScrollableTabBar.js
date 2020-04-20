@@ -105,24 +105,45 @@ const ScrollableTabBar = (props) => {
 		set_containerWidth(null)
 	}
 
-	const { stylez, defaultTheme } = useStyle(MODULE_NAME$, {}, (defaultStyle) => ({
-		container: [styles.container, { backgroundColor: props.backgroundColor }, props.style],
-		tabs: [styles.tabs, { width: _containerWidth }, props.tabsContainerStyle],
-		tabUnderline: {
+	const { stylez, defaultTheme } = useStyle(MODULE_NAME$, {}, (defaultStyle) => {
+		const tabUnderline = {
 			position: ABSOLUTE,
 			height: 4,
 			backgroundColor: defaultStyle.topTabBarActiveBorderColor,
 			bottom: 0,
-		},
-		view: [
-			stylez.tabUnderline,
-			{
-				left: _leftTabUnderline,
-				width: _widthTabUnderline,
-			},
-			props.underlineStyle,
-		],
-	}))
+		}
+		return {
+			container: [
+				{
+					height: 50,
+					borderWidth: 1,
+					borderTopWidth: 0,
+					borderLeftWidth: 0,
+					borderRightWidth: 0,
+					borderColor: "#ccc",
+				},
+				{ backgroundColor: props.backgroundColor },
+				props.style,
+			],
+			tabs: [
+				{
+					flexDirection: ROW,
+					justifyContent: "space-around",
+				},
+				{ width: _containerWidth },
+				props.tabsContainerStyle,
+			],
+			tabUnderline,
+			view: [
+				tabUnderline,
+				{
+					left: _leftTabUnderline,
+					width: _widthTabUnderline,
+				},
+				props.underlineStyle,
+			],
+		}
+	})
 
 	// RENDERERS
 
@@ -224,40 +245,16 @@ if (__DEV__) {
 	}
 }
 
-ScrollableTabBar.getDefaultProps = () => {
-	return {
-		scrollOffset: 52,
-		activeTextColor: "navy",
-		inactiveTextColor: BLACK,
-		backgroundColor: itsIOS ? "#F8F8F8" : "#3F51B5", // defaultThemeStyle.tabDefaultBg,
-		style: {},
-		tabStyle: {},
-		tabsContainerStyle: {},
-		underlineStyle: {},
-		tabFontSize: 15, // defaultThemeStyle.tabFontSize,
-	}
-}
-
-const styles = {
-	tab: {
-		height: 49,
-		alignItems: CENTER,
-		justifyContent: CENTER,
-		paddingLeft: 20,
-		paddingRight: 20,
-	},
-	container: {
-		height: 50,
-		borderWidth: 1,
-		borderTopWidth: 0,
-		borderLeftWidth: 0,
-		borderRightWidth: 0,
-		borderColor: "#ccc",
-	},
-	tabs: {
-		flexDirection: ROW,
-		justifyContent: "space-around",
-	},
-}
+ScrollableTabBar.getDefaultProps = () => ({
+	scrollOffset: 52,
+	activeTextColor: "navy",
+	inactiveTextColor: BLACK,
+	backgroundColor: itsIOS ? "#F8F8F8" : "#3F51B5", // defaultThemeStyle.tabDefaultBg,
+	style: {},
+	tabStyle: {},
+	tabsContainerStyle: {},
+	underlineStyle: {},
+	tabFontSize: 15, // defaultThemeStyle.tabFontSize,
+})
 
 module.exports = ScrollableTabBar //connectStyle(ScrollableTabBar, MODULE_NAME$)

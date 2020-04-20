@@ -59,7 +59,6 @@ module.exports = {
 	Right: require("./Right"),
 	Root: require("./Root"),
 	Tabs: require("./Tabs"),
-	ScrollableTab: require("./Tabs"),
 	Segment: require("./Segment"),
 	Separator: require("./Separator"),
 	Spinner: require("./Spinner"),

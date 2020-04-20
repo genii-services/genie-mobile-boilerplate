@@ -205,7 +205,7 @@ const SwipeRowElement = (props) => {
 		<View ref={(c) => (_this.ref = c)} style={props.style}>
 			<View
 				style={[
-					styles.hidden,
+					stylez.hidden,
 					{
 						height: _hiddenHeight,
 						flex: 1,
@@ -234,7 +234,7 @@ SwipeRowElement.defaultProps = {
 	swipeToOpenPercent: 50,
 }
 
-const styles = {
+const stylez = {
 	container: {
 		// As of RN 0.29 flex: 1 is causing all rows to be the same height
 		// flex: 1

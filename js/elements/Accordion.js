@@ -27,7 +27,7 @@ const DefaultHeader = ({ expanded, expandedIcon, expandedIconStyle, headerStyle,
 		(defaultStyle) => ({
 			view: [
 				// eslint-disable-next-line no-use-before-define
-				styles.defaultHeader,
+				defaultHeaderStyle,
 				headerStyle || { backgroundColor: defaultStyle.headerStyle },
 			],
 			icon: [
@@ -172,13 +172,11 @@ const AccordionElement = ({
 	)
 }
 
-const styles = {
-	defaultHeader: {
-		flexDirection: ROW,
-		padding: defaultThemeStyle.accordionContentPadding,
-		justifyContent: SPACE_BETWEEN,
-		alignItems: CENTER,
-	},
+const defaultHeaderStyle = {
+	flexDirection: ROW,
+	padding: defaultThemeStyle.accordionContentPadding,
+	justifyContent: SPACE_BETWEEN,
+	alignItems: CENTER,
 }
 
 module.exports = AccordionElement

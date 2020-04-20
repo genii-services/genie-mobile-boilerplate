@@ -13,7 +13,7 @@ const Input = require("./Input")
 const Item = require("./Item")
 const Text = require("./Text")
 
-const InputBarElement = props => {
+const InputBarElement = (props) => {
 	const [_value, set_value] = useState(props.value)
 	const [_emptied, set_emptied] = useState(() => !props.value || (props.value && props.value.length == 0))
 	const [_minLength, set_minLength] = useState(props.minLength || 1)
@@ -21,37 +21,37 @@ const InputBarElement = props => {
 	set_value(props.value)
 	let disabled = !_value ? true : _value.length < _minLength
 
-	const updateValue = value => {
+	const updateValue = (value) => {
 		if (value == _value) return
 		set_value(value), set_emptied(value.length == 0)
 		typeof props.onChangeText === String.FUNCTION && props.onChangeText(value)
 	}
 
-	const handleOnPress = paramz => {
+	const handleOnPress = (paramz) => {
 		!disabled && typeof props.onPress && props.onPress(_value)
 		Keyboard.dismiss()
 	}
 
-	console.debug(InputBarElement, _value, styles.input, props.inputStyle)
+	console.debug(InputBarElement, _value, stylez.input, props.inputStyle)
 	return (
-		<View style={styles.container} rounded={props.rounded}>
-			<Item style={props.rounded ? styles.roundedItem : styles.item}>
+		<View style={stylez.container} rounded={props.rounded}>
+			<Item style={props.rounded ? stylez.roundedItem : stylez.item}>
 				{props.leaderIconName && <Icon name={props.leaderIconName} />}
 				<Input
-					style={[styles.input, props.inputStyle]}
+					style={[stylez.input, props.inputStyle]}
 					autoFocus={props.autoFocus}
 					placeholder={props.placeholder}
 					value={_value}
 					returnKeyType="search"
-					onChangeText={value => updateValue(_.trimStart(value))}
+					onChangeText={(value) => updateValue(_.trimStart(value))}
 					onEndEditing={() => updateValue(_.trim(_value))}
 					onSubmitEditing={handleOnPress}
 				/>
 				{!state.emptied && <Icon name="ios-close" disabled={_emptied} onPress={(() => set_value(""), set_emptied(true))} />}
 			</Item>
-			{/*<Icon style={styles.buttonIcon} name="ios-search" onPress={() => handleOnPress('icon')} />*/}
-			<Button style={styles.button} transparent small disabled={disabled} onPress={() => handleOnPress("button.onPress")}>
-				<Text style={disabled ? styles.buttonTextDisabled : styles.buttonText}>{props.buttonTitle || "검색"}</Text>
+			{/*<Icon style={stylez.buttonIcon} name="ios-search" onPress={() => handleOnPress('icon')} />*/}
+			<Button style={stylez.button} transparent small disabled={disabled} onPress={() => handleOnPress("button.onPress")}>
+				<Text style={disabled ? stylez.buttonTextDisabled : stylez.buttonText}>{props.buttonTitle || "검색"}</Text>
 			</Button>
 		</View>
 	)

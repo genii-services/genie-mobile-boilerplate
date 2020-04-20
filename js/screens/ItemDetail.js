@@ -121,7 +121,7 @@ const DetailScreen = (props) => {
 						</Content>
 					) : (
 						<View style={{ justifyContent: CENTER, alignItems: CENTER, paddingVertical: "50%" }}>
-							<Icon style={styles.nothingIcon} type="MaterialCommunityIcons" name="file-document-box-remove-outline" />
+							<Icon style={stylez.nothingIcon} type="MaterialCommunityIcons" name="file-document-box-remove-outline" />
 							<Text style={{ marginTop: 23, fontSize: 18, color: "#9b9b9b" }}>요청한 게시글이 없습니다</Text>
 						</View>
 					)}

@@ -12,7 +12,7 @@ const DefaultTabBar = require("./DefaultTabBar")
 const SceneComponent = require("./SceneComponent")
 const ScrollableTabBar = require("./ScrollableTabBar")
 
-const TabsElement = props => {
+const TabsElement = (props) => {
 	const _this = useThis()
 
 	const [_currentPage, set_currentPage] = useState(props.initialPage)
@@ -37,7 +37,7 @@ const TabsElement = props => {
 
 	props.page >= 0 && props.page !== _currentPage && goToPage(props.page)
 
-	const goToPage = pageNumber => {
+	const goToPage = (pageNumber) => {
 		const offset = pageNumber * _containerWidth
 		_this.scrollViewRef &&
 			_this.scrollViewRef.scrollTo({
@@ -50,7 +50,7 @@ const TabsElement = props => {
 		updateSceneKeys({ page: pageNumber, callback: _onChangeTab.bind(this, currentPage, pageNumber) })
 	}
 
-	const renderTabBar = props => {
+	const renderTabBar = (props) => {
 		return props.renderTabBar === false ? null : props.renderTabBar ? (
 			React.cloneElement(props.renderTabBar(props), props)
 		) : (
@@ -85,7 +85,7 @@ const TabsElement = props => {
 		return idx < currentPageKey + numOfSibling + 1 && idx > currentPageKey - numOfSibling - 1
 	}
 
-	const _keyExists = (sceneKeys, key) => sceneKeys.find(sceneKey => key === sceneKey)
+	const _keyExists = (sceneKeys, key) => sceneKeys.find((sceneKey) => key === sceneKey)
 
 	const _makeSceneKey = (child, idx) => `${child.props.heading}_${idx}`
 
@@ -98,8 +98,8 @@ const TabsElement = props => {
 				automaticallyAdjustContentInsets={false}
 				keyboardShouldPersistTaps="handled"
 				contentOffset={{ x: props.initialPage * _containerWidth }}
-				ref={el => (_this.scrollViewRef = el)}
-				onScroll={e => {
+				ref={(el) => (_this.scrollViewRef = el)}
+				onScroll={(e) => {
 					const offsetX = e.nativeEvent.contentOffset.x
 					_updateScrollValue(offsetX / _containerWidth)
 				}}
@@ -132,13 +132,13 @@ const TabsElement = props => {
 		})
 	}
 
-	const _onMomentumScrollBeginAndEnd = e => {
+	const _onMomentumScrollBeginAndEnd = (e) => {
 		const offsetX = e.nativeEvent.contentOffset.x
 		const page = Math.round(offsetX / _containerWidth)
 		if (_currentPage !== page) _updateSelectedPage(page)
 	}
 
-	const _updateSelectedPage = nextPage => {
+	const _updateSelectedPage = (nextPage) => {
 		let localNextPage = nextPage(typeof localNextPage === "object")
 		localNextPage = nextPage.nativeEvent.position
 
@@ -149,12 +149,12 @@ const TabsElement = props => {
 	const _onChangeTab = (prevPage, currentPage) =>
 		props.onChangeTab({ i: currentPage, ref: getGrandchildren()[currentPage], from: prevPage })
 
-	const _updateScrollValue = value => {
+	const _updateScrollValue = (value) => {
 		_scrollValue.setValue(value)
 		props.onScroll(value)
 	}
 
-	const _handleLayout = e => {
+	const _handleLayout = (e) => {
 		const { width } = e.nativeEvent.layout
 		if (!width || width <= 0 || Math.round(width) === Math.round(_containerWidth)) return
 
@@ -163,20 +163,20 @@ const TabsElement = props => {
 		_this.reqz[req] = req
 	}
 
-	const getGrandchildren = (children = props.children) => React.Children.map(children, child => child)
+	const getGrandchildren = (children = props.children) => React.Children.map(children, (child) => child)
 
 	const { tabBarPosition } = props
 	const overlayTabs = tabBarPosition === "overlayTop" || tabBarPosition === "overlayBottom"
 	const c = getGrandchildren()
 	const tabBarProps = {
 		goToPage: goToPage,
-		tabs: _.map(c, child => child.props.heading),
-		tabStyle: _.map(c, child => child.props.tabStyle),
-		activeTabStyle: _.map(c, child => child.props.activeTabStyle),
-		textStyle: _.map(c, child => child.props.textStyle),
-		activeTextStyle: _.map(c, child => child.props.activeTextStyle),
-		tabHeaderStyle: _.map(c, child => _.get(child.props.heading.props, "style", undefined)),
-		disabled: _.map(c, child => child.props.disabled),
+		tabs: _.map(c, (child) => child.props.heading),
+		tabStyle: _.map(c, (child) => child.props.tabStyle),
+		activeTabStyle: _.map(c, (child) => child.props.activeTabStyle),
+		textStyle: _.map(c, (child) => child.props.textStyle),
+		activeTextStyle: _.map(c, (child) => child.props.activeTextStyle),
+		tabHeaderStyle: _.map(c, (child) => _.get(child.props.heading.props, "style", undefined)),
+		disabled: _.map(c, (child) => child.props.disabled),
 		activeTab: _currentPage,
 		scrollValue: _scrollValue,
 		containerWidth: _containerWidth,
@@ -200,7 +200,7 @@ const TabsElement = props => {
 	}
 
 	return (
-		<View style={[styles.container, props.style]} onLayout={_handleLayout}>
+		<View style={[stylez.container, props.style]} onLayout={_handleLayout}>
 			{(tabBarPosition === "top" || tabBarPosition === "overlayTop") && renderTabBar(tabBarProps)}
 			{renderScrollableContent()}
 			{(tabBarPosition === "bottom" || tabBarPosition === "overlayBottom") && renderTabBar(tabBarProps)}
@@ -209,8 +209,6 @@ const TabsElement = props => {
 }
 
 // mixins: [TimerMixin]
-TabsElement.DefaultTabBar = DefaultTabBar
-TabsElement.ScrollableTabBar = ScrollableTabBar
 
 if (__DEV__) {
 	const { any, bool, func, number, object, oneOf, string } = require("/utils/propTypes")
@@ -245,7 +243,7 @@ TabsElement.getDefaultProps = () => {
 	}
 }
 
-const styles = {
+const stylez = {
 	container: {
 		flex: 1,
 	},
@@ -254,4 +252,6 @@ const styles = {
 	},
 }
 
-module.exports = TabsElement
+exports = module.exports = TabsElement
+exports.DefaultTabBar = DefaultTabBar
+exports.ScrollableTabBar = ScrollableTabBar

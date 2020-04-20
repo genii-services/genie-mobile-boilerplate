@@ -53,15 +53,15 @@ const ActionSheetElement = (props) => {
 
 	const renderItem = ({ index, item }) => {
 		return typeof _items[0] === "string" ? (
-			<ListItem onPress={() => close(parseInt(index))} style={styles.listItem}>
+			<ListItem onPress={() => close(parseInt(index))} style={stylez.listItem}>
 				<Text>{item}</Text>
 			</ListItem>
 		) : (
-			<ListItem onPress={() => close(parseInt(index))} style={styles.listItem} icon>
+			<ListItem onPress={() => close(parseInt(index))} style={stylez.listItem} icon>
 				<Left>
 					<Icon name={item.icon} style={{ color: item.iconColor }} />
 				</Left>
-				<Body style={styles.listItemBody}>
+				<Body style={stylez.listItemBody}>
 					<Text>{item.text}</Text>
 				</Body>
 				<Right />
@@ -71,11 +71,11 @@ const ActionSheetElement = (props) => {
 
 	return (
 		<Modal animationType={"fade"} transparent visible={_modalVisible} onRequestClose={close}>
-			<TouchableOpacity activeOpacity={1} onPress={close} style={styles.containerTouchable}>
-				<TouchableOpacity activeOpacity={1} style={styles.innerTouchable}>
-					{_this.title && <Text style={styles.touchableText}>{_this.title}</Text>}
+			<TouchableOpacity activeOpacity={1} onPress={close} style={stylez.containerTouchable}>
+				<TouchableOpacity activeOpacity={1} style={stylez.innerTouchable}>
+					{_this.title && <Text style={stylez.touchableText}>{_this.title}</Text>}
 					<FlatList
-						style={[styles.flatList, { marginTop: _this.title ? 15 : 0 }]}
+						style={[stylez.flatList, { marginTop: _this.title ? 15 : 0 }]}
 						data={_this.items}
 						keyExtractor={(item, index) => String(index)}
 						renderItem={renderItem}

@@ -7,9 +7,14 @@ const _ = require("lodash")
 
 const { forwardRef } = require("/hooks")
 
-const TextElement = ({ uppercase, children, ...props }) => {
+const TextElement = ({ note, uppercase, children, style, ...props }) => {
 	const text = uppercase ? React.Children.map(children, (child) => (_.isString(child) ? _.toUpper(child) : child)) : children
-	return <Text {...props}>{text}</Text>
+	const { stylez } = useStyle(TextElement, { note, style })
+	return (
+		<Text {...props} style={stylez.style}>
+			{text}
+		</Text>
+	)
 }
 
 if (__DEV__) {
@@ -23,6 +28,7 @@ if (__DEV__) {
 
 TextElement.defaultProps = {
 	uppercase: false,
+	note: false,
 }
 
 // const { connectStyle } = require("/utils/style")

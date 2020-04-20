@@ -55,6 +55,21 @@ module.exports = (style) => {
 		IconNBElement: buttonDangerBg,
 	}
 	return {
+		paddingVertical: style.buttonPadding,
+		backgroundColor: style.buttonPrimaryBg,
+		borderRadius: style.borderRadiusBase,
+		borderColor: style.buttonPrimaryBg,
+		borderWidth: null,
+		height: 45,
+		flexDirection: ROW,
+		elevation: 2,
+		shadowColor: itsMaterial && style.brandDark,
+		shadowOffset: itsMaterial && { width: 0, height: 2 },
+		shadowOpacity: itsMaterial && 0.2,
+		shadowRadius: itsMaterial && 1.2,
+		alignItems: CENTER,
+		justifyContent: SPACE_BETWEEN,
+
 		".disabled": {
 			".transparent": {
 				backgroundColor: TRANSPARENT,
@@ -233,29 +248,6 @@ module.exports = (style) => {
 			height: null,
 		},
 
-		TextElement: {
-			fontFamily: style.buttonFontFamily,
-			marginLeft: 0,
-			marginRight: 0,
-			color: style.inverseTextColor,
-			fontSize: style.buttonTextSize,
-			paddingHorizontal: 16,
-			backgroundColor: TRANSPARENT,
-		},
-
-		IconElement: {
-			color: style.inverseTextColor,
-			fontSize: 24,
-			marginHorizontal: 16,
-			paddingTop: itsIOS && 2,
-		},
-		IconNBElement: {
-			color: style.inverseTextColor,
-			fontSize: 24,
-			marginHorizontal: 16,
-			paddingTop: itsIOS && 2,
-		},
-
 		".iconLeft": {
 			TextElement: {
 				marginLeft: 0,
@@ -290,19 +282,22 @@ module.exports = (style) => {
 				},
 			},
 		},
-		paddingVertical: style.buttonPadding,
-		backgroundColor: style.buttonPrimaryBg,
-		borderRadius: style.borderRadiusBase,
-		borderColor: style.buttonPrimaryBg,
-		borderWidth: null,
-		height: 45,
-		flexDirection: ROW,
-		elevation: 2,
-		shadowColor: itsMaterial && style.brandDark,
-		shadowOffset: itsMaterial && { width: 0, height: 2 },
-		shadowOpacity: itsMaterial && 0.2,
-		shadowRadius: itsMaterial && 1.2,
-		alignItems: CENTER,
-		justifyContent: SPACE_BETWEEN,
+
+		TextElement: {
+			fontFamily: style.buttonFontFamily,
+			marginLeft: 0,
+			marginRight: 0,
+			color: style.inverseTextColor,
+			fontSize: style.buttonTextSize,
+			paddingHorizontal: 16,
+			backgroundColor: TRANSPARENT,
+		},
+
+		IconElement: {
+			color: style.inverseTextColor,
+			fontSize: 24,
+			marginHorizontal: 16,
+			paddingTop: itsIOS && 2,
+		},
 	}
 }

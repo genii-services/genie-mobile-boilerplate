@@ -3,11 +3,11 @@ const React = require("react")
 const { useCoordinator, useState } = require("/hooks")
 const { Button, Container, Content, Form, Header, Root, Text, Toast } = require("/elements")
 
-const ToastExample = props => {
+const ToastExample = (props) => {
 	console.debug(ToastExample, "called")
 	const [_selected, set_selected] = useState("key1")
 
-	const onValueChange = value => {
+	const onValueChange = (value) => {
 		set_selected(value)
 	}
 
@@ -27,6 +27,7 @@ const ToastExample = props => {
 				<Header />
 				<Content padder>
 					<Button onPress={showToast}>
+						<Text>Button for</Text>
 						<Text>Toast</Text>
 					</Button>
 				</Content>

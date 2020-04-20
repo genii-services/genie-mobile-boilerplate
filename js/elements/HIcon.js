@@ -2,24 +2,27 @@
 const React = require("react")
 
 const { BOLD, CENTER, ROW } = require("/constants/style")
+const { useStyle } = require("/coordinators")
 
 const Button = require("./Button")
 const Icon = require("./Icon")
 const LocalImage = require("./LocalImage")
 const Text = require("./Text")
 
-const HIconElement = props => {
+const HIconElement = (props) => {
 	const { iconName, imageName, style, title, note, onPress } = props
-	const buttonStyle = [styles.button, style]
+	const { stylez } = useStyle(HIconElement, { style }, () => ({
+		button: style,
+	}))
 	return (
-		<Button style={buttonStyle} transparent small onPress={onPress}>
+		<Button style={stylez.button} transparent small onPress={onPress}>
 			{iconName ? (
-				<Icon style={styles.buttonIcon} name={iconName} />
+				<Icon style={stylez.buttonIcon} name={iconName} />
 			) : (
-				<LocalImage style={styles.buttonImage} square name={imageName} />
+				<LocalImage style={stylez.buttonImage} square name={imageName} />
 			)}
-			<Text style={styles.buttonText}>{title}</Text>
-			<Text style={styles.buttonTextRight}>{note}</Text>
+			<Text style={stylez.buttonText}>{title}</Text>
+			<Text style={stylez.buttonTextRight}>{note}</Text>
 		</Button>
 	)
 }
