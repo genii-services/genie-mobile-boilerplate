@@ -25,11 +25,12 @@ const defaultThemeStyle = {
 const ButtonElement = ({ style, transparent, onPress, ...props }) => {
 	const { bordered, rounded } = props
 	const { stylez, defaultTheme } = useStyle(MODULE_NAME$, { style, bordered, rounded }, (defaultStyle) => {
+		const buttonStyle = mergeStyle(style, {
+			borderWidth: bordered && defaultThemeStyle.buttonDefaultBorderWidth,
+			borderRadius: rounded && bordered ? defaultThemeStyle.borderRadiusLarge : defaultThemeStyle.buttonDefaultBorderRadius,
+		})
 		const stylez = {
-			button: mergeStyle(style, {
-				borderWidth: bordered && defaultThemeStyle.buttonDefaultBorderWidth,
-				borderRadius: rounded && bordered ? defaultThemeStyle.borderRadiusLarge : defaultThemeStyle.buttonDefaultBorderRadius,
-			}),
+			button: buttonStyle,
 		}
 		if (rounded) {
 			const buttonFlex = props.full || props.block ? defaultThemeStyle.buttonDefaultFlex : buttonStyle.flex
@@ -121,5 +122,6 @@ if (__DEV__) {
 	}
 }
 
-// const { connectStyle } = require("/utils/style")
-module.exports = ButtonElement //connectStyle(ButtonElement, MODULE_NAME$)
+const { connectStyle } = require("/utils/style")
+module.exports = connectStyle(ButtonElement, MODULE_NAME$)
+// module.exports = ButtonElement

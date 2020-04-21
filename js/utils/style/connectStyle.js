@@ -4,44 +4,10 @@ const _ = require("lodash")
 
 const { isEqual } = require("/utils/object")
 const { forwardRef, useRefs, useState, useStore, useThis } = require("/hooks")
+
+const { getConcreteStyle } = require(".")
 const Theme = require("./Theme")
 const resolveComponentStyle = require("./resolveComponentStyle")
-
-/**
- * 구성 요소 스타일 변형을 나타내는 모든 스타일 특성과 매치
- * 이러한 스타일은 styleName 속성을 사용하여 구성 요소에 적용할 수 있습니다.
- * 모든 스타일 변형 속성 이름은 단일 '.'로 시작해야 합니다. 문자 (예 : '.variant')
- *
- * @param propertyName 스타일 속성 이름
- * @returns {boolean} style 속성이 변형된 구성 요소를 나타내는 경우 true이고, 그렇지 않으면 false입니다.
- */
-function isStyleVariant(propertyName) {
-	return /^\./.test(propertyName)
-}
-
-/**
- * 지정한 속성 이름이 하위 컴포넌트를 대상으로 하는 스타일 규칙인지 판단한다.
- * 이러한 스타일은 두 가지 형식이 있는데,
- * 컴포넌트 이름 ( 'elements.Text')와 컴포넌트 이름 및 변형 ( 'elements.Text.line-through')으로
- * 컴포넌트를 대상으로 지정할 수 있습니다.
- * 컴포넌트 이름을 지정하는 것 외에도 이러한 스타일은
- * '*'와일드 카드 ( '*'또는 '* .line-through')를 사용하여
- * 모든 구성 요소를 대상으로 할 수도 있습니다.
- * 이러한 스타일을 식별하는 규칙은 '.'을 포함해야한다는 것입니다.
- * 이름에 문자를 포함 시키거나 '*'이어야 합니다.
- *
- * @param propertyName The style property name.
- * @returns {boolean} True if the style property represents a child style, false otherwise.
- */
-function isChildStyle(propertyName) {
-	return /(^[^\.].*\.)|^\*$/.test(propertyName)
-}
-
-function getConcreteStyle(style) {
-	return _.pickBy(style, (value, key) => {
-		return !isStyleVariant(key) && !isChildStyle(key)
-	})
-}
 
 let parentPath
 let themeCache = {}

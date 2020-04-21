@@ -26,7 +26,7 @@ const ToastExample = (props) => {
 			<Container>
 				<Header />
 				<Content padder>
-					<Button onPress={showToast}>
+					<Button round onPress={showToast}>
 						<Text>Button for</Text>
 						<Text>Toast</Text>
 					</Button>

@@ -7,6 +7,7 @@ const { isEqual } = require("/utils/object")
 const { useRefs, useState, useStore, useThis } = require("/hooks")
 const Theme = require("./Theme")
 const { ThemeShape } = Theme
+const { getConcreteStyle } = require("./")
 const resolveComponentStyle = require("./resolveComponentStyle")
 
 const themeCache = {}
@@ -19,41 +20,6 @@ const themeCache = {}
  */
 function throwConnectStyleError(errorMessage, componentDisplayName) {
 	throw Error(`${errorMessage} - when connecting ${componentDisplayName} component to style.`)
-}
-
-/**
- * Matches any style properties that represent component style variants.
- * Those styles can be applied to the component by using the styleName
- * prop. All style variant property names must start with a single '.'
- * character, e.g., '.variant'.
- *
- * @param propertyName The style property name.
- * @returns {boolean} True if the style property represents a component variant, false otherwise.
- */
-function isStyleVariant(propertyName) {
-	return /^\./.test(propertyName)
-}
-
-/**
- * Matches any style properties that represent style rules that target the
- * component children. Those styles can have two formats, they can either
- * target the components by component name ('shoutem.ui.Text'), or by component
- * name and variant ('shoutem.ui.Text.line-through'). Beside specifying the
- * component name, those styles can also target any component by using the
- * '*' wildcard ('*', or '*.line-through'). The rule to identify those styles is
- * that they have to contain a '.' character in their name or be a '*'.
- *
- * @param propertyName The style property name.
- * @returns {boolean} True if the style property represents a child style, false otherwise.
- */
-function isChildStyle(propertyName) {
-	return /(^[^\.].*\.)|^\*$/.test(propertyName)
-}
-
-function getConcreteStyle(style) {
-	return _.pickBy(style, (value, key) => {
-		return !isStyleVariant(key) && !isChildStyle(key)
-	})
 }
 
 /**

@@ -77,7 +77,7 @@ const fontSizesArray = [
 const fontSize = 15
 const iconSize = itsIOS ? 30 : 28
 
-module.exports = ({ fontSizesIndex }) => {
+module.exports = ({ fontSizesIndex = 2 } = {}) => {
 	const fontSizes = fontSizesArray[fontSizesIndex]
 	return {
 		...styleConstantz,

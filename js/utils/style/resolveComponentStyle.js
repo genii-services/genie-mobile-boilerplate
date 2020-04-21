@@ -2,65 +2,6 @@ const _ = require("lodash")
 const customMerge = require("./customMerge")
 
 /**
- * Matches any style properties that represent component style variants.
- * Those styles can be applied to the component by using the styleName
- * prop. All style variant property names must start with a single '.'
- * character, e.g., '.variant'.
- *
- * @param propertyName The style property name.
- * @returns {boolean} True if the style property represents a component variant, false otherwise.
- */
-function isStyleVariant(propertyName) {
-	return /^\./.test(propertyName)
-}
-
-/**
- * Matches any style properties that represent style rules that target the
- * component children. Those styles can have two formats, they can either
- * target the components by component name ('shoutem.ui.Text'), or by component
- * name and variant ('shoutem.ui.Text.line-through'). Beside specifying the
- * component name, those styles can also target any component by using the
- * '*' wildcard ('*', or '*.line-through'). The rule to identify those styles is
- * that they have to contain a '.' character in their name or be a '*'.
- *
- * @param propertyName The style property name.
- * @returns {boolean} True if the style property represents a child style, false otherwise.
- */
-function isChildStyle(propertyName) {
-	return /(^[^\.].*\.)|^\*$/.test(propertyName)
-}
-
-/**
- * Splits the style into its parts:
- * component style - concrete style that needs to be applied to a component
- * style variants - variants that can be applied to a component by using styleName prop
- * children style - style rules that need to be propagated to component children
- *
- * @param style The style to split.
- * @returns {*} An object with the componentStyle, styleVariants, and childrenStyle keys.
- */
-function splitStyle(style) {
-	return _.reduce(
-		style,
-		(result, value, key) => {
-			let styleSection = result.componentStyle
-			if (isStyleVariant(key)) {
-				styleSection = result.styleVariants
-			} else if (isChildStyle(key)) {
-				styleSection = result.childrenStyle
-			}
-			styleSection[key] = value
-			return result
-		},
-		{
-			componentStyle: {},
-			styleVariants: {},
-			childrenStyle: {},
-		}
-	)
-}
-
-/**
  * 구성 요소에 적용할 수 있는 모든 스타일을 올바른 순서로 병합하여
  * 최종 구성 요소 스타일을 해결합니다.
  *
