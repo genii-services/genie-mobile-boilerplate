@@ -10,7 +10,8 @@
 ##	yarn bye
 ##
 ########################################################################################
-
+echo Bye! $USER
+date
 adb shell input keyevent KEYCODE_POWER
 git push origin master:master
 echo 10초 후 맥을 재웁니다.
