@@ -168,6 +168,10 @@ exports = module.exports = {
 	createVariations,
 	createSharedStyle,
 
+	isStyleVariant,
+	isChildStyle,
+	isPureStyle,
+
 	mapPropsToStyleNames,
 	flattenStyle,
 	mergeStyle,

@@ -10,6 +10,7 @@ const { TRANSPARENT } = require("/constants/style")
 const { isEqual } = require("/utils/object")
 const { globalStore, useState, useStore } = require("/hooks")
 const { assign, getName, parseJson } = require("/utils")
+const { isStyleVariant, isChildStyle, isPureStyle } = require("/styles")
 // const storage = require("/interactors/storage")
 
 // 초기값
@@ -18,6 +19,19 @@ globalStore.set("globalStyle", { defaultThemeName: "lightTheme", fontSizesIndex:
 // 캐싱한 스타일
 let cachedStylez
 let styleConditionz = {}
+
+const getCachingStyle = (style, initial) => {
+	if (typeof v === FUNCTION) style = style(initial)
+	const purez = {},
+		varientz = {},
+		children = {}
+	_.forEach(style, (v, k) => {
+		if (isStyleVariant(k)) varientz[k] = v
+		else if (isChildStyle(k)) children[k] = v
+		else purez[k] = v
+	})
+	return { purez, varientz, children }
+}
 
 const useStyle = (target, conditionz, initialStyle) => {
 	const [globalStyle, setGlobalStyle] = useStore("globalStyle")
@@ -30,11 +44,11 @@ const useStyle = (target, conditionz, initialStyle) => {
 
 		cachedStylez = {}
 		cachedStylez.defaultStyle = style
-		_.forEach(require("styles/themes"), (v, k) => (cachedStylez[k + "Theme"] = typeof v === FUNCTION ? v(style) : v))
+		_.forEach(require("styles/themes"), (v, k) => (cachedStylez[k + "Theme"] = getCachingStyle(v, style)))
 		const theme = (cachedStylez.defaultTheme = cachedStylez[style.defaultThemeName])
-		_.forEach(require("styles/elements"), (v, k) => (cachedStylez[k + "Element"] = typeof v === FUNCTION ? v(theme) : v))
-		_.forEach(require("styles/viewparts"), (v, k) => (cachedStylez[k + "Viewpart"] = typeof v === FUNCTION ? v(theme) : v))
-		_.forEach(require("styles/screens"), (v, k) => (cachedStylez[k + "Screen"] = typeof v === FUNCTION ? v(theme) : v))
+		_.forEach(require("styles/elements"), (v, k) => (cachedStylez[k + "Element"] = getCachingStyle(v, theme)))
+		_.forEach(require("styles/viewparts"), (v, k) => (cachedStylez[k + "Viewpart"] = getCachingStyle(v, theme)))
+		_.forEach(require("styles/screens"), (v, k) => (cachedStylez[k + "Screen"] = getCachingStyle(v, theme)))
 
 		setCustomText({
 			style: {
@@ -59,6 +73,13 @@ const useStyle = (target, conditionz, initialStyle) => {
 		let stylez = isEqual(styleConditionz[name], conditionz) && cachedStylez[name]
 		if (stylez) return stylez
 
+		const {purez={}, varientz={}, children={}} = cachedStylez[name] || {}
+		stylez = _.assign({}, purez, initialStyle){}
+		_.forEach(conditionz, (v,k) => {
+			stylez
+		})
+
+
 		styleConditionz[name] = conditionz
 
 		if (!initialStyle)
@@ -82,7 +103,7 @@ const useStyle = (target, conditionz, initialStyle) => {
 			default:
 				initialStyle = {}
 		}
-		stylez = _.assign({}, cachedStylez[name], initialStyle)
+		_.assign(stylez, purez, initialStyle)
 		cachedStylez[name] = stylez // StyleSheet.create(stylez)
 		return stylez
 	}
