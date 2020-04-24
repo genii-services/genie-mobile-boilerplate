@@ -73,13 +73,15 @@ const useStyle = (target, conditionz, initialStyle) => {
 		let stylez = isEqual(styleConditionz[name], conditionz) && cachedStylez[name]
 		if (stylez) return stylez
 
-		const {purez={}, varientz={}, children={}} = cachedStylez[name] || {}
-		stylez = _.assign({}, purez, initialStyle){}
-		_.forEach(conditionz, (v,k) => {
-			stylez
+		const { purez = {}, varientz = {}, children = {} } = cachedStylez[name] || {}
+		stylez = _.assign({}, purez, initialStyle)
+		const _conditionz = { ...conditionz }
+		_.forEach(_conditionz, (v, k) => {
+			const varient = varientz["." + k]
+			if (varient) {
+				_.assign(stylez, varient)
+			}
 		})
-
-
 		styleConditionz[name] = conditionz
 
 		if (!initialStyle)

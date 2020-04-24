@@ -8,7 +8,10 @@ const { CENTER, FLEX_START, ROW } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 
 module.exports = (style) => {
-	const transparentBtnCommon = {
+	const transparentButton = {
+		paddingVertical: null,
+		paddingHorizontal: null,
+
 		TextElement: {
 			fontSize: style.DefaultFontSize - 3,
 			color: style.sTabBarActiveTextColor,
@@ -18,15 +21,88 @@ module.exports = (style) => {
 			color: style.sTabBarActiveTextColor,
 			marginHorizontal: null,
 		},
-		IconNBElement: {
-			fontSize: style.iconSize - 10,
-			color: style.sTabBarActiveTextColor,
-		},
-		paddingVertical: null,
-		paddingHorizontal: null,
 	}
 
 	return {
+		alignItems: CENTER,
+		backgroundColor: style.cardDefaultBg,
+		borderRadius: style.cardBorderRadius,
+		flexDirection: ROW,
+		padding: style.cardItemPadding + 5,
+		paddingVertical: style.cardItemPadding,
+
+		".bordered": {
+			borderBottomWidth: StyleSheet.hairlineWidth,
+			borderColor: style.cardBorderColor,
+		},
+		".content": {
+			TextElement: {
+				color: itsIOS ? "#555" : "#222",
+				fontSize: style.DefaultFontSize - 2,
+			},
+		},
+		".cardBody": { padding: -5, TextElement: { marginTop: 5 } },
+		".first": {
+			borderTopLeftRadius: style.cardBorderRadius,
+			borderTopRightRadius: style.cardBorderRadius,
+		},
+		".footer": {
+			TextElement: {
+				fontSize: 16,
+				fontWeight: itsIOS ? "600" : "500",
+			},
+			".bordered": {
+				TextElement: {
+					color: style.brandPrimary,
+					fontWeight: itsIOS ? "600" : "500",
+				},
+				borderTopWidth: style.borderWidth,
+			},
+			borderBottomWidth: null,
+		},
+		".header": {
+			TextElement: {
+				fontSize: 16,
+				fontWeight: itsIOS ? "600" : "500",
+			},
+			".bordered": {
+				TextElement: {
+					color: style.brandPrimary,
+					fontWeight: itsIOS ? "600" : "500",
+				},
+				borderBottomWidth: style.borderWidth,
+			},
+			borderBottomWidth: null,
+			paddingVertical: style.cardItemPadding + 5,
+		},
+		".last": {
+			borderBottomLeftRadius: style.cardBorderRadius,
+			borderBottomRightRadius: style.cardBorderRadius,
+		},
+
+		BodyElement: {
+			TextElement: {
+				".note": {
+					color: style.listNoteColor,
+					fontWeight: "200",
+					marginRight: 20,
+				},
+			},
+			ButtonElement: {
+				".transparent": {
+					...transparentButton,
+					paddingRight: style.cardItemPadding + 5,
+					alignSelf: "stretch",
+				},
+			},
+			flex: 1,
+			alignSelf: "stretch",
+			alignItems: FLEX_START,
+		},
+		IconElement: {
+			width: style.iconSize + 5,
+			fontSize: style.iconSize - 2,
+		},
 		LeftElement: {
 			BodyElement: {
 				TextElement: {
@@ -52,7 +128,7 @@ module.exports = (style) => {
 			},
 			ButtonElement: {
 				".transparent": {
-					...transparentBtnCommon,
+					...transparentButton,
 					paddingRight: style.cardItemPadding + 5,
 				},
 			},
@@ -60,38 +136,12 @@ module.exports = (style) => {
 			flexDirection: ROW,
 			alignItems: CENTER,
 		},
-		".content": {
-			TextElement: {
-				color: itsIOS ? "#555" : "#222",
-				fontSize: style.DefaultFontSize - 2,
-			},
-		},
-		".cardBody": { padding: -5, TextElement: { marginTop: 5 } },
-		BodyElement: {
-			TextElement: {
-				".note": {
-					color: style.listNoteColor,
-					fontWeight: "200",
-					marginRight: 20,
-				},
-			},
-			ButtonElement: {
-				".transparent": {
-					...transparentBtnCommon,
-					paddingRight: style.cardItemPadding + 5,
-					alignSelf: "stretch",
-				},
-			},
-			flex: 1,
-			alignSelf: "stretch",
-			alignItems: FLEX_START,
-		},
 		RightElement: {
 			BadgeElement: {
 				alignSelf: null,
 			},
 			ButtonElement: {
-				".transparent": { ...transparentBtnCommon },
+				".transparent": transparentButton,
 				alignSelf: null,
 			},
 			IconElement: { alignSelf: null, fontSize: style.iconSize - 8, color: style.cardBorderColor },
@@ -104,66 +154,11 @@ module.exports = (style) => {
 			SwitchElement: { alignSelf: null },
 			flex: 0.8,
 		},
-		".header": {
-			TextElement: {
-				fontSize: 16,
-				fontWeight: itsIOS ? "600" : "500",
-			},
-			".bordered": {
-				TextElement: {
-					color: style.brandPrimary,
-					fontWeight: itsIOS ? "600" : "500",
-				},
-				borderBottomWidth: style.borderWidth,
-			},
-			borderBottomWidth: null,
-			paddingVertical: style.cardItemPadding + 5,
-		},
-		".footer": {
-			TextElement: {
-				fontSize: 16,
-				fontWeight: itsIOS ? "600" : "500",
-			},
-			".bordered": {
-				TextElement: {
-					color: style.brandPrimary,
-					fontWeight: itsIOS ? "600" : "500",
-				},
-				borderTopWidth: style.borderWidth,
-			},
-			borderBottomWidth: null,
-		},
 		TextElement: {
 			".note": {
 				color: style.listNoteColor,
 				fontWeight: "200",
 			},
 		},
-		IconElement: {
-			width: style.iconSize + 5,
-			fontSize: style.iconSize - 2,
-		},
-		IconNBElement: {
-			width: style.iconSize + 5,
-			fontSize: style.iconSize - 2,
-		},
-		".bordered": {
-			borderBottomWidth: StyleSheet.hairlineWidth,
-			borderColor: style.cardBorderColor,
-		},
-		".first": {
-			borderTopLeftRadius: style.cardBorderRadius,
-			borderTopRightRadius: style.cardBorderRadius,
-		},
-		".last": {
-			borderBottomLeftRadius: style.cardBorderRadius,
-			borderBottomRightRadius: style.cardBorderRadius,
-		},
-		flexDirection: ROW,
-		alignItems: CENTER,
-		borderRadius: style.cardBorderRadius,
-		padding: style.cardItemPadding + 5,
-		paddingVertical: style.cardItemPadding,
-		backgroundColor: style.cardDefaultBg,
 	}
 }

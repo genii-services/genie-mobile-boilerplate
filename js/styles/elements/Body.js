@@ -5,11 +5,9 @@ console.debug(MODULE_NAME$)
 const { CENTER } = require("/constants/style")
 
 module.exports = () => {
-	const bodyTheme = {
+	return {
 		flex: 1,
 		alignItems: CENTER,
 		alignSelf: CENTER,
 	}
-
-	return bodyTheme
 }

@@ -13,6 +13,19 @@ module.exports = (style) => {
 	} = style
 
 	return {
+		marginVertical: 5,
+		marginHorizontal: 2,
+		borderWidth,
+		borderRadius,
+		borderColor,
+		flexWrap: NOWRAP,
+		backgroundColor,
+		shadowColor: BLACK,
+		shadowOffset: { width: 0, height: 2 },
+		shadowOpacity: 0.1,
+		shadowRadius: 1.5,
+		elevation: 3,
+
 		".transparent": {
 			shadowColor: null,
 			shadowOffset: null,
@@ -28,17 +41,5 @@ module.exports = (style) => {
 			shadowOpacity: null,
 			elevation: null,
 		},
-		marginVertical: 5,
-		marginHorizontal: 2,
-		borderWidth,
-		borderRadius,
-		borderColor,
-		flexWrap: NOWRAP,
-		backgroundColor,
-		shadowColor: BLACK,
-		shadowOffset: { width: 0, height: 2 },
-		shadowOpacity: 0.1,
-		shadowRadius: 1.5,
-		elevation: 3,
 	}
 }

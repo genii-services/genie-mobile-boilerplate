@@ -12,6 +12,25 @@ module.exports = (style) => {
 	const itsMaterial = style.name === MATERIAL
 	const itsIOSStyle = itsIOS && !itsUnitedStyle
 	return {
+		backgroundColor: style.toolbarDefaultBg,
+		borderBottomWidth: itsIOS ? 1 / PixelRatio.getPixelSizeForLayoutSize(1) : 0,
+		borderBottomColor: style.toolbarDefaultBorder,
+		elevation: 3,
+		flexDirection: ROW,
+		justifyContent: CENTER,
+		height: itsIOSStyle ? style.toolbarHeight + 10 : style.toolbarHeight,
+		left: 0,
+		right: 0,
+		top: 0,
+		// paddingHorizontal: 10,
+		paddingLeft: itsIOS && !!itsUnitedStyle ? 6 : 10,
+		paddingRight: 10,
+		paddingTop: itsIOS ? 18 : 0,
+		shadowColor: itsMaterial && BLACK,
+		shadowOffset: itsMaterial && { width: 0, height: 2 },
+		shadowOpacity: itsMaterial && 0.2,
+		shadowRadius: itsMaterial && 1.2,
+
 		".span": {
 			height: 128,
 			LeftElement: {
@@ -105,27 +124,15 @@ module.exports = (style) => {
 				},
 			},
 		},
-		ButtonElement: {
-			justifyContent: CENTER,
-			alignSelf: CENTER,
-			alignItems: CENTER,
-			".transparent": {
-				TextElement: {
-					color: style.toolbarBtnTextColor,
-					fontWeight: "600",
-				},
-				IconElement: {
-					color: style.toolbarBtnColor,
-				},
-				IconNBElement: {
-					color: style.toolbarBtnColor,
-				},
-				paddingHorizontal: style.buttonPadding,
-			},
-			paddingHorizontal: 15,
-		},
 		".searchBar": {
 			ItemElement: {
+				alignSelf: CENTER,
+				alignItems: CENTER,
+				justifyContent: FLEX_START,
+				flex: 1,
+				height: style.searchBarHeight,
+				borderColor: TRANSPARENT,
+				backgroundColor: style.toolbarInputColor,
 				IconElement: {
 					backgroundColor: TRANSPARENT,
 					color: style.dropdownLinkColor,
@@ -135,23 +142,13 @@ module.exports = (style) => {
 					paddingRight: 10,
 					paddingLeft: 10,
 				},
-				IconNBElement: {
+				InputElement: {
 					backgroundColor: TRANSPARENT,
 					color: null,
-					alignSelf: CENTER,
-				},
-				InputElement: {
 					alignSelf: CENTER,
 					lineHeight: null,
 					height: style.searchBarInputHeight,
 				},
-				alignSelf: CENTER,
-				alignItems: CENTER,
-				justifyContent: FLEX_START,
-				flex: 1,
-				height: style.searchBarHeight,
-				borderColor: TRANSPARENT,
-				backgroundColor: style.toolbarInputColor,
 			},
 			ButtonElement: {
 				".transparent": {
@@ -167,6 +164,26 @@ module.exports = (style) => {
 		".rounded": {
 			ItemElement: {
 				borderRadius: itsIOSStyle ? 25 : 3,
+			},
+		},
+
+		ButtonElement: {
+			justifyContent: CENTER,
+			alignSelf: CENTER,
+			alignItems: CENTER,
+			paddingHorizontal: 15,
+			".transparent": {
+				TextElement: {
+					color: style.toolbarBtnTextColor,
+					fontWeight: "600",
+				},
+				IconElement: {
+					color: style.toolbarBtnColor,
+				},
+				IconNBElement: {
+					color: style.toolbarBtnColor,
+				},
+				paddingHorizontal: style.buttonPadding,
 			},
 		},
 		LeftElement: {
@@ -187,27 +204,12 @@ module.exports = (style) => {
 						marginLeft: 7,
 						lineHeight: 19.5,
 					},
-					IconNBElement: {
-						color: style.toolbarBtnColor,
-						fontSize: style.iconHeaderSize,
-						marginTop: 2,
-						marginRight: 5,
-						marginLeft: 2,
-					},
 				},
 				".transparent": {
 					marginLeft: itsIOSStyle ? -3 : 0,
 					IconElement: {
 						color: style.toolbarBtnColor,
 						fontSize: itsIOSStyle ? style.iconHeaderSize + 1 : style.iconHeaderSize,
-						marginTop: 0,
-						marginRight: 2,
-						marginLeft: 1,
-						paddingTop: 1,
-					},
-					IconNBElement: {
-						color: style.toolbarBtnColor,
-						fontSize: itsIOSStyle ? style.iconHeaderSize + 1 : style.iconHeaderSize - 2,
 						marginTop: 0,
 						marginRight: 2,
 						marginLeft: 1,
@@ -229,9 +231,6 @@ module.exports = (style) => {
 					shadowOpacity: null,
 				},
 				IconElement: {
-					color: style.toolbarBtnColor,
-				},
-				IconNBElement: {
 					color: style.toolbarBtnColor,
 				},
 				alignSelf: null,
@@ -343,23 +342,5 @@ module.exports = (style) => {
 			flexDirection: ROW,
 			justifyContent: FLEX_END,
 		},
-		backgroundColor: style.toolbarDefaultBg,
-		flexDirection: ROW,
-		// paddingHorizontal: 10,
-		paddingLeft: itsIOS && !!itsUnitedStyle ? 6 : 10,
-		paddingRight: 10,
-		justifyContent: CENTER,
-		paddingTop: itsIOS ? 18 : 0,
-		borderBottomWidth: itsIOS ? 1 / PixelRatio.getPixelSizeForLayoutSize(1) : 0,
-		borderBottomColor: style.toolbarDefaultBorder,
-		height: itsIOSStyle ? style.toolbarHeight + 10 : style.toolbarHeight,
-		elevation: 3,
-		shadowColor: itsMaterial && BLACK,
-		shadowOffset: itsMaterial && { width: 0, height: 2 },
-		shadowOpacity: itsMaterial && 0.2,
-		shadowRadius: itsMaterial && 1.2,
-		top: 0,
-		left: 0,
-		right: 0,
 	}
 }

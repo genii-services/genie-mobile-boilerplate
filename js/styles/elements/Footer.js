@@ -8,16 +8,22 @@ const { itsIOS } = require("/utils/device")
 module.exports = (style) => {
 	const { itsUnitedStyle } = style
 
-	const iconCommon = {
-		IconElement: { color: style.tabBarActiveTextColor },
-	}
-	const iconNBCommon = {
-		IconNBElement: { color: style.tabBarActiveTextColor },
-	}
-	const textCommon = {
-		TextElement: { color: style.tabBarActiveTextColor },
-	}
-	const footerTheme = {
+	const IconElement = { color: style.tabBarActiveTextColor }
+
+	const TextElement = { color: style.tabBarActiveTextColor }
+
+	return {
+		backgroundColor: style.footerDefaultBg,
+		flexDirection: ROW,
+		justifyContent: CENTER,
+		borderTopWidth: itsIOS && !itsUnitedStyle && style.borderWidth,
+		borderColor: itsIOS && !itsUnitedStyle && "#cbcbcb",
+		height: style.footerHeight,
+		paddingBottom: style.footerPaddingBottom,
+		elevation: 3,
+		left: 0,
+		right: 0,
+
 		LeftElement: {
 			ButtonElement: {
 				".transparent": {
@@ -28,14 +34,12 @@ module.exports = (style) => {
 					shadowOffset: null,
 					shadowRadius: null,
 					shadowOpacity: null,
-					...iconCommon,
-					...iconNBCommon,
-					...textCommon,
+					IconElement,
+					TextElement,
 				},
 				alignSelf: null,
-				...iconCommon,
-				...iconNBCommon,
-				// ...textCommon
+				IconElement,
+				// TextElement
 			},
 			flex: 1,
 			alignSelf: CENTER,
@@ -56,21 +60,22 @@ module.exports = (style) => {
 					shadowOffset: null,
 					shadowRadius: null,
 					shadowOpacity: null,
-					...iconCommon,
-					...iconNBCommon,
-					...textCommon,
+					IconElement,
+					TextElement,
 				},
 				".full": {
 					height: style.footerHeight,
 					paddingBottom: style.footerPaddingBottom,
 					flex: 1,
 				},
-				...iconCommon,
-				...iconNBCommon,
-				// ...textCommon
+				IconElement,
+				// TextElement
 			},
 		},
 		RightElement: {
+			alignSelf: CENTER,
+			alignItems: FLEX_END,
+			flex: 1,
 			ButtonElement: {
 				".transparent": {
 					backgroundColor: TRANSPARENT,
@@ -80,29 +85,13 @@ module.exports = (style) => {
 					shadowOffset: null,
 					shadowRadius: null,
 					shadowOpacity: null,
-					...iconCommon,
-					...iconNBCommon,
-					...textCommon,
+					IconElement,
+					TextElement,
 				},
 				alignSelf: null,
-				...iconCommon,
-				...iconNBCommon,
-				// ...textCommon
+				IconElement,
+				// TextElement
 			},
-			flex: 1,
-			alignSelf: CENTER,
-			alignItems: FLEX_END,
 		},
-		backgroundColor: style.footerDefaultBg,
-		flexDirection: ROW,
-		justifyContent: CENTER,
-		borderTopWidth: itsIOS && !itsUnitedStyle && style.borderWidth,
-		borderColor: itsIOS && !itsUnitedStyle && "#cbcbcb",
-		height: style.footerHeight,
-		paddingBottom: style.footerPaddingBottom,
-		elevation: 3,
-		left: 0,
-		right: 0,
 	}
-	return footerTheme
 }

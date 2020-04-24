@@ -19,40 +19,33 @@ module.exports = (style) => {
 	const buttonDangerBg = { color: style.buttonDangerBg }
 	const buttonDisabledBg = { color: style.buttonDisabledBg }
 
-	const commonDark = {
+	const childrenDark = {
 		TextElement: brandDark,
 		IconElement: brandDark,
-		IconNBElement: brandDark,
 	}
-	const commonLight = {
+	const childrenLight = {
 		TextElement: brandLight,
 		IconElement: brandLight,
-		IconNBElement: brandLight,
 	}
-	const commonPrimary = {
+	const childrenPrimary = {
 		TextElement: buttonPrimaryBg,
 		IconElement: buttonPrimaryBg,
-		IconNBElement: buttonPrimaryBg,
 	}
-	const commonSuccess = {
+	const childrenSuccess = {
 		TextElement: buttonSuccessBg,
 		IconElement: buttonSuccessBg,
-		IconNBElement: buttonSuccessBg,
 	}
-	const commonInfo = {
+	const childrenInfo = {
 		TextElement: buttonInfoBg,
 		IconElement: buttonInfoBg,
-		IconNBElement: buttonInfoBg,
 	}
-	const commonWarning = {
+	const childrenWarning = {
 		TextElement: buttonWarningBg,
 		IconElement: buttonWarningBg,
-		IconNBElement: buttonWarningBg,
 	}
-	const commonDanger = {
+	const childrenDanger = {
 		TextElement: buttonDangerBg,
 		IconElement: buttonDangerBg,
-		IconNBElement: buttonDangerBg,
 	}
 	return {
 		paddingVertical: style.buttonPadding,
@@ -71,6 +64,7 @@ module.exports = (style) => {
 		justifyContent: SPACE_BETWEEN,
 
 		".disabled": {
+			backgroundColor: style.buttonDisabledBg,
 			".transparent": {
 				backgroundColor: TRANSPARENT,
 				TextElement: buttonDisabledBg,
@@ -79,50 +73,56 @@ module.exports = (style) => {
 			},
 			IconElement: brandLight,
 			IconNBElement: brandLight,
-			backgroundColor: style.buttonDisabledBg,
 		},
 		".bordered": {
+			backgroundColor: TRANSPARENT,
+			borderWidth: borderWidthX2,
+			elevation: null,
+			shadowColor: null,
+			shadowOffset: null,
+			shadowOpacity: null,
+			shadowRadius: null,
 			".dark": {
-				...commonDark,
 				backgroundColor: TRANSPARENT,
 				borderColor: style.brandDark,
 				borderWidth: borderWidthX2,
+				...childrenDark,
 			},
 			".light": {
-				...commonLight,
 				backgroundColor: TRANSPARENT,
 				borderColor: style.brandLight,
 				borderWidth: borderWidthX2,
+				...childrenLight,
 			},
 			".primary": {
-				...commonPrimary,
 				backgroundColor: TRANSPARENT,
 				borderColor: style.buttonPrimaryBg,
 				borderWidth: borderWidthX2,
+				...childrenPrimary,
 			},
 			".success": {
-				...commonSuccess,
 				backgroundColor: TRANSPARENT,
 				borderColor: style.buttonSuccessBg,
 				borderWidth: borderWidthX2,
+				...childrenSuccess,
 			},
 			".info": {
-				...commonInfo,
 				backgroundColor: TRANSPARENT,
 				borderColor: style.buttonInfoBg,
 				borderWidth: borderWidthX2,
+				...childrenInfo,
 			},
 			".warning": {
-				...commonWarning,
 				backgroundColor: TRANSPARENT,
 				borderColor: style.buttonWarningBg,
 				borderWidth: borderWidthX2,
+				...childrenWarning,
 			},
 			".danger": {
-				...commonDanger,
 				backgroundColor: TRANSPARENT,
 				borderColor: style.buttonDangerBg,
 				borderWidth: borderWidthX2,
+				...childrenDanger,
 			},
 			".disabled": {
 				backgroundColor: TRANSPARENT,
@@ -130,64 +130,57 @@ module.exports = (style) => {
 				borderWidth: borderWidthX2,
 				TextElement: buttonDisabledBg,
 			},
-			...commonPrimary,
-			borderWidth: borderWidthX2,
-			elevation: null,
-			shadowColor: null,
-			shadowOffset: null,
-			shadowOpacity: null,
-			shadowRadius: null,
-			backgroundColor: TRANSPARENT,
+			...childrenPrimary,
 		},
 
 		".dark": {
-			".bordered": commonDark,
 			backgroundColor: style.brandDark,
+			".bordered": childrenDark,
 		},
 		".light": {
-			".transparent": {
-				...commonLight,
-				backgroundColor: TRANSPARENT,
-			},
-			".bordered": commonLight,
-			...commonDark,
 			backgroundColor: style.brandLight,
+			".transparent": {
+				backgroundColor: TRANSPARENT,
+				...childrenLight,
+			},
+			".bordered": childrenLight,
+			...childrenDark,
 		},
 
 		".primary": {
-			".bordered": commonPrimary,
 			backgroundColor: style.buttonPrimaryBg,
+			".bordered": childrenPrimary,
 		},
 
 		".success": {
-			".bordered": commonSuccess,
 			backgroundColor: style.buttonSuccessBg,
+			".bordered": childrenSuccess,
 		},
 
 		".info": {
-			".bordered": commonInfo,
 			backgroundColor: style.buttonInfoBg,
+			".bordered": childrenInfo,
 		},
 
 		".warning": {
-			".bordered": commonWarning,
 			backgroundColor: style.buttonWarningBg,
+			".bordered": childrenWarning,
 		},
 
 		".danger": {
-			".bordered": commonDanger,
 			backgroundColor: style.buttonDangerBg,
+			".bordered": childrenDanger,
 		},
 
 		".block": {
-			justifyContent: CENTER,
 			alignSelf: "stretch",
+			justifyContent: CENTER,
 		},
 
 		".full": {
-			justifyContent: CENTER,
 			alignSelf: "stretch",
 			borderRadius: 0,
+			justifyContent: CENTER,
 		},
 
 		".rounded": {
@@ -201,14 +194,13 @@ module.exports = (style) => {
 			shadowOffset: null,
 			shadowRadius: null,
 			shadowOpacity: null,
-			...commonPrimary,
-			".dark": commonDark,
-			".danger": commonDanger,
-			".warning": commonWarning,
-			".info": commonInfo,
-			".primary": commonPrimary,
-			".success": commonSuccess,
-			".light": commonLight,
+			".dark": childrenDark,
+			".danger": childrenDanger,
+			".warning": childrenWarning,
+			".info": childrenInfo,
+			".primary": childrenPrimary,
+			".success": childrenSuccess,
+			".light": childrenLight,
 			".disabled": {
 				backgroundColor: TRANSPARENT,
 				borderColor: style.buttonDisabledBg,
@@ -217,6 +209,7 @@ module.exports = (style) => {
 				IconElement: buttonDisabledBg,
 				IconNBElement: buttonDisabledBg,
 			},
+			...childrenPrimary,
 		},
 
 		".small": {
@@ -225,10 +218,6 @@ module.exports = (style) => {
 				fontSize: 14,
 			},
 			IconElement: {
-				fontSize: 20,
-				paddingTop: 0,
-			},
-			IconNBElement: {
 				fontSize: 20,
 				paddingTop: 0,
 			},
@@ -249,29 +238,21 @@ module.exports = (style) => {
 		},
 
 		".iconLeft": {
-			TextElement: {
-				marginLeft: 0,
-			},
-			IconNBElement: {
-				marginRight: 0,
-				marginLeft: 16,
-			},
 			IconElement: {
 				marginRight: 0,
 				marginLeft: 16,
+			},
+			TextElement: {
+				marginLeft: 0,
 			},
 		},
 		".iconRight": {
-			TextElement: {
-				marginRight: 0,
-			},
-			IconNBElement: {
-				marginLeft: 0,
-				marginRight: 16,
-			},
 			IconElement: {
 				marginLeft: 0,
 				marginRight: 16,
+			},
+			TextElement: {
+				marginRight: 0,
 			},
 		},
 		".picker": {
@@ -283,6 +264,12 @@ module.exports = (style) => {
 			},
 		},
 
+		IconElement: {
+			color: style.inverseTextColor,
+			fontSize: 24,
+			marginHorizontal: 16,
+			paddingTop: itsIOS && 2,
+		},
 		TextElement: {
 			fontFamily: style.buttonFontFamily,
 			marginLeft: 0,
@@ -291,13 +278,6 @@ module.exports = (style) => {
 			fontSize: style.buttonTextSize,
 			paddingHorizontal: 16,
 			backgroundColor: TRANSPARENT,
-		},
-
-		IconElement: {
-			color: style.inverseTextColor,
-			fontSize: 24,
-			marginHorizontal: 16,
-			paddingTop: itsIOS && 2,
 		},
 	}
 }
