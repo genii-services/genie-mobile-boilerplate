@@ -122,6 +122,6 @@ if (__DEV__) {
 	}
 }
 
-const { connectStyle } = require("/utils/style")
-module.exports = connectStyle(ButtonElement, MODULE_NAME$)
-// module.exports = ButtonElement
+// const { connectStyle } = require("/utils/style")
+// module.exports = connectStyle(ButtonElement, MODULE_NAME$)
+module.exports = ButtonElement

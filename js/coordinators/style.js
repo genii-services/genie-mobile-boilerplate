@@ -10,7 +10,7 @@ const { TRANSPARENT } = require("/constants/style")
 const { isEqual } = require("/utils/object")
 const { globalStore, useState, useStore } = require("/hooks")
 const { assign, getName, parseJson } = require("/utils")
-const { isStyleVariant, isChildStyle, isPureStyle } = require("/styles")
+const { isStyleVariant, isChildStyle, isPureStyle } = require("/utils/style")
 // const storage = require("/interactors/storage")
 
 // 초기값
