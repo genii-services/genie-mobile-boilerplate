@@ -5,5 +5,5 @@ const { View } = require("react-native")
 
 const BadgeElement = View
 
-const { connectStyle } = require("/utils/style")
+// const { connectStyle } = require("/utils/style")
 module.exports = BadgeElement //connectStyle(BadgeElement, MODULE_NAME$)

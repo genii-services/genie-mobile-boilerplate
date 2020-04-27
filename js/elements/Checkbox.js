@@ -13,7 +13,7 @@ const { itsIOS } = require("/utils/device")
 const CheckBoxElement = (props) => {
 	const { color, checked } = props
 
-	const { stylez, defaultTheme } = useStyle(MODULE_NAME$, { color, checked }, (defaultStyle) => ({
+	const { stylez, defaultTheme } = useStyle(CheckBoxElement, { color, checked }, (defaultStyle) => ({
 		root: {
 			borderColor: color || defaultStyle.checkboxBgColor,
 			backgroundColor: checked ? color || defaultStyle.checkboxBgColor : defaultStyle.checkboxDefaultColor,
@@ -46,5 +46,5 @@ if (__DEV__) {
 	}
 }
 
-const { connectStyle } = require("/utils/style")
+// const { connectStyle } = require("/utils/style")
 module.exports = CheckBoxElement //connectStyle(CheckBoxElement, MODULE_NAME$)

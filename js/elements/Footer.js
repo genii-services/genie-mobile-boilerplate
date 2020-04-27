@@ -8,13 +8,13 @@ const { screen, itsIphoneX } = require("/utils/device")
 const { useState, useStore } = require("/hooks")
 const { useStyle } = require("/coordinators")
 
-const Footer = props => {
+const FooterElement = (props) => {
 	if (!itsIphoneX) return <View {...props} />
 
 	const { style } = props
 	const itsPortrait = screen.isPortrait()
 
-	const { stylez } = useStyle(MODULE_NAME$, { style }, defaultStyle => {
+	const { stylez } = useStyle(FooterElement, { style }, (defaultStyle) => {
 		const inset = defaultStyle.Inset
 		const InsetValues = itsPortrait ? inset.portrait : inset.landscape
 
@@ -38,11 +38,11 @@ const Footer = props => {
 
 if (__DEV__) {
 	const { array, number, object, oneOfType, ViewPropTypes } = require("/utils/propTypes")
-	Footer.propTypes = {
+	FooterElement.propTypes = {
 		...ViewPropTypes,
 		style: oneOfType([object, number, array]),
 	}
 }
 
 // const { connectStyle } = require("/utils/style")
-module.exports = Footer //connectStyle(Footer, MODULE_NAME$)
+module.exports = FooterElement //connectStyle(FooterElement, MODULE_NAME$)

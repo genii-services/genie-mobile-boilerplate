@@ -5,5 +5,5 @@ const { View } = require("react-native")
 
 const FooterTab = View
 
-const { connectStyle } = require("/utils/style")
+// const { connectStyle } = require("/utils/style")
 module.exports = FooterTab //connectStyle(FooterTab, MODULE_NAME$)

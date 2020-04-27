@@ -23,36 +23,40 @@ const defaultThemeStyle = {
 }
 
 const ButtonElement = ({ style, transparent, onPress, ...props }) => {
-	const { bordered, rounded } = props
-	const { stylez, defaultTheme } = useStyle(MODULE_NAME$, { style, bordered, rounded }, (defaultStyle) => {
-		const buttonStyle = mergeStyle(style, {
-			borderWidth: bordered && defaultThemeStyle.buttonDefaultBorderWidth,
-			borderRadius: rounded && bordered ? defaultThemeStyle.borderRadiusLarge : defaultThemeStyle.buttonDefaultBorderRadius,
-		})
-		const stylez = {
-			button: buttonStyle,
-		}
-		if (rounded) {
-			const buttonFlex = props.full || props.block ? defaultThemeStyle.buttonDefaultFlex : buttonStyle.flex
-			stylez.outerViewStyle = [
-				{ maxHeight: buttonStyle.height },
-				buttonStyle,
-				{ paddingTop: undefined, paddingBottom: undefined },
-			]
-			stylez.innerViewStyle = {
-				flexShrink: 1,
-				flexDirection: ROW,
-				justifyContent: CENTER,
-				alignItems: CENTER,
-
-				paddingTop: buttonStyle.paddingTop,
-				paddingBottom: buttonStyle.paddingBottom,
-				height: buttonStyle.height,
-				flexGrow: buttonFlex,
+	const { block, primary, transparent, success, danger, warning, info, bordered, disabled, rounded, large, small, active } = props
+	const { stylez, defaultTheme } = useStyle(
+		ButtonElement,
+		{ style, block, primary, transparent, success, danger, warning, info, bordered, disabled, rounded, large, small, active },
+		(defaultStyle) => {
+			const buttonStyle = mergeStyle(style, {
+				borderWidth: bordered && defaultThemeStyle.buttonDefaultBorderWidth,
+				borderRadius: rounded && bordered ? defaultThemeStyle.borderRadiusLarge : defaultThemeStyle.buttonDefaultBorderRadius,
+			})
+			const stylez = {
+				button: buttonStyle,
 			}
+			if (rounded) {
+				const buttonFlex = props.full || props.block ? defaultThemeStyle.buttonDefaultFlex : buttonStyle.flex
+				stylez.outerViewStyle = [
+					{ maxHeight: buttonStyle.height },
+					buttonStyle,
+					{ paddingTop: undefined, paddingBottom: undefined },
+				]
+				stylez.innerViewStyle = {
+					flexShrink: 1,
+					flexDirection: ROW,
+					justifyContent: CENTER,
+					alignItems: CENTER,
+
+					paddingTop: buttonStyle.paddingTop,
+					paddingBottom: buttonStyle.paddingBottom,
+					height: buttonStyle.height,
+					flexGrow: buttonFlex,
+				}
+			}
+			return stylez
 		}
-		return stylez
-	})
+	)
 
 	const children = itsIOS
 		? props.children

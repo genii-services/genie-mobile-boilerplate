@@ -8,7 +8,7 @@ const { remove, merge, clone } = require("lodash")
 const { ABSOLUTE, BLACK, CENTER, COLUMN, LEFT, RIGHT, ROW, WHITE } = require("/constants/style")
 const { itsIOS } = require("/utils/device")
 const { computeProps } = require("/utils/props")
-const { connectStyle, flattenStyle } = require("/utils/style")
+const { flattenStyle } = require("/utils/style")
 
 const { createAnimatedComponent, useThis } = require("/hooks")
 
@@ -51,19 +51,20 @@ const defaultThemeStyle = {
 
 const AnimatedFab = createAnimatedComponent(Button)
 
-const Fab = props => {
+const Fab = (props) => {
 	const { direction, position } = props
 
-	const _this = useThis()
-	_this.containerHeight = new Animated.Value(defaultThemeStyle.fabWidth)
-	_this.containerWidth = new Animated.Value(0)
-	_this.buttonScale = new Animated.Value(0)
+	const _this = useThis(() => ({
+		containerHeight: new Animated.Value(defaultThemeStyle.fabWidth),
+		containerWidth: new Animated.Value(0),
+		buttonScale: new Animated.Value(0),
+	}))
 	const [_buttons, set_buttons] = useState()
 	const [_active, set_active] = useState(false)
 
 	useEffect(() => {
 		const childrenArray = React.Children.toArray(props.children)
-		const icon = remove(childrenArray, item => {
+		const icon = remove(childrenArray, (item) => {
 			if (item.type.displayName === "StyledButton") return true
 			return null
 		})
@@ -132,14 +133,14 @@ const Fab = props => {
 			props.containerStyle
 		)
 
-	const prepareButtonProps = child => {
+	const prepareButtonProps = (child) => {
 		const inp = clone(child.props)
 		delete inp.style
 		const defaultProps = {}
 		return computeProps(inp, defaultProps)
 	}
 
-	const fabTopValue = pos => {
+	const fabTopValue = (pos) => {
 		switch (pos) {
 			case POSITION.TOP_LEFT:
 				return {
@@ -305,7 +306,7 @@ const Fab = props => {
 
 	const renderFab = () => {
 		const childrenArray = React.Children.toArray(props.children)
-		remove(childrenArray, item => {
+		remove(childrenArray, (item) => {
 			if (item.type.displayName === "StyledButton") return true
 			return null
 		})
@@ -340,4 +341,5 @@ const Fab = props => {
 	)
 }
 
+// const { connectStyle } = require("/utils/style")
 module.exports = Fab //connectStyle(Fab, MODULE_NAME$)

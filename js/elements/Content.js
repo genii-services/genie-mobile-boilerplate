@@ -80,5 +80,5 @@ ContentElement.getDefaultStyle = ({ TRANSPARENT }) => {
 	}
 }
 
-const { connectStyle } = require("/utils/style")
+// const { connectStyle } = require("/utils/style")
 module.exports = ContentElement //connectStyle(ContentElement, MODULE_NAME$)

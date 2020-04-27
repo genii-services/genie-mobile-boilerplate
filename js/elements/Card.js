@@ -24,5 +24,5 @@ if (__DEV__) {
 	}
 }
 
-const { connectStyle } = require("/utils/style")
+// const { connectStyle } = require("/utils/style")
 module.exports = CardElement //connectStyle(CardElement, MODULE_NAME$)

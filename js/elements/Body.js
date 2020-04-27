@@ -5,5 +5,5 @@ const { View } = require("react-native")
 
 const BodyElement = View
 
-module.exports = BodyElement //connectStyle(BodyElement, MODULE_NAME$)
+// const { connectStyle } = require("/utils/style")
 module.exports = BodyElement //connectStyle(BodyElement, MODULE_NAME$)

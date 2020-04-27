@@ -213,5 +213,5 @@ if (__DEV__) {
 	}
 }
 
-const { connectStyle } = require("/utils/style")
+// const { connectStyle } = require("/utils/style")
 module.exports = DeckSwiper //connectStyle(DeckSwiper, MODULE_NAME$)
