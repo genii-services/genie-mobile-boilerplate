@@ -22,8 +22,24 @@ const defaultThemeStyle = {
 	borderRadiusLarge: 15 * 3.8, // fontSize * 3.8,
 }
 
-const ButtonElement = ({ style, transparent, onPress, ...props }) => {
-	const { block, primary, transparent, success, danger, warning, info, bordered, disabled, rounded, large, small, active } = props
+const ButtonElement = ({
+	style,
+	block,
+	primary,
+	transparent,
+	success,
+	danger,
+	warning,
+	info,
+	bordered,
+	disabled,
+	rounded,
+	large,
+	small,
+	active,
+	onPress,
+	...props
+}) => {
 	const { stylez, defaultTheme } = useStyle(
 		ButtonElement,
 		{ style, block, primary, transparent, success, danger, warning, info, bordered, disabled, rounded, large, small, active },
