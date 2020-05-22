@@ -1,3 +1,7 @@
+/**
+ * createCoordinator
+ * 200401 by appcreatier@gmail.com
+ */
 const { FUNCTION } = require("/constants")
 const { forwardRef, useEffect, useState, useStore, useThis } = require("/hooks")
 

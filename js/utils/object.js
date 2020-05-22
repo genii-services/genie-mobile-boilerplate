@@ -1,4 +1,6 @@
-/** Object Util */
+/** Object Util
+ * 200402 isEqual
+ */
 const { OBJECT } = require("/constants")
 
 // const isArray = Array.isArray

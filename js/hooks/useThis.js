@@ -1,4 +1,7 @@
 /**
+ * useThis
+ * 200413 isChangedProps 추가
+ * 200308 by appcreatier@gmail.com
  */
 const _ = require("lodash")
 const { useRef } = require("react")

@@ -1,8 +1,10 @@
+/**
+ * Store
+ * 200414 react-native용으로 포팅 by appcreatier@gmail.com
+ * 191010 v1.7.3 by kwhitley/use-store
+ */
 const { debounce, createUuid } = require("/utils")
-const localStorage = require("/utils/localStorage")
-
-// prefix for localStorage
-const GLOBALSTORAGE_PREFIX = "!ush::"
+const { localStorage } = global
 
 // individual Store implementation for tracking values/setters
 class Store {
@@ -12,7 +14,7 @@ class Store {
 
 		if (options.persist) {
 			try {
-				let stored = localStorage.getItem(GLOBALSTORAGE_PREFIX + namespace)
+				let stored = localStorage.getItem(Store.storagePrefix + namespace)
 				if (stored !== null) {
 					this.state = JSON.parse(stored)
 				}
@@ -20,7 +22,7 @@ class Store {
 		}
 
 		if (options.broadcast && window.BroadcastChannel) {
-			this.channel = new BroadcastChannel(GLOBALSTORAGE_PREFIX + namespace)
+			this.channel = new BroadcastChannel(Store.storagePrefix + namespace)
 			this.channel.addEventListener("message", this.handleMessage)
 		}
 
@@ -38,7 +40,7 @@ class Store {
 		this.state = typeof value === "function" ? value() : value //*. lately call 지원
 		if (this.options.persist) {
 			try {
-				localStorage.setItem(GLOBALSTORAGE_PREFIX + this.namespace, JSON.stringify(value))
+				localStorage.setItem(Store.storagePrefix + this.namespace, JSON.stringify(value))
 			} catch (err) {
 				console.warn(`[use-store-hook]: failed to persist`, { value, err })
 			}
@@ -49,5 +51,7 @@ class Store {
 		}
 	}
 }
+// prefix for localStorage
+Store.storagePrefix = "!ush::"
 
 module.exports = Store

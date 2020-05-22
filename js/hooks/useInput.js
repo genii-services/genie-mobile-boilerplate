@@ -1,11 +1,13 @@
 /**
+ * useInput
+ * 200308 by appcreatier@gmail.com
  */
 const React = require("react")
 const { useState } = React // eslint-disable-line no-unused-vars
 
-const useInput = defaultValue => {
+const useInput = (defaultValue) => {
 	const [value, setValue] = useState(defaultValue)
-	const onChange = e => setValue(e.target.value)
+	const onChange = (e) => setValue(e.target.value)
 	return { value, onChange }
 }
 

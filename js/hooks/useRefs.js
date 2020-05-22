@@ -1,8 +1,10 @@
 /**
+ * useRefs
+ * 200308 by appcreatier@gmail.com
  */
 const { useRef } = require("react")
 
-const useRefs = defaultValue => {
+const useRefs = (defaultValue) => {
 	const refs = useRef(defaultValue || {})
 
 	return refs.current
