@@ -1,13 +1,97 @@
-/** Object Util
- * 200402 isEqual
+/**
+ * [Common Module for node.js/React/ReactNative] object.js
+ * 오브젝트 관련 유틸리티
+ *
+ * 200602 by appcreatier@gmail.com
+ * 		오브젝트 관련 함수만 모음
+ * 		getType, getSubdividedType 추가
+ * 200402 by appcreatier@gmail.com
+ * 		isEqual 추가
  */
-const { OBJECT } = require("/constants")
+const { BOOLEAN, DATE, FUNCTION, NUMBER, OBJECT, STRING, UNDEFINED } = require("/constants")
 
-// const isArray = Array.isArray
+/**
+ * 변수의 이름을 반환한다.
+ *
+ * @param {*} object
+ * @returns {string} name
+ */
+function getName(object) {
+	switch (typeof object) {
+		case FUNCTION:
+			return object.name
+		case STRING:
+			return object
+		case BOOLEAN:
+		case UNDEFINED:
+		case "null":
+			break
+		case NUMBER:
+		case DATE:
+			return object.toString()
+		default:
+			if (object != null) return object.name || object.prototype.name
+	}
+	return ""
+}
+
+/**
+ * 변수형을 반환한다.
+ * @param {*} object
+ * @param {*} type	STRING: "string", "text", "label"
+ * 					NUMBER: "number"
+ * 					DATE: "date", "datetime", "moment"
+ * 					FUNCTION: "function"
+ * 					BOOLEAN: "boolean"
+ * 					UNDEFINED: "undefined", "empty", "null"
+ * 					OBJECT: "object", "unknown"
+ */
+function getType(v) {
+	// console.debug('getType', v, type, typeof v)
+	if (v == null) return UNDEFINED // v가 undefined, null인 경우
+	type = typeof v
+	if (type == OBJECT) {
+		type = v.constructor.name
+		type = type
+			? type.toLowerCase()
+			: moment.isMoment(v) // release 모드에서 Moment의 constructor.name가 이상하게 나옴
+			? DATE
+			: OBJECT
+	}
+	return type
+}
+
+/**
+ * 세분화된 변수형을 반환한다.
+ * @param {*} type	"string", "text", "label"
+ * 					"number"
+ * 					"date", "datetime", "moment"
+ * 					"function"
+ * 					"boolean"
+ * 					"undefined", "empty", "null"
+ * 					"obejct", "unknown"
+ */
+function getSubdividedType(v) {
+	// console.debug('getDetailType', v, type, typeof v)
+	if (v == null) type = "null"
+	// v가 undefined, null인 경우
+	else {
+		type = typeof v
+		if (type == OBJECT) {
+			type = v.constructor.name
+			type = type
+				? type.toLowerCase()
+				: moment.isMoment(v) // release 모드에서 Moment의 constructor.name가 이상하게 나옴
+				? "moment"
+				: "unknown"
+		}
+	}
+	return type
+}
+
+// const { isArray } = Array
 const keyList = Object.keys
 const hasProp = Object.prototype.hasOwnProperty
-
-// fast-deep-equal index.js 2.0.1
 function _isEqual(a, b) {
 	if (a === b) return true
 
@@ -65,6 +149,14 @@ function _isEqual(a, b) {
 	return a !== a && b !== b
 }
 
+/**
+ * 두 오브젝트를 깊숙히 비교하여 동일한지 판단한다
+ * v2.0.1	fast-deep-equal index.js 2.0.1
+ *
+ * @param {*} a
+ * @param {*} b
+ * @returns {boolean}
+ */
 function isEqual(a, b) {
 	try {
 		return _isEqual(a, b)
@@ -84,5 +176,8 @@ function isEqual(a, b) {
 }
 
 module.exports = {
+	getName,
+	getType,
+	getSubdividedType,
 	isEqual,
 }

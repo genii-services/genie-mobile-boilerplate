@@ -1,29 +1,36 @@
-/** 문자열 라이브러리
- * 200310 toString 타입 처리 최적화
- * 200309 toSerialize 추가
- * 191206 한일 소스 정리
+/**
+ * [Common Module for node.js/React/ReactNative] string.js
+ * 문자열 관련 유틸리티
+ *
+ * 200602 by appcreatier@gmail.com
+ * 		toString type 인수를 지정한 경우 발생하는 오류 수정
+ * 200310 by appcreatier@gmail.com
+ * 		toString 타입 처리 최적화
+ * 200309 by appcreatier@gmail.com
+ * 		toSerialize 추가
+ * 191206 by appcreatier@gmail.com
+ * 		한일 소스 정리
  */
 console.debug("utils/string")
 
 const _ = require("lodash")
-const moment = require("moment")
 
 const { BOOLEAN, FUNCTION, NUMBER, OBJECT, STRING, UNDEFINED } = require("/constants")
 const { parseJson } = require("/utils")
-const { yyyymmdd, yyyymmddhhmmss } = require("/utils/moment")
+const { isMoment, yyyymmdd, yyyymmddhhmmss } = require("/utils/moment")
 
 function toString(v, type, option) {
 	// console.debug('toString', type, typeof v, v)
 	if (v == null) type = "null"
 	// v가 undefined, null인 경우
-	else if (type) tyep = type.toLowerCase()
+	else if (type) type = type.toLowerCase()
 	else {
 		type = typeof v
 		if (type == OBJECT) {
 			type = v.constructor.name
 			type = type
 				? type.toLowerCase()
-				: moment.isMoment(v) // release 모드에서 Moment의 constructor.name가 이상하게 나옴
+				: isMoment(v) // release 모드에서 Moment의 constructor.name가 이상하게 나옴
 				? "moment"
 				: ""
 		}
@@ -54,7 +61,7 @@ function toString(v, type, option) {
 			return typeof v == STRING
 				? parseJson(v)
 				: v instanceof Array
-				? _.map(v, vv => vv.DisplayName || vv.UserName).join(array, "\n")
+				? _.map(v, (vv) => vv.DisplayName || vv.UserName).join(array, "\n")
 				: typeof v == OBJECT
 				? v.displayName || v.userName
 				: v

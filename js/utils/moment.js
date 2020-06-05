@@ -1,5 +1,13 @@
-/** 공통 라이브러리
- * 191206 한일용
+/**
+ * [Common Module for node.js/React/ReactNative] moment.js
+ * 날짜/시간 관련 유틸리티
+ *
+ * 200602 by appcreatier@gmail.com
+ * 		moment, isMoment 추가
+ * 200521 by appcreatier@gmail.com
+ * 		비교시 타입 검사
+ * 191206 by appcreatier@gmail.com
+ * 		한일용
  */
 const MODULE_NAME$ = "utils/moment"
 
@@ -56,6 +64,9 @@ function minTimestamp(t1, t2) {
 }
 
 module.exports = {
+	moment,
+	isMoment: moment.isMoment,
+
 	toMoment,
 	toDateFormatString,
 	yyyymmdd,
