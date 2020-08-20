@@ -1,9 +1,19 @@
 # 패키지와 번들 이름 변경
 
-## react-native-rename
+## react-native-rename-next 이용하여 변경
+
+[react-native-rename-next 배포 사이트](https://www.npmjs.com/package/react-native-rename-next)
+
+### 설치
 
 ```bash
-react-native-rename MyPackageName -b com.company.project
+npm i -g react-native-rename-next
+```
+
+### 변경 방법
+
+```bash
+react-native-rename-next MyPackageName -b com.company.project
 ```
 
 ## vscode에서 추가 변경 작업
