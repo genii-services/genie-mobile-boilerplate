@@ -1,0 +1,13 @@
+{
+	"host": "home.genii.kr",
+	"username": "arron",
+	"password": "56781234",
+	"remotePath": "",
+	"protocol": "ftp",
+	"port": 21001,
+	"fileNameEncoding": "utf8",
+	"autoUpload": true,
+	"autoDelete": false,
+	"autoDownload": false,
+	"ignore": [".git", "/.vscode"]
+}
