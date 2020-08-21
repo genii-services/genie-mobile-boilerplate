@@ -34,7 +34,7 @@ mv $TEMP_NAME $PROJECT_NAME
 
 cd $PROJECT_NAME
 
-react-native-rename-next $PROJECT_NAME -b $APPLICATION_ID
+npx react-native-rename-next $PROJECT_NAME -b $APPLICATION_ID
 
 cp -R $SRC_PATH/.git* .
 cp -R $SRC_PATH/.vscode .
