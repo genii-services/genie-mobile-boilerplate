@@ -25,6 +25,7 @@ rm -rf $TMPDIR/react-*
 rm -rf $TMPDIR/metro-*
 rm -rf $TMPDIR/haste-map-react-native-*
 rm -rf node_modules
-yarn cache clean
+rm -rf package.lock.json
 
+yarn cache clean
 yarn
