@@ -1,21 +1,21 @@
 //*.for react-native 0.61.5, checked at 2020-02-17
-
+//*.for react-native 0.63.2, checked at 2020-08-21
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
     ext {
-        buildToolsVersion = "28.0.3"
-        minSdkVersion = 21		//*. BLE 지원 최소 버전 18 (Kitikat: 19)
-        compileSdkVersion = 28
-        targetSdkVersion = 28
-        supportLibVersion = "28.0.0"	//*.
+        buildToolsVersion = "29.0.2"
+        minSdkVersion = 21				//*. BLE 지원 최소 버전 18 (Kitikat: 19)
+        compileSdkVersion = 29			//*.타겟SDK 버전에 맞춤
+        targetSdkVersion = 29			//*.Google Play의 타겟 API 수준 요구에 따라 새 앱과 앱 업데이트는 모두 Android 9(API 수준 28) 이상을 타겟팅해야 한다고 문서에 기술되어 있으나, 200821 현재 실제로는 29이상이어야 함.
+        supportLibVersion = "29.0.0"	//*.
     }
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:3.5.2")
+        classpath("com.android.tools.build:gradle:3.5.3")
 		classpath 'com.google.gms:google-services:4.2.0'	//*.@react-native-firebase/app
 
         // NOTE: Do not place your application dependencies here; they belong

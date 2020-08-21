@@ -1,5 +1,9 @@
 <!--/*.for react-native 0.61.5, checked at 2020-02-17 -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="services.genii.geniemobileboilerplate">
+<!--/*.for react-native 0.63.2, checked at 2020-08-21
+	android:configChanges에 "uiMode" 추가됨
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="services.genii.geniemobileboilerplate">
 
 	<uses-permission android:name="android.permission.INTERNET" />
 
@@ -18,7 +22,8 @@
 
 	<!--/*.Only if you're using GCM or localNotificationSchedule() > -->
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
-	<permission android:name="${applicationId}.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+	<permission android:name="${applicationId}.permission.C2D_MESSAGE"
+		android:protectionLevel="signature" />
 	<uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" />
 	<!--/*.Local Notification용 -->
 	<uses-permission android:name="android.permission.VIBRATE" />
@@ -26,25 +31,35 @@
 	<!--/*.App Install 권한 -->
 	<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 	<!--/*.Google Play에서 플랫폼 버전 요구사항을 충족하지 않는 기기를 필터링 -->
-	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="28" />
+	<uses-sdk android:minSdkVersion="21"
+		android:targetSdkVersion="28" />
 
-	<!--/*.android:roundIcon="@mipmap/ic_launcher_round" 라운드 아이콘을 추가할 경우 -->
-	<application android:name=".MainApplication" android:label="@string/app_name" android:icon="@mipmap/ic_launcher" android:allowBackup="false" android:theme="@style/AppTheme">
+	<!--/*.android:roundIcon="@mipmap/ic_launcher_round" 라운드 아이콘이 있을 경우 추가 -->
+	<application android:name=".MainApplication"
+		android:label="@string/app_name"
+		android:icon="@mipmap/ic_launcher"
+		android:allowBackup="false"
+		android:theme="@style/AppTheme">
 		<!--/*.android:configChanges react-native-orientation-locker -->
 		<!--/*.android:launchMode Linking용 singleTask, FCM은 singleTop -->
-		<activity android:name=".MainActivity" android:label="@string/app_name" android:configChanges="keyboard|keyboardHidden|orientation|screenSize" android:windowSoftInputMode="adjustResize" android:launchMode="singleTop">
+		<activity android:name=".MainActivity"
+			android:label="@string/app_name"
+			android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
+			android:launchMode="singleTask"
+			android:windowSoftInputMode="adjustResize">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 				<!--/*.rn-fetch-blob용 -->
 				<action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
 			</intent-filter>
-			 
+
+			<!--/*.Login 화면이 있는 경우 -->
 			<intent-filter>
-                <action android:name="services.genii.geniemobileboilerplate.action.LOGIN"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:mimeType="text/plain"/>
-            </intent-filter>
+				<action android:name="services.genii.geniemobileboilerplate.action.LOGIN"/>
+				<category android:name="android.intent.category.DEFAULT"/>
+				<data android:mimeType="text/plain"/>
+			</intent-filter>
 
 			<!--/*.딥링크 설정 -->
 			<intent-filter android:label="filter_react_native">
@@ -52,7 +67,8 @@
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
 				<!--/*.rnapp://home -->
-				<data android:scheme="rnapp" android:host="home" />
+				<data android:scheme="rnapp"
+					android:host="home" />
 			</intent-filter>
 		</activity>
 		<activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />

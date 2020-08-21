@@ -1,3 +1,4 @@
+//*.for react-native 0.63.2, checked at 2020-08-21 by appcreatier@gmail.com
 //*.for react-native 0.62, checked at 2020-03-27 by appcreatier@gmail.com
 
 apply plugin: "com.android.application"
@@ -22,7 +23,7 @@ import com.android.build.OutputFile
  *   // default. Can be overridden with ENTRY_FILE environment variable.
  *   entryFile: "index.android.js",
  *
- *   // https://facebook.github.io/react-native/docs/performance#enable-the-ram-format
+ *   // https://reactnative.dev/docs/performance#enable-the-ram-format
  *   bundleCommand: "ram-bundle",
  *
  *   // whether to bundle JS and assets in debug mode
@@ -131,7 +132,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "services.genii.geniemobileboilerplate"											//*.react-native-rename으로 변경되었음
+        applicationId "services.genii.geniemobileboilerplate"				//*.react-native-rename-next에 의해 변경될 수 있음
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1														//*.'react-native-version -A'를 실행하면 자동 증가
@@ -176,7 +177,7 @@ android {
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
-            // see https://facebook.github.io/react-native/docs/signed-apk-android.
+            // see https://reactnative.dev/docs/signed-apk-android.
 			signingConfig signingConfigs.release							//*.사아닝 APK 생성을 위한 코드 < signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
@@ -198,7 +199,8 @@ android {
         variant.outputs.each { output ->
             // For each separate APK per architecture, set a unique version code as described here:
             // https://developer.android.com/studio/build/configure-apk-splits.html
-            def versionCodes = ["armeabi-v7a": 1]	// ARM 개열(32Bit)만 빌드 <= ["armeabi-v7a": 1, "x86": 2, "arm64-v8a": 3, "x86_64": 4]
+            def versionCodes = ["armeabi-v7a": 1]	//*.ARM 개열(32Bit)만 빌드 <= ["armeabi-v7a": 1, "x86": 2, "arm64-v8a": 3, "x86_64": 4]
+            // def versionCodes = ["armeabi-v7a": 1, "x86": 2, "arm64-v8a": 3, "x86_64": 4]	//*.플레이스토어에 등록할 경우 32&64bit 둘다 지원해야 함. x86계열은 제외 가능
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
                 output.versionCodeOverride =
@@ -233,6 +235,7 @@ dependencies {
 
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.flipper'
+        exclude group:'com.squareup.okhttp3', module:'okhttp'
     }
 
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
