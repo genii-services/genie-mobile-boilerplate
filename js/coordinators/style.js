@@ -21,7 +21,7 @@ let cachedStylez
 let styleConditionz = {}
 
 const getCachingStyle = (style, initial) => {
-	if (typeof v === FUNCTION) style = style(initial)
+	if (typeof style === FUNCTION) style = style(initial)
 	const purez = {},
 		varientz = {},
 		children = {}
