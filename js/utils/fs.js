@@ -16,7 +16,6 @@ const FetchBlob = require("rn-fetch-blob").default
 const Share = require("react-native-share")
 // const { Share } = require("react-native")	// 이 모듈은 기능에 제한됨
 // const RNShareFile = require("react-native-share-file")	// 이 모듈은 react-native 버전임
-const AsyncStorage = require("@react-native-community/async-storage").default
 
 const { STRING, FUNCTION } = require("/constants")
 const { parseJson } = require("/utils")
@@ -27,6 +26,7 @@ const { toMoment } = require("./moment")
 const Url = require("./url")
 const { popup } = require("./view")
 const { useRouter } = require("/coordinators") // const router = require("/utils/router")
+const internalStorage = require("/interactors/internalStorage")
 const rest = require("/interactors/rest")
 
 /*
@@ -54,7 +54,7 @@ const documentPath = isIOS ? fs.dirs.DocumentDir : fs.dirs.SDCardApplicationDir
 function prepairDirPath(...dirs) {
 	return new Promise((resolve, reject) => {
 		let dirPath = path.join.apply(undefined, dirs)
-		fs.exists(dirPath).then(isExists => {
+		fs.exists(dirPath).then((isExists) => {
 			console.debug("fs.prepairDirPath", dirPath, isExists)
 			if (isExists) resolve(dirPath)
 			mkdir(dirPath, () => resolve(dirPath))
@@ -66,7 +66,7 @@ function prepairFilePath(...paths) {
 	return new Promise((resolve, reject) => {
 		let filePath = path.join.apply(undefined, paths) // path.join을 사용하면 path.normalize할 필요없음
 		let dirPath = path.dirname(filePath)
-		fs.exists(dirPath).then(isExists => {
+		fs.exists(dirPath).then((isExists) => {
 			console.debug("fs.prepairFilePath", dirPath, isExists)
 			if (isExists) resolve(filePath)
 			mkdir(dirPath, () => resolve(filePath))
@@ -118,7 +118,7 @@ function _mkdirRecursive(root, chunks, mode, callback) {
 	let chunk = chunks.shift()
 	if (!chunk) return callback(undefined)
 	root = path.join(root, chunk)
-	fs.exists(root).then(exists => {
+	fs.exists(root).then((exists) => {
 		console.debug("_mkdirRecursive", root, exists)
 		if (exists)
 			// already done
@@ -128,7 +128,7 @@ function _mkdirRecursive(root, chunks, mode, callback) {
 			.then(() => {
 				_mkdirRecursive(root, chunks, mode, callback) // let's magic
 			})
-			.catch(err => {
+			.catch((err) => {
 				// if (err && err.code !== "EEXIST") return callback(err)
 				callback(err)
 			})
@@ -172,7 +172,7 @@ function _rmdirRecursive(root, chunks, callback) {
 
 	let pathname = path.join(root, "..") // backtrack
 
-	return fs.exists(root).then(exists => {
+	return fs.exists(root).then((exists) => {
 		if (!exists) {
 			// already done
 			return _rmdirRecursive(root, chunks, callback)
@@ -181,7 +181,7 @@ function _rmdirRecursive(root, chunks, callback) {
 			.then(() => {
 				_rmdirRecursive(pathname, chunks, callback) // let's magic
 			})
-			.catch(err => {
+			.catch((err) => {
 				callback(err)
 			})
 	})
@@ -210,7 +210,7 @@ const fileTypez = {
 const defaultMime = "application/octet-stream"
 
 let downloadPathz
-AsyncStorage.getItem("downloadPathz").then(value => (downloadPathz = value || {}))
+internalStorage.getItem("downloadPathz").then((value) => (downloadPathz = value || {}))
 
 function download(url, optionz) {
 	const METHOD_NAME$ = "fs.download"
@@ -223,7 +223,7 @@ function download(url, optionz) {
 		console.debug(METHOD_NAME$, fileName, localFilePath)
 
 		// if(!localFilePath) localFilePath =
-		prepairFilePath(localFilePath).then(filePath => {
+		prepairFilePath(localFilePath).then((filePath) => {
 			if (!filePath) {
 				let msg = "GenerateFilePath error!"
 				console.warn(msg)
@@ -237,13 +237,13 @@ function download(url, optionz) {
 					type: "application/octet",
 				})
 					.fetch("GET", url, rest.getAuthHeader())
-					.then(res => {
+					.then((res) => {
 						//let path = res.path()								// 임시 파일 경로를 사용할 경우
 						console.debug(this, "The file saved to ", localFilePath)
 						downloadPathz[url] = { localFilePath }
 						resolve(localFilePath)
 					})
-					.catch(e => {
+					.catch((e) => {
 						console.warn(e.message, fileName, url, localFilePath)
 						reject(e)
 					})
@@ -280,18 +280,18 @@ function share(url, optionz = {}) {
 			}
 
 			if (localFilePath) {
-				fs.exists(localFilePath).then(isExist => {
+				fs.exists(localFilePath).then((isExist) => {
 					if (!isExist)
 						return download(url, optionz)
 							.then(_share())
-							.catch(err => reject(err))
+							.catch((err) => reject(err))
 				})
 			} else {
 				localFilePath = downloadPathz[url]
 				if (!localFilePath) {
 					return download(url, optionz)
 						.then(_share())
-						.catch(err => reject(err))
+						.catch((err) => reject(err))
 				}
 			}
 			_share()
@@ -303,11 +303,11 @@ function share(url, optionz = {}) {
 					console.debug(this, localFilePath)
 					// RNShareFile.share({ url: localFilePath, itsTablet })
 					Share.open({ url: localFilePath, itsTablet })
-						.then(res => {
+						.then((res) => {
 							console.debug(res)
 							resolve(res)
 						})
-						.catch(err => {
+						.catch((err) => {
 							err && console.warn(err)
 							reject(err)
 						})
@@ -318,12 +318,12 @@ function share(url, optionz = {}) {
 					if (fileType && fileType.mime === "image/tiff") {
 						android
 							.actionViewIntent(localFilePath, fileType.mime)
-							.then(success => {
+							.then((success) => {
 								console.debug(this, "success:" + success)
 								popup(msg)
 								resolve(success)
 							})
-							.catch(err => {
+							.catch((err) => {
 								console.debug(this, "err:" + err)
 								popup(msg)
 								reject(err)
@@ -344,12 +344,12 @@ function share(url, optionz = {}) {
 						// 문서app 선택 창 활성화
 						android
 							.actionViewIntent(localFilePath, fileType ? fileType.mime : defaultMime)
-							.then(success => {
+							.then((success) => {
 								console.debug(this, "success:" + success)
 								popup(msg)
 								resolve(success)
 							})
-							.catch(err => {
+							.catch((err) => {
 								popup(actionViewIntentErrorz[err.code] || msg)
 								console.debug(this, "err:" + err)
 								reject(err)
@@ -364,11 +364,11 @@ function share(url, optionz = {}) {
 					}
 					console.debug(this, opt)
 					Share.share(opt)
-						.then(result => {
+						.then((result) => {
 							console.debug(this, result)
 							resolve(result)
 						})
-						.catch(err => {
+						.catch((err) => {
 							trace(whoami(this, arguments), err)
 							reject(err)
 						})
@@ -389,16 +389,16 @@ function deleteSimilarFiles(fileName) {
 	const METHOD_NAME$ = "fs.deleteSimilarFiles"
 	console.debug(METHOD_NAME$, fileName)
 	prepairDirPath()
-		.then(localFilePath => fs.ls(localFilePath))
-		.then(files => {
+		.then((localFilePath) => fs.ls(localFilePath))
+		.then((files) => {
 			let re = new RegExp(fileName)
-			_.forEach(files, file => {
+			_.forEach(files, (file) => {
 				if (re.test(file)) {
 					fs.unlink(`${localFilePath}${file}`)
 				}
 			})
 		})
-		.catch(e => {
+		.catch((e) => {
 			if (!localFilePath) {
 				return console.warn("GenerateFilePath error!")
 			}
@@ -418,15 +418,15 @@ function setOptionz(url, optionz = {}) {
 function stat(path) {
 	return new Promise((resolve, reject) => {
 		fs.stat(path)
-			.then(stats => resolve(stats))
-			.catch(err => resolve())
+			.then((stats) => resolve(stats))
+			.catch((err) => resolve())
 	})
 }
 
 function readData(path, encoding) {
 	return new Promise((resolve, reject) => {
 		fs.readFile(path, encoding)
-			.then(data => {
+			.then((data) => {
 				try {
 					let json = parseJson(data)
 					resolve(json)
@@ -435,7 +435,7 @@ function readData(path, encoding) {
 					reject(err)
 				}
 			})
-			.catch(err => reject(err))
+			.catch((err) => reject(err))
 	})
 }
 
@@ -444,11 +444,11 @@ function loadData(url, optionz = {}) {
 		setOptionz(url, optionz)
 		let { fileName, remoteParentPath = path.dirname(url) } = optionz
 		fetch(remoteParentPath)
-			.then(response => {
+			.then((response) => {
 				if (response.status != 200) throw "exit"
 				return response.text()
 			})
-			.then(text => {
+			.then((text) => {
 				const re = /<br>(\d.*?)\s{2,}(\d{1,}).*?"(.*?)">(.*?)</gm
 				let results, fileInfo
 				while ((results = re.exec(text))) {
@@ -469,22 +469,22 @@ function loadData(url, optionz = {}) {
 
 				return stat(optionz.localFilePath)
 			})
-			.then(stats => {
+			.then((stats) => {
 				let { lastModified, size } = optionz.fileInfo
 				if (stats && stats.lastModified >= lastModified && stats.size === size)
 					readData(stats.path)
-						.then(data => resolve(data))
-						.catch(err => reject(err))
+						.then((data) => resolve(data))
+						.catch((err) => reject(err))
 				else
 					download(url, optionz)
-						.then(localFilePath => {
+						.then((localFilePath) => {
 							readData(localFilePath)
-								.then(data => resolve(data))
-								.catch(err => reject(err))
+								.then((data) => resolve(data))
+								.catch((err) => reject(err))
 						})
-						.catch(err => reject(err))
+						.catch((err) => reject(err))
 			})
-			.catch(err => {
+			.catch((err) => {
 				console.debug(this, err)
 				reject(err)
 			})

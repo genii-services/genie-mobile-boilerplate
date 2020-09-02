@@ -4,7 +4,6 @@ console.debug(MODULE_NAME$, "(re)load")
 const _ = require("lodash")
 const { observable, action } = require("mobx")
 const { create, persist } = require("mobx-persist")
-const AsyncStorage = require("@react-native-community/async-storage").default
 
 const { OBJECT, MAP } = require("/constants")
 const { Progress, isProgressive, SUCCEED } = require("/utils/progress")
@@ -36,7 +35,7 @@ class MenuStore extends Progress {
 
 	@action reset(workInfos) {
 		if (workInfos) {
-			_.forEach(workInfos, v => {
+			_.forEach(workInfos, (v) => {
 				let { userID } = v
 				this.workInfoMap.set(userID, new Progress({ paramz: { userID } }))
 			})
@@ -113,16 +112,16 @@ module.exports = menuStore
 const menuStore = new MenuStore()
 
 const hydrate = create({
-	storage: AsyncStorage,
+	storage: internalStorage,
 	// jsonify: false,
 })
 
 hydrate(MODULE_NAME$, menuStore)
-	.then(store => {
+	.then((store) => {
 		console.debug(MODULE_NAME$, "hydrated")
 
-		store.workInfoMap.forEach(v => (v.status = undefined))
+		store.workInfoMap.forEach((v) => (v.status = undefined))
 	})
-	.catch(e => {
+	.catch((e) => {
 		console.warn(MODULE_NAME$, "hydrate error", e)
 	})

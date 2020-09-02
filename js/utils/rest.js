@@ -6,7 +6,6 @@ console.debug("utils/rest")
 
 const _ = require("lodash")
 
-const { FUNCTION } = require("/constants")
 const { errorMessagez, minRequestInterval } = require("/data/rest")
 const { whoami } = require("/utils/debug")
 const { toSerialize } = require("/utils/string")
@@ -36,7 +35,7 @@ function request(name, progress, callback, additionals) {
 		try {
 			let { status, progress, description } = paramz
 			if (description) console.debug(whoami$, description)
-			typeof callback === FUNCTION && callback(paramz)
+			Function.callSafely(callback, paramz)
 			if (progress) {
 				progress.status = status
 				progress.timestamp = paramz.timestamp || Date.now()
@@ -93,7 +92,7 @@ function request(name, progress, callback, additionals) {
 
 		let handler
 		const { commonHandlerz = {} } = rest
-		const postFetch = responseJson => {
+		const postFetch = (responseJson) => {
 			handler = api.onResulted || commonHandlerz.onResulted
 			const isSuccess = handler && handler.call(this, responseJson)
 			if (!isSuccess) {
@@ -119,7 +118,7 @@ function request(name, progress, callback, additionals) {
 		}
 
 		fetch(uri, { method, header, body })
-			.then(response => {
+			.then((response) => {
 				if (response.status != 200) {
 					popup("서버에서 비정상적인 결과를 받았습니다. 서버관리자에게 문의하세요", api.title)
 					console.warn(whoami$, FAILED, status, response)
@@ -128,8 +127,8 @@ function request(name, progress, callback, additionals) {
 				}
 				return response.json()
 			})
-			.then(responseJson => postFetch(responseJson))
-			.catch(error => {
+			.then((responseJson) => postFetch(responseJson))
+			.catch((error) => {
 				if (error == "exit") return
 				if (__DEV__ && api.result) return postFetch(api.result)
 				const message = errorMessagez[error.message] || error.message

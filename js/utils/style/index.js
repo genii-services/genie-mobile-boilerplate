@@ -191,7 +191,7 @@ exports.clearThemeCache = connectStyle.clearThemeCache
 
 const elementStylez = require("/styles/elements")
 let defaultStyle = require("/styles/themes/light")
-if (typeof defaultStyle === FUNCTION) defaultStyle = defaultStyle()
+if (typeof defaultStyle === FUNCTION) defaultStyle = Function.callSafely(defaultStyle)
 const _theme = {
 	defaultStyle,
 	IconNBElement: { ...elementStylez.Icon(defaultStyle) },

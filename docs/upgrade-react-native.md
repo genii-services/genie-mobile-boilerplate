@@ -12,6 +12,20 @@ react-native init NewRN
 react-native-rename-next OldRN -b com.rn.old
 ```
 
+## git으로 비교하여 업데이트
+
+### 삭제 표시된 것 중에서 살려야할 파일 검색하여 복원
+
+#### 리소스 파일
+
+1. 폰트 파일
+
+2. 아이콘 파일
+
+기본 아이콘으로 변경되었으므로 복원
+
+###
+
 ## Project 폴더 이름 변경
 
 ### 기존 Project 폴더 백업

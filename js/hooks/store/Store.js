@@ -4,7 +4,7 @@
  * 191010 v1.7.3 by kwhitley/use-store
  */
 const { debounce, createUuid } = require("/utils")
-const { localStorage } = global
+const internalStorage = require("/interactors/internalStorage")
 
 // individual Store implementation for tracking values/setters
 class Store {
@@ -14,7 +14,7 @@ class Store {
 
 		if (options.persist) {
 			try {
-				let stored = localStorage.getItem(Store.storagePrefix + namespace)
+				let stored = internalStorage.getItem(Store.storagePrefix + namespace)
 				if (stored !== null) {
 					this.state = JSON.parse(stored)
 				}
@@ -40,7 +40,7 @@ class Store {
 		this.state = typeof value === "function" ? value() : value //*. lately call 지원
 		if (this.options.persist) {
 			try {
-				localStorage.setItem(Store.storagePrefix + this.namespace, JSON.stringify(value))
+				internalStorage.setItem(Store.storagePrefix + this.namespace, JSON.stringify(value))
 			} catch (err) {
 				console.warn(`[use-store-hook]: failed to persist`, { value, err })
 			}
@@ -51,7 +51,7 @@ class Store {
 		}
 	}
 }
-// prefix for localStorage
+// prefix for storage
 Store.storagePrefix = "!ush::"
 
 module.exports = Store

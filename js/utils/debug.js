@@ -1,14 +1,16 @@
-/** 공통 라이브러리
+/**
  * debug 유틸리티
- * v1.0 at 170901 by appcreatier@gmail.com
- * 		whoami 형태
- * v2.0 at 180801 by appcreatier@gmail.com
- * 		console.debug 힝태
+ *
+ * 200825 globalThis로 변경
  * v3.1 at 191105 by appcreatier@gmail.com
  *		console.debug를 대체하도록 변경
  *		console.debug 첫번째 파라메터
  *			global인 경우 object 대신 global로 표시
  *			배열인 경우 ['className', 'methodName]
+ * v2.0 at 180801 by appcreatier@gmail.com
+ * 		console.debug 힝태
+ * v1.0 at 170901 by appcreatier@gmail.com
+ * 		whoami 형태
  */
 console.debug("[utils/debug]")
 
@@ -49,7 +51,7 @@ function getCallerName(caller) {
 	func.name = RegExp.$1
 	return func
 }
-global.getCallerName = getCallerName
+globalThis.getCallerName = getCallerName
 
 // arrow function인 경우 특별히 지정하지 않은 경우 this가 undefined로 들어옴
 function logDebug(object, ...attrs) {
@@ -61,7 +63,7 @@ function logDebug(object, ...attrs) {
 		object = object[0]
 	}
 
-	if (object === global) className = "global"
+	if (object === globalThis) className = "global"
 	else if (typeof object === "function") {
 		className = object.name || object.constructor.name || object.__proto__.name
 	} else {
@@ -110,7 +112,7 @@ const consoleWarn = console.warn
 console.debug = logDebug
 console.warn = logWarn
 
-// global.logDev = console.debug
+// globalThis.logDev = console.debug
 
 module.exports = {
 	getCallerName,

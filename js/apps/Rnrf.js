@@ -72,7 +72,7 @@ const androidPermissions = [
 ]
 const iosPermissions = []
 
-const Rnrf = props => {
+const Rnrf = (props) => {
 	const { authToken, setAgreed, agreed } = useAuth()
 	console.debug(this, "render", "+".repeat(80), authToken, agreed, setAgreed)
 	const router = useRouter()
@@ -86,7 +86,7 @@ const Rnrf = props => {
 		// Orientation.lockToPortrait()
 	}
 
-	const handleAppStateChange = appState => {
+	const handleAppStateChange = (appState) => {
 		if (_appState.match(/inactive|background/) && appState === "active") {
 			console.debug(Rnrf, "has come to the foreground!")
 			// checkAuth()
@@ -94,7 +94,7 @@ const Rnrf = props => {
 		set_appState(appState)
 	}
 
-	const handleOpenURL = event => {
+	const handleOpenURL = (event) => {
 		console.debug(Rnrf, event.url)
 	}
 
@@ -110,8 +110,8 @@ const Rnrf = props => {
 			() =>
 				permissions.check(
 					itsAndroid ? androidPermissions : iosPermissions, //
-					unassentedPermissions => {
-						permissions.request(unassentedPermissions, results => {
+					(unassentedPermissions) => {
+						permissions.request(unassentedPermissions, (results) => {
 							if (results && results.length) {
 								// router.reset('intro')
 								return popup("필수 권한 사용에 동의하지 않으면 앱을 사용할 수 없습니다. 앱 종료 재시작해 주세요.")
@@ -182,13 +182,13 @@ const Rnrf = props => {
 		return true
 	}
 
-	const handleOnEnterScreen = props => {
+	const handleOnEnterScreen = (props) => {
 		const whoami$ = whoami(props.routeName, "onEnter", "1;92")
 		const { authToken, currentScreen, setCurrentScreen } = useAuth()
 
 		if (!props || !props.routeName) {
 			// Actions.jump로 이동한 경우 props = {}
-			// static이므로 this = global
+			// static이므로 this = globalThis
 			return trace(whoami$, props, "previous screen is ", currentScreen)
 		}
 		try {

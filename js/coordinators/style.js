@@ -1,7 +1,7 @@
 const $MODULE_NAME = "StyleCoordinator"
 console.debug($MODULE_NAME)
 
-const _ = require("lodash")
+const { assign, forEach } = require("lodash")
 const { StyleSheet } = require("react-native")
 const { setCustomText, setCustomTextInput } = require("react-native-global-props")
 
@@ -9,9 +9,8 @@ const { FUNCTION, OBJECT, STRING } = require("/constants")
 const { TRANSPARENT } = require("/constants/style")
 const { isEqual } = require("/utils/object")
 const { globalStore, useState, useStore } = require("/hooks")
-const { assign, getName, parseJson } = require("/utils")
+const { getName, parseJson } = require("/utils")
 const { isStyleVariant, isChildStyle, isPureStyle } = require("/utils/style")
-// const storage = require("/interactors/storage")
 
 // 초기값
 globalStore.set("globalStyle", { defaultThemeName: "lightTheme", fontSizesIndex: 2 }, { persist: true })
@@ -20,17 +19,21 @@ globalStore.set("globalStyle", { defaultThemeName: "lightTheme", fontSizesIndex:
 let cachedStylez
 let styleConditionz = {}
 
-const getCachingStyle = (style, initial) => {
-	if (typeof style === FUNCTION) style = style(initial)
+const putCachedStyle = (key, style, initial) => {
+	if (typeof style === FUNCTION && initial) style = Function.callSafely(style, initial.purez || initial)
 	const purez = {},
 		varientz = {},
 		children = {}
-	_.forEach(style, (v, k) => {
+	forEach(style, (v, k) => {
 		if (isStyleVariant(k)) varientz[k] = v
 		else if (isChildStyle(k)) children[k] = v
 		else purez[k] = v
 	})
-	return { purez, varientz, children }
+	cachedStylez[key] = { purez, varientz, children }
+}
+
+const putCachedStyles = (collection, type, initial) => {
+	forEach(collection, (v, k) => putCachedStyle([k + type], v, initial))
 }
 
 const useStyle = (target, conditionz, initialStyle) => {
@@ -39,16 +42,17 @@ const useStyle = (target, conditionz, initialStyle) => {
 	const resetStylez = (style = {}) => {
 		console.debug(this, "resetStylez", target)
 
-		_.assign(style, globalStyle)
+		assign(style, globalStyle)
 		setGlobalStyle(style)
 
 		cachedStylez = {}
 		cachedStylez.defaultStyle = style
-		_.forEach(require("styles/themes"), (v, k) => (cachedStylez[k + "Theme"] = getCachingStyle(v, style)))
+		putCachedStyles(require("styles/themes"), "Theme", style)
+
 		const theme = (cachedStylez.defaultTheme = cachedStylez[style.defaultThemeName])
-		_.forEach(require("styles/elements"), (v, k) => (cachedStylez[k + "Element"] = getCachingStyle(v, theme)))
-		_.forEach(require("styles/viewparts"), (v, k) => (cachedStylez[k + "Viewpart"] = getCachingStyle(v, theme)))
-		_.forEach(require("styles/screens"), (v, k) => (cachedStylez[k + "Screen"] = getCachingStyle(v, theme)))
+		putCachedStyles(require("styles/elements"), "Element", theme)
+		putCachedStyles(require("styles/viewparts"), "Viewpart", theme)
+		putCachedStyles(require("styles/screens"), "Screen", theme)
 
 		setCustomText({
 			style: {
@@ -74,12 +78,12 @@ const useStyle = (target, conditionz, initialStyle) => {
 		if (stylez) return stylez
 
 		const { purez = {}, varientz = {}, children = {} } = cachedStylez[name] || {}
-		stylez = _.assign({}, purez, initialStyle)
+		stylez = assign({}, purez, initialStyle)
 		const _conditionz = { ...conditionz }
-		_.forEach(_conditionz, (v, k) => {
+		forEach(_conditionz, (v, k) => {
 			const varient = varientz["." + k]
 			if (varient) {
-				_.assign(stylez, varient)
+				assign(stylez, varient)
 			}
 		})
 		styleConditionz[name] = conditionz
@@ -97,7 +101,7 @@ const useStyle = (target, conditionz, initialStyle) => {
 			case OBJECT:
 				break
 			case FUNCTION:
-				initialStyle = initialStyle(defaultTheme)
+				initialStyle = Function.callSafely(initialStyle, defaultTheme)
 				break
 			case STRING:
 				initialStyle = parseJson(initialStyle)
@@ -105,7 +109,7 @@ const useStyle = (target, conditionz, initialStyle) => {
 			default:
 				initialStyle = {}
 		}
-		_.assign(stylez, purez, initialStyle)
+		assign(stylez, purez, initialStyle)
 		cachedStylez[name] = stylez // StyleSheet.create(stylez)
 		return stylez
 	}

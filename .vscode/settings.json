@@ -22,7 +22,14 @@
 	"javascript.implicitProjectConfig.experimentalDecorators": true,
 
 	"path-intellisense.absolutePathToWorkspace": false,
-
+	"skipFiles": [
+		"${workspaceRoot}/node_modules/**/*.js",
+		"<node_internals>/**/*.js",
+		"/node_modules/**/*.js",
+		"**/node_modules",
+		"${workspaceFolder}/node_modules/**/*.js",
+		"${workspaceFolder}/lib/**/*.js"
+	],
 	"favorites.resources": [
 		"~/.android/adb_usb.ini",
 		"android/app/build.gradle",

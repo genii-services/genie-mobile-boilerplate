@@ -4,7 +4,6 @@ console.debug(MODULE_NAME$)
 
 const messaging = require("@react-native-firebase/messaging").default
 
-const { FUNCTION } = require("/constants")
 const { trace } = require("/utils/debug")
 const { deviceOS } = require("/utils/device")
 const { popup } = require("/utils/view")
@@ -17,17 +16,17 @@ const notification = {
 let tokenRefreshListener
 let messageListener
 
-notification.register = function() {
+notification.register = function () {
 	// 클라우드 메시지를 보내고 받기 전에 사용자에게 올바른 권한이 부여되었는지 확인해야 합니다.
 	console.debug("notification.android.register")
 	messaging()
 		.hasPermission()
-		.then(enabled => {
+		.then((enabled) => {
 			if (enabled) {
 				// 권한을 가지고 있는 경우
 				messaging()
 					.getToken()
-					.then(tcmToken => {
+					.then((tcmToken) => {
 						notification.pushToken = tcmToken
 						console.debug(MODULE_NAME$ + ".getToken", tcmToken)
 					})
@@ -40,12 +39,12 @@ notification.register = function() {
 						trace(MODULE_NAME$ + ".requestPermission", "granted")
 						messaging()
 							.getToken()
-							.then(tcmToken => {
+							.then((tcmToken) => {
 								notification.pushToken = tcmToken
 								console.debug(MODULE_NAME$ + ".getToken", tcmToken)
 							})
 					})
-					.catch(error => {
+					.catch((error) => {
 						// 사용자가 권한을 거부
 						trace(MODULE_NAME$ + ".requestPermission", "rejected")
 						popup("푸시 알림에 동의하지 않았으므로 알림을 받을 수 없습니다.")
@@ -54,32 +53,30 @@ notification.register = function() {
 		})
 
 	// 토큰이 변경된 경우 처리
-	tokenRefreshListener = messaging().onTokenRefresh(fcmToken => {
+	tokenRefreshListener = messaging().onTokenRefresh((fcmToken) => {
 		console.debug(MODULE_NAME$ + ".onTokenRefresh", fcmToken)
 		notification.pushToken = fcmToken
 	})
 
 	// 메시지가 온 경우 처리
-	messageListener = messaging().onMessage(message => {
+	messageListener = messaging().onMessage((message) => {
 		console.debug(MODULE_NAME$ + ".onMessage", message)
-		typeof notification.receiveNotification === FUNCTION &&
-			notification.receiveNotification({ ...message, type: message.messageType, uniqueid: message.messageId })
+		Function.callSafely(notification.receiveNotification, { ...message, type: message.messageType, uniqueid: message.messageId })
 	})
 
 	return tokenRefreshListener
 }
 
-notification.unregister = function() {
-	typeof tokenRefreshListener !== FUNCTION && tokenRefreshListener()
-	typeof messageListener !== FUNCTION && messageListener()
+notification.unregister = function () {
+	Function.callSafely(tokenRefreshListener)
+	Function.callSafely(messageListener)
 }
 
-messaging().setBackgroundMessageHandler(async message => {
+messaging().setBackgroundMessageHandler(async (message) => {
 	debugger
 	console.debug(MODULE_NAME$ + ".backgroundMessageHandler", message)
 
-	typeof notification.receiveNotification === FUNCTION &&
-		notification.receiveNotification({ ...message, type: message.messageType, uniqueid: message.messageId })
+	Function.callSafely(notification.receiveNotification, { ...message, type: message.messageType, uniqueid: message.messageId })
 })
 
 /**

@@ -6,7 +6,7 @@ const { Text } = require("react-native")
 const _ = require("lodash")
 
 const { forwardRef } = require("/hooks")
-const { useStyle } = require("/coordinators/style")
+const { useStyle } = require("/coordinators")
 
 const TextElement = ({ note, uppercase, children, style, ...props }) => {
 	const text = uppercase ? React.Children.map(children, (child) => (_.isString(child) ? _.toUpper(child) : child)) : children

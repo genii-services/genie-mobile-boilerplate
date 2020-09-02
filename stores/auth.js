@@ -1,7 +1,6 @@
 const _ = require("lodash")
 const { observable, action } = require("mobx")
 const { create, persist } = require("mobx-persist")
-const AsyncStorage = require("@react-native-community/async-storage").default
 
 const { OBJECT, LIST } = require("/constants")
 const { Progress, SUCCEED, FAILED, ERROR } = require("/utils/progress")
@@ -9,6 +8,7 @@ const config = require("/data/config")
 const { popup } = require("/utils/view")
 const { assign } = require("/utils")
 const { yyyymmddhhmmss } = require("/utils/moment")
+const internalStorage = require("/interactors/internalStorage")
 const router = require("/services/router")
 const notification = require("/services/notification")
 const { request } = require("/services/rest")
@@ -131,7 +131,7 @@ class AuthStore extends Progress {
 				let { additionalJobList } = userInfo
 				let workInfos = []
 				if (additionalJobList instanceof Array && 0 < additionalJobList.length) {
-					_.forEach(additionalJobList, v => {
+					_.forEach(additionalJobList, (v) => {
 						let { workInfo } = v
 						workInfo.displayName = `${workInfo.deptName}/${workInfo.parentDeptName}/${workInfo.companyName}`
 						workInfos.push(workInfo)
@@ -203,12 +203,12 @@ module.exports = store
 const store = new AuthStore()
 
 const hydrate = create({
-	storage: AsyncStorage,
+	storage: internalStorage,
 	// jsonify: true
 })
 
 hydrate(MODULE_NAME$, store)
-	.then(store => {
+	.then((store) => {
 		console.debug(MODULE_NAME$, "hydrated", "=".repeat(80))
 
 		if (!store.timestamp) store.timestamp = Date.now()
@@ -228,6 +228,6 @@ hydrate(MODULE_NAME$, store)
 		if (store.userInfo) store.userInfo.touchedAt = yyyymmddhhmmss()
 		// router.push(!store.authToken ? "login" : "home")	// 사용권한 체크 후 실행하는 것으로 변경
 	})
-	.catch(e => {
+	.catch((e) => {
 		console.warn(MODULE_NAME$, "hydrate error", e)
 	})

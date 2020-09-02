@@ -10,7 +10,7 @@ const { popup } = require("/utils/view")
 const { useEffect, useRef, useState, useStore, useThis } = require("/hooks")
 const notification = require("/interactors/notification")
 const { request } = require("/interactors/rest")
-const storage = require("/interactors/storage")
+const internalStorage = require("/interactors/internalStorage")
 const { useRouter } = require("./router") // const router = require("/utils/router")
 
 const initialState = require("/data/auth")
@@ -35,11 +35,11 @@ const useAuth = () => {
 
 	useEffect(() => {
 		load()
-		return () => storage.save()
+		return () => internalStorage.save()
 	}, [])
 
 	const load = () => {
-		storage.load(MODULE_NAME$, data => {
+		internalStorage.load(MODULE_NAME$, (data) => {
 			assign(initialState, data)
 			const { loginInfo, userInfo } = initialState
 			const currentScreen = router.getCurrentScreen()
@@ -60,10 +60,10 @@ const useAuth = () => {
 		})
 	}
 	const save = () => {
-		storage.save(MODULE_NAME$, { agreed, setAgreed, authToken, loginInfo, userInfo, currentScreen })
+		internalStorage.save(MODULE_NAME$, { agreed, setAgreed, authToken, loginInfo, userInfo, currentScreen })
 	}
 
-	const login = paramz => {
+	const login = (paramz) => {
 		const { pushToken } = notification.info
 		progress.paramz = { ...paramz, pushToken }
 		request("login", progress, ({ status, payload }) => {
@@ -111,7 +111,7 @@ const useAuth = () => {
 		})
 	}
 
-	const setLoginInfoSavable = bool => {
+	const setLoginInfoSavable = (bool) => {
 		loginInfo.loginInfoSavable = bool
 		loginInfo.emailAddress = bool ? userInfo.emailAddress : ""
 		if (!__DEV__) loginInfo.password = "" // 배포본은 암호 저장은 항상하지 않음

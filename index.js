@@ -1,14 +1,12 @@
-//*.for react-native 0.62, checked at 2020-02-17
-
 /**
- * @format
+ * for react-native 0.62, checked at 2020-02-17
+ * 200825 globalThis로 변경
  */
 const ReactNative = require("react-native")
-// ReactNative.unstable_enableLogBox()
 
 require("/interactors/exceptionHandler")
 
-if (!global.initialized) global.initialized = true
+if (!globalThis.initialized) globalThis.initialized = true
 else debugger
 
 const App = require("/examples/Toast") // /examples/Form	/apps/Rnrf

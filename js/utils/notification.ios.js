@@ -5,7 +5,6 @@ console.debug(MODULE_NAME$)
 const PushNotificationIOS = require("@react-native-community/push-notification-ios")
 // const { requestNotifications } = require("react-native-permissions")
 
-const { FUNCTION, NUMBER, STRING } = require("/constants")
 const { deviceOS } = require("/utils/device")
 
 const notification = {
@@ -38,7 +37,7 @@ function handleIOSNotification(noti) {
 	category: ${noti.getCategory()};\n
 	content-available: ${noti.getContentAvailable()}.`;
 	*/
-	typeof notification.receiveNotification === FUNCTION && notification.receiveNotification(noti._data)
+	Function.callSafely(notification.receiveNotification, noti._data)
 }
 
 function handleIOSLocalNotification(noti) {

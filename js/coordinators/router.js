@@ -17,7 +17,7 @@ const {
 
 const router = require("/utils/router")
 
-const { FUNCTION, NUMBER, STRING } = require("/constants")
+const { NUMBER, STRING } = require("/constants")
 const { useStore, useThis } = require("/hooks")
 
 const useRouter = () => {
@@ -73,9 +73,7 @@ const useRouter = () => {
 		Linking.openURL(uri).catch((err) => console.warn("An error occurred", err))
 	}
 
-	const handleOnEnter = (props) => {
-		typeof _this.onEnterScreen === FUNCTION && _this.onEnterScreen(props)
-	}
+	const handleOnEnter = (props) => Function.callSafely(_this.onEnterScreen, props)
 
 	const setOnEnterScreen = (handler) => {
 		_this.onEnterScreen = handler
@@ -112,7 +110,7 @@ const Drawer = (props) => {
 	const { handleOnEnter } = useRouter()
 	const _handleOnEnter = (_props) => {
 		handleOnEnter(_props)
-		typeof props.onEnter === String.FUNCTION && props.onEnter(_props)
+		Function.callSafely(props.onEnter, _props)
 	}
 	return <Drawer_ {...props} onEnter={_handleOnEnter} />
 }
@@ -127,7 +125,7 @@ const Screen = (props) => {
 	const { handleOnEnter } = useRouter()
 	const _handleOnEnter = (_props) => {
 		handleOnEnter(_props)
-		typeof props.onEnter === String.FUNCTION && props.onEnter(_props)
+		Function.callSafely(props.onEnter, _props)
 	}
 	return <Scene {...props} onEnter={_handleOnEnter} />
 }

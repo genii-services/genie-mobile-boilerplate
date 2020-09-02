@@ -24,7 +24,7 @@ const InputBarElement = (props) => {
 	const updateValue = (value) => {
 		if (value == _value) return
 		set_value(value), set_emptied(value.length == 0)
-		typeof props.onChangeText === String.FUNCTION && props.onChangeText(value)
+		Function.callSafely(props.onChangeText, value)
 	}
 
 	const handleOnPress = (paramz) => {

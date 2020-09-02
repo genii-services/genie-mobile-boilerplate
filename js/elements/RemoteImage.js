@@ -3,7 +3,7 @@ const React = require("react")
 const { Image, RefreshControl, TouchableHighlight, Text, View } = require("react-native")
 const FastImage = require("react-native-fast-image")
 
-const { FUNCTION, NUMBER, STRING } = require("/constants")
+const { STRING } = require("/constants")
 const { ABSOLUTE, CENTER, COLUMN, PC100, ROW } = require("/constants/style")
 const { useThis } = require("/hooks")
 const { useStyle } = require("/coordinators")
@@ -42,7 +42,7 @@ const RemoteImageElement = (props) => {
 	}
 
 	const handleOnRefresh = (e) => {
-		const itsFalse = typeof props.onRefresh === String.FUNCTION && props.onRefresh(e)
+		const itsFalse = Function.callSafely(props.onRefresh, e)
 		if (Boolean.isFalse(itsFalse)) return
 		set_loading(true)
 		set_erred(false)

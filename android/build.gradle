@@ -5,10 +5,10 @@
 buildscript {
     ext {
         buildToolsVersion = "29.0.2"
-        minSdkVersion = 21				//*. BLE 지원 최소 버전 18 (Kitikat: 19)
+        minSdkVersion = 21				//*.BLE 지원 최소 버전 18 (Kitikat: 19)
         compileSdkVersion = 29			//*.타겟SDK 버전에 맞춤
         targetSdkVersion = 29			//*.Google Play의 타겟 API 수준 요구에 따라 새 앱과 앱 업데이트는 모두 Android 9(API 수준 28) 이상을 타겟팅해야 한다고 문서에 기술되어 있으나, 200821 현재 실제로는 29이상이어야 함.
-        supportLibVersion = "29.0.0"	//*.
+        supportLibVersion = "29.0.2"	//*.
     }
     repositories {
         google()

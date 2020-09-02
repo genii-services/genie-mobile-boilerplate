@@ -6,7 +6,7 @@ const _ = require("lodash")
 const React = require("react")
 const { FlatList, RefreshControl, Text, TouchableHighlight, View } = require("react-native")
 
-const { FUNCTION, UNDEFINED } = require("/constants")
+const { UNDEFINED } = require("/constants")
 const { isProgressive, isPreterite } = require("/utils/progress")
 const { useThis } = require("/hooks")
 
@@ -48,11 +48,11 @@ const ListElement = (props) => {
 	const handleEndReached = () => {
 		if (_this.ingOnEndReached) return
 		_this.ingOnEndReached = true
-		typeof props.onEndReached === FUNCTION && props.onEndReached()
+		Function.callSafely(props.onEndReached)
 	}
 	const handleMomentumScrollBegin = () => {
 		_this.ingOnEndReached = false
-		typeof props.onMomentumScrollBegin === FUNCTION && props.onMomentumScrollBegin()
+		Function.callSafely(props.onMomentumScrollBegin)
 	}
 
 	// console.debug(List, nothingVisible, data, nothingText, onRefresh)

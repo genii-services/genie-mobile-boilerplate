@@ -21,9 +21,7 @@ const useThis = (defaultValue) => {
 			return false
 		}
 
-		if (typeof defaultValue === FUNCTION) {
-			_.assign(_this.current, defaultValue())
-		}
+		if (typeof defaultValue === FUNCTION) _.assign(_this.current, Function.callSafely(defaultValue))
 	}
 	return current
 }

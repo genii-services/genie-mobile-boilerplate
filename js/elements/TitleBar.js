@@ -23,26 +23,26 @@ const TitleBarElement = (props) => {
 
 	const handleOnLeftPress = () => {
 		let { onLeftPress } = props
-		if (typeof onLeftPress === FUNCTION) props.onLeftPress()
+		if (typeof onLeftPress === FUNCTION) Function.callSafely(onLeftPress)
 		else if (props.drawer) router.openDrawer()
 		else if (props.back) router.pop()
 	}
 
 	const handleOnLeftLongPress = () => {
 		let { onLeftLongPress } = props
-		if (typeof onLeftLongPress === FUNCTION) props.onLeftLongPress()
+		if (typeof onLeftLongPress === FUNCTION) Function.callSafely(onLeftLongPress)
 		else if (props.drawer) router.openDrawer()
 		else if (props.back) router.popTo("home")
 	}
 
 	const handleOnRightPress = () => {
 		let { onRightPress } = props
-		typeof onRightPress === FUNCTION && onRightPress()
+		Function.callSafely(onRightPress)
 	}
 
 	const handleOnCenterPress = () => {
 		let { onCenterPress } = props
-		typeof onCenterPress === FUNCTION && onCenterPress()
+		Function.callSafely(onCenterPress)
 	}
 
 	const renderButton = (text, imageName, iconName = "") => {

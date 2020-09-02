@@ -2,18 +2,25 @@
  * [Common Module for node.js/React/ReactNative] function.js
  * FUNCTION 관련 유틸리티
  *
+ * 200826 by appcreatier@gmail.com
+ * 		callSafely try catch 추가, func.apply 버그 수정
  * 200602 by appcreatier@gmail.com
  * 		관련 함수만 모음
  * 		프로토타입 추가를 위한 부가 조치
  */
-
+const { slice } = require("lodash")
 /**
  * 지정한 인수가 실행가능한 함수이면 호출한다
  * @param {function} func
  */
 const callSafely = function (func) {
-	if (typeof func !== FUNCTION) return console.warn(this, arguments.callee.caller.name, "는 함수가 아닙니다.")
-	return func && func.apply(func, arguments)
+	try {
+		if (typeof func !== FUNCTION) return console.warn(this, arguments.callee.caller.name, "는 함수가 아닙니다.")
+		return func.apply(func, slice(arguments, 1))
+	} catch (e) {
+		console.error("[" + func.name + "]", e.toString())
+		debugger
+	}
 }
 
 /**

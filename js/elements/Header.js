@@ -8,7 +8,6 @@ const React = require("react")
 const { View, StatusBar } = require("react-native")
 
 const { screen, itsIphoneX } = require("/utils/device")
-const { forwardRef, useState, useStore } = require("/hooks")
 const { useStyle } = require("/coordinators")
 
 const HeaderElement = (props) => {
