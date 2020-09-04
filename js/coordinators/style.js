@@ -37,6 +37,7 @@ const putCachedStyles = (collection, type, initial) => {
 }
 
 const useStyle = (target, conditionz, initialStyle) => {
+	console.debug(this, "in", arguments.callee.caller?.name || target?.name)
 	const [globalStyle, setGlobalStyle] = useStore("globalStyle")
 
 	const resetStylez = (style = {}) => {

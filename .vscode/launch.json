@@ -6,6 +6,14 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
+			"name": "Debug Android (Hermes) - Experimental",
+			"cwd": "${workspaceFolder}",
+			"type": "reactnativedirect",
+			"request": "launch",
+			"platform": "android",
+			"preLaunchTask": "npm: android-wakeup"
+		},
+		{
 			"name": "Debug Android",
 			"cwd": "${workspaceFolder}",
 			// "program": "${workspaceRoot}/.vscode/launchReactNative.js",
