@@ -6,7 +6,7 @@ const React = require("react")
 const { TouchableOpacity, Platform, View, TouchableNativeFeedback } = require("react-native")
 const { Ripple } = TouchableNativeFeedback
 const { CENTER, ROW, TRANSPARENT } = require("/constants/style")
-const { forwardRef, useStore, useRefs } = require("/hooks")
+const { forwardRef, useRefs } = require("/hooks")
 
 const { itsIOS, itsWeb } = require("/utils/device")
 const { mergeStyle } = require("/utils/style")
@@ -143,5 +143,4 @@ if (__DEV__) {
 }
 
 // const { connectStyle } = require("/utils/style")
-// module.exports = connectStyle(ButtonElement, MODULE_NAME$)
-module.exports = ButtonElement
+module.exports = ButtonElement // connectStyle(ButtonElement, MODULE_NAME$)

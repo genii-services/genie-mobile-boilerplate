@@ -5,8 +5,6 @@ const React = require("react")
 const { TouchableOpacity } = require("react-native")
 const Ionicons = require("react-native-vector-icons/Ionicons")
 
-const { useStore } = require("/hooks")
-
 const { computeProps } = require("/utils/props")
 const { itsIOS } = require("/utils/device")
 

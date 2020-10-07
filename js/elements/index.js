@@ -3,6 +3,10 @@ import { ToolbarAndroid } from "react-native"
 const { key } = require("lodash")
 const { Col, Row, Grid } = require("react-native-easy-grid")
 
+const popup = require("./popup")
+
+globalThis.popup = popup
+
 module.exports = {
 	BorderButton: require("./BorderButton"),
 	DataPicker: require("./DataPicker"),
@@ -76,4 +80,5 @@ module.exports = {
 	Title: require("./Title"),
 	ToastContainer: require("./ToastContainer"),
 	View: require("./View"),
+	popup,
 }

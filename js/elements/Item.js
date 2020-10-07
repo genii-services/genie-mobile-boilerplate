@@ -10,7 +10,7 @@ const { isArray, remove } = require("lodash")
 const { ABSOLUTE, COLUMN, ROW } = require("/constants/style")
 const { deviceWidth, itsIOS } = require("/utils/device")
 const { computeProps } = require("/utils/props")
-const { forwardRef, useEffect, useState, useStore, useThis } = require("/hooks")
+const { forwardRef, useEffect, useState, useThis } = require("/hooks")
 const { useStyle } = require("/coordinators")
 
 const Icon = require("./Icon")

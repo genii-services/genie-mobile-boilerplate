@@ -7,7 +7,6 @@ const { create, persist } = require("mobx-persist")
 
 const { OBJECT, MAP } = require("/constants")
 const { Progress, isProgressive, SUCCEED } = require("/utils/progress")
-const { popup } = require("/utils/view")
 const { getMenuChilds } = require("/utils/menuList")
 const { request } = require("/services/rest")
 const authStore = require("./auth")

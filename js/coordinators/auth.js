@@ -6,7 +6,6 @@ const {} = React
 
 const { assign } = require("/utils")
 const { Progress, SUCCEED, FAILED, ERROR } = require("/utils/progress")
-const { popup } = require("/utils/view")
 const { useEffect, useRef, useState, useStore, useThis } = require("/hooks")
 const notification = require("/interactors/notification")
 const { request } = require("/interactors/rest")

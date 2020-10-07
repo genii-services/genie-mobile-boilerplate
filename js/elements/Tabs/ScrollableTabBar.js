@@ -8,8 +8,7 @@ const { isEqual } = require("lodash")
 
 const { ABSOLUTE, BLACK, BOLD, CENTER, NORMAL, ROW } = require("/constants/style")
 const { deviceWidth, itsAndroid, itsIOS } = require("/utils/device")
-const { connectStyle } = require("/utils/style")
-const { useState, useStore, useThis } = require("/hooks")
+const { useState, useThis } = require("/hooks")
 const { useStyle } = require("/coordinators")
 
 const TabHeading = require("../TabHeading")
@@ -257,4 +256,5 @@ ScrollableTabBar.getDefaultProps = () => ({
 	tabFontSize: 15, // defaultThemeStyle.tabFontSize,
 })
 
+// const { connectStyle } = require("/utils/style")
 module.exports = ScrollableTabBar //connectStyle(ScrollableTabBar, MODULE_NAME$)

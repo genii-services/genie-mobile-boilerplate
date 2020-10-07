@@ -13,11 +13,9 @@ const { assign } = require("/utils")
 const { PROCESSING } = require("/utils/progress")
 const config = require("/data/config")
 const { appVersion, buildNumber, bundleID, screen } = require("/utils/device")
-const { popup } = require("/utils/view")
 const Logo = require("@svgs/genie.svg")
+const { useRefs, useThis } = require("/hooks")
 const { useAuth, useStyle } = require("/coordinators")
-const { useRefs } = require("/hooks")
-const { useThis } = require("/hooks")
 
 const { ActionSheet, Button, CheckBox, Container, Content, Input, Item, Text } = require("/elements")
 
@@ -32,6 +30,8 @@ const LoginScreen = (props) => {
 	debugger
 	const _this = useThis()
 	const refs = useRefs()
+
+	const auth = useAuth()
 
 	const [_orientation, set_orientation] = useState()
 

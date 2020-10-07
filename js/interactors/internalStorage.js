@@ -1,5 +1,5 @@
 /**
- * react의 internalStorage 처럼 사용하기 위한 유틸리티 흡수 통합
+ * react의 localStorage 처럼 사용하기 위해 storage 유틸리티 흡수 통합
  * 200825 globalThis 접근으로 변경
  * 200519 global.localStorage가 없는 경우 AsyncStorage를 global.localStorage에 설정
  */

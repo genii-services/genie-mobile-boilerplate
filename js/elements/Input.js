@@ -4,7 +4,7 @@ console.debug(MODULE_NAME$)
 const React = require("react")
 const { TextInput } = require("react-native")
 
-const { forwardRef, useStore, useThis } = require("/hooks")
+const { forwardRef, useThis } = require("/hooks")
 const { useStyle } = require("/coordinators")
 
 const Input = ({ disabled, style, ...props }) => {

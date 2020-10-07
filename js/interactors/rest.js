@@ -9,14 +9,13 @@ const host = originz.api
 const { apiz, errorMessagez, minRequestInterval } = require("/data/rest")
 const { normalizeDeeply } = require("/utils")
 const { appID, deviceID, deviceOS, osVersion, deviceType, appVersion, buildNumber } = require("/utils/device")
-const { authInfo } = require("/coordinators/auth")
 const rest = require("/utils/rest")
 
 rest.apiz = apiz
 rest.errorMessagez = errorMessagez
 rest.minRequestInterval = minRequestInterval
 
-rest.prepair = paramz => {
+rest.prepair = (paramz) => {
 	if (paramz.hasOwnProperty("pageIndex")) {
 		// API 서버에서 페이징 처리시 첫페이지는 pageIndex가 1임
 		if (!paramz.pageIndex || paramz.pageIndex < 1) {
@@ -27,7 +26,7 @@ rest.prepair = paramz => {
 	}
 }
 
-rest.finally = paramz => {
+rest.finally = (paramz) => {
 	if (paramz.hasOwnProperty("pageIndex")) {
 		// API 서버에서 페이징 처리시 첫페이지는 pageIndex가 1임. 요청이 마무리되는 경우 pageIndex--를 하여 원상 복구
 		paramz.pageIndex--
@@ -45,10 +44,10 @@ rest.authFieldParamz = {
 	appVersion: appVersion + "." + buildNumber,
 }
 
-rest.getHeader = header => Object.assign({}, rest.defaultHeader, rest.getAuthHeader(), header)
+rest.getHeader = (header) => Object.assign({}, rest.defaultHeader, rest.getAuthHeader(), header)
 
 rest.commonHandlerz = {
-	onFailed: json => {
+	onFailed: (json) => {
 		console.warn("onFailed", json.ResultCode, json.ResultMessage)
 		if (!json) return
 		switch (json.ResultCode) {
@@ -56,15 +55,15 @@ rest.commonHandlerz = {
 			case "E00102": // 블록된 단말
 			case "E00103": {
 				// 등록되지 않은 장치
-				authInfo.authToken = undefined
+				if (globalThis.authInfo) globalThis.authInfo.authToken = undefined
 				if (router.getCurrentScreen() !== "login") router.push("login")
 			}
 		}
 	},
-	onResulted: json => json.ResultCode == "S00000",
+	onResulted: (json) => json.ResultCode == "S00000",
 }
 
-rest.payload = json => {
+rest.payload = (json) => {
 	return json.Data && normalizeDeeply(json.Data)
 }
 

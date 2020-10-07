@@ -5,8 +5,6 @@ const { Container, Header, Content, Card, CardItem, Body, H1, H2, H3, Text } = r
 const IntentLauncher = require("react-native-android-intent-launcher").default
 const { IntentConstant } = IntentLauncher
 
-const { popup } = require("/utils/view")
-
 const CardExample = (props) => {
 	if (props?.packageName && props?.appId) {
 		popup("인증 요청이 있습니다.")

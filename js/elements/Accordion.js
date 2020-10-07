@@ -4,7 +4,7 @@ const React = require("react")
 const { Animated, TouchableWithoutFeedback, FlatList, View } = require("react-native")
 
 const { BLACK, CENTER, ROW, SPACE_BETWEEN } = require("/constants/style")
-const { useState, useStore } = require("/hooks")
+const { useState } = require("/hooks")
 const { useStyle } = require("/coordinators")
 
 const Text = require("./Text")

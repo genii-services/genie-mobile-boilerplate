@@ -3,12 +3,11 @@
  * v1.2 popup 인수에 따라 자동닫기 지연시간 조절
  */
 const { Alert, ToastAndroid } = require("react-native")
-const { Toast } = require("/elements")
 
 const { OBJECT } = require("/constants")
 const { BOTTOM, TOP } = require("/constants/style")
-
-const { itsIOS } = require("./device")
+const { itsIOS } = require("/utils/device")
+const Toast = require("./Toast")
 
 function popup(text, title, buttons, duration = 3000, position = "bottom") {
 	if (typeof text === OBJECT) {
@@ -32,6 +31,4 @@ function popup(text, title, buttons, duration = 3000, position = "bottom") {
 	}
 }
 
-module.exports = {
-	popup,
-}
+module.exports = popup

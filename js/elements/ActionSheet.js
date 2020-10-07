@@ -7,7 +7,7 @@ const React = require("react")
 const { ActionSheetIOS, FlatList, Modal, TouchableOpacity } = require("react-native")
 
 const { deviceHeight, itsIOS } = require("/utils/device")
-const { createCoordinator, forwardRef, useEffect, useState, useStore, useThis } = require("/hooks")
+const { createCoordinator, forwardRef, useEffect, useState, useThis } = require("/hooks")
 const { useStyle } = require("/coordinators/style")
 
 const Text = require("./Text")

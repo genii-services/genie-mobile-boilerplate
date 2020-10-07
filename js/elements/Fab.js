@@ -342,4 +342,4 @@ const Fab = (props) => {
 }
 
 // const { connectStyle } = require("/utils/style")
-module.exports = Fab //connectStyle(Fab, MODULE_NAME$)
+module.exports = Fab // connectStyle(Fab, MODULE_NAME$)

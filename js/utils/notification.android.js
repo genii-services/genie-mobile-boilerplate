@@ -6,7 +6,6 @@ const messaging = require("@react-native-firebase/messaging").default
 
 const { trace } = require("/utils/debug")
 const { deviceOS } = require("/utils/device")
-const { popup } = require("/utils/view")
 
 const notification = {
 	platform: deviceOS,

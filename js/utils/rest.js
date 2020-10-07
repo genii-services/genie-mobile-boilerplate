@@ -9,7 +9,6 @@ const _ = require("lodash")
 const { errorMessagez, minRequestInterval } = require("/data/rest")
 const { whoami } = require("/utils/debug")
 const { toSerialize } = require("/utils/string")
-const { popup } = require("/utils/view")
 const { isPreterite, IGNORE, PREPARING, PROCESSING, SUCCEED, FAILED, ERROR } = require("/utils/progress")
 
 const authFieldName = "X-HanilMobile-Header"

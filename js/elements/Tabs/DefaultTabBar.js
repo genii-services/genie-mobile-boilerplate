@@ -9,7 +9,7 @@ const { Animated } = ReactNative
 const { FUNCTION } = require("/constants")
 const { ABSOLUTE, BOLD, FLEX_START, FLEX_END, NORMAL, SPACE_BETWEEN, TRANSPARENT } = require("/constants/style")
 const { connectStyle } = require("/utils/style")
-const { useState, useStore, useThis } = require("/hooks")
+const { useState, useThis } = require("/hooks")
 const { useStyle } = require("/coordinators")
 
 const Button = require("./Button")

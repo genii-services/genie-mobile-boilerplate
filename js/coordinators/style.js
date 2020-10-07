@@ -8,9 +8,9 @@ const { setCustomText, setCustomTextInput } = require("react-native-global-props
 const { FUNCTION, OBJECT, STRING } = require("/constants")
 const { TRANSPARENT } = require("/constants/style")
 const { isEqual } = require("/utils/object")
-const { globalStore, useState, useStore } = require("/hooks")
 const { getName, parseJson } = require("/utils")
-const { isStyleVariant, isChildStyle, isPureStyle } = require("/utils/style")
+const { isStyleVariant, isChildStyle } = require("/utils/style")
+const { globalStore, useStore } = require("/hooks")
 
 // 초기값
 globalStore.set("globalStyle", { defaultThemeName: "lightTheme", fontSizesIndex: 2 }, { persist: true })
@@ -42,35 +42,39 @@ const useStyle = (target, conditionz, initialStyle) => {
 
 	const resetStylez = (style = {}) => {
 		console.debug(this, "resetStylez", target)
+		try {
+			assign(style, globalStyle)
+			setGlobalStyle(style)
 
-		assign(style, globalStyle)
-		setGlobalStyle(style)
+			cachedStylez = {}
+			cachedStylez.defaultStyle = style
+			putCachedStyles(require("styles/themes"), "Theme", style)
 
-		cachedStylez = {}
-		cachedStylez.defaultStyle = style
-		putCachedStyles(require("styles/themes"), "Theme", style)
+			const theme = (cachedStylez.defaultTheme = cachedStylez[style.defaultThemeName])
+			putCachedStyles(require("styles/elements"), "Element", theme)
+			putCachedStyles(require("styles/viewparts"), "Viewpart", theme)
+			putCachedStyles(require("styles/screens"), "Screen", theme)
 
-		const theme = (cachedStylez.defaultTheme = cachedStylez[style.defaultThemeName])
-		putCachedStyles(require("styles/elements"), "Element", theme)
-		putCachedStyles(require("styles/viewparts"), "Viewpart", theme)
-		putCachedStyles(require("styles/screens"), "Screen", theme)
-
-		setCustomText({
-			style: {
-				fontFamily: theme.fontFamily,
-				fontSize: theme.fontSizes[5],
-			},
-		})
-		setCustomTextInput({
-			style: {
-				fontFamily: theme.fontFamily,
-				paddingTop: 0,
-				paddingBottom: 0,
-				paddingLeft: 0,
-				paddingRight: 0,
-			},
-			underlineColorAndroid: TRANSPARENT,
-		})
+			const { fontFamily, fontSizes } = theme.purez
+			setCustomText({
+				style: {
+					fontFamily,
+					fontSize: fontSizes[5],
+				},
+			})
+			setCustomTextInput({
+				style: {
+					fontFamily,
+					paddingTop: 0,
+					paddingBottom: 0,
+					paddingLeft: 0,
+					paddingRight: 0,
+				},
+				underlineColorAndroid: TRANSPARENT,
+			})
+		} catch (e) {
+			debugger
+		}
 	}
 
 	const getStylez = (target, conditionz, initialStyle) => {

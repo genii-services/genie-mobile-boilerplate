@@ -5,7 +5,6 @@ const React = require("react")
 const { View } = require("react-native")
 
 const { screen, itsIphoneX } = require("/utils/device")
-const { useState, useStore } = require("/hooks")
 const { useStyle } = require("/coordinators")
 
 const FooterElement = (props) => {
@@ -45,4 +44,4 @@ if (__DEV__) {
 }
 
 // const { connectStyle } = require("/utils/style")
-module.exports = FooterElement //connectStyle(FooterElement, MODULE_NAME$)
+module.exports = FooterElement // connectStyle(FooterElement, MODULE_NAME$)

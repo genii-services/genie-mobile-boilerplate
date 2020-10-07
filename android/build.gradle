@@ -18,9 +18,8 @@ buildscript {
         classpath("com.android.tools.build:gradle:3.5.3")
 		classpath 'com.google.gms:google-services:4.2.0'	//*.@react-native-firebase/app
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
+        // NOTE: 응용 프로그램 종속성을 여기에 배치하지 마십시오. 개별 모듈 build.gradle 파일에 속합니다.
+	}
 }
 
 allprojects {

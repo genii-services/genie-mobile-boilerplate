@@ -2,12 +2,12 @@ const React = require("react")
 const { Modal, View } = require("react-native")
 const DateTimePicker = require("@react-native-community/datetimepicker")
 
-const { useState, useStore } = require("/hooks")
+const { useState } = require("/hooks")
 const { useStyle } = require("/coordinators")
 
 const Text = require("./Text")
 
-const DatePicker = props => {
+const DatePicker = (props) => {
 	const {
 		animationType,
 		disabled,
@@ -26,7 +26,7 @@ const DatePicker = props => {
 	const [_chosenDate, set_chosenDate] = useState(() => !props.placeHolderText && props.defaultDate && props.defaultDate)
 
 	const { placeHolderTextStyle } = props
-	const { stylez } = useStyle(MODULE_NAME$, { placeHolderTextStyle, textStyle }, defaultStyle => ({
+	const { stylez } = useStyle(MODULE_NAME$, { placeHolderTextStyle, textStyle }, (defaultStyle) => ({
 		placeHolderText: [
 			{
 				padding: defaultStyle.datePickerPadding,
@@ -45,7 +45,7 @@ const DatePicker = props => {
 		set_modalVisible(true)
 	}
 
-	const formatChosenDate = date => {
+	const formatChosenDate = (date) => {
 		if (props.formatChosenDate) return props.formatChosenDate(date)
 		return [date.getDate(), date.getMonth() + 1, date.getFullYear()].join("/")
 	}

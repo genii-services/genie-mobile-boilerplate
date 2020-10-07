@@ -119,5 +119,5 @@ if (__DEV__) {
 	}
 }
 
-const { connectStyle } = require("/utils/style")
+// const { connectStyle } = require("/utils/style")
 module.exports = ToastContainerElement // connectStyle(ToastContainerElement, MODULE_NAME$)

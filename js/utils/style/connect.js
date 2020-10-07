@@ -5,7 +5,6 @@ const _ = require("lodash")
 const { isEqual } = require("/utils/object")
 const { forwardRef, useRefs, useState, useStore, useThis } = require("/hooks")
 
-const { getConcreteStyle } = require(".")
 const Theme = require("./Theme")
 const resolveComponentStyle = require("./resolveComponentStyle")
 
@@ -16,9 +15,21 @@ let themeCache = {}
  * clear theme cache
  * @export
  */
-function clearThemeCache() {
+exports.clearThemeCache = () => {
 	themeCache = {}
 }
+
+const mapPropsToStyleNames = (styleNames, props) => {
+	const keys = _.keys(props)
+	const values = _.values(props)
+
+	_.forEach(keys, (key, index) => {
+		values[index] && styleNames.push(key)
+	})
+	return styleNames
+}
+
+// exports.mapPropsToStyleNames = (styleNames, props) => keys(props)
 
 /**
  * 컴포넌트 스타일을 테마와 연결할 때 형식을 지정하여 오류를 발생시킵니다.
@@ -38,12 +49,12 @@ function throwConnectStyleError(errorMessage, componentDisplayName) {
  * @param componentStyleName The component name that will be used to target this component in style rules.
  * @param componentStyle The default component style.
  * @param mapPropsToStyleNames Pure function to customize styleNames depending on props.
- * @param options The additional connectStyle options
+ * @param options 추가 connectStyle 옵션입니다.
  * @param options.virtual The default value of the virtual prop
  * @param options.withRef Create component ref with addedProps; if true, ref name is wrappedInstance
  * @returns {StyledComponent} The new component that will handle the styling of the wrapped component.
  */
-exports = module.exports = (componentStyleName, componentStyle = {}, mapPropsToStyleNames, options = {}) => {
+const connectStyle = (componentStyleName, componentStyle = {}, mapPropsToStyleNames, options = {}) => {
 	function getComponentDisplayName(WrappedComponent) {
 		return WrappedComponent.displayName || WrappedComponent.name || "Component"
 	}
@@ -182,4 +193,66 @@ exports = module.exports = (componentStyleName, componentStyle = {}, mapPropsToS
 		return hoistStatics(StyledComponent, WrappedComponent)
 	}
 }
-exports.clearThemeCache = clearThemeCache
+
+exports.connectStyle = (Component, styleName) => connectStyle(styleName || Component.name, {}, mapPropsToStyleNames)(Component)
+
+/**
+ * 지정한 속성 이름이 하위 컴포넌트를 대상으로 하는 스타일 규칙인지 판단한다.
+ * 이러한 스타일은 두 가지 형식이 있는데,
+ * 컴포넌트 이름 ( 'elements.Text')와 컴포넌트 이름 및 변형 ( 'elements.Text.line-through')으로
+ * 컴포넌트를 대상으로 지정할 수 있습니다.
+ * 컴포넌트 이름을 지정하는 것 외에도 이러한 스타일은
+ * '*'와일드 카드 ( '*'또는 '* .line-through')를 사용하여
+ * 모든 구성 요소를 대상으로 할 수도 있습니다.
+ * 이러한 스타일을 식별하는 규칙은 '.'을 포함해야한다는 것입니다.
+ * 이름에 문자를 포함 시키거나 '*'이어야 합니다.
+ *
+ * @param propertyName The style property name.
+ * @returns {boolean} True if the style property represents a child style, false otherwise.
+ */
+// const isChildStyle = (propertyName) => /(^[^\.].*\.)|^\*$/.test(propertyName)
+const isChildStyle = (propertyName) => /^[A-Z]|^\*$/.test(propertyName)
+exports.isChildStyle = isChildStyle
+
+exports.isPureStyle = (propertyName) => /^[a-z]|^\*$/.test(propertyName)
+
+exports.getConcreteStyle = (style) => _.pickBy(style, (value, key) => isPureStyle(key))
+
+/**
+ * 구성 요소 스타일 변형을 나타내는 모든 스타일 특성과 매치
+ * 이러한 스타일은 styleName 속성을 사용하여 구성 요소에 적용할 수 있습니다.
+ * 모든 스타일 변형 속성 이름은 단일 '.'로 시작해야 합니다. 문자 (예 : '.variant')
+ *
+ * @param propertyName 스타일 속성 이름
+ * @returns {boolean} style 속성이 변형된 구성 요소를 나타내는 경우 true이고, 그렇지 않으면 false입니다.
+ */
+const isStyleVariant = (propertyName) => /^\./.test(propertyName)
+exports.isStyleVariant = isStyleVariant
+
+/**
+ * Splits the style into its parts:
+ * component style - concrete style that needs to be applied to a component
+ * style variants - variants that can be applied to a component by using styleName prop
+ * children style - style rules that need to be propagated to component children
+ *
+ * @param style The style to split.
+ * @returns {*} An object with the componentStyle, styleVariants, and childrenStyle keys.
+ */
+exports.splitStyle = (style) =>
+	_.reduce(
+		style,
+		(result, value, key) => {
+			const styleSection = isStyleVariant(key)
+				? result.styleVariants
+				: isChildStyle(key)
+				? result.childrenStyle
+				: result.componentStyle
+			styleSection[key] = value
+			return result
+		},
+		{
+			componentStyle: {},
+			styleVariants: {},
+			childrenStyle: {},
+		}
+	)

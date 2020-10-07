@@ -2,10 +2,10 @@ const { observable, action } = require("mobx")
 const _ = require("lodash")
 
 const { NUMBER, OBJECT, STRING } = require("/constants")
-const { Progress, createProgress, IGNORE, SUCCEED, FAILED, ERROR } = require("/utils/progress")
 const boardz = require("/data/boardz")
 const { assign } = require("/utils")
 const { whoami } = require("/utils/debug")
+const { Progress, createProgress, IGNORE, SUCCEED, FAILED, ERROR } = require("/utils/progress")
 const { request } = require("/services/rest")
 const authStore = require("./auth")
 
@@ -26,7 +26,7 @@ class BoardzStore {
 	})
 
 	constructor() {
-		this.boardz = _.mapValues(boardz, board => new Progress({ ...board }))
+		this.boardz = _.mapValues(boardz, (board) => new Progress({ ...board }))
 	}
 
 	getBoard(boardID, props) {
@@ -141,7 +141,7 @@ class BoardzStore {
 		switch (status) {
 			case SUCCEED: {
 				let data = payload.itemData // 정규화 시에 deeping clone을 했으므로 _.cloneDeep할 필요없음
-				_.forEach(payload.fields, v => (data[v.fieldName] = v.fieldValue))
+				_.forEach(payload.fields, (v) => (data[v.fieldName] = v.fieldValue))
 				data.attachments = payload.attachments // _.cloneDeep 상동
 				data.isRead = true
 				data.availableApvActions = payload.availableApvActions // 승인/반려 버튼 활성화
@@ -228,7 +228,7 @@ class BoardzStore {
 		switch (status) {
 			case SUCCEED: {
 				let list = payload.items
-				_.forEach(list, v => v.createdDatetime.add(9, "hours")) // 서버에서 시간대가 잘못 내려와서 +9 hours 함
+				_.forEach(list, (v) => v.createdDatetime.add(9, "hours")) // 서버에서 시간대가 잘못 내려와서 +9 hours 함
 				//console.debug(this, list.length)
 				progress.list = progress.list.concat(list)
 				break

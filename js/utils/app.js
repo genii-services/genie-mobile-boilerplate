@@ -14,7 +14,6 @@ const { OBJECT, STRING } = require("/constants")
 const { urlz } = require("/data/config")
 const { checkingAppNames, callingAppInfoz } = require("/data/appInfo")
 const { itsAndroid, itsIOS } = require("./device")
-const { popup } = require("./view")
 const { browse } = require("./router")
 const { displayName } = require("/../app.json")
 
@@ -38,10 +37,10 @@ function checkAppVersion(ver2) {
 	let ver2s = ver2.split(".")
 	if (1 < ver2s.length) {
 		// 버전과 빌드번호로 비교. 예: 1.0.34
-		ver2 = _.map(ver2s, s => _.padStart(s, 6, "0")).join("")
+		ver2 = _.map(ver2s, (s) => _.padStart(s, 6, "0")).join("")
 		ver1 = `${appVersion}.${buildNumber}`
 		if (typeof ver1 !== STRING) return popup("앱 버전이 이상합니다.")
-		ver1 = _.map(ver1.split("."), s => _.padStart(s, 6, "0")).join("")
+		ver1 = _.map(ver1.split("."), (s) => _.padStart(s, 6, "0")).join("")
 		//ver1 = ver1.split('.').map(s => s.padStart(6, '0')).join('')			//react-native 51 release에서 s.padStart가 작동하지 않음
 		console.debug(this, "Installable Version", ver2, "appVersion", ver1, ver1 < ver2)
 	} else {
@@ -98,15 +97,15 @@ function checkAppsInstalled(appNames) {
 			])
 		}
 	}
-	_.forEach(appNames, v => {
+	_.forEach(appNames, (v) => {
 		//
 		let appInfo = callingAppInfoz[v]
 		if (!appInfo) return
 		let url = appInfo[Platform.OS]
 		// console.debug(checkingAppNames.title, url)
 		canOpenURL(url)
-			.then(supported => resultCheckApp(supported, appInfo.title))
-			.catch(err => resultCheckApp(false, appInfo.title))
+			.then((supported) => resultCheckApp(supported, appInfo.title))
+			.catch((err) => resultCheckApp(false, appInfo.title))
 	})
 }
 
@@ -134,7 +133,7 @@ const launchApp = (appPath, appName, options) => {
 	let message = `${appName || appPath}을(를) 수행할 수 없습니다. 단말기 설정을 확인하세요.`
 	let title = `${appName || "앱"} 실행`
 	canOpenURL(url)
-		.then(supported => {
+		.then((supported) => {
 			if (!supported) {
 				console.warn(`Can't handle url: ${url}`)
 				if (downloadURL) browse(downloadURL)
@@ -143,7 +142,7 @@ const launchApp = (appPath, appName, options) => {
 			}
 			return openURL(url)
 		})
-		.catch(err => {
+		.catch((err) => {
 			console.warn("An error occurred", err)
 			if (downloadURL) browse(downloadURL)
 			else popup(message, title)

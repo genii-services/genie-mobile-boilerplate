@@ -20,7 +20,7 @@ const Zocial = require("react-native-vector-icons/Zocial").default
 const iosIconz = require("/data/iconz.ios.json")
 const androidIconz = require("/data/iconz.android.json")
 const { itsAndroid, itsIOS } = require("/utils/device")
-const { forwardRef, useStore, useThis } = require("/hooks")
+const { forwardRef, useThis } = require("/hooks")
 const { useStyle } = require("/coordinators")
 
 const IconFamilez = {

@@ -3,7 +3,6 @@ console.debug("interactors/notification")
 
 const { useRouter } = require("/coordinators") // const router = require("/utils/router")
 const { itsAndroid, itsIOS } = require("/utils/device")
-const { popup } = require("/utils/view")
 const { upgradeApp } = require("/utils/app")
 const { useAuth } = require("/coordinators/auth")
 const { useBoard } = require("/coordinators/board")
@@ -24,7 +23,7 @@ const typeNamez = {
 	99: "업그레이드 알림",
 }
 
-notification.receiveNotification = function(noti) {
+notification.receiveNotification = function (noti) {
 	let type = noti.data?.type || noti.type || typeNamez.unknown
 	let title = noti.data?.title || noti.title
 	let body = noti.data?.body || noti.body

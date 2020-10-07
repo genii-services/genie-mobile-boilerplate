@@ -7,7 +7,6 @@ const { isEqual } = require("/utils/object")
 const { useRefs, useState, useStore, useThis } = require("/hooks")
 const Theme = require("./Theme")
 const { ThemeShape } = Theme
-const { getConcreteStyle } = require("./")
 const resolveComponentStyle = require("./resolveComponentStyle")
 
 const themeCache = {}
@@ -31,7 +30,7 @@ function throwConnectStyleError(errorMessage, componentDisplayName) {
  * to target this component in style rules.
  * @param componentStyle The default component style.
  * @param mapPropsToStyleNames Pure function to customize styleNames depending on props.
- * @param options The additional connectStyle options
+ * @param options 추가 connectStyle 옵션입니다
  * @param options.virtual The default value of the virtual prop
  * @param options.withRef Create component ref with addedProps; if true, ref name is wrappedInstance
  * @returns {StyledComponent} The new component that will handle

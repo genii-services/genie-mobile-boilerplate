@@ -12,10 +12,8 @@ const IntentLauncher = require("react-native-android-intent-launcher")
 const { IntentConstant } = IntentLauncher
 
 const { urlz } = require("/data/config")
-
 const { deleteSimilarFiles } = require("./fs")
 const { whoami } = require("./debug")
-const { popup } = require("./view")
 const { browse } = require("./router")
 const { applicationName } = require("/../app.json")
 
@@ -53,8 +51,8 @@ function installApp(
 			const downloadUrl = `${urlz.download}/${ver}${applicationName}.apk`
 			goToDownload(
 				downloadUrl,
-				progress => console.debug(progress),
-				err => alert(err)
+				(progress) => console.debug(progress),
+				(err) => alert(err)
 			)
 	}
 }
@@ -136,7 +134,7 @@ function startActivity(appName, category) {
 }
 
 function openApp(appName, package, downloadURL, options) {
-	IntentLauncher.isAppInstalled(package).then(isInstalled => {
+	IntentLauncher.isAppInstalled(package).then((isInstalled) => {
 		if (isInstalled) IntentLauncher.openApp(package, options)
 		else if (downloadURL) {
 			popup(`${appName}이(가) 설치되어 있지 않습니다.`)
