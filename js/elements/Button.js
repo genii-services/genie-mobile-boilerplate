@@ -23,26 +23,29 @@ const defaultThemeStyle = {
 }
 
 const ButtonElement = ({
-	style,
-	block,
-	primary,
-	transparent,
-	success,
-	danger,
-	warning,
-	info,
-	bordered,
-	disabled,
-	rounded,
-	large,
-	small,
-	active,
 	onPress,
+	style,
+	// style flags
+	active,
+	block,
+	bordered,
+	danger,
+	dark,
+	disabled,
+	info,
+	large,
+	light,
+	primary,
+	rounded,
+	small,
+	success,
+	transparent,
+	warning,
 	...props
 }) => {
 	const { stylez, defaultTheme } = useStyle(
 		ButtonElement,
-		{ style, block, primary, transparent, success, danger, warning, info, bordered, disabled, rounded, large, small, active },
+		{ style, active, block, bordered, danger, dark, disabled, info, large, light, primary, rounded, small, success, transparent, warning },
 		(defaultStyle) => {
 			const buttonStyle = mergeStyle(style, {
 				borderWidth: bordered && defaultThemeStyle.buttonDefaultBorderWidth,

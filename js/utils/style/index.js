@@ -67,31 +67,6 @@ const getMarginLeft = (style, defaultValue = 0) => {
 	return defaultValue
 }
 
-/**
- * Sets the given style as a default theme style.
- */
-let defaultTheme = new Theme(_theme)
-
-/**
- * Returns the default theme that will be used as fallback
- * if the StyleProvider is not configured in the app.
- */
-function getDefaultTheme() {
-	if (!defaultTheme) defaultTheme = new Theme({})
-	return defaultTheme
-}
-
-/**
- * 제공된 컨텍스트에서 테마 오브젝트를 리턴하거나 컨텍스트에 테마가 없는 경우 빈 테마를 반환
- *
- * @param theme 리액트 컴포넌트 컨텍스트
- * @returns {Theme} 테마 오브젝트
- */
-function getTheme(theme) {
-	// Fallback to a default theme if the component isn't rendered in a StyleProvider.
-	return theme || getDefaultTheme()
-}
-
 //─────────────────────
 // STASTIC CONSTRUCTOR
 //─────────────────────
@@ -134,11 +109,35 @@ const cssifyTheme = (grandParent, parent, parentName) => {
 }
 
 cssifyTheme(null, _theme, null)
+/**
+ * Sets the given style as a default theme style.
+ */
+let defaultTheme = new Theme(_theme)
+
+/**
+ * Returns the default theme that will be used as fallback
+ * if the StyleProvider is not configured in the app.
+ */
+function getDefaultTheme() {
+	if (!defaultTheme) defaultTheme = new Theme({})
+	return defaultTheme
+}
+
+/**
+ * 제공된 컨텍스트에서 테마 오브젝트를 리턴하거나 컨텍스트에 테마가 없는 경우 빈 테마를 반환
+ *
+ * @param theme 리액트 컴포넌트 컨텍스트
+ * @returns {Theme} 테마 오브젝트
+ */
+function getTheme(theme) {
+	// Fallback to a default theme if the component isn't rendered in a StyleProvider.
+	return theme || getDefaultTheme()
+}
 
 const { globalStore } = require("/hooks")
 const { debug } = require("react-native-reanimated")
 
-globalStore.set("theme", defaultTheme, { persist: true })
+globalStore.set("theme", _theme, { persist: true })
 
 //─────────────────────
 // 		EXPORTS

@@ -26,8 +26,8 @@ const DetailScreen = (props) => {
 	const [_imageZoomScale, set_imageZoomScale] = useState(1)
 
 	const { stylez, getStylez } = useStyle(DetailScreen)
-	const tabStyle = getStylez(TabStyle)
-	const attachementFileStyle = getStylez(AttachementFileStyle)
+	const tabStylez = getStylez(TabStyle)
+	const attachementFileStylez = getStylez(AttachementFileStyle)
 
 	const { auth } = useAuth()
 	let { boardz, board, boardID, boardUrl, article, articleID } = nextProps
@@ -59,12 +59,12 @@ const DetailScreen = (props) => {
 		//htmlOptions.viewport = 660 < screen.width ? `width=device-width, user-scalable=no` : `initial-scale=1, maximum-scale=1`
 		//console.debug(this, hasTable, htmlOptions)
 		return [
-			<Tabs tabBarUnderlineStyle={tabStyle.tabBarUnderline} key="tabs" locked>
+			<Tabs tabBarUnderlineStyle={tabStylez.tabBarUnderline} key="tabs" locked>
 				<Tab
-					tabStyle={tabStyle.tab}
-					activeTabStyle={tabStyle.activeTab}
-					textStyle={tabStyle.tabText}
-					activeTextStyle={tabStyle.activeTabText}
+					tabStyle={tabStylez.tab}
+					activeTabStyle={tabStylez.activeTab}
+					textStyle={tabStylez.tabText}
+					activeTextStyle={tabStylez.activeTabText}
 					heading="본문">
 					{item.itemID ? (
 						<Content>
@@ -132,23 +132,23 @@ const DetailScreen = (props) => {
 					</Button>
 				</Tab>
 				<Tab
-					tabStyle={tabStyle.tab}
-					activeTabStyle={tabStyle.activeTab}
-					textStyle={tabStyle.tabText}
-					activeTextStyle={tabStyle.activeTabText}
+					tabStyle={tabStylez.tab}
+					activeTabStyle={tabStylez.activeTab}
+					textStyle={tabStylez.tabText}
+					activeTextStyle={tabStylez.activeTabText}
 					heading={"첨부파일" + (item.attachements ? " (" + item.attachments.length + ")" : "")}>
 					<List
 						data={item.attachments}
 						keyExtractor={(item) => item.fileID}
 						renderItem={({ item }) => (
-							<ListItem style={attachementFileStyle.listItem} icon onPress={() => share(item)}>
+							<ListItem style={attachementFileStylez.listItem} icon onPress={() => share(item)}>
 								{item.thumbnailUrl ? (
-									<FastImage style={attachementFileStyle.iconImage} source={{ uri: item.thumbnailUrl }} square />
+									<FastImage style={attachementFileStylez.iconImage} source={{ uri: item.thumbnailUrl }} square />
 								) : (
-									<IconFA style={attachementFileStyle.icon} name="file-o" />
+									<IconFA style={attachementFileStylez.icon} name="file-o" />
 								)}
-								<Text style={attachementFileStyle.name}>{item.name}</Text>
-								<Text style={attachementFileStyle.size}>{toFileSize(item.size)}</Text>
+								<Text style={attachementFileStylez.name}>{item.name}</Text>
+								<Text style={attachementFileStylez.size}>{toFileSize(item.size)}</Text>
 							</ListItem>
 						)}
 						nothingVisible

@@ -31,7 +31,7 @@ const CommentListScreen = (props) => {
 	/* props 변경에 따른 state 설정 */
 
 	const { stylez, getStylez } = useStyle(CommentListStyle)
-	const footerStyle = getStylez("Footer", FooterStyle)
+	const footerStylez = getStylez("Footer", FooterStyle)
 
 	timestamp = maxTimestamp(timestamp, auth.timestamp)
 	if (_timestamp < timestamp) {
@@ -86,8 +86,8 @@ const CommentListScreen = (props) => {
 			{commentable && (
 				<KeyboardAvoidingView behavior={itsIOS ? "padding" : null}>
 					<InputBar
-						style={footerStyle.inputBar}
-						inputStyle={footerStyle.input}
+						style={footerStylez.inputBar}
+						inputStyle={footerStylez.input}
 						placeholder="댓글을 입력해 주세요."
 						minLength={1}
 						buttonTitle="등록"

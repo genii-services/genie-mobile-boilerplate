@@ -22,14 +22,14 @@ let styleConditionz = {}
 const putCachedStyle = (key, style, initial) => {
 	if (typeof style === FUNCTION && initial) style = Function.callSafely(style, initial.purez || initial)
 	const purez = {},
-		varientz = {},
+		variantz = {},
 		children = {}
 	forEach(style, (v, k) => {
-		if (isStyleVariant(k)) varientz[k] = v
+		if (isStyleVariant(k)) variantz[k] = v
 		else if (isChildStyle(k)) children[k] = v
 		else purez[k] = v
 	})
-	cachedStylez[key] = { purez, varientz, children }
+	cachedStylez[key] = { purez, variantz, children }
 }
 
 const putCachedStyles = (collection, type, initial) => {
@@ -82,15 +82,19 @@ const useStyle = (target, conditionz, initialStyle) => {
 		let stylez = isEqual(styleConditionz[name], conditionz) && cachedStylez[name]
 		if (stylez) return stylez
 
-		const { purez = {}, varientz = {}, children = {} } = cachedStylez[name] || {}
-		stylez = assign({}, purez, initialStyle)
-		const _conditionz = { ...conditionz }
-		forEach(_conditionz, (v, k) => {
-			const varient = varientz["." + k]
-			if (varient) {
-				assign(stylez, varient)
-			}
-		})
+		const { purez, variantz, children = {} } = cachedStylez[name] || {}
+		stylez = assign({}, purez)
+		if(variantz) {
+			forEach(conditionz, (v, k) => {
+				const variant = variantz["." + k]
+				forEach(variant, (vv,kk) => {
+					if (isStyleVariant(kk) && conditionz[kk.substring(1)] === true) {
+						assign(stylez, vv[kk])
+					}
+					else if (!isChildStyle(kk)) stylez[kk] =  vv
+				})
+			})
+		}
 		styleConditionz[name] = conditionz
 
 		if (!initialStyle)
@@ -114,7 +118,7 @@ const useStyle = (target, conditionz, initialStyle) => {
 			default:
 				initialStyle = {}
 		}
-		assign(stylez, purez, initialStyle)
+		assign(stylez, initialStyle)
 		cachedStylez[name] = stylez // StyleSheet.create(stylez)
 		return stylez
 	}
