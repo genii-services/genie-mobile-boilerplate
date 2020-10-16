@@ -64,5 +64,7 @@ if (__DEV__) {
 	}
 }
 
+RadioElement.displayName = "Radio"
+
 // const { connectStyle } = require("/utils/style")
 module.exports = RadioElement //connectStyle(RadioElement, MODULE_NAME$)

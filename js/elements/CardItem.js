@@ -1,7 +1,7 @@
 const MODULE_NAME$ = "CardItemElement"
 console.debug(MODULE_NAME$)
 
-const React = require("react")
+require("react")
 const { TouchableOpacity, View } = require("react-native")
 
 const { forwardRef } = require("/hooks")
@@ -27,6 +27,7 @@ if (__DEV__) {
 		button: bool,
 	}
 }
+CardItemElement.displayName = "CardItem"
 
 // const { connectStyle } = require("/utils/style")
 module.exports = CardItemElement //connectStyle(CardItemElement, MODULE_NAME$)

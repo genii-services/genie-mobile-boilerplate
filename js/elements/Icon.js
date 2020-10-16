@@ -2,7 +2,7 @@ const MODULE_NAME$ = "IconElement"
 console.debug(MODULE_NAME$)
 
 const _ = require("lodash")
-const React = require("react")
+require("react")
 const AntDesign = require("react-native-vector-icons/AntDesign").default
 const Entypo = require("react-native-vector-icons/Entypo").default
 const EvilIcons = require("react-native-vector-icons/EvilIcons").default
@@ -89,6 +89,8 @@ if (__DEV__) {
 		type: oneOf(_.keys(IconFamilez)), // string
 	}
 }
+
+IconElement.displayName = "Icon"
 
 // const { connectStyle } = require("/utils/style")
 exports = module.exports = IconElement //connectStyle(IconElement, MODULE_NAME$)

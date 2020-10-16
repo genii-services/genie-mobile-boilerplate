@@ -1,7 +1,7 @@
 const MODULE_NAME$ = "ContentElement"
 console.debug(MODULE_NAME$)
 
-const React = require("react")
+require("react")
 const { SafeAreaView } = require("react-native")
 const { KeyboardAwareScrollView } = require("react-native-keyboard-aware-scroll-view")
 
@@ -79,6 +79,8 @@ ContentElement.getDefaultStyle = ({ TRANSPARENT }) => {
 		},
 	}
 }
+
+ContentElement.displayName = "Content"
 
 // const { connectStyle } = require("/utils/style")
 module.exports = ContentElement //connectStyle(ContentElement, MODULE_NAME$)

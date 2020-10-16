@@ -1,4 +1,4 @@
-const React = require("react")
+require("react")
 const { View } = require("react-native")
 const { Container, Header, Content, Card, CardItem, Body, H1, H2, H3, Text } = require("/elements") // /elements	native-base
 

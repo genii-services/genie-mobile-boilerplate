@@ -2,7 +2,7 @@ const MODULE_NAME$ = "ButtonElement"
 console.debug(MODULE_NAME$)
 
 /* eslint-disable new-cap */
-const React = require("react")
+const { Children, cloneElement } = require("react")
 const { TouchableOpacity, Platform, View, TouchableNativeFeedback } = require("react-native")
 const { Ripple } = TouchableNativeFeedback
 const { CENTER, ROW, TRANSPARENT } = require("/constants/style")
@@ -79,9 +79,9 @@ const ButtonElement = ({
 
 	const children = itsIOS
 		? props.children
-		: React.Children.map(props.children, (child) =>
+		: Children.map(props.children, (child) =>
 				child && child.type === Text
-					? React.cloneElement(child, {
+					? cloneElement(child, {
 							uppercase: defaultTheme.buttonUppercaseAndroidText,
 							...child.props,
 					  })
@@ -144,6 +144,7 @@ if (__DEV__) {
 		active: bool,
 	}
 }
+ButtonElement.displayName = "Button"
 
 // const { connectStyle } = require("/utils/style")
 module.exports = ButtonElement // connectStyle(ButtonElement, MODULE_NAME$)

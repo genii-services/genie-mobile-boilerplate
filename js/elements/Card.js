@@ -1,7 +1,7 @@
 const MODULE_NAME$ = "CardElement"
 console.debug(MODULE_NAME$)
 
-const React = require("react")
+require("react")
 const { FlatList, View, ViewPropTypes } = require("react-native")
 const { forwardRef } = require("/hooks")
 
@@ -23,6 +23,7 @@ if (__DEV__) {
 		renderRow: func,
 	}
 }
+CardElement.displayName = "Card"
 
 // const { connectStyle } = require("/utils/style")
 module.exports = CardElement //connectStyle(CardElement, MODULE_NAME$)

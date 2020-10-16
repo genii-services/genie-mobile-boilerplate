@@ -2,8 +2,8 @@
  * useInput
  * 200308 by appcreatier@gmail.com
  */
-const React = require("react")
-const { useState } = React // eslint-disable-line no-unused-vars
+require("react")
+const { useState } = require("/hooks") // eslint-disable-line no-unused-vars
 
 const useInput = (defaultValue) => {
 	const [value, setValue] = useState(defaultValue)

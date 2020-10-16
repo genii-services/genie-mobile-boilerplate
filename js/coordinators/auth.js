@@ -1,12 +1,12 @@
-const MODULE_NAME$ = "coordinators/useAuth"
+const MODULE_NAME$ = "AuthCoordinator"
 console.debug(MODULE_NAME$)
 
-const React = require("react")
-const {} = React
+require("react")
 
 const { assign } = require("/utils")
 const { Progress, SUCCEED, FAILED, ERROR } = require("/utils/progress")
 const { useEffect, useRef, useState, useStore, useThis } = require("/hooks")
+console.debug(MODULE_NAME$)
 const notification = require("/interactors/notification")
 const { request } = require("/interactors/rest")
 const internalStorage = require("/interactors/internalStorage")
@@ -135,3 +135,4 @@ const useAuth = () => {
 }
 
 module.exports = { useAuth }
+console.debug(MODULE_NAME$)

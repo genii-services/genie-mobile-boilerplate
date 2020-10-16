@@ -1,7 +1,5 @@
 console.debug(Rnrf)
 
-const React = require("react")
-const { useEffect, useState } = React
 const { AppState, Linking, View } = require("react-native")
 const { PERMISSIONS } = require("react-native-permissions")
 // const Orientation = require("react-native-orientation-locker").default
@@ -10,7 +8,7 @@ const { whoami, trace } = require("/utils/debug")
 const { SUCCEED } = require("/utils/progress")
 const { checkAppVersion, exitApp } = require("/utils/app")
 const { deviceOS, itsAndroid } = require("/utils/device")
-const { useRefs, useThis } = require("/hooks")
+const { useEffect, useState, useRefs, useThis } = require("/hooks")
 const permissions = require("/interactors/permissions")
 const notification = require("/interactors/notification")
 const restSvc = require("/interactors/rest")

@@ -1,5 +1,5 @@
 /** RemoteImage Element */
-const React = require("react")
+require("react")
 const { Image, RefreshControl, TouchableHighlight, Text, View } = require("react-native")
 const FastImage = require("react-native-fast-image")
 
@@ -139,5 +139,7 @@ RemoteImageElement.getDefaultStyle = () => {
 		},
 	}
 }
+
+RemoteImageElement.displayName = "RemoteImage"
 
 module.exports = RemoteImageElement

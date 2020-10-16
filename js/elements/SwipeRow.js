@@ -1,7 +1,7 @@
 const MODULE_NAME$ = "SwipeRowElement"
 console.debug(MODULE_NAME$)
 
-const React = require("react")
+require("react")
 const { Animated, PanResponder, View } = require("react-native")
 
 const { ABSOLUTE, HIDDEN, ROW, SPACE_BETWEEN } = require("/constants/style")
@@ -248,6 +248,8 @@ const stylez = {
 		top: 0,
 	},
 }
+
+SwipeRowElement.displayName = "SwipeRow"
 
 // const { connectStyle } = require("/utils/style")
 module.exports = SwipeRowElement //connectStyle(SwipeRowElement, MODULE_NAME$)

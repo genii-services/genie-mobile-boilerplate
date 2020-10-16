@@ -1,4 +1,4 @@
-const React = require("react")
+require("react")
 
 const { useCoordinator, useState } = require("/hooks")
 const { Button, Container, Content, Form, Header, Root, Text, Toast } = require("/elements")

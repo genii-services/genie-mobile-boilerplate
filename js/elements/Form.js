@@ -3,7 +3,9 @@ console.debug(MODULE_NAME$)
 
 const { View } = require("react-native")
 
-const Form = View
+const FormElement = props => <View {...props}/>
+
+FormElement.displayName = "Form"
 
 // const { connectStyle } = require("/utils/style")
-module.exports = Form //connectStyle(Form, MODULE_NAME$)
+module.exports = FormElement //connectStyle(FormElement, MODULE_NAME$)

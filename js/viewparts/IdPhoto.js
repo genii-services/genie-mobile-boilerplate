@@ -1,4 +1,4 @@
-const React = require("react")
+require("react")
 const _ = require("lodash")
 const { Image } = require("react-native")
 const { Icon } = require("/elements")

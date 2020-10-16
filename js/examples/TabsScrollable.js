@@ -1,5 +1,4 @@
-const React = require("react")
-// const { useState } = React
+require("react")
 const { Container, Content, Header, ScrollableTab, Tab, Tabs, Text } = require("/elements")
 
 const Tab1 = props => {

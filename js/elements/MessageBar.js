@@ -1,4 +1,4 @@
-const React = require("react")
+require("react")
 const { MessageBar, MessageBarManager } = require("react-native-message-bar")
 
 const { useRefs } = require("/hooks")
@@ -19,5 +19,7 @@ const MessageBarElement = props => {
 
 	return <MessageBar ref={el => (refs.alert = el)} />
 }
+
+MessageBarElement.displayName = "MessageBar"
 
 module.exports = MessageBarElement

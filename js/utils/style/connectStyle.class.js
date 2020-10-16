@@ -1,4 +1,4 @@
-const React = require("react")
+const { Component } = require("react")
 const PropTypes = require("prop-types")
 const hoistStatics = require("hoist-non-react-statics")
 const _ = require("lodash")
@@ -53,7 +53,7 @@ module.exports = (componentStyleName, componentStyle = {}, mapPropsToStyleNames,
 			throwConnectStyleError("Component Style Name must be string", componentDisplayName)
 		}
 
-		class StyledComponent extends React.Component {
+		class StyledComponent extends Component {
 			static contextTypes = {
 				theme: ThemeShape,
 				// The style inherited from the parent

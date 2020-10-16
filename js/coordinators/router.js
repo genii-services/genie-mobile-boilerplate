@@ -1,7 +1,6 @@
 console.debug("RouterCoordinator")
 
-const React = require("react")
-const { useState } = React
+require("react")
 const { Linking } = require("react-native")
 const {
 	Actions,

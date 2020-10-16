@@ -3,7 +3,7 @@ console.debug(MODULE_NAME$)
 
 /* eslint-disable no-plusplus */
 /* eslint-disable no-loop-func */
-const React = require("react")
+const { Children, createElement } = require("react")
 const { TouchableOpacity, Animated, Platform, View } = require("react-native")
 const { isArray, remove } = require("lodash")
 
@@ -56,7 +56,7 @@ const ItemElement = (props) => {
 	// Temporary fix to avoid the crash.
 	// To be refactored to getDerivedStateFromProps.
 
-	const childrenArray = React.Children.toArray(props.children)
+	const childrenArray = Children.toArray(props.children)
 
 	remove(childrenArray, (item) => {
 		if (item.type.displayName !== "StyledInput") return null
@@ -73,7 +73,7 @@ const ItemElement = (props) => {
 
 	const renderChildren = () => {
 		const newChildren = []
-		const childrenArray = React.Children.toArray(props.children)
+		const childrenArray = Children.toArray(props.children)
 
 		let label = []
 		let labelProps = {}
@@ -289,14 +289,14 @@ const ItemElement = (props) => {
 		const labelStyle = StyleSheet.flatten([{ fontSize: 15, lineHeight: 30 }, labelProps.style])
 		if (props.floatingLabel) {
 			if (_isFocused) {
-				newLabel.push(React.createElement(Label, { ...labelProps, key: "newFLabel", float: true, style: labelStyle }))
+				newLabel.push(createElement(Label, { ...labelProps, key: "newFLabel", float: true, style: labelStyle }))
 				floatUp(-16)
 			} else {
 				newLabel.push(label)
 				floatBack(labelProps.floatBack)
 			}
 		} else {
-			newLabel.push(React.createElement(Label, { ...labelProps, key: "newLabel" }))
+			newLabel.push(createElement(Label, { ...labelProps, key: "newLabel" }))
 		}
 		return newLabel
 	}
@@ -321,6 +321,8 @@ if (__DEV__) {
 		error: bool,
 	}
 }
+
+ItemElement.displayName = "Item"
 
 // const { connectStyle } = require("/utils/style")
 module.exports = ItemElement //connectStyle(ItemElement, "ItemElement")

@@ -1,7 +1,7 @@
 const MODULE_NAME$ = "ThumbnailElement"
 console.debug(MODULE_NAME$)
 
-const React = require("react")
+require("react")
 const { Image } = require("react-native")
 
 const { forwardRef } = require("/hooks")
@@ -20,6 +20,8 @@ if (__DEV__) {
 		size: number,
 	}
 }
+
+ThumbnailElement.displayName = "Thumbnail"
 
 // const { connectStyle } = require("/utils/style")
 module.exports = ThumbnailElement //connectStyle(ThumbnailElement, MODULE_NAME$)

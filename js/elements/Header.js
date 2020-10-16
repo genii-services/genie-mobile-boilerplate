@@ -4,7 +4,7 @@ console.debug(MODULE_NAME$)
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-unneeded-ternary */
 const _ = require("lodash")
-const React = require("react")
+require("react")
 const { View, StatusBar } = require("react-native")
 
 const { screen, itsIphoneX } = require("/utils/device")
@@ -54,6 +54,8 @@ if (__DEV__) {
 		rounded: bool,
 	}
 }
+
+HeaderElement.displayName = "Header"
 
 // const { connectStyle } = require("/utils/style")
 module.exports = HeaderElement //connectStyle(HeaderElement, MODULE_NAME$)

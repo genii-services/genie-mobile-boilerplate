@@ -1,4 +1,4 @@
-const React = require("react")
+require("react")
 
 const ImageView = require("react-native-image-view")
 

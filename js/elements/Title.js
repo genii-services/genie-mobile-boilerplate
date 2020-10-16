@@ -1,7 +1,7 @@
 const MODULE_NAME$ = "TitleElement"
 console.debug(MODULE_NAME$)
 
-const React = require("react")
+require("react")
 const { Text } = require("react-native")
 
 const TitleElement = (props) => {
@@ -15,6 +15,8 @@ if (__DEV__) {
 		style: oneOfType([object, number, array]),
 	}
 }
+
+TitleElement.displayName = "Title"
 
 // const { connectStyle } = require("/utils/style")
 module.exports = TitleElement //connectStyle(TitleElement, MODULE_NAME$)

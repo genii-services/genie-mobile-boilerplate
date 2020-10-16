@@ -1,7 +1,7 @@
-const React = require("react")
+
+const { Children } = require("react")
 const _ = require("lodash")
 
-const { Children } = React
 const Theme = require("./Theme")
 
 /**

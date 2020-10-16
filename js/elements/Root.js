@@ -1,7 +1,7 @@
 const MODULE_NAME$ = "RootElement"
 console.debug(MODULE_NAME$)
 
-const React = require("react")
+require("react")
 const { View } = require("react-native")
 
 const { forwardRef } = require("/hooks")
@@ -25,6 +25,8 @@ if (__DEV__) {
 		style: oneOfType([object, number, array]),
 	}
 }
+
+RootElement.displayName = "Root"
 
 // const { connectStyle } = require("/utils/style")
 module.exports = RootElement //connectStyle(RootElement, MODULE_NAME$)

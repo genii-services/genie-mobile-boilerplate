@@ -18,5 +18,7 @@ if (__DEV__) {
 	}
 }
 
+RightElement.displayName = "Right"
+
 // const { connectStyle } = require("/utils/style")
 module.exports = RightElement //connectStyle(RightElement, MODULE_NAME$)

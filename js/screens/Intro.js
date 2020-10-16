@@ -1,7 +1,7 @@
 const MODULE_NAME$ = "IntroScreen"
 console.debug(MODULE_NAME$)
 
-const React = require("react")
+require("react")
 const { TouchableHighlight, Text } = require("react-native")
 const { Container } = require("/elements")
 

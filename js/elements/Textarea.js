@@ -1,7 +1,7 @@
 const MODULE_NAME$ = "TextareaElement"
 console.debug(MODULE_NAME$)
 
-const React = require("react")
+require("react")
 const { TextInput } = require("react-native")
 
 const { useRefs } = require("/hooks")
@@ -42,6 +42,8 @@ if (__DEV__) {
 		underline: bool,
 	}
 }
+
+TextareaElement.displayName = "Textarea"
 
 // const { connectStyle } = require("/utils/style")
 module.exports = TextareaElement //connectStyle(TextareaElement, MODULE_NAME$)

@@ -1,9 +1,10 @@
-const React = require("react")
+require("react")
 
 const { BLACK, WHITE } = require("/constants/style")
 const { Container, Header, Content, Badge, Text, Icon } = require("/elements")
 
 const BadgeExample = props => {
+	console.debug("running")
 	return (
 		<Container>
 			<Header />

@@ -1,5 +1,5 @@
 /** VLineElement */
-const React = require("react")
+require("react")
 const { View } = require("react-native")
 
 const { PC100 } = require("/constants/style")
@@ -31,6 +31,8 @@ VLineElement.defaultProps = {
 	borderWidth: 1,
 	width: 1,
 }
+
+VLineElement.displayName = "VLine"
 
 // EXPORTS
 

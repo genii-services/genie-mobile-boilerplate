@@ -1,7 +1,7 @@
 /** InputBar Element */
 console.debug("InputBarElement")
 
-const React = require("react")
+require("react")
 const _ = require("lodash")
 const { View, Keyboard } = require("react-native")
 
@@ -130,4 +130,7 @@ InputBarElement.getDefaultStyle = ({ fontFamily }) => {
 		},
 	}
 }
+
+InputBarElement.displayName = "InputBar"
+
 module.exports = InputBarElement

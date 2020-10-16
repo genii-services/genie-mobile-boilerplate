@@ -1,4 +1,4 @@
-const React = require("react")
+require("react")
 const { StatusBar, View } = require("react-native")
 const async = require("async")
 const Permissions = require("react-native-permissions")

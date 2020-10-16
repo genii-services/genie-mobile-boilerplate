@@ -3,7 +3,9 @@ console.debug(MODULE_NAME$)
 
 const { View } = require("react-native")
 
-const FooterTab = View
+const FooterTabElement = props => <View {...props}/>
+
+FooterTabElement.displayName = "FooterTab"
 
 // const { connectStyle } = require("/utils/style")
-module.exports = FooterTab //connectStyle(FooterTab, MODULE_NAME$)
+module.exports = FooterTabElement //connectStyle(FooterTabElement, MODULE_NAME$)

@@ -2,7 +2,7 @@
 const MODULE_NAME$ = "BorderButtonElement"
 console.debug(MODULE_NAME$)
 
-const React = require("react")
+require("react")
 const _ = require("lodash")
 const IconFA = require("react-native-vector-icons/FontAwesome")
 
@@ -125,5 +125,6 @@ BorderButtonElement.getDefaultStyle = ({ fontFamily }) => {
 		},
 	}
 }
+BorderButtonElement.displayName = "BorderButton"
 
 module.exports = BorderButtonElement

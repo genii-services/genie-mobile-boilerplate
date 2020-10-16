@@ -1,6 +1,6 @@
 console.debug(Logo)
 
-const React = require("react")
+require("react")
 const { RemoteImage } = require("/elements")
 
 const Logo = props => {

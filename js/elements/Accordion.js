@@ -1,6 +1,6 @@
 /* eslint-disable react/no-multi-comp */
 /* eslint-disable react/prefer-stateless-function */
-const React = require("react")
+require("react")
 const { Animated, TouchableWithoutFeedback, FlatList, View } = require("react-native")
 
 const { BLACK, CENTER, ROW, SPACE_BETWEEN } = require("/constants/style")
@@ -171,6 +171,7 @@ const AccordionElement = ({
 		/>
 	)
 }
+AccordionElement.displayName = "Accordion"
 
 const defaultHeaderStyle = {
 	flexDirection: ROW,

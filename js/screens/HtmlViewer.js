@@ -1,4 +1,4 @@
-const React = require("react")
+require("react")
 
 const { View, Text } = require("react-native")
 const { WebView } = require("react-native-webview")

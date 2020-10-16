@@ -3,7 +3,7 @@ console.debug(MODULE_NAME$)
 
 /* eslint-disable no-use-before-define */
 /* eslint-disable radix */
-const React = require("react")
+require("react")
 const { ActionSheetIOS, FlatList, Modal, TouchableOpacity } = require("react-native")
 
 const { deviceHeight, itsIOS } = require("/utils/device")
@@ -123,6 +123,7 @@ ActionSheetElement.getDefaultStyle = ({ FLEX_END, TRANSPARENT, WHITE }) => ({
 		color: "#757575",
 	},
 })
+ActionSheetElement.displayName = "ActionSheet"
 
 // const { connectStyle } = require("/utils/style")
 module.exports = ActionSheetElement //connectStyle(ActionSheetElement, MODULE_NAME$)

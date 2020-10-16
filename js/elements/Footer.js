@@ -1,7 +1,7 @@
 const MODULE_NAME$ = "FooterElement"
 console.debug(MODULE_NAME$)
 
-const React = require("react")
+require("react")
 const { View } = require("react-native")
 
 const { screen, itsIphoneX } = require("/utils/device")
@@ -42,6 +42,8 @@ if (__DEV__) {
 		style: oneOfType([object, number, array]),
 	}
 }
+
+FooterElement.displayName = "Footer"
 
 // const { connectStyle } = require("/utils/style")
 module.exports = FooterElement // connectStyle(FooterElement, MODULE_NAME$)

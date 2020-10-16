@@ -1,4 +1,4 @@
-const React = require("react")
+require("react")
 const { useState } = require("/hooks")
 const { Button, Container, Header, Content, Form, Icon, Item, Input, Label, Left, Picker } = require("/elements") // /elements	native-base
 

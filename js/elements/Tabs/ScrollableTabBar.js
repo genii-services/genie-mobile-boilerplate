@@ -1,7 +1,7 @@
 const MODULE_NAME$ = "Tabs/ScrollableTabBar"
 console.debug(MODULE_NAME$)
 
-const React = require("react")
+require("react")
 const ReactNative = require("react-native")
 const { View, Animated, ScrollView } = ReactNative
 const { isEqual } = require("lodash")

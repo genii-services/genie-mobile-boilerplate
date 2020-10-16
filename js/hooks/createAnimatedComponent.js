@@ -1,6 +1,6 @@
-const React = require("react")
+const { forwardRef } = require("react")
 const { Animated } = require("react-native")
 
 module.exports = Component => {
-	return Animated.createAnimatedComponent(React.forwardRef((props, ref) => <Component ref={ref} {...props} />))
+	return Animated.createAnimatedComponent(forwardRef((props, ref) => <Component ref={ref} {...props} />))
 }

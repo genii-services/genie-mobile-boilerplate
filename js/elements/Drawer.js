@@ -1,4 +1,4 @@
-const React = require("react")
+require("react")
 const Drawer = require("react-native-drawer")
 
 const { BLACK } = require("/constants/style")
@@ -28,5 +28,7 @@ DrawerElement.defaultProps = {
 	},
 	tweenHandler: ratio => ({ mainOverlay: { opacity: ratio / 2 } }),
 }
+
+DrawerElement.displayName = "Drawer"
 
 module.exports = DrawerElement

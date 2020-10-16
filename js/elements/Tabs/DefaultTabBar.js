@@ -1,7 +1,7 @@
 const MODULE_NAME$ = "DefaultTabBarElement"
 console.debug(MODULE_NAME$)
 
-const React = require("react")
+require("react")
 const _ = require("lodash")
 const ReactNative = require("react-native")
 const { Animated } = ReactNative

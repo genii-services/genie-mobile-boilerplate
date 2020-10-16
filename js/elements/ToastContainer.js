@@ -3,7 +3,7 @@ console.debug(MODULE_NAME$)
 
 /* eslint-disable class-methods-use-this */
 const _ = require("lodash")
-const React = require("react")
+require("react")
 const { Keyboard, Animated } = require("react-native")
 
 const { ABSOLUTE, BOTTOM, PC100, TOP } = require("/constants/style")
@@ -118,6 +118,8 @@ if (__DEV__) {
 		style: oneOfType([object, number, array]),
 	}
 }
+
+ToastContainerElement.displayName = "ToastContainer"
 
 // const { connectStyle } = require("/utils/style")
 module.exports = ToastContainerElement // connectStyle(ToastContainerElement, MODULE_NAME$)

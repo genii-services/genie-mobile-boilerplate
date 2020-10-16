@@ -1,7 +1,7 @@
 const MODULE_NAME$ = "FabElement"
 console.debug(MODULE_NAME$)
 
-const React = require("react")
+const { Children, cloneElement } = require("react")
 const { Platform, Animated, TouchableOpacity, TouchableNativeFeedback, View } = require("react-native")
 const { remove, merge, clone } = require("lodash")
 
@@ -51,7 +51,7 @@ const defaultThemeStyle = {
 
 const AnimatedFab = createAnimatedComponent(Button)
 
-const Fab = (props) => {
+const FabElement = (props) => {
 	const { direction, position } = props
 
 	const _this = useThis(() => ({
@@ -63,7 +63,7 @@ const Fab = (props) => {
 	const [_active, set_active] = useState(false)
 
 	useEffect(() => {
-		const childrenArray = React.Children.toArray(props.children)
+		const childrenArray = Children.toArray(props.children)
 		const icon = remove(childrenArray, (item) => {
 			if (item.type.displayName === "StyledButton") return true
 			return null
@@ -292,7 +292,7 @@ const Fab = (props) => {
 	}
 
 	const renderButtons = () => {
-		const childrenArray = React.Children.toArray(props.children)
+		const childrenArray = Children.toArray(props.children)
 		const newChildren = []
 		childrenArray.slice(1).map((child, i) =>
 			newChildren.push(
@@ -305,12 +305,12 @@ const Fab = (props) => {
 	}
 
 	const renderFab = () => {
-		const childrenArray = React.Children.toArray(props.children)
+		const childrenArray = Children.toArray(props.children)
 		remove(childrenArray, (item) => {
 			if (item.type.displayName === "StyledButton") return true
 			return null
 		})
-		return React.cloneElement(childrenArray[0], {
+		return cloneElement(childrenArray[0], {
 			style: {
 				color: defaultThemeStyle.fabIconColor,
 				fontSize: defaultThemeStyle.fabIconSize,
@@ -341,5 +341,7 @@ const Fab = (props) => {
 	)
 }
 
+FabElement.displayName = "Fab"
+
 // const { connectStyle } = require("/utils/style")
-module.exports = Fab // connectStyle(Fab, MODULE_NAME$)
+module.exports = FabElement // connectStyle(Fab, MODULE_NAME$)

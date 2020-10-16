@@ -1,4 +1,4 @@
-const React = require("react")
+require("react")
 const _ = require("lodash")
 const { Left, Item, Icon, Text, Button } = require("/elements")
 

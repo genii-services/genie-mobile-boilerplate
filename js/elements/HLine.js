@@ -1,5 +1,5 @@
 /** VLine Element */
-const React = require("react")
+require("react")
 const { View } = require("react-native")
 
 const HLineElement = props => {
@@ -19,5 +19,7 @@ HLineElement.defaultProps = {
 	borderColor: "#e0e0c0",
 	borderWidth: 1,
 }
+
+HLineElement.displayName = "HLine"
 
 module.exports = HLineElement

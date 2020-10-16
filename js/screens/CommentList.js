@@ -1,4 +1,4 @@
-const React = require("react")
+require("react")
 const { View, KeyboardAvoidingView } = require("react-native")
 const _ = require("lodash")
 const { Container, Body, ListItem, Text } = require("/elements")

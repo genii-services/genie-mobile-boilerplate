@@ -1,4 +1,4 @@
-const React = require("react")
+require("react")
 const { Accordion, Container, Header, Content } = require("/elements")
 
 const AccordionExample = props => {

@@ -1,4 +1,4 @@
-const React = require("react")
+require("react")
 const { Modal, View } = require("react-native")
 const DateTimePicker = require("@react-native-community/datetimepicker")
 
@@ -7,7 +7,7 @@ const { useStyle } = require("/coordinators")
 
 const Text = require("./Text")
 
-const DatePicker = (props) => {
+const DatePickerElement = (props) => {
 	const {
 		animationType,
 		disabled,
@@ -87,9 +87,11 @@ const DatePicker = (props) => {
 	)
 }
 
-DatePicker.defaultProps = {
+DatePickerElement.defaultProps = {
 	disabled: false,
 	placeHolderText: "Select Date",
 }
 
-module.exports = DatePicker
+DatePickerElement.displayName = "DatePicker"
+
+module.exports = DatePickerElement

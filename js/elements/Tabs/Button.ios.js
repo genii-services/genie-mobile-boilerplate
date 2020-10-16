@@ -1,4 +1,4 @@
-const React = require("react")
+require("react")
 const ReactNative = require("react-native")
 const { TouchableOpacity } = ReactNative
 

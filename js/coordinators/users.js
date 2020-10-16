@@ -1,4 +1,5 @@
-console.debug("UsersCoordinator")
+const MODULE_NAME$ = "UsersCoordinator"
+console.debug(MODULE_NAME$)
 
 const { useStore } = require("/hooks")
 

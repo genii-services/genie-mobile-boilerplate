@@ -1,5 +1,5 @@
-const React = require("react")
-const { useState } = React
+require("react")
+const { useState } = require("/hooks")
 const { ActionSheet, Button, Container, Content, Header, Text } = require("/elements")
 
 var DESTRUCTIVE_INDEX = 3

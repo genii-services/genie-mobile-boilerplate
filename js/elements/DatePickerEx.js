@@ -1,5 +1,5 @@
 /** 공통 라이브러리 */
-const React = require("react")
+require("react")
 const DatePicker_ = require("react-native-datepicker")
 
 const { ABSOLUTE, FLEX_START, LEFT } = require("/constants/style")
@@ -9,7 +9,7 @@ const { fontFamily } = require("/styles")
 // const Button = require("./Button")
 // const Text = require("./Text")
 
-const DatePicker = ({ buttonStyle, value, datePickerMode, doneText, cancelText, onPickerConfirm, ...props }) => {
+const DatePickerEx = ({ buttonStyle, value, datePickerMode, doneText, cancelText, onPickerConfirm, ...props }) => {
 	const handleOnDateChange = (date) => typeof onPickerConfirm === "function" && onPickerConfirm(date)
 
 	const { mode } = props
@@ -29,7 +29,7 @@ const DatePicker = ({ buttonStyle, value, datePickerMode, doneText, cancelText, 
 	)
 }
 
-DatePicker.defaultProps = {
+DatePickerEx.defaultProps = {
 	...DatePicker_.defaultProps,
 	buttonStyle: {
 		flex: 0.6,
@@ -90,7 +90,10 @@ DatePicker.defaultProps = {
 	showIcon: false,
 }
 
-module.exports = DatePicker
+
+DatePickerEx.displayName = "DatePicker"
+
+module.exports = DatePickerEx
 
 /*
 // 안드로이드 NullPointerException 발생

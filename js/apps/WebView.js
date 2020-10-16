@@ -1,5 +1,4 @@
-const React = require("react")
-// const { useState } = React
+require("react")
 const { Body, Card, CardItem, Container, Content, Header, Html, Icon, Right, Text } = require("/elements")
 
 const fontSize = 15

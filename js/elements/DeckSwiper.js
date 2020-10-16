@@ -1,7 +1,7 @@
 const MODULE_NAME$ = "DeckSwiperElement"
 console.debug(MODULE_NAME$)
 
-const React = require("react")
+require("react")
 const { View, Animated, PanResponder } = require("react-native")
 const clamp = require("clamp")
 
@@ -9,7 +9,7 @@ const { ABSOLUTE, COLUMN, LEFT, RIGHT } = require("/constants/style")
 
 const SWIPE_THRESHOLD = 120
 
-const DeckSwiper = (props) => {
+const DeckSwiperElement = (props) => {
 	const [_pan, set_pan] = useState(new Animated.ValueXY())
 	// const [_pan2, set_pan2] = useState(new Animated.ValueXY())
 	const [_enter, set_enter] = useState(new Animated.Value(0.8))
@@ -205,7 +205,7 @@ const DeckSwiper = (props) => {
 
 if (__DEV__) {
 	const { array, number, object, oneOfType, ViewPropTypes } = require("/utils/propTypes")
-	DeckSwiper.propTypes = {
+	DeckSwiperElement.propTypes = {
 		...ViewPropTypes,
 		style: oneOfType([object, number, array]),
 		// eslint-disable-next-line react/forbid-prop-types
@@ -213,5 +213,7 @@ if (__DEV__) {
 	}
 }
 
+DeckSwiperElement.displayName = "DeckSwiper"
+
 // const { connectStyle } = require("/utils/style")
-module.exports = DeckSwiper //connectStyle(DeckSwiper, MODULE_NAME$)
+module.exports = DeckSwiperElement //connectStyle(DeckSwiper, MODULE_NAME$)

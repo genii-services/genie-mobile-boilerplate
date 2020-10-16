@@ -1,6 +1,6 @@
 console.debug("SettingsCoordinator")
 
-const React = require("react")
+require("react")
 
 const { useStore } = require("/hooks")
 

@@ -3,7 +3,7 @@
  *           getDerivedStateFromProps 방식으로 변경
  */
 const _ = require("lodash")
-const React = require("react")
+require("react")
 const { FlatList, RefreshControl, Text, TouchableHighlight, View } = require("react-native")
 
 const { UNDEFINED } = require("/constants")
@@ -85,13 +85,13 @@ const ListElement = (props) => {
 
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
-	List.propTypes = {
+	ListElement.propTypes = {
 		...FlatList.propTypes,
 		// nothingVisible: bool,
 	}
 }
 
-List.defaultProps = {
+ListElement.defaultProps = {
 	...FlatList.defaultProps,
 	onEndReachedThreshold: 0.025,
 	nothingText: "데이터가 없습니다.",
@@ -119,5 +119,7 @@ ListElement.getDefaultStyle = () => {
 		// },
 	}
 }
+
+ListElement.displayName = "List"
 
 module.exports = ListElement

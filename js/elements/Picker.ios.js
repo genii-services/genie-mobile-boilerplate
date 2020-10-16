@@ -2,7 +2,7 @@ const MODULE_NAME$ = "Picker.iosElement"
 console.debug(MODULE_NAME$)
 
 /* eslint-disable react/sort-comp */
-const React = require("react")
+const { cloneElement } = require("react")
 const { FlatList, Modal, View } = require("react-native")
 const { Picker } = require("@react-native-community/picker")
 const { find, get } = require("lodash")
@@ -44,7 +44,7 @@ const PickerNB = (props) => {
 	}
 
 	const renderIcon = () => {
-		return React.cloneElement(props.iosIcon, {
+		return cloneElement(props.iosIcon, {
 			style: [{ fontSize: 22, lineHeight: 26 }, { ...props.iosIcon.props.style }],
 		})
 	}

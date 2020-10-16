@@ -1,13 +1,13 @@
 const MODULE_NAME$ = "InputElement"
 console.debug(MODULE_NAME$)
 
-const React = require("react")
+require("react")
 const { TextInput } = require("react-native")
 
 const { forwardRef, useThis } = require("/hooks")
 const { useStyle } = require("/coordinators")
 
-const Input = ({ disabled, style, ...props }) => {
+const InputElement = ({ disabled, style, ...props }) => {
 	const { stylez } = useStyle(MODULE_NAME$, { rounded, style }, (defaultStyle) => ({
 		root: [style],
 	}))
@@ -26,11 +26,13 @@ const Input = ({ disabled, style, ...props }) => {
 if (__DEV__) {
 	const { array, bool, number, object, oneOfType, string } = require("/utils/propTypes")
 
-	Input.propTypes = {
+	InputElement.propTypes = {
 		...TextInput.propTypes,
 		style: oneOfType([object, number, array]),
 	}
 }
 
+InputElement.displayName = "Input"
+
 // const { connectStyle } = require("/utils/style")
-module.exports = Input //connectStyle(Input, MODULE_NAME$)
+module.exports = InputElement //connectStyle(InputElement, MODULE_NAME$)

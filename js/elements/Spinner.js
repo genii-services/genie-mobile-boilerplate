@@ -1,7 +1,7 @@
 const MODULE_NAME$ = "SpinnerElement"
 console.debug(MODULE_NAME$)
 
-const React = require("react")
+require("react")
 const { ActivityIndicator } = require("react-native")
 
 const { useStyle } = require("/coordinators")
@@ -25,6 +25,8 @@ if (__DEV__) {
 		inverse: bool,
 	}
 }
+
+SpinnerElement.displayName = "Spinner"
 
 // const { connectStyle } = require("/utils/style")
 module.exports = SpinnerElement // connectStyle(SpinnerElement, MODULE_NAME$)

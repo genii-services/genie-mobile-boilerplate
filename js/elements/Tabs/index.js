@@ -1,4 +1,4 @@
-const React = require("react")
+const { Children, cloneElement } = require("react")
 const _ = require("lodash")
 const InteractionManager = require("/utils/InteractionManager")
 const ReactNative = require("react-native")
@@ -52,7 +52,7 @@ const TabsElement = (props) => {
 
 	const renderTabBar = (props) => {
 		return props.renderTabBar === false ? null : props.renderTabBar ? (
-			React.cloneElement(props.renderTabBar(props), props)
+			cloneElement(props.renderTabBar(props), props)
 		) : (
 			<DefaultTabBar {...props} />
 		)
@@ -163,7 +163,7 @@ const TabsElement = (props) => {
 		_this.reqz[req] = req
 	}
 
-	const getGrandchildren = (children = props.children) => React.Children.map(children, (child) => child)
+	const getGrandchildren = (children = props.children) => Children.map(children, (child) => child)
 
 	const { tabBarPosition } = props
 	const overlayTabs = tabBarPosition === "overlayTop" || tabBarPosition === "overlayBottom"

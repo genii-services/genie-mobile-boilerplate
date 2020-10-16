@@ -1,5 +1,5 @@
-const React = require("react")
-const { useState } = React
+require("react")
+const { useState } = require("/hooks")
 const { Container, Content, Form, Header, Picker, Item } = require("/elements")
 
 const PickerExample = props => {

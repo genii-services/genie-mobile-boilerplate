@@ -1,4 +1,4 @@
-const React = require("react")
+require("react")
 const { Switch } = require("react-native")
 const { ActionSheet, Button, Container, Content, Icon, List, ListItem, Text } = require("/elements")
 // const { Switch } = require("react-native-switch")

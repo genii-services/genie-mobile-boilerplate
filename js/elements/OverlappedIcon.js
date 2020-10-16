@@ -1,7 +1,7 @@
 /** 공통 라이브러리 */
 console.debug("OverlappedIconElement")
 
-const React = require("react")
+require("react")
 const { View } = require("react-native")
 
 const { ABSOLUTE, CENTER, FLEX_START, WHITE } = require("/constants/style")
@@ -66,5 +66,7 @@ OverlappedIconElement.defaultProps = {
 		textAlign: CENTER,
 	},
 }
+
+OverlappedIconElement.displayName = "OverlappedIcon"
 
 module.exports = OverlappedIconElement

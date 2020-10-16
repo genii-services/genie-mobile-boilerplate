@@ -1,6 +1,6 @@
 console.debug("BoardCoordinator")
 
-const React = require("react")
+require("react")
 const { useStore } = require("/hooks")
 
 const useBoard = (boardId) => {

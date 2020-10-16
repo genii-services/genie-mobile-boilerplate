@@ -1,4 +1,4 @@
-const React = require("react")
+require("react")
 const { View } = require("react-native")
 const _ = require("lodash")
 const Orientation = require("react-native-orientation-locker").default
@@ -9,7 +9,7 @@ const {
 	Content,
 	Item,
 	Icon,
-	HIcon,
+	HIconText,
 	Left,
 	List,
 	ListItem,
@@ -105,9 +105,9 @@ const HomeScreen = (props) => {
 			{/*
 			<Content refreshControl={<RefreshControl refreshing={_refreshing} onRefresh={() => refresh(true)} />}>
 				<View style={stylez.notiArea}>
-					<HIcon iconName="envelope-o" imageName="ico-main-mail" title="메일" onPress={() => router.launch("email")} />
+					<HIconText iconName="envelope-o" imageName="ico-main-mail" title="메일" onPress={() => router.launch("email")} />
 					<VLine height={30} />
-					<HIcon iconName="list-alt" imageName="ico-main-aprv" title="결재" />
+					<HIconText iconName="list-alt" imageName="ico-main-aprv" title="결재" />
 				</View>
 				<View style={stylez.rectButtonArea}>
 					<BorderButton

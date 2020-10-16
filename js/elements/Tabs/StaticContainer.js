@@ -1,4 +1,4 @@
-const React = require("react")
+const { Children } = require("react")
 
 const StaticContainer = props => {
 	const shouldComponentUpdate = nextProps => {
@@ -8,7 +8,7 @@ const StaticContainer = props => {
 	const child = props.children
 	if (child === null || child === false) return null
 
-	return React.Children.only(child)
+	return Children.only(child)
 }
 
 module.exports = StaticContainer

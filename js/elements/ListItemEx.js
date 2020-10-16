@@ -1,5 +1,5 @@
 /** 공통 라이브러리 */
-const React = require("react")
+require("react")
 const { View, TouchableHighlight } = require("react-native")
 
 const { FLEX_START, NOWRAP } = require("/constants/style")
@@ -29,5 +29,7 @@ ListItemElement.defaultProps = {
 	borderColor: "#e0e0e0",
 	borderBottomWidth: 1,
 }
+
+ListItemElement.displayName = "ListItem"
 
 module.exports = ListItemElement

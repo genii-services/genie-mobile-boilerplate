@@ -2,7 +2,7 @@
 const MODULE_NAME$ = "DataPickerElement"
 console.debug(MODULE_NAME$)
 
-const React = require("react")
+require("react")
 const _ = require("lodash")
 
 const { LEFT } = require("/constants/style")
@@ -92,5 +92,7 @@ DataPickerElement.getDefaultProps = { fontFamily } = {
 	labelProp: "label",
 	valueProp: "value",
 }
+
+DataPickerElement.displayName = "DataPicker"
 
 module.exports = DataPickerElement

@@ -1,7 +1,6 @@
 console.debug(MainDrawer)
 
-const React = require("react")
-const { useState } = React
+require("react")
 const _ = require("lodash")
 const { Platform, View } = require("react-native")
 const IconFA = require("react-native-vector-icons/FontAwesome")
@@ -12,6 +11,7 @@ const { WHITE, PC100 } = require("/constants/style")
 const { appVersion, buildNumber } = require("/utils/device")
 const { exitApp } = require("/utils/app")
 const { rgbaToHex } = require("/utils/color")
+const { useState } = require("/hooks")
 const { useRouter } = require("/coordinators") // const router = require("/utils/router")
 const { Button, Container, Icon, Left, List, ListItem, LocalImage, Right, Text } = require("/elements")
 const { ProfileBar } = require("/viewparts")

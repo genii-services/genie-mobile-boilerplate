@@ -3,7 +3,7 @@ console.debug(MODULE_NAME$)
 
 const _ = require("lodash")
 const md5 = require("blueimp-md5")
-const React = require("react")
+require("react")
 const { Image } = require("react-native")
 
 const GravatarElement = (props) => {
@@ -40,6 +40,8 @@ GravatarElement.defaultProps = {
 	GRAVATAR_URI: "https://www.gravatar.com/avatar/",
 	size: 30,
 }
+
+GravatarElement.displayName = "Gravatar"
 
 // const { connectStyle } = require("/utils/style")
 module.exports = GravatarElement //connectStyle(GravatarElement, MODULE_NAME$)

@@ -1,7 +1,7 @@
 const MODULE_NAME$ = "TextElement"
 console.debug(MODULE_NAME$)
 
-const React = require("react")
+const { Children } = require("react")
 const { Text } = require("react-native")
 const _ = require("lodash")
 
@@ -9,7 +9,7 @@ const { forwardRef } = require("/hooks")
 const { useStyle } = require("/coordinators")
 
 const TextElement = ({ note, uppercase, children, style, ...props }) => {
-	const text = uppercase ? React.Children.map(children, (child) => (_.isString(child) ? _.toUpper(child) : child)) : children
+	const text = uppercase ? Children.map(children, (child) => (_.isString(child) ? _.toUpper(child) : child)) : children
 	const { stylez } = useStyle(TextElement, { note, style })
 	return (
 		<Text {...props} style={stylez.style}>
@@ -31,6 +31,8 @@ TextElement.defaultProps = {
 	uppercase: false,
 	note: false,
 }
+
+TextElement.displayName = "Text"
 
 // const { connectStyle } = require("/utils/style")
 module.exports = TextElement // connectStyle(TextElement, MODULE_NAME$)

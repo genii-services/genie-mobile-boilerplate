@@ -1,6 +1,6 @@
 console.debug("LoginScreen")
 
-const React = require("react")
+require("react")
 const { Alert, View, Keyboard, KeyboardAvoidingView } = require("react-native")
 const _ = require("lodash")
 const Orientation = require("react-native-orientation-locker").default

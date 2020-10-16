@@ -1,4 +1,4 @@
-const React = require("react")
+require("react")
 const { Button, View, Text } = require("react-native")
 
 const { useEffect, useState } = require("/hooks")

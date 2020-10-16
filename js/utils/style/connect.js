@@ -1,4 +1,4 @@
-const React = require("react")
+require("react")
 const hoistStatics = require("hoist-non-react-statics")
 const _ = require("lodash")
 

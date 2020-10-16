@@ -1,4 +1,4 @@
-const React = require("react")
+require("react")
 const { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } = require("/elements")
 
 const AnatomyExample = props => {

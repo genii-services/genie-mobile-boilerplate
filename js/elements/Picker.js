@@ -9,5 +9,7 @@ PickerElement.propTypes = {
 	...Picker.propTypes,
 }
 
+PickerElement.displayName = "Picker"
+
 // const { connectStyle } = require("/utils/style")
 module.exports = PickerElement //connectStyle(PickerElement, "PickerNBElement")

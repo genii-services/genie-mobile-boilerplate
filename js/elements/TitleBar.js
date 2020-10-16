@@ -1,5 +1,5 @@
 /** TitleBar Element */
-const React = require("react")
+require("react")
 const { StatusBar, View } = require("react-native")
 
 const { FUNCTION } = require("/constants")
@@ -208,5 +208,7 @@ TitleBarElement.getDefaultStyle = ({ fontFamily }) => {
 		},
 	}
 }
+
+TitleBarElement.displayName = "TitleBar"
 
 module.exports = TitleBarElement

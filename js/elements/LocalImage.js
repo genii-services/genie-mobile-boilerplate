@@ -1,5 +1,5 @@
 /** LocalImage Element */
-const React = require("react")
+require("react")
 const { TouchableHighlight } = require("react-native")
 const FastImage = require("react-native-fast-image")
 
@@ -32,6 +32,8 @@ if (__DEV__) {
 }
 
 LocalImageElement.getImageSource = name => localImagez[name]
+
+LocalImageElement.displayName = "LocalImage"
 
 // EXPORTS
 

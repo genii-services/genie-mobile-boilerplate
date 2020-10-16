@@ -5,7 +5,9 @@ const { View } = require("react-native")
 
 const { forwardRef } = require("/hooks")
 
-const ToastElement = View
+const ToastElement = props => <View {...props} />
+
+ToastElement.displayName = "Toast"
 
 // const { connectStyle } = require("utils/style")
 module.exports = ToastElement //connectStyle(ToastElement, MODULE_NAME$)
