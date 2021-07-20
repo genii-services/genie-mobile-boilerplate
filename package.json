@@ -46,7 +46,7 @@
 		"react": "16.13.1",
 		"react-data-hooks": "^1.14.0",
 		"react-hook-form": "^6.9.0",
-		"react-native": "0.63.2",
+		"react-native": "0.64.1",
 		"react-native-android-auto-update": "^0.1.0",
 		"react-native-android-intent-launcher": "^0.3.0",
 		"react-native-datepicker": "^1.7.2",
