@@ -41,7 +41,7 @@
 		"color-parse": "^1.4.2",
 		"jsc-android": "^241213.1.0",
 		"lodash": "^4.17.20",
-		"moment": "^2.29.0",
+		"moment": "^2.29.4",
 		"native-base": "^2.13.12",
 		"react": "16.13.1",
 		"react-data-hooks": "^1.14.0",
